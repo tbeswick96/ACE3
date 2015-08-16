@@ -261,21 +261,21 @@ class CfgVehicles {
     };
 
     class ACE_Track: ACE_RepairItem_Base {
-        ace_cargo_size = 2;
-        ace_cargo_canLoad = 1;
+        EGVAR(cargo,size) = 2;
+        EGVAR(cargo,canLoad) = 1;
         author = "Hawkins";
         scope = 2;
         model = QUOTE(PATHTOF(data\ace_track.p3d));
-        displayName = "$STR_ACE_Repair_SpareTrack";
+        displayName = CSTRING(SpareTrack);
     };
 
     class ACE_Wheel: ACE_RepairItem_Base {
-        ace_cargo_size = 1;
-        ace_cargo_canLoad = 1;
+        EGVAR(cargo,size) = 1;
+        EGVAR(cargo,canLoad) = 1;
         author = "Hawkins";
         scope = 2;
         model = QUOTE(PATHTOF(data\ace_wheel.p3d));
-        displayName = "$STR_ACE_Repair_SpareWheel";
+        displayName = CSTRING(SpareWheel);
         picture = QUOTE(PATHTOF(ui\tire_ca.paa));
     };
 

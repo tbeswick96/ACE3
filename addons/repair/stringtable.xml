@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <!-- Edited with tabler - 2014-12-21 -->
 <Project name="ACE">
     <Package name="repair">
@@ -84,14 +84,12 @@
         <Key ID="STR_ACE_Repair_RemovedTrack">
             <English>Track removed</English>
         </Key>
-
         <Key ID="STR_ACE_Repair_fullRepair">
             <English>Full Repair</English>
         </Key>
         <Key ID="STR_ACE_Repair_fullyRepairing">
             <English>Repairing Vehicle ...</English>
         </Key>
-
         <Key ID="STR_ACE_Repair_fullRepairLocation">
             <English>Full Repair Locations</English>
         </Key>
@@ -616,7 +614,6 @@
         <Key ID="STR_ACE_Repair_AssignRepairVehicle_Module_Description">
             <English>Assign one or multiple vehicles as a repair vehicle</English>
         </Key>
-
         <Key ID="STR_ACE_Repair_AssignRepairFacility_Module_DisplayName">
             <English>Assign Repair Facility</English>
         </Key>
@@ -637,6 +634,9 @@
         </Key>
         <Key ID="STR_ACE_Repair_categoryName">
             <English>Vehicle Repair</English>
+        </Key>
+        <Key ID="STR_ACE_Repair_VehicleClasses_displayName">
+            <English>[ACE] Repair Parts</English>
         </Key>
     </Package>
 </Project>

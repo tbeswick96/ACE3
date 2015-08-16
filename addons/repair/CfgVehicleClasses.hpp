@@ -1,6 +1,6 @@
 
 class CfgVehicleClasses {
     class GVAR(items) {
-        displayName = "ACE";
+        displayName = CSTRING(VehicleClasses_displayName);
     };
 };
