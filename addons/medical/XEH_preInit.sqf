@@ -69,6 +69,7 @@ PREP(setCardiacArrest);
 PREP(setDead);
 PREP(setHitPointDamage);
 PREP(setUnconscious);
+PREP(showBloodEffect);
 PREP(treatment);
 PREP(treatment_failure);
 PREP(treatment_success);
