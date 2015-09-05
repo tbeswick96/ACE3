@@ -6,13 +6,13 @@
  * 0: Effect multiplier <NUMBER>
  *
  * Return Value:
- * nil
+ * None
  *
  * Public: Yes
  */
 #include "script_component.hpp"
 
-GVAR(FXBloodRemaining) = _this select 0;
+params ["_bloodRemaining"];
 
 disableSerialization;
 
@@ -61,101 +61,98 @@ _bloodCtrl1 ctrlCommit 0;
 _bloodCtrl2 ctrlCommit 0;
 _bloodCtrl3 ctrlCommit 0;
 
-switch (true) do {
-    case (GVAR(FXBloodRemaining) < 5): {
-        // nothing
-    };
-
-    case (GVAR(FXBloodRemaining) < 25): {
-        _bloodCtrl1 ctrlSetFade 0.2;
-        _bloodCtrl1 ctrlCommit 0.2;
-
-        [{
-            (_this select 0) ctrlSetFade 1;
-            (_this select 0) ctrlCommit 0.8;
-        }, _fxBloodControls, 0.7] call EFUNC(common,waitAndExecute);
-    };
-
-    case (GVAR(FXBloodRemaining) < 40): {
-        _bloodCtrl1 ctrlSetFade 0.2;
-        _bloodCtrl2 ctrlSetFade 0.85;
-        _bloodCtrl1 ctrlCommit 0.2;
-        _bloodCtrl2 ctrlCommit 0.2;
-
-        [{
-            (_this select 0) ctrlSetFade 1;
-            (_this select 1) ctrlSetFade 1;
-            (_this select 1) ctrlCommit 1;
-        }, _fxBloodControls, 0.7] call EFUNC(common,waitAndExecute);
-
-        [{
-            (_this select 0) ctrlCommit 0.8;
-        }, _fxBloodControls, 1.2] call EFUNC(common,waitAndExecute);
-    };
-
-    case (GVAR(FXBloodRemaining) < 55): {
-        _bloodCtrl1 ctrlSetFade 0.2;
-        _bloodCtrl2 ctrlSetFade 0.7;
-        _bloodCtrl1 ctrlCommit 0.2;
-        _bloodCtrl2 ctrlCommit 0.2;
-
-        [{
-            (_this select 0) ctrlSetFade 1;
-            (_this select 1) ctrlSetFade 1;
-            (_this select 2) ctrlSetFade 1;
-            (_this select 1) ctrlCommit 1;
-        }, _fxBloodControls, 0.7] call EFUNC(common,waitAndExecute);
-
-        [{
-            (_this select 0) ctrlCommit 0.8;
-        }, _fxBloodControls, 1.2] call EFUNC(common,waitAndExecute);
-    };
-
-    case (GVAR(FXBloodRemaining) < 70): {
-        _bloodCtrl1 ctrlSetFade 0.2;
-        _bloodCtrl2 ctrlSetFade 0.7;
-        _bloodCtrl3 ctrlSetFade 0.85;
-        _bloodCtrl1 ctrlCommit 0.2;
-        _bloodCtrl2 ctrlCommit 0.2;
-        _bloodCtrl3 ctrlCommit 0.2;
-
-        [{
-            (_this select 0) ctrlSetFade 1;
-            (_this select 1) ctrlSetFade 1;
-            (_this select 2) ctrlSetFade 1;
-            (_this select 2) ctrlCommit 1.5;
-        }, _fxBloodControls, 0.7] call EFUNC(common,waitAndExecute);
-
-        [{
-            (_this select 1) ctrlCommit 1;
-        }, _fxBloodControls, 1.7] call EFUNC(common,waitAndExecute);
-
-        [{
-            (_this select 0) ctrlCommit 0.8;
-        }, _fxBloodControls, 2.2] call EFUNC(common,waitAndExecute);
-    };
-
-    default {
-        _bloodCtrl1 ctrlSetFade 0.2;
-        _bloodCtrl2 ctrlSetFade 0.7;
-        _bloodCtrl3 ctrlSetFade 0.7;
-        _bloodCtrl1 ctrlCommit 0.2;
-        _bloodCtrl2 ctrlCommit 0.2;
-        _bloodCtrl3 ctrlCommit 0.2;
-
-        [{
-            (_this select 0) ctrlSetFade 1;
-            (_this select 1) ctrlSetFade 1;
-            (_this select 2) ctrlSetFade 1;
-            (_this select 2) ctrlCommit 1.5;
-        }, _fxBloodControls, 0.7] call EFUNC(common,waitAndExecute);
-
-        [{
-            (_this select 1) ctrlCommit 1;
-        }, _fxBloodControls, 1.7] call EFUNC(common,waitAndExecute);
-
-        [{
-            (_this select 0) ctrlCommit 0.8;
-        }, _fxBloodControls, 2.2] call EFUNC(common,waitAndExecute);
-    };
+if (_bloodRemaining < 5) exitWith {
+    // nothing
 };
+
+if (_bloodRemaining < 25) exitWith {
+    _bloodCtrl1 ctrlSetFade 0.2;
+    _bloodCtrl1 ctrlCommit 0.2;
+
+    [{
+        (_this select 0) ctrlSetFade 1;
+        (_this select 0) ctrlCommit 0.8;
+    }, _fxBloodControls, 0.7] call EFUNC(common,waitAndExecute);
+};
+
+if (_bloodRemaining < 40) exitWith {
+    _bloodCtrl1 ctrlSetFade 0.2;
+    _bloodCtrl2 ctrlSetFade 0.85;
+    _bloodCtrl1 ctrlCommit 0.2;
+    _bloodCtrl2 ctrlCommit 0.2;
+
+    [{
+        (_this select 0) ctrlSetFade 1;
+        (_this select 1) ctrlSetFade 1;
+        (_this select 1) ctrlCommit 1;
+    }, _fxBloodControls, 0.7] call EFUNC(common,waitAndExecute);
+
+    [{
+        (_this select 0) ctrlCommit 0.8;
+    }, _fxBloodControls, 1.2] call EFUNC(common,waitAndExecute);
+};
+
+if (_bloodRemaining < 55) exitWith {
+    _bloodCtrl1 ctrlSetFade 0.2;
+    _bloodCtrl2 ctrlSetFade 0.7;
+    _bloodCtrl1 ctrlCommit 0.2;
+    _bloodCtrl2 ctrlCommit 0.2;
+
+    [{
+        (_this select 0) ctrlSetFade 1;
+        (_this select 1) ctrlSetFade 1;
+        (_this select 2) ctrlSetFade 1;
+        (_this select 1) ctrlCommit 1;
+    }, _fxBloodControls, 0.7] call EFUNC(common,waitAndExecute);
+
+    [{
+        (_this select 0) ctrlCommit 0.8;
+    }, _fxBloodControls, 1.2] call EFUNC(common,waitAndExecute);
+};
+
+if (_bloodRemaining < 70) exitWith {
+    _bloodCtrl1 ctrlSetFade 0.2;
+    _bloodCtrl2 ctrlSetFade 0.7;
+    _bloodCtrl3 ctrlSetFade 0.85;
+    _bloodCtrl1 ctrlCommit 0.2;
+    _bloodCtrl2 ctrlCommit 0.2;
+    _bloodCtrl3 ctrlCommit 0.2;
+
+    [{
+        (_this select 0) ctrlSetFade 1;
+        (_this select 1) ctrlSetFade 1;
+        (_this select 2) ctrlSetFade 1;
+        (_this select 2) ctrlCommit 1.5;
+    }, _fxBloodControls, 0.7] call EFUNC(common,waitAndExecute);
+
+    [{
+        (_this select 1) ctrlCommit 1;
+    }, _fxBloodControls, 1.7] call EFUNC(common,waitAndExecute);
+
+    [{
+        (_this select 0) ctrlCommit 0.8;
+    }, _fxBloodControls, 2.2] call EFUNC(common,waitAndExecute);
+};
+
+//default
+_bloodCtrl1 ctrlSetFade 0.2;
+_bloodCtrl2 ctrlSetFade 0.7;
+_bloodCtrl3 ctrlSetFade 0.7;
+_bloodCtrl1 ctrlCommit 0.2;
+_bloodCtrl2 ctrlCommit 0.2;
+_bloodCtrl3 ctrlCommit 0.2;
+
+[{
+    (_this select 0) ctrlSetFade 1;
+    (_this select 1) ctrlSetFade 1;
+    (_this select 2) ctrlSetFade 1;
+    (_this select 2) ctrlCommit 1.5;
+}, _fxBloodControls, 0.7] call EFUNC(common,waitAndExecute);
+
+[{
+    (_this select 1) ctrlCommit 1;
+}, _fxBloodControls, 1.7] call EFUNC(common,waitAndExecute);
+
+[{
+    (_this select 0) ctrlCommit 0.8;
+}, _fxBloodControls, 2.2] call EFUNC(common,waitAndExecute);
