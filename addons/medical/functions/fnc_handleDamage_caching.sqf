@@ -71,6 +71,8 @@ if (_unit getVariable [QGVAR(isFalling), false]) then {
 if (diag_frameno > (_unit getVariable [QGVAR(frameNo_damageCaching), -3]) + 2) then {
     _unit setVariable [QGVAR(frameNo_damageCaching), diag_frameno];
 
+    [THIS_FILE_, __LINE__, format ["Creating new PFEH (reset cache variables)"]] call CBA_fnc_log;
+
     // handle the cached damages 3 frames later
     [{
         private ["_args", "_params"];
@@ -90,6 +92,8 @@ if (diag_frameno > (_unit getVariable [QGVAR(frameNo_damageCaching), -3]) + 2) t
                 } foreach _cache_params;
                 [_unit] call FUNC(handleDamage_advancedSetDamage);
             };
+            [THIS_FILE_, __LINE__, format ["Removing PFEH (after handleDamage_basic is run)"]] call CBA_fnc_log;
+
             [_idPFH] call CBA_fnc_removePerFrameHandler;
         };
     }, 0, [_unit, diag_frameno] ] call CBA_fnc_addPerFrameHandler;
@@ -107,6 +111,9 @@ if (_selectionName != "") then {
     _index = _cache_projectiles find _projectile;
     // Check if the current projectile has already been handled once
     if (_index >= 0 && {_projectile != "falling"}) exitwith {
+        if (_selectionName == "leg_l") then {
+            [THIS_FILE_, __LINE__, format ["adding projectile to cache (replace) - %1 - %2 - %3", _projectile, diag_tickTime, diag_frameno]] call CBA_fnc_log;
+        };
         _cache_damages = _unit getVariable QGVAR(cachedDamages);
         // Find the previous damage this projectile has done
         _otherDamage = (_cache_damages select _index);
@@ -133,6 +140,9 @@ if (_selectionName != "") then {
         };
     };
 
+    if (_selectionName == "leg_l") then {
+        [THIS_FILE_, __LINE__, format ["adding projectile to cache (new) - %1 - %2 - %3", _projectile, diag_tickTime, diag_frameno]] call CBA_fnc_log;
+    };
     _cache_hitpoints = _unit getVariable QGVAR(cachedHitPoints);
     _cache_damages = _unit getVariable QGVAR(cachedDamages);
     _cache_params = _unit getVariable QGVAR(cachedHandleDamageParams);

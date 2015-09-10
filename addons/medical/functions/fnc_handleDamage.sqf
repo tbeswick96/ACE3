@@ -19,6 +19,10 @@
 params ["_unit", "_selection", "_damage", "_shooter", "_projectile"];
 TRACE_5("ACE_DEBUG: HandleDamage Called",_unit, _selection, _damage, _shooter, _projectile);
 
+if (_selection == "leg_l") then {
+    [THIS_FILE_, __LINE__, format ["Raw Handle Damage %1", _this]] call CBA_fnc_log;
+};
+
 // bug, apparently can fire for remote units in special cases
 if !(local _unit) exitWith {
     TRACE_2("ACE_DEBUG: HandleDamage on remote unit!",_unit, isServer);

@@ -24,6 +24,11 @@ TRACE_4("ACE_DEBUG: HandleDamage BASIC",_unit, _damageBodyParts,_cache_params,_c
 
 {
     _x params ["_unit","_selectionName","_amountOfDamage","_sourceOfDamage","_typeOfProjectile","_typeOfDamage"];
+
+    if (_selectionName == "leg_l") then {
+        [THIS_FILE_, __LINE__, format ["handle damage basic - %1 - %2 - %3", _x, diag_tickTime, diag_frameno]] call CBA_fnc_log;
+    };
+
     if !(isNull _sourceOfDamage && {_typeOfProjectile == ""} && {vehicle _unit == _unit} && {(_selectionName == "head" || isBurning _unit)}) then {
         _part = [_selectionName] call FUNC(selectionNameToNumber);
         if (_part < 0) exitwith {};
