@@ -436,6 +436,24 @@ class CfgVehicles {
     };
 
     class CAManBase: Man {
+        class Attributes {
+            class ACE_medicalTraining {
+                expression = "diag_log text format ['medic attribute test %%1 - %%2', _this, _value]; if (_value >= 0) then {_this setVariable ['ace_medical_medicClass', _value];};";
+                displayName = "ACE Medical Training";
+                tooltip = "RU a doctor?";
+                property = "testDocortorb?";
+                control = "Combo";
+                defaultValue = -1;
+				typeName = "NUMBER";
+                class Values {
+                    class Default { name = "Default"; value = -1; default = 1; };
+                    class None { name = "None"; value = 0; };
+                    class Medic { name = "Medic"; value = 1; };
+                    class Doctor { name = "Doctor"; value = 2; };
+                };
+            };
+        };
+
         class HitPoints: HitPoints { // custom hitpoints. addons might want to adjust these accordingly
             class HitLeftArm {
                 armor = ARM_LEG_ARMOR_DEFAULT;
