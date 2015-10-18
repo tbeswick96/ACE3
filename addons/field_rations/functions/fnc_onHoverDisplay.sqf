@@ -15,7 +15,5 @@
  */
 #include "script_component.hpp"
 
-systemChat "onHover";
-
 GVAR(hudInteractionHover) = true;
 [0.25] call FUNC(showOverlay);

@@ -16,16 +16,14 @@
  */
 #include "script_component.hpp"
 
-systemChat "gcc";
-
 PARAMS_2(_player,_typeOfConsumble);
 
-_actions = [];
-_consumableItems = [];
+local _actions = [];
+local _consumableItems = [];
 {
-    _cfg = configFile >> "CfgWeapons" >> _x;
+    local _cfg = configFile >> "CfgWeapons" >> _x;
     if ((isClass _cfg) && {!(_x in _consumableItems)}) then {
-        _showItem = switch (true) do {
+        local _showItem = switch (true) do {
         case (_typeOfConsumble == "drink"): {getNumber (_cfg >> QGVAR(isDrinkable)) > 0};
         case (_typeOfConsumble == "eat"): {getNumber (_cfg >> QGVAR(isEatable)) > 0};
             default {(getNumber (_cfg >> QGVAR(isDrinkable)) > 0) || {getNumber (_cfg >> QGVAR(isEatable)) > 0}};
@@ -33,10 +31,10 @@ _consumableItems = [];
         if (_showItem) then {
             _consumableItems pushBack _x;
 
-            _displayName = getText (_cfg >> "displayName");
-            _picture = getText (_cfg >> "picture");
+            local _displayName = getText (_cfg >> "displayName");
+            local _picture = getText (_cfg >> "picture");
 
-            _action = [_x, _displayName, _picture, {_this call FUNC(actionConsumeItem)}, {_this call FUNC(canConsumeItem)}, {}, _x] call EFUNC(interact_menu,createAction);
+            local _action = [_x, _displayName, _picture, {_this call FUNC(actionConsumeItem)}, {_this call FUNC(canConsumeItem)}, {}, _x] call EFUNC(interact_menu,createAction);
             _actions pushBack [_action, [], _player];
         };
     };

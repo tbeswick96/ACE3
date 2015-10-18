@@ -19,8 +19,7 @@ PARAMS_1(_oldUnit);
 
 if (!local _oldUnit) exitWith {};
 
-systemChat "handleKilled";
-
-
+// TODO implement? What do we want to do here again? Hide the Hud elements?
+// Reset the variables?
 
 if (true) exitWith {};

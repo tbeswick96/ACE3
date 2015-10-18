@@ -17,7 +17,7 @@
  */
 #include "script_component.hpp"
 
-PARAMS_3(_target,_player,_itemClassname);
+params ["_target", "_player", "_itemClassname"];
 
 //Have item and (in vehicle or not moving)
 (_itemClassname in (items _player)) && {((vehicle _player) != _player) || {(vectorMagnitude (velocity _player)) < 0.1}}

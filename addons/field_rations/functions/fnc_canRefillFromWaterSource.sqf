@@ -17,10 +17,7 @@
  */
 #include "script_component.hpp"
 
-systemChat "crfw";
-
-PARAMS_3(_dummyTarget,_player,_itemClassname);
-
-_cfg = configFile >> "CfgWeapons" >> _itemClassname;
+params ["_dummyTarget", "_player", "_itemClassname"];
+local _cfg = configFile >> "CfgWeapons" >> _itemClassname;
 
 ((isClass _cfg) && {(getText (_cfg >> QGVAR(onRefill))) != ""})

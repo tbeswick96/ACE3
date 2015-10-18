@@ -25,15 +25,18 @@
     ["Land_Misc_Well_L_EP1"]]
 
 _fncGetChildren = {
-    _player = _this select 1;
-    _actions = [];
+    params ["", "_player"];
+
+    local _actions = [];
     {
-        _cfg = configFile >> "CfgWeapons" >> _x;
+        local _cfg = configFile >> "CfgWeapons" >> _x;
+
+        // Construct the children actions. Every item that we can refill, will receive a refill action.
         if ((isClass _cfg) && {(getText (_cfg >> QGVAR(onRefill))) != ""}) then {
-            _displayName = getText (_cfg >> "displayName");
-            _picture = getText (_cfg >> "picture");
-            _actionText = format ["RXefill %1", _displayName];
-            _action = [_x, _actionText, _picture, {_this call FUNC(actionRefillFromWaterSource)}, {_this call FUNC(canRefillFromWaterSource)}, {}, _x] call EFUNC(interact_menu,createAction);
+            local _displayName = getText (_cfg >> "displayName");
+            local _picture = getText (_cfg >> "picture");
+            local _actionText = format ["RXefill %1", _displayName];
+            local _action = [_x, _actionText, _picture, {_this call FUNC(actionRefillFromWaterSource)}, {_this call FUNC(canRefillFromWaterSource)}, {}, _x] call EFUNC(interact_menu,createAction);
             _actions pushBack [_action, [], _player];
         };
     } forEach (items _player);
@@ -43,9 +46,11 @@ _fncGetChildren = {
 _action = [QGVAR(refill), (localize LSTRING(refillWater)), QUOTE(PATHTOF(ui\hud_drinkstatus2.paa)), {}, {true}, _fncGetChildren, [], [0,0,0], 4] call EFUNC(interact_menu,createAction);
 
 {
-    EXPLODE_1_PVT(_x,_classname);
-    _cfg = configFile >> "CfgVehicles" >> _classname;
+    _x params ["_classname"];
+
+    local _cfg = configFile >> "CfgVehicles" >> _classname;
     TRACE_2("Adding actions for object", _classname, (isClass _cfg));
+
     if (isClass _cfg) then {
         [_classname, 0, [], _action] call EFUNC(interact_menu,addActionToClass);
     };

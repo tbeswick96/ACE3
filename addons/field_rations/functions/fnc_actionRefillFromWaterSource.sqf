@@ -17,21 +17,23 @@
  */
 #include "script_component.hpp"
 
-PARAMS_3(_dummyTarget,_player,_itemClassname);
+params ["_dummyTarget", "_player", "_itemClassname"];
 
-_onRefillItem = getText (configFile >> "CfgWeapons" >> _itemClassname >> QGVAR(onRefill));
+// Prepare all info necessary for completing the action
+local _onRefillItem = getText (configFile >> "CfgWeapons" >> _itemClassname >> QGVAR(onRefill));
+if (_onRefillItem == "") exitwith {}; // TODO add logging of invalid state
 
-_progressBarText = "Refilling";
-
-_onFinish = {
+local _progressBarText = "Refilling"; // TODO localization of the progress bar text
+local _onFinish = {
     systemChat format ["_onFinish %1", _this];
     EXPLODE_4_PVT((_this select 0),_dummyTarget,_player,_itemClassname,_onRefillItem);
 
+    // Switch out the old item by the newly refilled item
     _player removeItem _itemClassname;
     _player addItem _onRefillItem;
 };
 
-_onFailure = {
+local _onFailure = {
     systemChat format ["Fail %1", _this];
 };
 

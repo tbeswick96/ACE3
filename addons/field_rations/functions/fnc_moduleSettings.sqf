@@ -15,7 +15,7 @@
 
 if (!isServer) exitWith {};
 
-PARAMS_1(_logic);
+params ["_logic"];
 
 [_logic, QGVAR(timeWithoutWater), "timeWithoutWater"] call EFUNC(common,readSettingFromModule);
 [_logic, QGVAR(timeWithoutFood),  "timeWithoutFood"]  call EFUNC(common,readSettingFromModule);
