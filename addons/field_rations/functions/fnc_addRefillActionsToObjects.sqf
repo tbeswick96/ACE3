@@ -1,7 +1,7 @@
 /*
- * Author: PabstMirror
+ * Author: Glowbal, PabstMirror
  * Adds refill water actions to water sources
- * Needs to be done dynamicly as these objects may not exist depending on other mods (AiA/CUP TP)
+ * Needs to be done dynamicly as these map objects may not exist depending on mods
  *
  * Arguments:
  * None
@@ -24,7 +24,8 @@
     ["Land_Misc_Well_C_EP1"],\
     ["Land_Misc_Well_L_EP1"]]
 
-_fncGetChildren = {
+//Function to get the refil actiosn for all water containers:
+local _fncGetChildren = {
     params ["", "_player"];
 
     local _actions = [];
@@ -35,7 +36,7 @@ _fncGetChildren = {
         if ((isClass _cfg) && {(getText (_cfg >> QGVAR(onRefill))) != ""}) then {
             local _displayName = getText (_cfg >> "displayName");
             local _picture = getText (_cfg >> "picture");
-            local _actionText = format ["RXefill %1", _displayName];
+            local _actionText = format [localize LSTRING(RefillX), _displayName];
             local _action = [_x, _actionText, _picture, {_this call FUNC(actionRefillFromWaterSource)}, {_this call FUNC(canRefillFromWaterSource)}, {}, _x] call EFUNC(interact_menu,createAction);
             _actions pushBack [_action, [], _player];
         };
@@ -43,15 +44,14 @@ _fncGetChildren = {
     _actions
 };
 
-_action = [QGVAR(refill), (localize LSTRING(refillWater)), QUOTE(PATHTOF(ui\hud_drinkstatus2.paa)), {}, {true}, _fncGetChildren, [], [0,0,0], 4] call EFUNC(interact_menu,createAction);
-
 {
-    _x params ["_classname"];
+    _x params ["_classname", ["_tapLocation", [0,0,0]]];
 
     local _cfg = configFile >> "CfgVehicles" >> _classname;
-    TRACE_2("Adding actions for object", _classname, (isClass _cfg));
+    TRACE_3("Adding refil action", (isClass _cfg), _classname, _tapLocation);
 
     if (isClass _cfg) then {
+        _action = [QGVAR(refill), (localize LSTRING(refillWater)), QUOTE(PATHTOF(ui\hud_drinkstatus2.paa)), {}, {true}, _fncGetChildren, [], _tapLocation, 4] call EFUNC(interact_menu,createAction);
         [_classname, 0, [], _action] call EFUNC(interact_menu,addActionToClass);
     };
 } forEach WATER_SOURCES;

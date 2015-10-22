@@ -8,7 +8,7 @@ PREP(addRefillActionsToObjects);
 PREP(canConsumeItem);
 PREP(canRefillFromWaterSource);
 PREP(getConsumableChildren);
-PREP(handleKilled);
+PREP(handleRespawn);
 PREP(moduleSettings);
 PREP(onHoverDisplay);
 PREP(showOverlay);

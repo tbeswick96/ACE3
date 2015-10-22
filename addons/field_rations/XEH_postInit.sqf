@@ -2,12 +2,13 @@
 
 if !(hasInterface) exitWith {};
 
-GVAR(hudInteractionHover) = false;
-GVAR(hudIsShowing) = false;
-
 ["SettingsInitialized", {
     //If not enabled, dont't add PFEH or actions
     if (!GVAR(systemEnabled)) exitWith {};
+
+    GVAR(hudInteractionHover) = false;
+    GVAR(hudIsShowing) = false;
+
     if ((GVAR(timeWithoutWater) == 0) || {GVAR(timeWithoutFood) == 0}) exitWith {
         ERROR("Bad Time Setting [div/0]");
     };
@@ -19,7 +20,7 @@ GVAR(hudIsShowing) = false;
     ["interactMenuClosed", {
         if (GVAR(hudInteractionHover)) then {
             GVAR(hudInteractionHover) = false;
-            [] call FUNC(showOverlay);
+            [3] call FUNC(showOverlay);
         };
     }] call EFUNC(common,addEventHandler);
 

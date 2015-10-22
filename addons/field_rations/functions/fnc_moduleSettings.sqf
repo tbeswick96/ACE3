@@ -1,5 +1,5 @@
 /*
- * Author: PabstMirror
+ * Author: Glowbal, PabstMirror
  * Module for fieldRations settings
  *
  * Arguments:
@@ -7,6 +7,9 @@
  *
  * Return Value:
  * None <NIL>
+ *
+ * Example:
+ * [logic] call ace_field_rations_fnc_moduleSettings
  *
  * Public: No
  */
@@ -24,6 +27,6 @@ if ((GVAR(timeWithoutWater) == 0) || {GVAR(timeWithoutFood) == 0}) exitWith {
     ERROR("Bad Time Setting");
 };
 
-[QGVAR(systemEnabled), true, false, true] call EFUNC(common,setSetting);
+[QGVAR(systemEnabled), true, true, true] call EFUNC(common,setSetting);
 
-diag_log text format ["[ACE] - Field Rations Module initialised"];
+ACE_LOGINFO("Module initialised.");

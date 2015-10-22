@@ -1,23 +1,24 @@
 /*
- * Author: PabstMirror
- * Gets all the children that you can eat
+ * Author: Glowbal, PabstMirror
+ * Tests if player can consume item.
  *
  * Arguments:
- * 0: Target <OBJECT>
+ * 0: Target (not used) <OBJECT>
  * 1: Player <OBJECT>
- * 2: Item Name <STRING>
+ * 2: Item Classname <STRING>
  *
  * Return Value:
- * Can Be Disarmed <BOOL>
+ * Can Player Consume Item <BOOL>
  *
  * Example:
- * [player, ''] call ace_disarming_fnc_canBeDisarmed
+ * [player, player, "ACE_waterbottle_half"] call ace_field_rations_fnc_canConsumeItem
  *
  * Public: No
  */
 #include "script_component.hpp"
 
-params ["_target", "_player", "_itemClassname"];
+params ["", "_player", "_itemClassname"];
 
-//Have item and (in vehicle or not moving)
-(_itemClassname in (items _player)) && {((vehicle _player) != _player) || {(vectorMagnitude (velocity _player)) < 0.1}}
+([_player, _player, ["isNotInside"]] call EFUNC(common,canInteractWith))
+&& {(_itemClassname in (items _player))}
+&& {((vehicle _player) != _player) || {(vectorMagnitude (velocity _player)) < 1}}

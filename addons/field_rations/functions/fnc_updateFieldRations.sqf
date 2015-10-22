@@ -1,48 +1,50 @@
 /*
- * Author: PabstMirror
- *
+ * Author: Glowbal, PabstMirror
+ * Update the player's thirst and hunger, update the overlay and appy status effects
  *
  * Arguments:
- * 0: Target <OBJECT>
+ * None
  *
  * Return Value:
- * Can Be Disarmed <BOOL>
+ * None
  *
  * Example:
- * [cursorTarget] call ace_disarming_fnc_canBeDisarmed
+ * [] call ace_field_rations_fnc_updateFieldRations
  *
  * Public: No
  */
 #include "script_component.hpp"
 
-params ["_args", "_pfhId"];
+params ["_args"];
 _args params ["_lastUpdateTime", "_nextMpSync"];
 
 if ((isNull ACE_player) || {!alive ACE_player}) exitWith {
-    [] call FUNC(showOverlay);
+    [0] call FUNC(showOverlay);
 };
 
-_deltaTime = ACE_time - _lastUpdateTime;
+local _deltaTime = ACE_time - _lastUpdateTime;
 _args set [0, ACE_time];
 
 local _drinkStatus = ACE_player getVariable [QGVAR(thirstStatus), 100];
 local _foodStatus = ACE_player getVariable [QGVAR(hungerStatus), 100];
 
-local _decentWater = _deltaTime / (36.0 * GVAR(timeWithoutWater));
-local _decentFood = _deltaTime / (36.0 * GVAR(timeWithoutFood));
+local _descentWater = _deltaTime / (36.0 * GVAR(timeWithoutWater));
+local _descentFood = _deltaTime / (36.0 * GVAR(timeWithoutFood));
 
 local _absSpeed = vectorMagnitude (velocity ACE_player);
 
 // TODO add in weight calculation and effect
-// If _unit is inside a vehicle, adjust waterlevels
+// If unit is not inside a vehicle, adjust waterlevels based on movement speed
 if (((vehicle ACE_player) == ACE_player) && {_absSpeed > 1} && {((getPos ACE_player) select 2) < 10}) then {
-    _decentWater = _decentWater + (_absSpeed / 400);
-    _decentFood = _decentFood + (_absSpeed / 1200);
+    _descentWater = _descentWater + (_absSpeed / 400);
+    _descentFood = _descentFood + (_absSpeed / 1200);
 };
 
+TRACE_5("update", ace_time, _drinkStatus, _descentWater, _foodStatus, _descentFood);
+
 // Decrease both food and drink status based upon the decent rate
-_drinkStatus = (_drinkStatus - _decentWater) max 0;
-_foodStatus = (_foodStatus - _decentFood) max 0;
+_drinkStatus = (_drinkStatus - _descentWater) max 0;
+_foodStatus = (_foodStatus - _descentFood) max 0;
 
 // Check if we want to do a new sync across MP for the ACE_player
 local _doSync = false;
@@ -56,13 +58,14 @@ ACE_player setVariable [QGVAR(thirstStatus), _drinkStatus, _doSync];
 ACE_player setVariable [QGVAR(hungerStatus), _foodStatus, _doSync];
 
 // Update UI
-[] call FUNC(showOverlay);
+[10] call FUNC(showOverlay);
 
 // Low hunger or thirst consequences
 // If the unit runs out of either the drinking of food status, kill the unit
-if (_drinkStatus < 1 || _foodStatus < 1) then {
+if ((_drinkStatus < 1) || {_foodStatus < 1}) then {
     if (random(1) > 0.2) then {
-        if (isClass (configFile >> "CfgPatches" >> "ACE_Medical")) then {
+        TRACE_1("death from hunger/thirst", ACE_player);
+        if (["ACE_Medical"] call EFUNC(common,isModLoaded)) then {
             [ACE_player] call EFUNC(medical,setDead);
         } else {
             ACE_player setDamage 1;
@@ -73,24 +76,31 @@ if (_drinkStatus < 1 || _foodStatus < 1) then {
 // No point continueing if the unit is not awake or alive. Below are all animation consequounces
 if !([ACE_player] call EFUNC(common,isAwake)) exitwith {};
 
+local _animState = animationState ACE_player;
+local _isProne = ((count _animState > 8) && {(_animState select [5, 3]) == "pne"});
+local _proneAnim = "amovppnemstpsraswrfldnon"; //TODO: handle pistol/launcher/unarmed animation BS
+
 if ((_drinkStatus < 25) || {_foodStatus < 25}) then {
-    if (speed ACE_player > 12 && vehicle ACE_player == ACE_player && {random(1) >= 0.3}) then {
-        [ACE_player, "amovppnemstpsraswrfldnon", 2] call EFUNC(common,doAnimation);
+    if ((speed ACE_player > 12) && {vehicle ACE_player == ACE_player} && {random(1) >= 0.3}) then {
+        TRACE_1("Falldown from hunger/thirst",ACE_player);
+        [ACE_player, _proneAnim, 2] call EFUNC(common,doAnimation);
     };
 };
 
 if ((_drinkStatus < 20) || {_foodStatus < 20}) then {
-    if (random(1) > 0.8) then {
-        [ACE_player, true] call EFUNC(medical,setUnconscious);
+    local _passOutChance = linearConversion [20, 0, (_drinkStatus max _foodStatus), 0.05, 0.20];
+    if ((random 1) < _passOutChance) then {
+        TRACE_1("setUnconscious from hunger/thirst", _passOutChance);
+        if (["ACE_Medical"] call EFUNC(common,isModLoaded)) then {
+            [ACE_player, true, 5] call EFUNC(medical,setUnconscious);
+        };
     };
 };
 
-local _animState = animationState ACE_player;
-local _animStateChars = toArray _animState;
-local _animP = toString [_animStateChars select 5,_animStateChars select 6,_aniMStateChars select 7];
 
-if (_drinkStatus < 7 || _foodStatus < 7) then {
-    if (speed ACE_player > 1 && vehicle ACE_player == ACE_player && (_animP != "pne")) then {
-        [ACE_player, "amovppnemstpsraswrfldnon", 2] call EFUNC(common,doAnimation);
+if ((_drinkStatus < 7) || {_foodStatus < 7}) then {
+    if ((speed ACE_player > 1) && {vehicle ACE_player == ACE_player} && {!_isProne}) then {
+        TRACE_1("force prone from hunger/thirst", _animState);
+        [ACE_player, _proneAnim, 2] call EFUNC(common,doAnimation);
     };
 };

@@ -1,6 +1,8 @@
 #define COMPONENT field_rations
 #include "\z\ace\addons\main\script_mod.hpp"
 
+#define DEBUG_MODE_FULL
+
 #ifdef DEBUG_ENABLED_FIELD_RATIONS
     #define DEBUG_MODE_FULL
 #endif

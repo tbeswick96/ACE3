@@ -1,15 +1,15 @@
 /*
- * Author: PabstMirror
- * Checks the conditions for being able to disarm a unit
+ * Author: Glowbal, PabstMirror
+ * Opens the overlay when hovering over the surviaval actions in the interaction menu.
  *
  * Arguments:
- * 0: Target <OBJECT>
+ * None
  *
  * Return Value:
- * Can Be Disarmed <BOOL>
+ * None
  *
  * Example:
- * [cursorTarget] call ace_disarming_fnc_canBeDisarmed
+ * [] call ace_field_rations_fnc_onHoverDisplay
  *
  * Public: No
  */

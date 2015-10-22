@@ -1,5 +1,5 @@
 /*
- * Author: PabstMirror
+ * Author: Glowbal, PabstMirror
  * Gets all the children that you can eat.
  *
  * Arguments:
@@ -16,7 +16,7 @@
  */
 #include "script_component.hpp"
 
-PARAMS_2(_player,_typeOfConsumble);
+params ["_player", "_typeOfConsumble"];
 
 local _actions = [];
 local _consumableItems = [];
@@ -24,8 +24,8 @@ local _consumableItems = [];
     local _cfg = configFile >> "CfgWeapons" >> _x;
     if ((isClass _cfg) && {!(_x in _consumableItems)}) then {
         local _showItem = switch (true) do {
-        case (_typeOfConsumble == "drink"): {getNumber (_cfg >> QGVAR(isDrinkable)) > 0};
-        case (_typeOfConsumble == "eat"): {getNumber (_cfg >> QGVAR(isEatable)) > 0};
+            case (_typeOfConsumble == "drink"): {getNumber (_cfg >> QGVAR(isDrinkable)) > 0};
+            case (_typeOfConsumble == "eat"): {getNumber (_cfg >> QGVAR(isEatable)) > 0};
             default {(getNumber (_cfg >> QGVAR(isDrinkable)) > 0) || {getNumber (_cfg >> QGVAR(isEatable)) > 0}};
         };
         if (_showItem) then {

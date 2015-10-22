@@ -48,7 +48,7 @@ class CfgVehicles {
         accuracy = 1000;
         displayName = "[ACE] Field Rations [All]";
         model = "\A3\weapons_F\AmmoBoxes\AmmoBox_F";
-        author = "$STR_ACE_Common_ACETeam";
+        author = ECSTRING(common,ACETeam);
         class TransportWeapons {
             class ace_waterbottle {
                 weapon = "ace_waterbottle";

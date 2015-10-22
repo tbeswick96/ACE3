@@ -1,23 +1,25 @@
 /*
- * Author: PabstMirror
+ * Author: Glowbal, PabstMirror
  * Checks the conditions for being able to disarm a unit
  *
  * Arguments:
- * 0: Target <OBJECT>
+ * 0: Water Source <OBJECT>
  * 1: Player <OBJECT>
  * 2: Item Classname <STRING>
  *
  * Return Value:
- * Can Be Refilled <BOOL>
+ * Can Be Item Refilled From Source <BOOL>
  *
  * Example:
- * [barrel, player, "bottle"] call ace_field_rations_canRefillFromWaterSource
+ * [barrel, player, "ACE_waterbottle_half"] call ace_field_rations_fnc_canRefillFromWaterSource
  *
  * Public: No
  */
 #include "script_component.hpp"
 
-params ["_dummyTarget", "_player", "_itemClassname"];
+params ["_waterSource", "_player", "_itemClassname"];
+
 local _cfg = configFile >> "CfgWeapons" >> _itemClassname;
 
-((isClass _cfg) && {(getText (_cfg >> QGVAR(onRefill))) != ""})
+([_player, _waterSource, []] call EFUNC(common,canInteractWith))
+&& ((getText (_cfg >> QGVAR(onRefill))) != "")
