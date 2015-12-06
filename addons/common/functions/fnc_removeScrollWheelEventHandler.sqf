@@ -12,10 +12,9 @@
  */
 #include "script_component.hpp"
 
-params ["_id"];
+params [["_id", -1, [0]]];
 
-private "_actionsVar";
-_actionsVar = missionNamespace getVariable ["ACE_EventHandler_ScrollWheel", [-1, [], []]];
+private _actionsVar = missionNamespace getVariable ["ACE_EventHandler_ScrollWheel", [-1, [], []]];
 
 _actionsVar params ["_currentId", "_actionIDs", "_actions"];
 
@@ -26,7 +25,7 @@ if (_id == -1) exitWith {};
 _actionIDs set [_id, -1];
 _actionIDs = _actionIDs - [-1];
 
-_actions set [_id, []];//{}
-_actions = _actions - [[]];//[{}]
+_actions set [_id, []];
+_actions = _actions - [[]];
 
 missionNamespace setVariable ["ACE_EventHandler_ScrollWheel", [_currentId, _actionIDs, _actions]];

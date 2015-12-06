@@ -12,13 +12,13 @@
  */
 #include "script_component.hpp"
 
-params ["_weapon"];
+params [["_weapon", "", [""]]];
 
-private "_muzzles";
-_muzzles = getArray (configFile >> "CfgWeapons" >> _weapon >> "muzzles");
+private _muzzles = [];
 
-if ("this" in _muzzles) then {
-    _muzzles set [_muzzles find "this", _weapon];
-};
+{
+    _muzzles pushBack ([_x, _weapon] select (_x == "this"));
+    false
+} count getArray (configFile >> "CfgWeapons" >> _weapon >> "muzzles");
 
 _muzzles

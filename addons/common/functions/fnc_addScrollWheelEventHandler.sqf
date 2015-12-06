@@ -13,14 +13,13 @@
  */
 #include "script_component.hpp"
 
-params ["_statement"];
+params [["_statement", {}, [{}]]];
 
 if (_statement isEqualType "") then {
     _statement = compile _statement;
 };
 
-private "_actionsVar";
-_actionsVar = missionNamespace getVariable ["ACE_EventHandler_ScrollWheel", [-1, [], []]];
+private _actionsVar = missionNamespace getVariable ["ACE_EventHandler_ScrollWheel", [-1, [], []]];
 
 _actionsVar params ["_id", "_actionIDs", "_actions"];
 

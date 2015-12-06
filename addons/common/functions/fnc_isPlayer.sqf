@@ -14,6 +14,6 @@
  */
 #include "script_component.hpp"
 
-params ["_unit", ["_excludeRemoteControlled", false]];
+params [["_unit", objNull, [objNull]], ["_excludeRemoteControlled", false, [false]]];
 
 isPlayer _unit || (!_excludeRemoteControlled && {_unit == call FUNC(player)}) // return

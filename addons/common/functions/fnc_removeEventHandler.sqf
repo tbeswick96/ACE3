@@ -13,14 +13,12 @@
  */
 #include "script_component.hpp"
 
-params ["_eventName", "_eventCodeIndex"];
+params [["_eventName", "", [""]], ["_eventCodeIndex", -1, [0]]];
 
 GVAR(events) params ["_eventNames", "_events"];
 
-private ["_eventFunctions", "_eventIndex"];
-
-_eventFunctions = [];
-_eventIndex = _eventNames find _eventName;
+private _eventFunctions = [];
+private _eventIndex = _eventNames find _eventName;
 
 if (_eventIndex != -1) then {
     _eventFunctions = _events select _eventIndex;

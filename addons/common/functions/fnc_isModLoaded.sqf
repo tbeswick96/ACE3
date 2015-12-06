@@ -1,9 +1,9 @@
 /*
  * Author: Glowbal
- * Check in cfgPatches if modification is loaded
+ * Check in CfgPatches if modification is loaded
  *
  * Arguments:
- * 0: Mod Name or Classname of the mod in cfgPatches <STRING>
+ * 0: Mod Name or Classname of the mod in CfgPatches <STRING>
  *
  * Return Value:
  * if modification is loaded <BOOL>
@@ -12,6 +12,6 @@
  */
 #include "script_component.hpp"
 
-params ["_modName"];
+params [["_modName", "", [""]]];
 
-isClass (configFile >> "cfgPatches" >> _modName) // return
+isClass (configFile >> "CfgPatches" >> _modName) // return

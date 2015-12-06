@@ -17,7 +17,7 @@
  */
 #include "script_component.hpp"
 
-params ["_unit", "_muzzle", "_mode"];
+params [["_unit", objNull, [objNull]], ["_muzzle", "", [""]], ["_mode", "", [""]]];
 
 private _index = 0;
 

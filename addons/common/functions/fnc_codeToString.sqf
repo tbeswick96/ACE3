@@ -12,7 +12,7 @@
  */
 #include "script_component.hpp"
 
-params ["_function"];
+params [["_function", "", ["", {}]]];
 
 if (_function isEqualType "") exitWith {_function};
 
