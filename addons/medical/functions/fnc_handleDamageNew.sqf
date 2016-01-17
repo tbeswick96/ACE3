@@ -8,6 +8,7 @@
  * 2: Amount Of Damage <NUMBER>
  * 3: Shooter <OBJECT>
  * 4: Projectile <OBJECT/STRING>
+ * 5: HitPointIndex (-1 for structural) <NUMBER>
  *
  * Return Value:
  * Damage To Be Inflicted <NUMBER>
@@ -16,8 +17,8 @@
  */
 #include "script_component.hpp"
 
-params ["_unit", "_selection", "_damage", "_shooter", "_projectile"];
-TRACE_5("ACE_DEBUG: HandleDamage Called",_unit,_selection,_damage,_shooter,_projectile);
+params ["_unit", "_selection", "_damage", "_shooter", "_projectile", "_hitPointIndex"];
+TRACE_6("ACE_DEBUG: HandleDamage Called",_unit, _selection, _damage, _shooter, _projectile,_hitPointIndex);
 
 // bug, apparently can fire for remote units in special cases
 if !(local _unit) exitWith {
@@ -29,7 +30,6 @@ if !(local _unit) exitWith {
 if (typeName _projectile == "OBJECT") then {
     TRACE_3("ACE_DEBUG: HandleDamage found projectile instead of classname of ammo!",_unit,_projectile,typeOf _projectile);
     _projectile = typeOf _projectile;
-    _this set [4, _projectile];
 };
 
 // Exit now we disable damage, replaces "allowDamage false"
@@ -53,8 +53,7 @@ if (_selection == "arms") exitWith {_unit getHit "arms"};
 // and instead we should deal with the new hitpoints directly
 _selection = [_unit, _selection, _hitPointIndex] call FUNC(translateSelections);
 
-diag_log text str _selection;
-diag_log text str _damage;
+// diag_log text format ["HD: Sel[%1] Dam[%2]", _selection, _damage];
 
 // systemChat format["_selection %1 _damage %2", _selection, _damage];
 
@@ -67,8 +66,7 @@ if (_selection == "") then {
 
     _index = -1;
 
-    private "_cachedStructuralDamage";
-    _cachedStructuralDamage = _unit getVariable [QGVAR(cachedStructuralDamageNew), 0];
+    private _cachedStructuralDamage = _unit getVariable [QGVAR(cachedStructuralDamageNew), 0];
 
     // handle damage always tries to start and end with the same structural damage call. Use that to find and set the final damage. discard everything the game discards too.
     // this correctly handles: bullets, explosions, fire
@@ -79,6 +77,7 @@ if (_selection == "") then {
         // this is the only point damage actually counts. all additional vitality functions should use these values.
         {
             if (_x > 0) then {
+                diag_log text format ["Sel Dam Event %1", [_unit, GVAR(Selections) select _forEachIndex, _x, _cachedNewHitpointProjectiles select _forEachIndex]];
                 ["medical_selectionDamage", [_unit, GVAR(Selections) select _forEachIndex, _x, _cachedNewHitpointProjectiles select _forEachIndex]] call EFUNC(common,localEvent);
             };
         } forEach _cachedNewHitpointDamages;
@@ -142,8 +141,14 @@ if (_selection == "") then {
 
 } else {
     // selections are done scripted. return same value to change nothing.
-    _damageReturn = _unit getHit _selection;
+    _damageReturn = _unit getHitIndex _hitPointIndex;
     _newDamage = _damage - _damageReturn; // _damageReturn because it saves one getHit call
+
+    if (_newDamage <= 0) exitWith {
+        if (_newDamage < 0) then {
+            diag_log text format ["Negative Damage - %1", _newDamage];
+        };
+    };
 
     _index = GVAR(SELECTIONS) find _selection;
 
@@ -171,7 +176,7 @@ if (_selection == "") then {
             _cachedNewHitpointDamages set [_index, _newDamage];
             _cachedNewHitpointProjectiles set [_index, _projectile];
         } else {
-            diag_log format["PREVENTED OVERWRITE: %1", [_newDamage, _projectile, _selection]];
+            // diag_log format["PREVENTED OVERWRITE: %1", [_newDamage, _projectile, _selection]];
         };
         _unit setVariable [QGVAR(cachedNewHitpointDamages), _cachedNewHitpointDamages];
         _unit setVariable [QGVAR(cachedNewHitpointProjectiles), _cachedNewHitpointProjectiles];
@@ -182,5 +187,9 @@ if (_selection == "") then {
         _unit setVariable [QGVAR(cachedLastCollisionDamage), _newDamage max (_unit getVariable [QGVAR(cachedLastCollisionDamage), 0])];
     };
 };
+
+
+diag_log text format ["HD %1 Retrun %2", _this, _damageReturn];
+
 
 _damageReturn

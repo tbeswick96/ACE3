@@ -1,3 +1,4 @@
+#define DISABLE_COMPILE_CACHE
 #include "script_component.hpp"
 
 ADDON = false;
