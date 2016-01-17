@@ -66,22 +66,45 @@ if (_selection == "") then {
 
     _index = -1;
 
-    private _cachedStructuralDamage = _unit getVariable [QGVAR(cachedStructuralDamageNew), 0];
+    private _cachedStructuralDamage = _unit getVariable [QGVAR(cachedStructuralDamageNew), -1];
+
+    #define FLUSH_CACHE \
+        private _cachedNewHitpointDamages = _unit getVariable [QGVAR(cachedNewHitpointDamages), [0,0,0,0,0,0]]; \
+        private _cachedNewHitpointProjectiles = _unit getVariable [QGVAR(cachedNewHitpointProjectiles), ["", "", "", "", "", ""]]; \
+        /* this is the only point damage actually counts. all additional vitality functions should use these values. */ \
+        { \
+            if (_x > 0) then { \
+                diag_log text format ["Sel Dam Event %1", [_unit, GVAR(Selections) select _forEachIndex, _x, _cachedNewHitpointProjectiles select _forEachIndex]]; \
+                ["medical_selectionDamage", [_unit, GVAR(Selections) select _forEachIndex, _x, _cachedNewHitpointProjectiles select _forEachIndex]] call EFUNC(common,localEvent); \
+            }; \
+        } forEach _cachedNewHitpointDamages; \
+        _unit setVariable [QGVAR(lastSelectionIndex), -1]; \
+        _unit setVariable [QGVAR(courtesyFlusher), nil];
+
 
     // handle damage always tries to start and end with the same structural damage call. Use that to find and set the final damage. discard everything the game discards too.
     // this correctly handles: bullets, explosions, fire
+    private _lastSelectionIndex = _unit getVariable [QGVAR(lastSelectionIndex), -1];
     if (_damage == _cachedStructuralDamage) then {
-        private _cachedNewHitpointDamages = _unit getVariable [QGVAR(cachedNewHitpointDamages), [0,0,0,0,0,0]];
-        private _cachedNewHitpointProjectiles = _unit getVariable [QGVAR(cachedNewHitpointProjectiles), ["", "", "", "", "", ""]];
-
-        // this is the only point damage actually counts. all additional vitality functions should use these values.
-        {
-            if (_x > 0) then {
-                diag_log text format ["Sel Dam Event %1", [_unit, GVAR(Selections) select _forEachIndex, _x, _cachedNewHitpointProjectiles select _forEachIndex]];
-                ["medical_selectionDamage", [_unit, GVAR(Selections) select _forEachIndex, _x, _cachedNewHitpointProjectiles select _forEachIndex]] call EFUNC(common,localEvent);
-            };
-        } forEach _cachedNewHitpointDamages;
+        TRACE_3("Found Matching Empty Selection", _damage, _cachedStructuralDamage,_lastSelectionIndex);
+        FLUSH_CACHE
     } else {
+        if (_lastSelectionIndex > -1) then {
+            if (_lastSelectionIndex > 7) then {
+                diag_log text format ["Courtesy Flushing IGNORED[%1] cache %2", _lastSelectionIndex, _unit getVariable [QGVAR(cachedNewHitpointDamages), [-1]]];
+                FLUSH_CACHE
+            } else {
+                diag_log text format ["Ignoring PARTIAL[%1] cache %2", _lastSelectionIndex, _unit getVariable [QGVAR(cachedNewHitpointDamages), [-1]]];
+                _unit setVariable [QGVAR(lastSelectionIndex), -1];
+            };
+        };
+
+
+        // reset everything, get ready for the next bullet
+        _unit setVariable [QGVAR(cachedNewHitpointDamages), [0,0,0,0,0,0]];
+        _unit setVariable [QGVAR(cachedNewHitpointProjectiles), ["", "", "", "", "", ""]];
+        _unit setVariable [QGVAR(cachedStructuralDamageNew), _damage];
+
         scopeName "findDamageSource";
 
         // check for fall damage. this triggers twice, but seems to happen on the same frame. shouldn't fall twice in a few frames anyway. tested at 7FPS on local host MP
@@ -134,19 +157,40 @@ if (_selection == "") then {
         };
     };
 
-    // reset everything, get ready for the next bullet
-    _unit setVariable [QGVAR(cachedNewHitpointDamages), [0,0,0,0,0,0]];
-    _unit setVariable [QGVAR(cachedNewHitpointProjectiles), ["", "", "", "", "", ""]];
-    _unit setVariable [QGVAR(cachedStructuralDamageNew), _damage];
 
 } else {
     // selections are done scripted. return same value to change nothing.
     _damageReturn = _unit getHitIndex _hitPointIndex;
     _newDamage = _damage - _damageReturn; // _damageReturn because it saves one getHit call
+    _unit setVariable [QGVAR(lastSelectionIndex), _hitPointIndex];
+
+    //We got past a real hit index, start up a waitUntil and verify we get end header after 3 frames
+    if ((_hitPointIndex > 7) && {(_unit getVariable [QGVAR(courtesyFlusher), []]) isEqualTo []}) then {
+        _key = random 1;
+        _unit setVariable [QGVAR(courtesyFlusher), [_key, 3]];
+        [{
+            params ["_unit", "_key"];
+            private _lastSelectionIndex = _unit getVariable [QGVAR(lastSelectionIndex), -1];
+            (_unit getVariable [QGVAR(courtesyFlusher), [-1, -1]]) params ["_uKey", "_uTTL"];
+
+            if ((_key != _uKey) || {_lastSelectionIndex == -1}) exitWith {
+                diag_log text format ["waitUntil clean exit"];
+                true
+            };
+            _uTTL = _uTTL - 1;
+            _unit setVariable [QGVAR(courtesyFlusher), [_key, _uTTL]];
+            if (_uTTL <= 0) exitWith {
+                diag_log text format ["waitUntil Flushing IGNORED[%1] %2", _lastSelectionIndex, _unit getVariable [QGVAR(cachedNewHitpointDamages), [-1]]];
+                FLUSH_CACHE
+                true
+            };
+            false
+        }, {}, [_unit, _key]] call EFUNC(common,waitUntilAndExecute);
+    };
 
     if (_newDamage <= 0) exitWith {
         if (_newDamage < 0) then {
-            diag_log text format ["Negative Damage - %1", _newDamage];
+            diag_log text format ["ERROR: Negative Damage - %1", _newDamage];
         };
     };
 
@@ -188,8 +232,6 @@ if (_selection == "") then {
     };
 };
 
-
-diag_log text format ["HD %1 Retrun %2", _this, _damageReturn];
-
+diag_log text format ["%1 HD %2 Retrun %3", diag_frameno, _this, _damageReturn];
 
 _damageReturn
