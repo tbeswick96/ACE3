@@ -15,6 +15,8 @@
  *
  * Public: No
  */
+// #define DEBUG_MODE_FULL
+// #define CBA_DEBUG_SYNCHRONOUS
 #include "script_component.hpp"
 
 params ["_unit", "_selection", "_damage", "_shooter", "_projectile", "_hitPointIndex"];
@@ -59,6 +61,9 @@ _selection = [_unit, _selection, _hitPointIndex] call FUNC(translateSelections);
 
 private ["_damageReturn", "_newDamage", "_index"];
 
+
+private _lastSelectionIndex = _unit getVariable [QGVAR(lastSelectionIndex), -1];
+
 // apply damage scripted
 if (_selection == "") then {
     _damageReturn = _damage;
@@ -77,33 +82,38 @@ if (_selection == "") then {
                 diag_log text format ["Sel Dam Event %1", [_unit, GVAR(Selections) select _forEachIndex, _x, _cachedNewHitpointProjectiles select _forEachIndex]]; \
                 ["medical_selectionDamage", [_unit, GVAR(Selections) select _forEachIndex, _x, _cachedNewHitpointProjectiles select _forEachIndex]] call EFUNC(common,localEvent); \
             }; \
-        } forEach _cachedNewHitpointDamages; \
+        } forEach _cachedNewHitpointDamages;
+
+    #define RESET_CACHE(DAM) \
+        _unit setVariable [QGVAR(cachedNewHitpointDamages), [0,0,0,0,0,0]]; \
+        _unit setVariable [QGVAR(cachedNewHitpointProjectiles), ["", "", "", "", "", ""]]; \
+        _unit setVariable [QGVAR(cachedStructuralDamageNew), DAM]; \
         _unit setVariable [QGVAR(lastSelectionIndex), -1]; \
-        _unit setVariable [QGVAR(courtesyFlusher), nil];
+        _unit setVariable [QGVAR(courtesyFlusher), []]; \
 
 
     // handle damage always tries to start and end with the same structural damage call. Use that to find and set the final damage. discard everything the game discards too.
     // this correctly handles: bullets, explosions, fire
-    private _lastSelectionIndex = _unit getVariable [QGVAR(lastSelectionIndex), -1];
     if (_damage == _cachedStructuralDamage) then {
-        TRACE_3("Found Matching Empty Selection", _damage, _cachedStructuralDamage,_lastSelectionIndex);
-        FLUSH_CACHE
+        if (_lastSelectionIndex > 7) then {
+            diag_log text format ["%1-Index %2: Normal Footer flush %3", diag_frameno, _lastSelectionIndex, _unit getVariable [QGVAR(cachedNewHitpointDamages), [-1]]];
+            FLUSH_CACHE;
+        };
+        RESET_CACHE(-1);
     } else {
         if (_lastSelectionIndex > -1) then {
+            //We got a new HEADER, but haven't flushed old cache:
             if (_lastSelectionIndex > 7) then {
-                diag_log text format ["Courtesy Flushing IGNORED[%1] cache %2", _lastSelectionIndex, _unit getVariable [QGVAR(cachedNewHitpointDamages), [-1]]];
+                diag_log text format ["%1-Index %2: Manually flushing ignored cache %3", diag_frameno, _lastSelectionIndex, _unit getVariable [QGVAR(cachedNewHitpointDamages), [-1]]];
                 FLUSH_CACHE
             } else {
-                diag_log text format ["Ignoring PARTIAL[%1] cache %2", _lastSelectionIndex, _unit getVariable [QGVAR(cachedNewHitpointDamages), [-1]]];
+                diag_log text format ["%1-Index %2: Ignoring partial cache %3", diag_frameno, _lastSelectionIndex, _unit getVariable [QGVAR(cachedNewHitpointDamages), [-1]]];
                 _unit setVariable [QGVAR(lastSelectionIndex), -1];
             };
         };
-
+        RESET_CACHE(_damage);
 
         // reset everything, get ready for the next bullet
-        _unit setVariable [QGVAR(cachedNewHitpointDamages), [0,0,0,0,0,0]];
-        _unit setVariable [QGVAR(cachedNewHitpointProjectiles), ["", "", "", "", "", ""]];
-        _unit setVariable [QGVAR(cachedStructuralDamageNew), _damage];
 
         scopeName "findDamageSource";
 
@@ -162,29 +172,39 @@ if (_selection == "") then {
     // selections are done scripted. return same value to change nothing.
     _damageReturn = _unit getHitIndex _hitPointIndex;
     _newDamage = _damage - _damageReturn; // _damageReturn because it saves one getHit call
+
+    if ((_hitPointIndex < _lastSelectionIndex) && {_lastSelectionIndex > 7}) then {
+        diag_log text format ["%1-Index %2: Restart without header, flush %3", diag_frameno, _lastSelectionIndex, _unit getVariable [QGVAR(cachedNewHitpointDamages), [-1]]];
+        FLUSH_CACHE;
+        RESET_CACHE(-1);
+    };
+
     _unit setVariable [QGVAR(lastSelectionIndex), _hitPointIndex];
 
     //We got past a real hit index, start up a waitUntil and verify we get end header after 3 frames
     if ((_hitPointIndex > 7) && {(_unit getVariable [QGVAR(courtesyFlusher), []]) isEqualTo []}) then {
         _key = random 1;
-        _unit setVariable [QGVAR(courtesyFlusher), [_key, 3]];
+        _unit setVariable [QGVAR(courtesyFlusher), [_key, 9]];
         [{
             params ["_unit", "_key"];
             private _lastSelectionIndex = _unit getVariable [QGVAR(lastSelectionIndex), -1];
             (_unit getVariable [QGVAR(courtesyFlusher), [-1, -1]]) params ["_uKey", "_uTTL"];
 
             if ((_key != _uKey) || {_lastSelectionIndex == -1}) exitWith {
-                diag_log text format ["waitUntil clean exit"];
-                true
+                diag_log text format ["%1-waitUntil clean exit", diag_frameno];
+                true //something else flushed, exit
             };
+
             _uTTL = _uTTL - 1;
             _unit setVariable [QGVAR(courtesyFlusher), [_key, _uTTL]];
             if (_uTTL <= 0) exitWith {
-                diag_log text format ["waitUntil Flushing IGNORED[%1] %2", _lastSelectionIndex, _unit getVariable [QGVAR(cachedNewHitpointDamages), [-1]]];
-                FLUSH_CACHE
-                true
+                diag_log text format ["%1-Index %2: waitUntil delay flush %3", diag_frameno, _lastSelectionIndex, _unit getVariable [QGVAR(cachedNewHitpointDamages), [-1]]];
+                FLUSH_CACHE;
+                RESET_CACHE(-1);
+                true //manually flush, exit
             };
-            false
+
+            false //keep waiting
         }, {}, [_unit, _key]] call EFUNC(common,waitUntilAndExecute);
     };
 
@@ -232,6 +252,6 @@ if (_selection == "") then {
     };
 };
 
-diag_log text format ["%1 HD %2 Retrun %3", diag_frameno, _this, _damageReturn];
+diag_log text format ["%1-HD %2 Retrun %3", diag_frameno, _this, _damageReturn];
 
 _damageReturn
