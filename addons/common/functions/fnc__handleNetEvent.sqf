@@ -64,6 +64,14 @@ if (_eventType == "ACEc") then {
                 _sentEvents pushBack _owner;
                 ACEg = [_eventName, _eventArgs];
 
+                if (_owner isEqualType 0) exitWith {
+                    if (_owner == GVAR(clientID)) then {
+                        ["ACEg", ACEg] call FUNC(_handleNetEvent);
+                    } else {
+                        _owner publicVariableClient "ACEg";
+                    };
+                };
+
                 if (isDedicated || {_x != ACE_player}) then {
                     if (isDedicated && {local _x} && {!_serverFlagged}) then {
                         _serverFlagged = true;

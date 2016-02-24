@@ -3,6 +3,44 @@
 // #define DEBUG_MODE_FULL
 #include "script_component.hpp"
 
+GVAR(clientID) = -999;
+["recieveClientID", {
+    params ["_owner"];
+    TRACE_1("recieveClientID eh",_owner);
+    GVAR(clientID) = _owner;
+}] call FUNC(addEventHandler);
+
+if (isServer) then {
+    GVAR(clientID) = clientOwner;
+    [QGVAR(sendClientID), "onPlayerConnected", {
+        TRACE_1("onPlayerConnected eh",_owner);
+        ["recieveClientID", [_owner], [_owner]] call FUNC(targetEvent);
+    }] call BIS_fnc_addStackedEventHandler;
+    ["requestID", {
+        params ["_source"];
+        if (isNull _source) exitWith {ACE_LOGERROR("Bad Source Requesting ID");};
+        TRACE_2("requestID eh",_source,owner _source);
+        ["recieveClientID", [_source], [owner _source]] call FUNC(targetEvent);
+    }] call FUNC(addEventHandler);
+};
+
+if (hasInterface) then {
+    [{
+        params ["_args", "_pfID"];
+        _args params ["_requestSent"];
+        if ((!_requestSent) && {!isNull player} && {getClientStateNumber < 10}) then {
+            ["requestID", [player]] call FUNC(serverEvent);
+            _args set [0, true];
+            TRACE_1("on breifing, sending request",_args);
+        };
+        if((!isNull player) && GVAR(settingsInitFinished) && {GVAR(clientID) != -999}) then {
+            TRACE_1("player ready event",_args);
+            //Player is not null, settings are done, and we have our clientID
+            ["PlayerReady", [player]] call FUNC(localEvent);
+            [_this select 1] call CBA_fnc_removePerFrameHandler;
+        };
+    }, 0, [false]] call CBA_fnc_addPerFrameHandler;
+};
 
 //////////////////////////////////////////////////
 // PFHs
