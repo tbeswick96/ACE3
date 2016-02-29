@@ -1,7 +1,7 @@
 ace_grenadethrowing
 ===================
 
-Integrates advanced grenade throwing by [Dslyecxi](https://github.com/Dslyecxi).
+Integrates advanced grenade throwing by [Dslyecxi](https://github.com/dslyecxi).
 
 
 ## Maintainers
