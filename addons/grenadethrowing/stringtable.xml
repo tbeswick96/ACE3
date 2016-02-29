@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project name="ACE">
+    <Package name="GrenadeThrowing">
+        <Key ID="STR_ACE_GrenadeThrowing_Category">
+            <English>Grenade Throwing</English>
+        </Key>
+        <Key ID="STR_ACE_GrenadeThrowing_EnableThrowingSystem_DisplayName">
+            <English>Enable Throwing</English>
+        </Key>
+        <Key ID="STR_ACE_GrenadeThrowing_EnableThrowingSystem_Description">
+            <English>Enables grenade throwing system.</English>
+        </Key>
+    </Package>
+</Project>
