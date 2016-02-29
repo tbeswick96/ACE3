@@ -68,7 +68,7 @@ if (cameraView != "INTERNAL" && {GVAR(GrenadeInHand)}) exitWith {
     false
 };
 
-if ((_key in (actionKeys "CycleThrownItems")) && {!GVAR(ToggleThrowMode})) then {
+if ((_key in (actionKeys "CycleThrownItems")) && {!GVAR(ToggleThrowMode)}) then {
     _suppress = true;
 
     if (GVAR(CookingGrenade)) exitWith {}; // Just don't do anything if we're cooking
