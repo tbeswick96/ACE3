@@ -17,41 +17,52 @@
 
 params ["_unit"];
 
-if (GVAR(ToggleThrowMode) || {GVAR(CookingGrenade)}) exitWith {false};
+private _currentThrowable = currentThrowable _unit;
 
-if ((currentThrowable _unit) select 0 == "") exitWith {
-    [_unit, "No grenade actively selected (or available?)"] call FUNC(exitThrowMode);
-    GVAR(LastTimeSwitchKeyPressed) = time - 4;
+// Try selecting next grenade if none currently selected
+if (_currentThrowable select 0 == "" && {!([_unit] call EFUNC(weaponselect,selectNextGrenade))}) exitWith {
+    [_unit, "No valid throwables"] call FUNC(exitThrowMode);
     false
 };
 
-if (time < GVAR(LastTimeSwitchKeyPressed) + 0.5) exitWith {true};
+private _dropType = getText (configFile >> "CfgMagazines" >> _currentThrowable select 0 >> "ammo");
 
-if (time - GVAR(LastThrownTime) < GVAR(TimeBetweenThrows)) exitWith {
-    [_unit, "Time between throws hasn't happened"] call FUNC(exitThrowMode);
+if (_dropType == "") exitWith {
+    [_unit, "No valid throwables (check 2)"] call FUNC(exitThrowMode);
     false
 };
 
-GVAR(ToggleThrowMode) = !GVAR(ToggleThrowMode);
 
-// Throw mode is on
-if (GVAR(ToggleThrowMode)) then {
-    GVAR(ThrowType) = "normal";
-    GVAR(AmmoLastMag) = _unit ammo (currentWeapon _unit);
-    _unit setAmmo [currentWeapon _unit, 0];
-    inGameUISetEventHandler ["PrevAction", "true"];
-    inGameUISetEventHandler ["NextAction", "true"];
-    inGameUISetEventHandler ["Action", "true"];
-
-    if (!GVAR(GrenadeInHand)) then {
-        GVAR(ThrowGrenade) = false;
-        [_unit] call FUNC(throw);
-    };
+// Select next grenade if one already in hand
+if (GVAR(GrenadeInHand)) then {
+    [_unit] call EFUNC(weaponselect,selectNextGrenade);
 } else {
-    [_unit, "Exit 5"] call FUNC(exitThrowMode);
-    _unit setAmmo [currentWeapon _unit, GVAR(AmmoLastMag)];
-};
+    GVAR(ToggleThrowMode) = !GVAR(ToggleThrowMode);
 
-GVAR(LastTimeSwitchKeyPressed) = time;
+    // Throw mode is enabled, prepare
+    if (GVAR(ToggleThrowMode)) then {
+        GVAR(ThrowType) = "normal";
+        GVAR(ThrowGrenade) = false;
+
+        // Since we have something to throw, let's create it. By activating GrenadeInHand, the PFH creates a grenade
+        GVAR(ActiveGrenadeType) = _dropType;
+        GVAR(CookingGrenade) = false; // Can't be cooking, just pulled it.
+        GVAR(LastGrenadeTypeChecked) = "";
+        GVAR(GrenadeInHand) = true;
+
+        // Add controls hint and throw action
+        //[localize LSTRING(Throw), localize ELSTRING(Common,Cancel), localize LSTRING(ChangeModeOrCook)] call EFUNC(interaction,showMouseHint);//@todo: disables drawIcon3D
+        inGameUISetEventHandler ["PrevAction", "true"];
+        inGameUISetEventHandler ["NextAction", "true"];
+        inGameUISetEventHandler ["Action", "true"];
+
+        _unit setVariable [QGVAR(ThrowAction), [
+            _unit, "DefaultAction",
+            {GVAR(GrenadeInHand)},
+            {[_this select 0] call FUNC(confirmThrow)}
+        ] call EFUNC(common,addActionEventHandler)];
+    };
+
+};
 
 true

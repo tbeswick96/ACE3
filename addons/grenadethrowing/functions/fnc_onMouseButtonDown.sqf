@@ -15,27 +15,26 @@
  */
 #include "script_component.hpp"
 
-if (!GVAR(Enabled) || {!GVAR(ToggleThrowMode)} || {dialog}) exitWith {};
+if (!GVAR(Enabled) || {!GVAR(ToggleThrowMode)} || {!GVAR(GrenadeInHand)} || {dialog}) exitWith {};
 
 params ["", "_key"];
 
-if (_key == 0) exitWith {
-    // Drop it, else throw it
-    if (GVAR(CtrlHeld) && {!GVAR(CookingGrenade)}) then {
-        [ACE_player, GVAR(ActiveGrenadeItem), GVAR(ActiveGrenadeType)] call FUNC(cook);
+// Right mouse button
+if (_key == 1) exitWith {
+    if (GVAR(CookingGrenade)) then {
+        GVAR(DropCookedCounter) = GVAR(DropCookedCounter) + 1;
 
-        // Since ctrl is held, it just drops
-        if (!GVAR(ThrowGrenade)) then {
-            GVAR(ThrowGrenade) = true;
+        if (GVAR(DropCookedCounter) >= 2) then {
+            ACE_player removeItem ((currentThrowable ACE_player) select 0);
+            [ACE_player, "Dropping cooked grenade"] call FUNC(exitThrowMode);
         };
     } else {
-        if (!GVAR(ThrowGrenade)) then {
-            GVAR(ThrowGrenade) = true;
-        };
+        [ACE_player, "Storing grenade without throwing"] call FUNC(exitThrowMode);
     };
 };
 
-if (_key == 2 && {GVAR(GrenadeInHand)} && {!GVAR(CookingGrenade)}) then {
+// Middle mouse button
+if (_key == 2 && {!GVAR(CookingGrenade)}) then {
     [ACE_player, GVAR(ActiveGrenadeItem), GVAR(ActiveGrenadeType)] call FUNC(cook);
     [LSTRING(Cooking)] call EFUNC(common,displayTextStructured);
 };

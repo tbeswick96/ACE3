@@ -44,19 +44,15 @@ if (GVAR(GrenadeInHand) && {alive _unit}) then {
         [_unit, "No valid throwables (check 2)"] call FUNC(exitThrowMode);
     };
 
-    if (cameraView != "INTERNAL") exitWith {
+    /*if (cameraView != "INTERNAL") exitWith {
         [_unit, "Went into sighted mode"] call FUNC(exitThrowMode);
-    };
+    };*/
 
     //@todo: Check to see if we have a grenade like that in our inventory still
 
     private _currentGrenade = getText (configFile >> "CfgMagazines" >> _currentThrowable select 0 >> "ammo");
     private _currentGrenadeMagazineType = _currentThrowable select 0;
     GVAR(CurrentThrowSpeed) = getNumber (configFile >> "CfgMagazines" >> _currentThrowable select 0 >> "initSpeed");
-
-    if (isNil QGVAR(CurrentThrowSpeed)) then {
-        GVAR(CurrentThrowSpeed) = 0
-    };
 
     // These magazine checks are potentially not needed, but maaaaaybe would become relevant in some situations, like someone taking a grenade from your pack if you were holding it.
     if (GVAR(LastGrenadeTypeChecked) == "") then {
@@ -65,7 +61,6 @@ if (GVAR(GrenadeInHand) && {alive _unit}) then {
         if (_currentGrenadeMagazineType in (magazines _unit)) then {
             GVAR(ActiveGrenadeItem) = _currentGrenade createVehicleLocal ((vehicle _unit) modelToWorldVisual [0, 0.3, 1.6]);
             if (GVAR(ActiveGrenadeType) == "") exitWith {
-                GVAR(CancelThrow) = false;
                 GVAR(GrenadeInHand) = false;
             };
             GVAR(ActiveGrenadeItem) enableSimulation false;
@@ -84,8 +79,7 @@ if (GVAR(GrenadeInHand) && {alive _unit}) then {
         if (_currentGrenadeMagazineType in (magazines _unit)) then {
             GVAR(ActiveGrenadeItem) = _currentGrenade createVehicleLocal ((vehicle _unit) modelToWorldVisual [0, 0.3, 1.6]);
             if (GVAR(ActiveGrenadeType) == "") exitWith {
-                GVAR(CancelThrow) = false;
-                GVAR(GrenadeInHand) = false
+                GVAR(GrenadeInHand) = false;
             };
             GVAR(CurrentThrowSpeed) = getNumber (configFile >> "CfgMagazines" >> _currentThrowable select 0 >> "initSpeed");
             GVAR(ActiveGrenadeItem) enableSimulation false;
@@ -139,20 +133,17 @@ if (GVAR(GrenadeInHand) && {alive _unit}) then {
     };
 
     if (GVAR(CtrlHeld)) then {
-        if (vehicle _unit == _unit) then {
-            _posFin = AGLtoASL (positionCameraToWorld [0, 0, GVAR(TestPercArm)]);
+        _posFin = AGLtoASL (positionCameraToWorld [0, 0, GVAR(TestPercArm)]);
+        private _posView = AGLtoASL (positionCameraToWorld [0, 0, 0]);
 
-            private _posView = AGLtoASL (positionCameraToWorld [0, 0, 0]);
-
-            if (lineIntersects [_posView, _posFin]) then {
-                GVAR(TestPercArm) = GVAR(TestPercArm) - 0.10;
-                if (GVAR(TestPercArm) < 0.2) then {
-                    GVAR(TestPercArm) = 0.2
-                };
+        if (lineIntersects [_posView, _posFin]) then {
+            GVAR(TestPercArm) = GVAR(TestPercArm) - 0.10;
+            if (GVAR(TestPercArm) < 0.2) then {
+                GVAR(TestPercArm) = 0.2
             };
-
-            GVAR(ActiveGrenadeItem) setPosASL _posFin;
         };
+
+        GVAR(ActiveGrenadeItem) setPosASL _posFin;
     } else {
         if (vehicle _unit == _unit) then {
             GVAR(ActiveGrenadeItem) setPosASL _posFin;

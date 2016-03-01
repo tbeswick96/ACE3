@@ -19,8 +19,8 @@ if (!GVAR(Enabled) || {call EFUNC(common,isFeatureCameraActive)}) exitWith {fals
 
 params ["", "_key", "_shift", "_ctrl", "_alt"];
 
-// Extend arm drop mode
-if (_ctrl) then {
+// Extend arm drop mode (only on foot)
+if (vehicle ACE_player == ACE_player && {_ctrl}) then {
     GVAR(CtrlLastPressed) = time;
 
     if (!GVAR(CtrlHeld)) then {
@@ -50,11 +50,6 @@ if (((_key in (actionKeys "ReloadMagazine")) ||
     GVAR(ToggleThrowMode)
 ) exitWith {
     [ACE_player, "Pressed a key that cycles us out of grenades"] call FUNC(exitThrowMode);
-    false
-};
-
-if (cameraView != "INTERNAL" && {GVAR(GrenadeInHand)}) exitWith {
-    [ACE_player, "Went into sights"] call FUNC(exitThrowMode);
     false
 };
 

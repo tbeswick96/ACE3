@@ -22,17 +22,13 @@ hintSilent format ["
     Throw: %3\n
     InHand: %4\n
     Cook: %5\n
-    TSL: %6\n
-    TBT: %7\n
-    actGren: %8
+    actGren: %6
     ",
     GVAR(CancelThrow),
     GVAR(ToggleThrowMode),
     GVAR(ThrowGrenade),
     GVAR(GrenadeInHand),
     GVAR(CookingGrenade),
-    time < GVAR(LastTimeSwitchKeyPressed) + 0.5,
-    time - GVAR(LastThrownTime) < GVAR(TimeBetweenThrows),
     GVAR(ActiveGrenadeItem)
 ];
 #endif

@@ -1,4 +1,5 @@
 PREP(canPrepareGrenade);
+PREP(confirmThrow);
 PREP(cook);
 PREP(draw3d);
 PREP(exitThrowMode);

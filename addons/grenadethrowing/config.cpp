@@ -5,7 +5,7 @@ class CfgPatches {
         units[] = {};
         weapons[] = {};
         requiredVersion = REQUIRED_VERSION;
-        requiredAddons[] = {"ace_common"};
+        requiredAddons[] = {"ace_common", "ace_weaponselect"};
         author[] = {"Dslyecxi", "Jonpas"};
         authorUrl = "http://ace3mod.com/";
         VERSION_CONFIG;

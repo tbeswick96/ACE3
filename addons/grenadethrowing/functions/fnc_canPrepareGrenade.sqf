@@ -15,7 +15,9 @@
  */
 #include "script_component.hpp"
 
+if (!GVAR(Enabled) || {call EFUNC(common,isFeatureCameraActive)}) exitWith {false};
+
 params ["_unit"];
 
 [_unit, objNull, ["isNotInside", "isNotSitting", "isNotOnLadder"]] call EFUNC(common,canInteractWith) &&
-[_unit] call CBA_fnc_canUseWeapon
+{[_unit] call CBA_fnc_canUseWeapon}

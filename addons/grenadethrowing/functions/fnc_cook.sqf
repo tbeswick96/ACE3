@@ -19,9 +19,9 @@ params ["_unit", "_grenadeItem", "_grenadeType"];
 
 GVAR(CookingGrenade) = true;
 
-GVAR(ActiveGrenadeItemOld) = GVAR(ActiveGrenadeItem);
+private _activeGrenadeItemOld = GVAR(ActiveGrenadeItem);
 GVAR(ActiveGrenadeItem) = _grenadeType createVehicle ((vehicle _unit) modelToWorldVisual [0, 0.3, 1.6]);
-deleteVehicle GVAR(ActiveGrenadeItemOld);
+deleteVehicle _activeGrenadeItemOld;
 
 // Wait to see if the player has it in hand. If ever it's not in hand, we exit
 // Wait to see if it's not alive. If it's not alive but still in hand, we cancel all the things

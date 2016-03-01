@@ -20,7 +20,7 @@ if (!GVAR(Enabled) || {!GVAR(GrenadeInHand)} || {dialog}) exitWith {};
 params ["", "_amount"];
 
 if (GVAR(CtrlHeld)) then {
-    // If we want to do FUNKY MAGIC
+    // Extended arm dropping
     if (_amount < 0) then {
         TRACE_1("Move Closer",_amount);
         GVAR(TestPercArm) = GVAR(TestPercArm) - 0.1;
@@ -36,26 +36,13 @@ if (GVAR(CtrlHeld)) then {
     };
 } else {
     if (_amount < 0) then {
-        TRACE_1("Cancel Throw",_amount);
-
-        if (GVAR(CookingGrenade)) then {
-            GVAR(DropCookedCounter) = GVAR(DropCookedCounter) + 1;
-
-            if (GVAR(DropCookedCounter) >= 3) then {
-                [ACE_player, "Dropping cooked grenade"] call FUNC(exitThrowMode);
-                GVAR(DropCookedCounter) = 0;
-            };
-        } else {
-            [ACE_player, "Storing grenade without throwing"] call FUNC(exitThrowMode);
+        if (GVAR(ThrowType) == "under") then {
+            GVAR(ThrowType) = "normal";
         };
     } else {
         if (GVAR(ThrowType) == "normal") then {
             GVAR(ThrowType) = "under";
-        } else {
-            if (GVAR(ThrowType) == "under") then {
-                GVAR(ThrowType) = "normal";
-            };
         };
-        TRACE_2("Change Throw Type",_amount,GVAR(ThrowType));
     };
+    TRACE_2("Change Throw Type",_amount,GVAR(ThrowType));
 };
