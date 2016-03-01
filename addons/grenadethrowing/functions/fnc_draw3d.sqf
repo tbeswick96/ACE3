@@ -66,7 +66,7 @@ private _flyDirCos = cos _throwDir;
 private _sPosx = (getPosASLVisual GVAR(ActiveGrenadeItem)) select 0;
 private _sPosy = (getPosASLVisual GVAR(ActiveGrenadeItem)) select 1;
 private _sPosz = (getPosASLVisual GVAR(ActiveGrenadeItem)) select 2;
-private _prevTrajASL = [_sPosx,_sPosy, (getPosASLVisual GVAR(ActiveGrenadeItem)) select 2];
+private _prevTrajASL = [_sPosx,_sPosy, _sPosz];
 
 private _newTrajASL = [];
 private _newTrajATL = [];
@@ -77,7 +77,7 @@ for "_i" from 0.05 to 1.45 step 0.1 do {
     private _dy = _v0z * _i - 4.905 * _i ^ 2;
 
     _newTrajASL = [_sPosx + _flyDirSin * _dx, _sPosy + _flyDirCos * _dx, _sPosz + _dy];
-    _newTrajATL = ASLtoATL _newTrajASL;
+    _newTrajATL = ASLtoAGL _newTrajASL;
     private _cross = 0;
 
     if (_newTrajATL distance (getPosATL player) <= 20) then {

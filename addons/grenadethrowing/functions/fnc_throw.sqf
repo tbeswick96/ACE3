@@ -104,8 +104,7 @@ GVAR(GrenadeInHand) = true;
             _velocity = 3;
         };
 
-        // TODO, make sure these are the right coordinates and don't mess up on buildings etc.
-        // Supposedly these are both AGL commands.
+        // These are both AGL commands
         private _p2 = AGLtoASL (positionCameraToWorld _direction); // TrackIR throwing
         private _p1 = AGLtoASL (GVAR(ActiveGrenadeItem) modelToWorldVisual [0, 0, 0]);
 
@@ -116,7 +115,7 @@ GVAR(GrenadeInHand) = true;
             _newVelocity = [0, 0, 0] vectorAdd _unitV;
         } else {
             // This method would be for things like the Littlebird throw-from-vehicles, where we have a vehicle-based velocity that can't be compensated for by a human
-            _newVelocity = [velocity (vehicle player), _unitV] call BIS_fnc_vectorAdd;
+            _newVelocity = [velocity (vehicle player)] vectorAdd _unitV;
         };
 
         // Should mean that if we die, it just drops

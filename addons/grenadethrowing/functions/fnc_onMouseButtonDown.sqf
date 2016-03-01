@@ -39,8 +39,5 @@ if (_key == 0) exitWith {
 
 if (_key == 2 && {GVAR(GrenadeInHand)} && {!GVAR(CookingGrenade)}) then {
     [GVAR(ActiveGrenadeItem), GVAR(ActiveGrenadeType)] call FUNC(cook);
-    hint "Cooking!";
-    [{
-        hintSilent "";
-    }, [], 2] call EFUNC(common,waitAndExecute);
+    [LSTRING(Cooking)] call EFUNC(common,displayTextStructured);
 };

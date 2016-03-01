@@ -123,10 +123,7 @@ if (GVAR(GrenadeInHand) && {alive player}) then {
     GVAR(CameraOffset) set [1, (GVAR(CameraOffset) select 1) + GVAR(yAdjust) + _yAdjust_Bonus];
     GVAR(CameraOffset) set [2, (GVAR(CameraOffset) select 2) + GVAR(zAdjust)];
 
-    private _posFin = positionCameraToWorld GVAR(CameraOffset);
-    if (!(surfaceIsWater _posFin)) then {
-        _posFin = ATLToASL _posFin;
-    };
+    private _posFin = ASLtoAGL (positionCameraToWorld GVAR(CameraOffset));
 
     // Duplicate code
     private _vup = [0, 1, 1];
@@ -146,15 +143,9 @@ if (GVAR(GrenadeInHand) && {alive player}) then {
 
     if (GVAR(CtrlHeld)) then {
         if (vehicle player == player) then {
-            _posFin = positionCameraToWorld [0, 0, GVAR(TestPercArm)];
-            if (!(surfaceIsWater _posFin)) then {
-                _posFin = ATLToASL _posFin;
-            };
+            _posFin = ASLtoAGL (positionCameraToWorld [0, 0, GVAR(TestPercArm)]);
 
-            private _posView = positionCameraToWorld [0, 0, 0];
-            if (!(surfaceIsWater _posView)) then {
-                _posView = ATLToASL _posView;
-            };
+            private _posView = ASLtoAGL (positionCameraToWorld [0, 0, 0]);
 
             if (lineIntersects [_posView, _posFin]) then {
                 GVAR(TestPercArm) = GVAR(TestPercArm) - 0.10;

@@ -5,10 +5,13 @@
             <English>Grenade Throwing</English>
         </Key>
         <Key ID="STR_ACE_GrenadeThrowing_EnableThrowingSystem_DisplayName">
-            <English>Enable Throwing</English>
+            <English>Enable Advanced Throwing</English>
         </Key>
         <Key ID="STR_ACE_GrenadeThrowing_EnableThrowingSystem_Description">
-            <English>Enables grenade throwing system.</English>
+            <English>Enables advanced grenade throwing system.</English>
+        </Key>
+        <Key ID="STR_ACE_GrenadeThrowing_Cooking">
+            <English>Cooking Grenade</English>
         </Key>
     </Package>
 </Project>
