@@ -1,9 +1,7 @@
 PREP(cook);
 PREP(draw3d);
 PREP(exitThrowMode);
-PREP(getHeadOffset);
 PREP(init);
-PREP(initControls);
 PREP(isFFVAndWeaponUp);
 PREP(onKeyDown);
 PREP(onMouseButtonDown);

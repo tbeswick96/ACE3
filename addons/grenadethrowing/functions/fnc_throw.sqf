@@ -115,7 +115,7 @@ GVAR(GrenadeInHand) = true;
             _newVelocity = [0, 0, 0] vectorAdd _unitV;
         } else {
             // This method would be for things like the Littlebird throw-from-vehicles, where we have a vehicle-based velocity that can't be compensated for by a human
-            _newVelocity = [velocity (vehicle player)] vectorAdd _unitV;
+            _newVelocity = (velocity (vehicle player)) vectorAdd _unitV;
         };
 
         // Should mean that if we die, it just drops

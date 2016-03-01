@@ -15,26 +15,28 @@
  */
 #include "script_component.hpp"
 
-if (dialog) exitWith {};
+if (!GVAR(Enabled) || {!GVAR(GrenadeInHand)} || {dialog}) exitWith {};
 
 params ["", "_amount"];
 
 if (GVAR(CtrlHeld)) then {
     // If we want to do FUNKY MAGIC
-    if (_amount < 0 && {GVAR(GrenadeInHand)}) then {
+    if (_amount < 0) then {
+        TRACE_1("Move Closer",_amount);
         GVAR(TestPercArm) = GVAR(TestPercArm) - 0.1;
         if (GVAR(TestPercArm) < 0.2) then {
             GVAR(TestPercArm) = 0.2
         };
     } else {
+        TRACE_1("Move Further",_amount);
         GVAR(TestPercArm) = GVAR(TestPercArm) + 0.1;
         if (GVAR(TestPercArm) > 1) then {
             GVAR(TestPercArm) = 1
         };
     };
 } else {
-    if (_amount < 0 && {GVAR(GrenadeInHand)}) then {
-        TRACE_1("Cancel Throw",_amount,GVAR(GrenadeInHand));
+    if (_amount < 0) then {
+        TRACE_1("Cancel Throw",_amount);
 
         if (GVAR(CookingGrenade)) then {
             GVAR(DropCookedCounter) = GVAR(DropCookedCounter) + 1;
@@ -46,9 +48,7 @@ if (GVAR(CtrlHeld)) then {
         } else {
             ["Storing grenade without throwing"] call FUNC(exitThrowMode);
         };
-    };
-
-    if (_amount > 0 && {GVAR(GrenadeInHand)}) then {
+    } else {
         if (GVAR(ThrowType) == "normal") then {
             GVAR(ThrowType) = "under";
         } else {
@@ -56,5 +56,6 @@ if (GVAR(CtrlHeld)) then {
                 GVAR(ThrowType) = "normal";
             };
         };
+        TRACE_2("Change Throw Type",_amount,GVAR(ThrowType));
     };
 };

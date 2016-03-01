@@ -57,8 +57,6 @@ if (GVAR(GrenadeInHand) && {alive player}) then {
         GVAR(CurrentThrowSpeed) = 0
     };
 
-    // Suma: "How it works now is the message is always send to the object owner to do the manipulation. If the object is local, there is no message and object is manipulated directly. I cannot see how you would manipulate object created by createVehicleLocal to generate any network traffic."
-
     // These magazine checks are potentially not needed, but maaaaaybe would become relevant in some situations, like someone taking a grenade from your pack if you were holding it.
     if (GVAR(LastGrenadeTypeChecked) == "") then {
         GVAR(ActiveGrenadeType) = _currentGrenade;
@@ -83,7 +81,7 @@ if (GVAR(GrenadeInHand) && {alive player}) then {
         deleteVehicle GVAR(ActiveGrenadeItem);
         GVAR(ActiveGrenadeType) = _currentGrenade;
         if (_currentGrenadeMagazineType in (magazines player)) then {
-            GVAR(ActiveGrenadeItem) = _currentGrenade createVehicleLocal ((vehicle player) modelToWorldVisual [0,.3,1.6]);
+            GVAR(ActiveGrenadeItem) = _currentGrenade createVehicleLocal ((vehicle player) modelToWorldVisual [0, 0.3, 1.6]);
             if (GVAR(ActiveGrenadeType) == "") exitWith {
                 GVAR(CancelThrow) = false;
                 GVAR(GrenadeInHand) = false
@@ -121,7 +119,7 @@ if (GVAR(GrenadeInHand) && {alive player}) then {
 
     GVAR(CameraOffset) = GVAR(CameraOffset) vectorAdd GVAR(Adjust) vectorAdd [_xAdjustBonus, _yAdjustBonus, 0];
 
-    private _posFin = ASLtoAGL (positionCameraToWorld GVAR(CameraOffset));
+    private _posFin = AGLtoASL (positionCameraToWorld GVAR(CameraOffset));
 
     // Duplicate code
     private _vup = [0, 1, 1];
@@ -141,9 +139,9 @@ if (GVAR(GrenadeInHand) && {alive player}) then {
 
     if (GVAR(CtrlHeld)) then {
         if (vehicle player == player) then {
-            _posFin = ASLtoAGL (positionCameraToWorld [0, 0, GVAR(TestPercArm)]);
+            _posFin = AGLtoASL (positionCameraToWorld [0, 0, GVAR(TestPercArm)]);
 
-            private _posView = ASLtoAGL (positionCameraToWorld [0, 0, 0]);
+            private _posView = AGLtoASL (positionCameraToWorld [0, 0, 0]);
 
             if (lineIntersects [_posView, _posFin]) then {
                 GVAR(TestPercArm) = GVAR(TestPercArm) - 0.10;

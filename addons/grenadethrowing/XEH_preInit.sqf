@@ -14,7 +14,7 @@ GVAR(ActiveGrenadeItem) = objNull;
 GVAR(ActiveGrenadeType) = "";
 
 GVAR(CameraOffset) = [0, 0, 0.3];
-GVAR(Adjust) = [-0.05, -0.12, -0.03]
+GVAR(Adjust) = [-0.05, -0.12, -0.03];
 
 GVAR(ThrowType) = "normal";
 GVAR(ThrowStyle_Normal_Direction) = [0, 70, 500];

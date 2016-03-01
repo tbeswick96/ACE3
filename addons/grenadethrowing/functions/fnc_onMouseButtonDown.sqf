@@ -15,9 +15,7 @@
  */
 #include "script_component.hpp"
 
-if (dialog) exitWith {};
-
-if (!GVAR(ToggleThrowMode)) exitWith {};
+if (!GVAR(Enabled) || {!GVAR(ToggleThrowMode)} || {dialog}) exitWith {};
 
 params ["", "_key"];
 

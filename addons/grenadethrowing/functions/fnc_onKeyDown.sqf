@@ -15,9 +15,9 @@
  */
 #include "script_component.hpp"
 
-params ["", "_key", "_shift", "_ctrl", "_alt"];
+if (!GVAR(Enabled) || {call EFUNC(common,isFeatureCameraActive)}) exitWith {false};
 
-if (call EFUNC(common,isFeatureCameraActive)) exitWith {false};
+params ["", "_key", "_shift", "_ctrl", "_alt"];
 
 private _suppress = false;
 
@@ -27,7 +27,7 @@ if (_ctrl) then {
     if (!GVAR(CtrlHeld)) then {
         [{
             GVAR(ThrowType) = "normal";
-            time - GVAR(CtrlLastPressed) > 0.25; // Delay to prevent flickering between both positions
+            time - GVAR(CtrlLastPressed) > 0.7; // Delay to prevent flickering between both positions
         }, {
             GVAR(TestPercArm) = 1;
             GVAR(CtrlHeld) = false
@@ -78,7 +78,7 @@ if ((_key in (actionKeys "CycleThrownItems")) && {!GVAR(ToggleThrowMode)}) then 
         true // Capturing the key to prevent cycling
     };
 
-    if (((currentThrowable player) select 0) == "") exitWith {
+    if ((currentThrowable player) select 0 == "") exitWith {
         ["No grenade actively selected (or available?)"] call FUNC(exitThrowMode);
         GVAR(LastTimeSwitchKeyPressed) = time - 4;
         _suppress = false;

@@ -49,35 +49,17 @@ if (GVAR(ThrowType) == "under") then {
     _velocity = GVAR(ThrowStyle_Under_Velocity);
 };
 
-private _viewStart = AGLToASL (positionCameraToWorld [0,0,0]);
+private _viewStart = AGLToASL (positionCameraToWorld [0, 0, 0]);
 private _viewEnd = AGLToASL (positionCameraToWorld _direction);
 
-private _viewVector = _viewStart vectorFromTo _viewEnd;
-private _viewAngle = asin (_viewVector select 2);
+private _initialVelocity = (vectorNormalized (_viewEnd vectorDiff _viewStart)) vectorMultiply _velocity;
+private _prevTrajASL = getPosASLVisual GVAR(ActiveGrenadeItem);
 
-private _v0x = cos _viewAngle * _velocity;
-private _v0z = sin _viewAngle * _velocity;
-
-private _headOffest = call FUNC(getHeadOffset);
-
-private _throwDir = getDirVisual player + _headOffest;
-private _flyDirSin = sin _throwDir;
-private _flyDirCos = cos _throwDir;
-private _sPosx = (getPosASLVisual GVAR(ActiveGrenadeItem)) select 0;
-private _sPosy = (getPosASLVisual GVAR(ActiveGrenadeItem)) select 1;
-private _sPosz = (getPosASLVisual GVAR(ActiveGrenadeItem)) select 2;
-private _prevTrajASL = [_sPosx,_sPosy, _sPosz];
-
-private _newTrajASL = [];
-private _newTrajATL = [];
-GVAR(PathData) = [];
+private _pathData = [];
 
 for "_i" from 0.05 to 1.45 step 0.1 do {
-    private _dx = _v0x * _i;
-    private _dy = _v0z * _i - 4.905 * _i ^ 2;
-
-    _newTrajASL = [_sPosx + _flyDirSin * _dx, _sPosy + _flyDirCos * _dx, _sPosz + _dy];
-    _newTrajATL = ASLtoAGL _newTrajASL;
+    private _newTrajASL = _prevTrajASL vectorAdd (_initialVelocity vectorMultiply _i) vectorAdd ([0, 0, 0.5 * -9.8] vectorMultiply (_i * _i));
+    private _newTrajATL = ASLtoAGL _newTrajASL;
     private _cross = 0;
 
     if (_newTrajATL distance (getPosATL player) <= 20) then {
@@ -100,7 +82,7 @@ for "_i" from 0.05 to 1.45 step 0.1 do {
             _col set [3, 0.1]
         };
 
-        GVAR(PathData) pushBack [_col, _newTrajATL, _iDim];
+        _pathData pushBack [_col, _newTrajATL, _iDim];
     };
 
     if (_cross > 0) exitWith {};
@@ -108,9 +90,9 @@ for "_i" from 0.05 to 1.45 step 0.1 do {
     _prevTrajASL = _newTrajASL;
 };
 
-reverse GVAR(PathData);
+reverse _pathData;
 // To get the sort order correct from our POV, particularly when using outlined dots
 {
     _x params ["_col", "_newTrajATL", "_iDim"];
     drawIcon3D ["\a3\ui_f\data\gui\cfg\Hints\icon_text\group_1_ca.paa", _col, _newTrajATL, _iDim, _iDim, 0, "", 2];
-} forEach GVAR(PathData);
+} forEach _pathData;

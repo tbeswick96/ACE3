@@ -17,7 +17,9 @@
 
 params ["_enable"];
 
-[_enable] call FUNC(initControls);
+if (isNil QGVAR(KeyDownHandle)) then {
+    GVAR(KeyDownHandle) = (findDisplay 46) displayAddEventHandler ["KeyDown", {_this call FUNC(onKeyDown)}];
+};
 
 if (_enable) then {
     GVAR(Draw3DHandle) = addMissionEventHandler ["Draw3D", {call FUNC(draw3d);}];
