@@ -112,16 +112,14 @@ if (GVAR(GrenadeInHand) && {alive player}) then {
         GVAR(CameraOffset) = [_posRightOffset, 0, 0.3];
     };
 
-    private _xAdjust_Bonus = 0;
-    private _yAdjust_Bonus = 0;
+    private _xAdjustBonus = 0;
+    private _yAdjustBonus = 0;
     if (GVAR(ThrowType) == "under") then {
-        _xAdjust_Bonus = -0.075;
-        _yAdjust_Bonus = 0.1;
+        _xAdjustBonus = -0.075;
+        _yAdjustBonus = 0.1;
     };
 
-    GVAR(CameraOffset) set [0, (GVAR(CameraOffset) select 0) + GVAR(xAdjust) + _xAdjust_Bonus];
-    GVAR(CameraOffset) set [1, (GVAR(CameraOffset) select 1) + GVAR(yAdjust) + _yAdjust_Bonus];
-    GVAR(CameraOffset) set [2, (GVAR(CameraOffset) select 2) + GVAR(zAdjust)];
+    GVAR(CameraOffset) = GVAR(CameraOffset) vectorAdd GVAR(Adjust) vectorAdd [_xAdjustBonus, _yAdjustBonus, 0];
 
     private _posFin = ASLtoAGL (positionCameraToWorld GVAR(CameraOffset));
 
