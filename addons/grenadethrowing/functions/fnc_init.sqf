@@ -16,6 +16,7 @@
 #include "script_component.hpp"
 
 params ["_enable"];
+TRACE_2("Init",_enable,ACE_player);
 
 if (isNil QGVAR(KeyDownHandle)) then {
     GVAR(KeyDownHandle) = (findDisplay 46) displayAddEventHandler ["KeyDown", {_this call FUNC(onKeyDown)}];

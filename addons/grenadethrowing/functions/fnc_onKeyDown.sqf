@@ -39,8 +39,8 @@ if (_ctrl) then {
 #ifdef DEBUG_MODE_FULL
 if (_key in (actionKeys "CycleThrownItems")) then {
     [{
-        private _currentThrowable = (currentThrowable player) select 0;
-        TRACE_1("Select Throwable",_currentThrowable,GVAR(CurrentThrowSpeed));
+        private _currentThrowable = (currentThrowable ACE_player) select 0;
+        TRACE_2("Select Throwable",_currentThrowable,GVAR(CurrentThrowSpeed));
     }, [] , 0.01] call EFUNC(common,waitAndExecute);
 };
 #endif
@@ -59,12 +59,12 @@ if (((_key in (actionKeys "ReloadMagazine")) ||
     (_key in (actionKeys "SwitchSecondary"))) &&
     GVAR(ToggleThrowMode)
 ) exitWith {
-    ["Pressed a key that cycles us out of grenades"] call FUNC(exitThrowMode);
+    [ACE_player, "Pressed a key that cycles us out of grenades"] call FUNC(exitThrowMode);
     false
 };
 
 if (cameraView != "INTERNAL" && {GVAR(GrenadeInHand)}) exitWith {
-    ["Went into sights"] call FUNC(exitThrowMode);
+    [ACE_player, "Went into sights"] call FUNC(exitThrowMode);
     false
 };
 
@@ -73,13 +73,13 @@ if ((_key in (actionKeys "CycleThrownItems")) && {!GVAR(ToggleThrowMode)}) then 
 
     if (GVAR(CookingGrenade)) exitWith {}; // Just don't do anything if we're cooking
 
-    if (!(call FUNC(isFFVAndWeaponUp))) exitWith {
-        ["Not FFV with weapon up"] call FUNC(exitThrowMode);
+    if (!([ACE_player] call FUNC(isFFVAndWeaponUp))) exitWith {
+        [ACE_player, "Not FFV with weapon up"] call FUNC(exitThrowMode);
         true // Capturing the key to prevent cycling
     };
 
-    if ((currentThrowable player) select 0 == "") exitWith {
-        ["No grenade actively selected (or available?)"] call FUNC(exitThrowMode);
+    if ((currentThrowable ACE_player) select 0 == "") exitWith {
+        [ACE_player, "No grenade actively selected (or available?)"] call FUNC(exitThrowMode);
         GVAR(LastTimeSwitchKeyPressed) = time - 4;
         _suppress = false;
         _suppress
@@ -88,7 +88,7 @@ if ((_key in (actionKeys "CycleThrownItems")) && {!GVAR(ToggleThrowMode)}) then 
     if (time < GVAR(LastTimeSwitchKeyPressed) + 0.5) exitWith {true};
 
     if (time - GVAR(LastThrownTime) < GVAR(TimeBetweenThrows)) exitWith {
-        ["Time between throws hasn't happened"] call FUNC(exitThrowMode);
+        [ACE_player, "Time between throws hasn't happened"] call FUNC(exitThrowMode);
         true
     };
 
@@ -97,19 +97,19 @@ if ((_key in (actionKeys "CycleThrownItems")) && {!GVAR(ToggleThrowMode)}) then 
     // Throw mode is on
     if (GVAR(ToggleThrowMode)) then {
         GVAR(ThrowType) = "normal";
-        GVAR(AmmoLastMag) = player ammo (currentWeapon player);
-        player setAmmo [currentWeapon player, 0];
+        GVAR(AmmoLastMag) = ACE_player ammo (currentWeapon ACE_player);
+        ACE_player setAmmo [currentWeapon ACE_player, 0];
         inGameUISetEventHandler ["PrevAction", "true"];
         inGameUISetEventHandler ["NextAction", "true"];
         inGameUISetEventHandler ["Action", "true"];
 
         if (!GVAR(GrenadeInHand)) then {
             GVAR(ThrowGrenade) = false;
-            call FUNC(throw);
+            [ACE_player] call FUNC(throw);
         };
     } else {
-        ["Exit 5"] call FUNC(exitThrowMode);
-        player setAmmo [currentWeapon player, GVAR(AmmoLastMag)];
+        [ACE_player, "Exit 5"] call FUNC(exitThrowMode);
+        ACE_player setAmmo [currentWeapon ACE_player, GVAR(AmmoLastMag)];
     };
 
     GVAR(LastTimeSwitchKeyPressed) = time;

@@ -15,12 +15,12 @@
  */
 #include "script_component.hpp"
 
-params ["_grenadeItem", "_grenadeType"];
+params ["_unit", "_grenadeItem", "_grenadeType"];
 
 GVAR(CookingGrenade) = true;
 
 GVAR(ActiveGrenadeItemOld) = GVAR(ActiveGrenadeItem);
-GVAR(ActiveGrenadeItem) = _grenadeType createVehicle ((vehicle player) modelToWorldVisual [0, 0.3, 1.6]);
+GVAR(ActiveGrenadeItem) = _grenadeType createVehicle ((vehicle _unit) modelToWorldVisual [0, 0.3, 1.6]);
 deleteVehicle GVAR(ActiveGrenadeItemOld);
 
 // Wait to see if the player has it in hand. If ever it's not in hand, we exit
@@ -30,6 +30,6 @@ deleteVehicle GVAR(ActiveGrenadeItemOld);
 }, {
     // The grenade is dead but it's still thought to be in hand
     if (GVAR(GrenadeInHand)) then {
-        ["Grenade was not alive, yet still thought in hand"] call FUNC(exitThrowMode);
+        [_unit, "Grenade was not alive, yet still thought in hand"] call FUNC(exitThrowMode);
     };
 }, []] call EFUNC(common,waitUntilAndExecute);

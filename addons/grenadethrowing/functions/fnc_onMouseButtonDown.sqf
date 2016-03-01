@@ -22,7 +22,7 @@ params ["", "_key"];
 if (_key == 0) exitWith {
     // Drop it, else throw it
     if (GVAR(CtrlHeld) && {!GVAR(CookingGrenade)}) then {
-        [GVAR(ActiveGrenadeItem), GVAR(ActiveGrenadeType)] call FUNC(cook);
+        [ACE_player, GVAR(ActiveGrenadeItem), GVAR(ActiveGrenadeType)] call FUNC(cook);
 
         // Since ctrl is held, it just drops
         if (!GVAR(ThrowGrenade)) then {
@@ -36,6 +36,6 @@ if (_key == 0) exitWith {
 };
 
 if (_key == 2 && {GVAR(GrenadeInHand)} && {!GVAR(CookingGrenade)}) then {
-    [GVAR(ActiveGrenadeItem), GVAR(ActiveGrenadeType)] call FUNC(cook);
+    [ACE_player, GVAR(ActiveGrenadeItem), GVAR(ActiveGrenadeType)] call FUNC(cook);
     [LSTRING(Cooking)] call EFUNC(common,displayTextStructured);
 };

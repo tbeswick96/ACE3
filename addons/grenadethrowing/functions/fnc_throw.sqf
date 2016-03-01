@@ -15,18 +15,20 @@
  */
 #include "script_component.hpp"
 
-private _currentThrowable = currentThrowable player;
+params ["_unit"];
+
+private _currentThrowable = currentThrowable _unit;
 
 // Check to see if we have anything to throw.
 if (count _currentThrowable < 1 || {_currentThrowable select 0 == ""}) exitWith {
-    ["No valid throwables"] call FUNC(exitThrowMode); // If we've exhausted a type of grenade, currentThrowable select 0 will have a blank string
+    [_unit, "No valid throwables"] call FUNC(exitThrowMode); // If we've exhausted a type of grenade, currentThrowable select 0 will have a blank string
 };
 
 // Since we have something to throw, let's create it. By activating GrenadeInHand, the PFH creates a grenade
 private _dropType = getText (configFile >> "CfgMagazines" >> _currentThrowable select 0 >> "ammo");
 
 if (_dropType == "") exitWith {
-    ["No valid throwables (check 2)"] call FUNC(exitThrowMode);
+    [_unit, "No valid throwables (check 2)"] call FUNC(exitThrowMode);
 };
 
 GVAR(ActiveGrenadeType) = _dropType;
@@ -37,14 +39,17 @@ GVAR(GrenadeInHand) = true;
 
 // PFH is maintaining at this point, we're just waiting for a throw, or exit if we die.
 [{
-    GVAR(ThrowGrenade) || !alive player
+    params ["_unit"];
+    GVAR(ThrowGrenade) || !alive _unit
 }, {
-    if (GVAR(CancelThrow) || !alive player || count (currentThrowable player) < 1) exitWith {
-        ["Throw check (cancel? valid? alive? etc), apparently not!"] call FUNC(exitThrowMode);
+    params ["_unit"];
+
+    if (GVAR(CancelThrow) || !alive _unit || count (currentThrowable _unit) < 1) exitWith {
+        [_unit, "Throw check (cancel? valid? alive? etc), apparently not!"] call FUNC(exitThrowMode);
     };
 
     // Make it real at the end.
-    player playAction "ThrowGrenade";
+    _unit playAction "ThrowGrenade";
 
     // If CTRL is held, we don't delay. Otherwise we wait for the playAction to complete, which is roughly 0.3 seconds.
     private _waitTime = 0.3;
@@ -53,30 +58,32 @@ GVAR(GrenadeInHand) = true;
     };
 
     [{
+        params ["_unit"];
+
         // If the grenade's not already cooked, create the "real" one
         if (!GVAR(CookingGrenade)) then {
-            [GVAR(ActiveGrenadeItem), GVAR(ActiveGrenadeType)] call FUNC(cook);
+            [_unit, GVAR(ActiveGrenadeItem), GVAR(ActiveGrenadeType)] call FUNC(cook);
         };
 
         // Handle removing stuff from our inventory, working on BI bugs
         private _typeCount = 0;
-        private _typeGrenCheck = (currentThrowable player) select 0;
+        private _typeGrenCheck = (currentThrowable _unit) select 0;
 
         {
             if (_x == _typeGrenCheck) then {
                 _typeCount = _typeCount + 1;
             };
-        } forEach (magazines player);
+        } forEach (magazines _unit);
 
         // Works around a bug where removing one will make them unselectable
         if (_typeCount > 1) then {
             TRACE_1("Removing Throwable (2)",_typeGrenCheck);
-            player removeMagazine _typeGrenCheck;
-            player removeMagazine _typeGrenCheck;
-            player addMagazine _typeGrenCheck;
+            _unit removeMagazine _typeGrenCheck;
+            _unit removeMagazine _typeGrenCheck;
+            _unit addMagazine _typeGrenCheck;
         } else {
             TRACE_1("Removing Throwable (1)",_typeGrenCheck);
-            player removeMagazine _typeGrenCheck;
+            _unit removeMagazine _typeGrenCheck;
         };
 
         // Stuff we need to know
@@ -92,7 +99,6 @@ GVAR(GrenadeInHand) = true;
 
         // Calculate the throw vector
         private _newVelocity = [0, 0, 0];
-
         private _posFin = AGLToASL (positionCameraToWorld GVAR(CameraOffset)); // TrackIR throwing
 
         if (!GVAR(CtrlHeld)) then {
@@ -110,16 +116,16 @@ GVAR(GrenadeInHand) = true;
 
         private _unitV = (vectorNormalized (_p1 vectorFromTo _p2)) vectorMultiply _velocity;
 
-        if (vehicle player == player) then {
+        if (vehicle _unit == _unit) then {
             // This method assumes the ability for a human to instinctively provide upper-body throw stabilization to prevent a grenade from being too influenced by how they're moving
             _newVelocity = [0, 0, 0] vectorAdd _unitV;
         } else {
             // This method would be for things like the Littlebird throw-from-vehicles, where we have a vehicle-based velocity that can't be compensated for by a human
-            _newVelocity = (velocity (vehicle player)) vectorAdd _unitV;
+            _newVelocity = (velocity (vehicle _unit)) vectorAdd _unitV;
         };
 
         // Should mean that if we die, it just drops
-        if (alive player) then {
+        if (alive _unit) then {
             private _startTime = time;
             private _timeOut = 1;
 
@@ -127,11 +133,11 @@ GVAR(GrenadeInHand) = true;
                 params ["_startTime", "_timeOut"];
                 !isNull GVAR(ActiveGrenadeItem) || time > _startTime + _timeOut
             }, {
-                if (isNull GVAR(ActiveGrenadeItem)) exitWith {
-                    ["Grenade was still null when trying to throw :( (removed a grenade in the process)"] call FUNC(exitThrowMode);
-                };
+                params ["", "", "_unit", "_vup", "_newVelocity"];
 
-                params ["", "", "_vup", "_newVelocity"];
+                if (isNull GVAR(ActiveGrenadeItem)) exitWith {
+                    [_unit, "Grenade was still null when trying to throw :( (removed a grenade in the process)"] call FUNC(exitThrowMode);
+                };
 
                 GVAR(ActiveGrenadeItem) setVectorUp _vup; // This was null at start sometimes
 
@@ -140,7 +146,7 @@ GVAR(GrenadeInHand) = true;
                 GVAR(ActiveGrenadeItem) setPosASL _grenadeThrowStartPos;
                 GVAR(ActiveGrenadeItem) setVelocity _newVelocity;
 
-                // Attempted failsafe for the drop-grenade issue.
+                // Attempted failsafe for the drop-grenade issue
                 [{
                     params ["_grenadeThrowStartPos", "_newVelocity"];
 
@@ -155,11 +161,11 @@ GVAR(GrenadeInHand) = true;
                 }, [_grenadeThrowStartPos, _newVelocity], 0.02] call EFUNC(common,waitAndExecute);
 
                 GVAR(LastThrownTime) = time;
-            }, [_startTime, _timeOut, _vup, _newVelocity]] call EFUNC(common,waitUntilAndExecute);
+            }, [_startTime, _timeOut, _unit, _vup, _newVelocity]] call EFUNC(common,waitUntilAndExecute);
 
         };
 
-        ["Completed a throw fully"] call FUNC(exitThrowMode);
-    }, [], _waitTime] call EFUNC(common,waitAndExecute);
+        [_unit, "Completed a throw fully"] call FUNC(exitThrowMode);
+    }, [_unit], _waitTime] call EFUNC(common,waitAndExecute);
 
-}, []] call EFUNC(common,waitUntilAndExecute);
+}, [_unit]] call EFUNC(common,waitUntilAndExecute);

@@ -37,7 +37,6 @@ hintSilent format ["
 ];
 #endif
 
-
 if (!GVAR(GrenadeInHand)) exitWith {};
 if (isNil QGVAR(ActiveGrenadeItem)) exitWith {};
 
@@ -62,7 +61,7 @@ for "_i" from 0.05 to 1.45 step 0.1 do {
     private _newTrajATL = ASLtoAGL _newTrajASL;
     private _cross = 0;
 
-    if (_newTrajATL distance (getPosATL player) <= 20) then {
+    if (_newTrajATL distance (getPosATL ACE_player) <= 20) then {
         if (_newTrajATL select 2 <= 0) then {
             _cross = 1
         } else {
@@ -71,14 +70,14 @@ for "_i" from 0.05 to 1.45 step 0.1 do {
             };
         };
 
-        private _iDim = linearConversion [20, 0, _newTrajATL distance (getPosATL player), 0.3, 2.5, true];
-        private _alpha = linearConversion [20, 0, _newTrajATL distance (getPosATL player), 0.05, 0.7, true];
-        private _movePerc = linearConversion [3, 0, vectorMagnitude (velocity player), 0, 1, true];
+        private _iDim = linearConversion [20, 0, _newTrajATL distance (getPosATL ACE_player), 0.3, 2.5, true];
+        private _alpha = linearConversion [20, 0, _newTrajATL distance (getPosATL ACE_player), 0.05, 0.7, true];
+        private _movePerc = linearConversion [3, 0, vectorMagnitude (velocity ACE_player), 0, 1, true];
         _alpha = _alpha * _movePerc;
 
         private _col = [ [1, 1, 1, _alpha], [0, 1, 0, _alpha], [1, 0, 0, _alpha] ] select _cross;
 
-        if (_cross != 2 && lineIntersects [eyePos player, _newTrajASL]) then {
+        if (_cross != 2 && lineIntersects [eyePos ACE_player, _newTrajASL]) then {
             _col set [3, 0.1]
         };
 

@@ -17,7 +17,8 @@
 
 if (GVAR(ExitInProgress)) exitWith {}; // Already doing an exit
 
-TRACE_1("Exit Throw Mode",_this select 0);
+params ["_unit", "_reason"];
+TRACE_1("Exit Throw Mode",_reason);
 
 if (!(simulationEnabled GVAR(ActiveGrenadeItem))) then {
     deleteVehicle GVAR(ActiveGrenadeItem);
@@ -30,7 +31,7 @@ GVAR(ToggleThrowMode) = false;
 GVAR(ThrowGrenade) = true; // To clear up the waiting script
 GVAR(GrenadeInHand) = false;
 
-player setAmmo [currentWeapon player, GVAR(AmmoLastMag)];
+_unit setAmmo [currentWeapon _unit, GVAR(AmmoLastMag)];
 
 [{
     if (dialog) exitWith {}; // Prevent running if we went into a dialog

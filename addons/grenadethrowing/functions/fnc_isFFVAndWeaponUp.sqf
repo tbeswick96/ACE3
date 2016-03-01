@@ -15,13 +15,15 @@
  */
 #include "script_component.hpp"
 
+params ["_unit"];
+
+if (vehicle _unit == _unit) exitWith {true};
+
 private _return = false;
+private _assignedRole = assignedVehicleRole _unit;
 
-if (vehicle player == player) exitWith {true};
-
-private _assignedRole = assignedVehicleRole player;
 if ((_assignedRole select 0 == "cargo") && {count _assignedRole > 1}) then {
-    _return = [true, false] select (weaponLowered player); // I think we're FFV!
+    _return = [true, false] select (weaponLowered _unit); // I think we're FFV!
 };
 
 _return

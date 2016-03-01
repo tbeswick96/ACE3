@@ -42,11 +42,11 @@ if (GVAR(CtrlHeld)) then {
             GVAR(DropCookedCounter) = GVAR(DropCookedCounter) + 1;
 
             if (GVAR(DropCookedCounter) >= 3) then {
-                ["Dropping cooked grenade"] call FUNC(exitThrowMode);
+                [ACE_player, "Dropping cooked grenade"] call FUNC(exitThrowMode);
                 GVAR(DropCookedCounter) = 0;
             };
         } else {
-            ["Storing grenade without throwing"] call FUNC(exitThrowMode);
+            [ACE_player, "Storing grenade without throwing"] call FUNC(exitThrowMode);
         };
     } else {
         if (GVAR(ThrowType) == "normal") then {

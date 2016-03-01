@@ -19,32 +19,33 @@ if (!GVAR(Enable)) exitWith {
     [_this select 1] call CBA_fnc_removePerFrameHandler;
 };
 
+private _unit = ACE_player;
+
 if (dialog) exitWith {
     if (GVAR(GrenadeInHand)) then {
-        ["In dialog"] call FUNC(exitThrowMode);
+        [_unit, "In dialog"] call FUNC(exitThrowMode);
     };
 };
 
-
-if (GVAR(GrenadeInHand) && {alive player}) then {
+if (GVAR(GrenadeInHand) && {alive _unit}) then {
     private _exit = false;
 
-    if (!(call FUNC(isFFVAndWeaponUp))) exitWith {
-        ["In FFV and put weapon down"] call FUNC(exitThrowMode);
+    if (!([_unit] call FUNC(isFFVAndWeaponUp))) exitWith {
+        [_unit, "In FFV and put weapon down"] call FUNC(exitThrowMode);
     };
 
-    private _currentThrowable = currentThrowable player;
+    private _currentThrowable = currentThrowable _unit;
 
     // These handle if we run out of grenades entirely (such as from dropping a backpack or other gear that was holding our grenades, while one is out)
     if (count _currentThrowable < 1) exitWith {
-        ["No valid throwables"] call FUNC(exitThrowMode);
+        [_unit, "No valid throwables"] call FUNC(exitThrowMode);
     };
     if (_currentThrowable select 0 == "") exitWith {
-        ["No valid throwables (check 2)"] call FUNC(exitThrowMode);
+        [_unit, "No valid throwables (check 2)"] call FUNC(exitThrowMode);
     };
 
     if (cameraView != "INTERNAL") exitWith {
-        ["Went into sighted mode"] call FUNC(exitThrowMode);
+        [_unit, "Went into sighted mode"] call FUNC(exitThrowMode);
     };
 
     //@todo: Check to see if we have a grenade like that in our inventory still
@@ -61,8 +62,8 @@ if (GVAR(GrenadeInHand) && {alive player}) then {
     if (GVAR(LastGrenadeTypeChecked) == "") then {
         GVAR(ActiveGrenadeType) = _currentGrenade;
 
-        if (_currentGrenadeMagazineType in (magazines player)) then {
-            GVAR(ActiveGrenadeItem) = _currentGrenade createVehicleLocal ((vehicle player) modelToWorldVisual [0,.3,1.6]);
+        if (_currentGrenadeMagazineType in (magazines _unit)) then {
+            GVAR(ActiveGrenadeItem) = _currentGrenade createVehicleLocal ((vehicle _unit) modelToWorldVisual [0, 0.3, 1.6]);
             if (GVAR(ActiveGrenadeType) == "") exitWith {
                 GVAR(CancelThrow) = false;
                 GVAR(GrenadeInHand) = false;
@@ -74,14 +75,14 @@ if (GVAR(GrenadeInHand) && {alive player}) then {
     };
 
     if (_exit) exitWith {
-        ["Trying to create a grenade we do not have in inventory (1)"] call FUNC(exitThrowMode);
+        [_unit, "Trying to create a grenade we do not have in inventory (1)"] call FUNC(exitThrowMode);
     };
 
     if (GVAR(LastGrenadeTypeChecked) != _currentGrenade) then {
         deleteVehicle GVAR(ActiveGrenadeItem);
         GVAR(ActiveGrenadeType) = _currentGrenade;
-        if (_currentGrenadeMagazineType in (magazines player)) then {
-            GVAR(ActiveGrenadeItem) = _currentGrenade createVehicleLocal ((vehicle player) modelToWorldVisual [0, 0.3, 1.6]);
+        if (_currentGrenadeMagazineType in (magazines _unit)) then {
+            GVAR(ActiveGrenadeItem) = _currentGrenade createVehicleLocal ((vehicle _unit) modelToWorldVisual [0, 0.3, 1.6]);
             if (GVAR(ActiveGrenadeType) == "") exitWith {
                 GVAR(CancelThrow) = false;
                 GVAR(GrenadeInHand) = false
@@ -94,7 +95,7 @@ if (GVAR(GrenadeInHand) && {alive player}) then {
     };
 
     if (_exit) exitWith {
-        ["Trying to create a grenade we do not have in inventory (2)"] call FUNC(exitThrowMode);
+        [_unit, "Trying to create a grenade we do not have in inventory (2)"] call FUNC(exitThrowMode);
     };
 
     GVAR(CameraOffset) = [0, 0, 0.3];
@@ -128,9 +129,9 @@ if (GVAR(GrenadeInHand) && {alive player}) then {
     };
 
     GVAR(ActiveGrenadeItem) setVectorUp _vup;
-    GVAR(ActiveGrenadeItem) setVectorDir (vectorDirVisual player);
+    GVAR(ActiveGrenadeItem) setVectorDir (vectorDirVisual _unit);
 
-    GVAR(ActiveGrenadeItem) setDir ((getDir player) + 90);
+    GVAR(ActiveGrenadeItem) setDir ((getDir _unit) + 90);
     [GVAR(ActiveGrenadeItem), -30, 0] call BIS_fnc_setPitchBank;
 
     if (GVAR(ThrowType) == "under") then {
@@ -138,7 +139,7 @@ if (GVAR(GrenadeInHand) && {alive player}) then {
     };
 
     if (GVAR(CtrlHeld)) then {
-        if (vehicle player == player) then {
+        if (vehicle _unit == _unit) then {
             _posFin = AGLtoASL (positionCameraToWorld [0, 0, GVAR(TestPercArm)]);
 
             private _posView = AGLtoASL (positionCameraToWorld [0, 0, 0]);
@@ -153,10 +154,10 @@ if (GVAR(GrenadeInHand) && {alive player}) then {
             GVAR(ActiveGrenadeItem) setPosASL _posFin;
         };
     } else {
-        if (vehicle player == player) then {
+        if (vehicle _unit == _unit) then {
             GVAR(ActiveGrenadeItem) setPosASL _posFin;
         } else {
-            private _vectorDiff = (velocity (vehicle player)) vectorMultiply (time - GVAR(LastTickTime));
+            private _vectorDiff = (velocity (vehicle _unit)) vectorMultiply (time - GVAR(LastTickTime));
             GVAR(ActiveGrenadeItem) setPosASL (_posFin vectorAdd _vectorDiff);
         };
     };
