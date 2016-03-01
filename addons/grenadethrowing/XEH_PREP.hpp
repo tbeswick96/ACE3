@@ -1,10 +1,11 @@
+PREP(canPrepareGrenade);
 PREP(cook);
 PREP(draw3d);
 PREP(exitThrowMode);
 PREP(init);
-PREP(isFFVAndWeaponUp);
 PREP(onKeyDown);
 PREP(onMouseButtonDown);
 PREP(onMouseScroll);
 PREP(pfh);
+PREP(prepareGrenade);
 PREP(throw);

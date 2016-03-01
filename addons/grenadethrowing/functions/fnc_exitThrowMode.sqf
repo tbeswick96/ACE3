@@ -3,13 +3,14 @@
  * Exits throw mode.
  *
  * Arguments:
- * None
+ * 0: Unit <OBJECT>
+ * 1: Reason <STRING>
  *
  * Return Value:
  * None
  *
  * Example:
- * [] call ace_grenadethrowing_fnc_exitThrowMode
+ * [unit, "reason"] call ace_grenadethrowing_fnc_exitThrowMode
  *
  * Public: No
  */

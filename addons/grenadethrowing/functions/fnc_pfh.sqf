@@ -30,8 +30,8 @@ if (dialog) exitWith {
 if (GVAR(GrenadeInHand) && {alive _unit}) then {
     private _exit = false;
 
-    if (!([_unit] call FUNC(isFFVAndWeaponUp))) exitWith {
-        [_unit, "In FFV and put weapon down"] call FUNC(exitThrowMode);
+    if (!([_unit] call FUNC(canPrepareGrenade))) exitWith {
+        [_unit, "Cannot interact or use weapon"] call FUNC(exitThrowMode);
     };
 
     private _currentThrowable = currentThrowable _unit;

@@ -13,5 +13,8 @@
         <Key ID="STR_ACE_GrenadeThrowing_Cooking">
             <English>Cooking Grenade</English>
         </Key>
+        <Key ID="STR_ACE_GrenadeThrowing_PrepareGrenade">
+            <English>Prepare Grenade</English>
+        </Key>
     </Package>
 </Project>

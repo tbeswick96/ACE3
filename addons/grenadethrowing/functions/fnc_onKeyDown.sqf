@@ -19,8 +19,7 @@ if (!GVAR(Enabled) || {call EFUNC(common,isFeatureCameraActive)}) exitWith {fals
 
 params ["", "_key", "_shift", "_ctrl", "_alt"];
 
-private _suppress = false;
-
+// Extend arm drop mode
 if (_ctrl) then {
     GVAR(CtrlLastPressed) = time;
 
@@ -35,15 +34,6 @@ if (_ctrl) then {
     };
     GVAR(CtrlHeld) = true;
 };
-
-#ifdef DEBUG_MODE_FULL
-if (_key in (actionKeys "CycleThrownItems")) then {
-    [{
-        private _currentThrowable = (currentThrowable ACE_player) select 0;
-        TRACE_2("Select Throwable",_currentThrowable,GVAR(CurrentThrowSpeed));
-    }, [] , 0.01] call EFUNC(common,waitAndExecute);
-};
-#endif
 
 // Reasons for why we'd exit. Probably can find a better way to do this, but this isn't bad.
 if (((_key in (actionKeys "ReloadMagazine")) ||
@@ -68,52 +58,4 @@ if (cameraView != "INTERNAL" && {GVAR(GrenadeInHand)}) exitWith {
     false
 };
 
-if ((_key in (actionKeys "CycleThrownItems")) && {!GVAR(ToggleThrowMode)}) then {
-    _suppress = true;
-
-    if (GVAR(CookingGrenade)) exitWith {}; // Just don't do anything if we're cooking
-
-    if (!([ACE_player] call FUNC(isFFVAndWeaponUp))) exitWith {
-        [ACE_player, "Not FFV with weapon up"] call FUNC(exitThrowMode);
-        true // Capturing the key to prevent cycling
-    };
-
-    if ((currentThrowable ACE_player) select 0 == "") exitWith {
-        [ACE_player, "No grenade actively selected (or available?)"] call FUNC(exitThrowMode);
-        GVAR(LastTimeSwitchKeyPressed) = time - 4;
-        _suppress = false;
-        _suppress
-    };
-
-    if (time < GVAR(LastTimeSwitchKeyPressed) + 0.5) exitWith {true};
-
-    if (time - GVAR(LastThrownTime) < GVAR(TimeBetweenThrows)) exitWith {
-        [ACE_player, "Time between throws hasn't happened"] call FUNC(exitThrowMode);
-        true
-    };
-
-    GVAR(ToggleThrowMode) = !GVAR(ToggleThrowMode);
-
-    // Throw mode is on
-    if (GVAR(ToggleThrowMode)) then {
-        GVAR(ThrowType) = "normal";
-        GVAR(AmmoLastMag) = ACE_player ammo (currentWeapon ACE_player);
-        ACE_player setAmmo [currentWeapon ACE_player, 0];
-        inGameUISetEventHandler ["PrevAction", "true"];
-        inGameUISetEventHandler ["NextAction", "true"];
-        inGameUISetEventHandler ["Action", "true"];
-
-        if (!GVAR(GrenadeInHand)) then {
-            GVAR(ThrowGrenade) = false;
-            [ACE_player] call FUNC(throw);
-        };
-    } else {
-        [ACE_player, "Exit 5"] call FUNC(exitThrowMode);
-        ACE_player setAmmo [currentWeapon ACE_player, GVAR(AmmoLastMag)];
-    };
-
-    GVAR(LastTimeSwitchKeyPressed) = time;
-    _suppress
-};
-
-_suppress
+false
