@@ -25,17 +25,6 @@ params ["", "_key", "_shift", "_ctrl", "_alt"];
 
 // Extend arm drop mode (only on foot)
 if (vehicle ACE_player == ACE_player && {_ctrl}) then {
-    GVAR(CtrlLastPressed) = time;
-
-    if (!GVAR(CtrlHeld)) then {
-        [{
-            GVAR(ThrowType) = "normal";
-            time - GVAR(CtrlLastPressed) > 0.7; // Delay to prevent flickering between both positions
-        }, {
-            GVAR(TestPercArm) = 1;
-            GVAR(CtrlHeld) = false
-        }, []] call EFUNC(common,waitUntilAndExecute)
-    };
     GVAR(CtrlHeld) = true;
 };
 

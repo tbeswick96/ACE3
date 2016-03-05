@@ -4,6 +4,7 @@ PREP(cook);
 PREP(draw3d);
 PREP(exitThrowMode);
 PREP(onKeyDown);
+PREP(onKeyUp);
 PREP(onMouseButtonDown);
 PREP(onMouseScroll);
 PREP(pfh);

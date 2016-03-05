@@ -22,14 +22,3 @@ GVAR(CookingGrenade) = true;
 private _activeGrenadeItemOld = GVAR(ActiveGrenadeItem);
 GVAR(ActiveGrenadeItem) = _grenadeType createVehicle (position _activeGrenadeItemOld);
 deleteVehicle _activeGrenadeItemOld;
-
-// Wait to see if the player has it in hand. If ever it's not in hand, we exit
-// Wait to see if it's not alive. If it's not alive but still in hand, we cancel all the things
-[{
-    !GVAR(GrenadeInHand) || !alive GVAR(ActiveGrenadeItem)
-}, {
-    // The grenade is dead but it's still thought to be in hand
-    if (GVAR(GrenadeInHand)) then {
-        [_unit, "Grenade was not alive, yet still thought in hand"] call FUNC(exitThrowMode);
-    };
-}, []] call EFUNC(common,waitUntilAndExecute);

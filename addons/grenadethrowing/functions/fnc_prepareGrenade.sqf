@@ -47,6 +47,7 @@ if (GVAR(GrenadeInHand)) then {
         // Since we have something to throw, let's create it. By activating GrenadeInHand, the PFH creates a grenade
         GVAR(ActiveGrenadeType) = _dropType;
         GVAR(CookingGrenade) = false; // Can't be cooking, just pulled it.
+        GVAR(CtrlHeld) = false;
         GVAR(LastGrenadeTypeChecked) = "";
         GVAR(GrenadeInHand) = true;
 
