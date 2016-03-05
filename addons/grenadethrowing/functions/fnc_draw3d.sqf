@@ -15,25 +15,6 @@
  */
 #include "script_component.hpp"
 
-#ifdef DEBUG_MODE_FULL
-hintSilent format ["
-    Cancel: %1\n
-    ToggleThrow: %2\n
-    Throw: %3\n
-    InHand: %4\n
-    Cook: %5\n
-    actGren: %6
-    ",
-    GVAR(CancelThrow),
-    GVAR(ToggleThrowMode),
-    GVAR(ThrowGrenade),
-    GVAR(GrenadeInHand),
-    GVAR(CookingGrenade),
-    GVAR(ActiveGrenadeItem)
-];
-#endif
-
-if (!GVAR(GrenadeInHand)) exitWith {};
 if (isNil QGVAR(ActiveGrenadeItem)) exitWith {};
 
 private _direction = GVAR(ThrowStyle_Normal_Direction);

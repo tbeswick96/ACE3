@@ -3,19 +3,23 @@
  * Key down event.
  *
  * Arguments:
- * None
+ * 0: Control <CONTROL>
+ * 1: Key <NUMBER>
+ * 2: Shift <BOOL>
+ * 3: Ctrl <BOOL>
+ * 4: Alt <BOOL>
  *
  * Return Value:
- * Suppress Key <BOOL>
+ * None
  *
  * Example:
- * [] call ace_grenadethrowing_fnc_onKeyDown
+ * [control, 5, false, true, false] call ace_grenadethrowing_fnc_onKeyDown
  *
  * Public: No
  */
 #include "script_component.hpp"
 
-if (!GVAR(Enabled) || {call EFUNC(common,isFeatureCameraActive)}) exitWith {false};
+if (!GVAR(GrenadeInHand) || {call EFUNC(common,isFeatureCameraActive)}) exitWith {false};
 
 params ["", "_key", "_shift", "_ctrl", "_alt"];
 
