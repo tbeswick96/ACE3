@@ -59,7 +59,7 @@ if (GVAR(GrenadeInHand)) then {
 
         _unit setVariable [QGVAR(ThrowAction), [
             _unit, "DefaultAction",
-            {GVAR(GrenadeInHand)},
+            {[_this select 0] call FUNC(canThrow)},
             {[_this select 0] call FUNC(confirmThrow)}
         ] call EFUNC(common,addActionEventHandler)];
 

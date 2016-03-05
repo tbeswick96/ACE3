@@ -17,6 +17,13 @@
 
 if (isNil QGVAR(ActiveGrenadeItem)) exitWith {};
 
+// Disable drawing when intersecting with the vehicle, it looks ugly
+if (!([ACE_player] call FUNC(canThrow))) exitWith {
+    // Add some better notification here
+    hint "can't throw from here";
+};
+hint "";
+
 private _direction = GVAR(ThrowStyle_Normal_Direction);
 private _velocity = GVAR(CurrentThrowSpeed);
 

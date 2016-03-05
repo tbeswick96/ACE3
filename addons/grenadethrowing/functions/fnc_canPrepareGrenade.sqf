@@ -19,5 +19,8 @@ if (!GVAR(Enabled) || {call EFUNC(common,isFeatureCameraActive)}) exitWith {fals
 
 params ["_unit"];
 
-[_unit, objNull, ["isNotInside", "isNotSitting", "isNotOnLadder"]] call EFUNC(common,canInteractWith) &&
-{[_unit] call CBA_fnc_canUseWeapon}
+private _vehicle = vehicle _unit;
+// "DefaultAction" doesn't fire when this is true, driver _vehicle returns true on foot
+if (_vehicle != _unit && {driver _vehicle == _unit}) exitWith {false};
+
+[_unit, objNull, ["isNotInside", "isNotSitting", "isNotOnLadder"]] call EFUNC(common,canInteractWith)

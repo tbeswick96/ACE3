@@ -46,43 +46,54 @@ private _currentGrenade = getText (configFile >> "CfgMagazines" >> _currentThrow
 private _currentGrenadeMagazineType = _currentThrowable select 0;
 GVAR(CurrentThrowSpeed) = getNumber (configFile >> "CfgMagazines" >> _currentThrowable select 0 >> "initSpeed");
 
-// These magazine checks are potentially not needed, but maaaaaybe would become relevant in some situations, like someone taking a grenade from your pack if you were holding it.
-if (GVAR(LastGrenadeTypeChecked) == "") then {
-    GVAR(ActiveGrenadeType) = _currentGrenade;
+if ([_unit] call FUNC(canThrow)) then {
+    // These magazine checks are potentially not needed, but maaaaaybe would become relevant in some situations, like someone taking a grenade from your pack if you were holding it.
+    if (GVAR(LastGrenadeTypeChecked) == "") then {
+        GVAR(ActiveGrenadeType) = _currentGrenade;
 
-    if (_currentGrenadeMagazineType in (magazines _unit)) then {
-        GVAR(ActiveGrenadeItem) = _currentGrenade createVehicleLocal ((vehicle _unit) modelToWorldVisual [0, 0.3, 1.6]);
-        if (GVAR(ActiveGrenadeType) == "") exitWith {
-            GVAR(GrenadeInHand) = false;
+        if (_currentGrenadeMagazineType in (magazines _unit)) then {
+            GVAR(ActiveGrenadeItem) = _currentGrenade createVehicleLocal ((vehicle _unit) modelToWorldVisual [0, 0.3, 1.6]);
+            if (GVAR(ActiveGrenadeType) == "") exitWith {
+                GVAR(GrenadeInHand) = false;
+            };
+            GVAR(ActiveGrenadeItem) enableSimulation false;
+        } else {
+            _exit = true;
         };
-        GVAR(ActiveGrenadeItem) enableSimulation false;
-    } else {
-        _exit = true;
     };
-};
 
-if (_exit) exitWith {
-    [_unit, "Trying to create a grenade we do not have in inventory (1)"] call FUNC(exitThrowMode);
-};
+    if (_exit) exitWith {
+        [_unit, "Trying to create a grenade we do not have in inventory (1)"] call FUNC(exitThrowMode);
+    };
 
-if (GVAR(LastGrenadeTypeChecked) != _currentGrenade) then {
-    deleteVehicle GVAR(ActiveGrenadeItem);
-    GVAR(ActiveGrenadeType) = _currentGrenade;
-    if (_currentGrenadeMagazineType in (magazines _unit)) then {
-        GVAR(ActiveGrenadeItem) = _currentGrenade createVehicleLocal ((vehicle _unit) modelToWorldVisual [0, 0.3, 1.6]);
-        if (GVAR(ActiveGrenadeType) == "") exitWith {
-            GVAR(GrenadeInHand) = false;
+    if (GVAR(LastGrenadeTypeChecked) != _currentGrenade) then {
+        deleteVehicle GVAR(ActiveGrenadeItem);
+        GVAR(ActiveGrenadeType) = _currentGrenade;
+        if (_currentGrenadeMagazineType in (magazines _unit)) then {
+            GVAR(ActiveGrenadeItem) = _currentGrenade createVehicleLocal ((vehicle _unit) modelToWorldVisual [0, 0.3, 1.6]);
+            if (GVAR(ActiveGrenadeType) == "") exitWith {
+                GVAR(GrenadeInHand) = false;
+            };
+            GVAR(CurrentThrowSpeed) = getNumber (configFile >> "CfgMagazines" >> _currentThrowable select 0 >> "initSpeed");
+            GVAR(ActiveGrenadeItem) enableSimulation false;
+        } else {
+            _exit = true
         };
-        GVAR(CurrentThrowSpeed) = getNumber (configFile >> "CfgMagazines" >> _currentThrowable select 0 >> "initSpeed");
-        GVAR(ActiveGrenadeItem) enableSimulation false;
-    } else {
-        _exit = true
     };
+
+    if (_exit) exitWith {
+        [_unit, "Trying to create a grenade we do not have in inventory (2)"] call FUNC(exitThrowMode);
+    };
+} else {
+    if (!isNull GVAR(ActiveGrenadeItem)) then {
+        //GVAR(GrenadeInHand) = false;
+        GVAR(LastGrenadeTypeChecked) = "";
+        deleteVehicle GVAR(ActiveGrenadeItem);
+    };
+    _exit = true;
 };
 
-if (_exit) exitWith {
-    [_unit, "Trying to create a grenade we do not have in inventory (2)"] call FUNC(exitThrowMode);
-};
+if (_exit) exitWith {};
 
 
 private _leanCoef = (_unit selectionPosition "head") select 0;
