@@ -61,8 +61,10 @@ if (GVAR(GrenadeInHand)) then {
             {GVAR(GrenadeInHand)},
             {[_this select 0] call FUNC(confirmThrow)}
         ] call EFUNC(common,addActionEventHandler)];
-    };
 
+        GVAR(Draw3DHandle) = addMissionEventHandler ["Draw3D", {call FUNC(draw3d);}];
+        [FUNC(pfh), 0, [_unit]] call CBA_fnc_addPerFrameHandler; // Removal inside PFH
+    };
 };
 
 true

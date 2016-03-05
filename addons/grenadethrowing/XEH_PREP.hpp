@@ -3,7 +3,6 @@ PREP(confirmThrow);
 PREP(cook);
 PREP(draw3d);
 PREP(exitThrowMode);
-PREP(init);
 PREP(onKeyDown);
 PREP(onMouseButtonDown);
 PREP(onMouseScroll);

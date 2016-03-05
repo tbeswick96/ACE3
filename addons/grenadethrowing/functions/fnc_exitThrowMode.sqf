@@ -16,7 +16,7 @@
  */
 #include "script_component.hpp"
 
-//if (GVAR(ExitInProgress)) exitWith {}; // Already doing an exit
+if (!GVAR(GrenadeInHand)) exitWith {};
 
 params ["_unit", "_reason"];
 TRACE_1("Exit Throw Mode",_reason);
@@ -36,3 +36,7 @@ inGameUISetEventHandler ["PrevAction", "false"];
 inGameUISetEventHandler ["NextAction", "false"];
 inGameUISetEventHandler ["Action", "false"];
 [_unit, "DefaultAction", _unit getVariable [QGVAR(ThrowAction), -1]] call EFUNC(common,removeActionEventHandler);
+
+// Remove Draw3D (PFH is self-removed)
+removeMissionEventHandler ["Draw3D", GVAR(Draw3DHandle)];
+GVAR(Draw3DHandle) = nil;
