@@ -84,18 +84,14 @@ if (_exit) exitWith {
     [_unit, "Trying to create a grenade we do not have in inventory (2)"] call FUNC(exitThrowMode);
 };
 
-GVAR(CameraOffset) = [0, 0, 0.3];
-private _posLeftOffset = 0;
-private _posRightOffset = 0;
 
-if (inputAction "leanLeft" > 0.1) then {
-    _posLeftOffset = linearConversion [0, 1, inputAction "leanLeft", 0, 0.25, true];
-    GVAR(CameraOffset) = [-_posLeftOffset, 0, 0.3];
+private _leanCoef = (_unit selectionPosition "head") select 0;
+_leanCoef = _leanCoef - 0.15; // Counter the base offset
+if (abs _leanCoef < 0.1) then {
+    _leanCoef = 0;
 };
-if (inputAction "leanRight" > 0.1) then {
-    _posRightOffset = linearConversion [0, 1, inputAction "leanRight", 0, 0.25, true];
-    GVAR(CameraOffset) = [_posRightOffset, 0, 0.3];
-};
+
+GVAR(CameraOffset) = [_leanCoef, 0, 0.3];
 
 private _xAdjustBonus = 0;
 private _yAdjustBonus = 0;
@@ -105,8 +101,7 @@ if (GVAR(ThrowType) == "under") then {
 };
 
 GVAR(CameraOffset) = GVAR(CameraOffset) vectorAdd GVAR(Adjust) vectorAdd [_xAdjustBonus, _yAdjustBonus, 0];
-
-private _posFin = AGLtoASL (positionCameraToWorld GVAR(CameraOffset));
+private _posFin = (eyePos _unit) vectorAdd (positionCameraToWorld GVAR(CameraOffset)) vectorDiff (positionCameraToWorld [0, 0, 0]);
 
 // Duplicate code
 private _vup = [0, 1, 1];
@@ -125,7 +120,7 @@ if (GVAR(ThrowType) == "under") then {
 };
 
 if (GVAR(CtrlHeld)) then {
-    _posFin = AGLtoASL (positionCameraToWorld [0, 0, GVAR(TestPercArm)]);
+    _posFin = (eyePos _unit) vectorAdd (positionCameraToWorld [_leanCoef, 0, GVAR(TestPercArm)]) vectorDiff (positionCameraToWorld [0, 0, 0]);
     private _posView = AGLtoASL (positionCameraToWorld [0, 0, 0]);
 
     if (lineIntersects [_posView, _posFin]) then {

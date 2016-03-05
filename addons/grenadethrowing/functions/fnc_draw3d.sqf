@@ -28,13 +28,13 @@ if (GVAR(ThrowType) == "under") then {
 private _viewStart = AGLToASL (positionCameraToWorld [0, 0, 0]);
 private _viewEnd = AGLToASL (positionCameraToWorld _direction);
 
-private _initialVelocity = (vectorNormalized (_viewEnd vectorDiff _viewStart)) vectorMultiply _velocity;
+private _initialVelocity = (vectorNormalized (_viewEnd vectorDiff _viewStart)) vectorMultiply (_velocity / 1.8);
 private _prevTrajASL = getPosASLVisual GVAR(ActiveGrenadeItem);
 
 private _pathData = [];
 
 for "_i" from 0.05 to 1.45 step 0.1 do {
-    private _newTrajASL = _prevTrajASL vectorAdd (_initialVelocity vectorMultiply _i) vectorAdd ([0, 0, 0.5 * -9.8] vectorMultiply (_i * _i));
+    private _newTrajASL = _prevTrajASL vectorAdd (_initialVelocity vectorMultiply _i) vectorAdd ([0, 0, -4.9] vectorMultiply (_i * _i));
     private _newTrajATL = ASLtoAGL _newTrajASL;
     private _cross = 0;
 

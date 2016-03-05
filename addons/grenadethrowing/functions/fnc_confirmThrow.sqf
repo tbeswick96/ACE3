@@ -21,7 +21,6 @@ if (GVAR(CtrlHeld) && {!GVAR(CookingGrenade)}) then {
     [_unit, GVAR(ActiveGrenadeItem), GVAR(ActiveGrenadeType)] call FUNC(cook);
 };
 
-// If ctrl is held, it just drops
 if (!GVAR(ThrowGrenade)) then {
     [_unit] call FUNC(throw);
 };

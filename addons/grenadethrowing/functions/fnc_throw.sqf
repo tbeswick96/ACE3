@@ -46,20 +46,16 @@ private _waitTime = [0.3, 0] select GVAR(CtrlHeld);
 
     // Calculate the throw vector
     private _newVelocity = [0, 0, 0];
-    private _posFin = AGLToASL (positionCameraToWorld GVAR(CameraOffset)); // TrackIR throwing
 
     if (GVAR(CtrlHeld)) then {
         _direction = [0, 200, 500];
         _velocity = 3;
-    } else {
-        GVAR(ActiveGrenadeItem) setPosASL _posFin;
     };
 
-    // These are both AGL commands
-    private _p2 = AGLtoASL (positionCameraToWorld _direction); // TrackIR throwing
+    private _p2 = (eyePos _unit) vectorAdd (positionCameraToWorld _direction) vectorDiff (positionCameraToWorld [0, 0, 0]);
     private _p1 = AGLtoASL (GVAR(ActiveGrenadeItem) modelToWorldVisual [0, 0, 0]);
 
-    private _unitV = (vectorNormalized (_p1 vectorFromTo _p2)) vectorMultiply _velocity;
+    private _unitV = (_p1 vectorFromTo _p2) vectorMultiply _velocity;
 
     if (vehicle _unit == _unit) then {
         // This method assumes the ability for a human to instinctively provide upper-body throw stabilization to prevent a grenade from being too influenced by how they're moving
@@ -69,44 +65,10 @@ private _waitTime = [0.3, 0] select GVAR(CtrlHeld);
         _newVelocity = (velocity (vehicle _unit)) vectorAdd _unitV;
     };
 
-    // Should mean that if we die, it just drops
+    // Drop if unit dies during throw process
     if (alive _unit) then {
-        private _startTime = time;
-        private _timeOut = 1;
-
-        [{
-            params ["_startTime", "_timeOut"];
-            !isNull GVAR(ActiveGrenadeItem) || time > _startTime + _timeOut
-        }, {
-            params ["", "", "_unit", "_vup", "_newVelocity"];
-
-            if (isNull GVAR(ActiveGrenadeItem)) exitWith {
-                [_unit, "Grenade was still null when trying to throw :( (removed a grenade in the process)"] call FUNC(exitThrowMode);
-            };
-
-            GVAR(ActiveGrenadeItem) setVectorUp _vup; // This was null at start sometimes
-
-            private _grenadeThrowStartPos = AGLtoASL (getPosVisual GVAR(ActiveGrenadeItem));
-
-            GVAR(ActiveGrenadeItem) setPosASL _grenadeThrowStartPos;
-            GVAR(ActiveGrenadeItem) setVelocity _newVelocity;
-
-            // Attempted failsafe for the drop-grenade issue
-            [{
-                params ["_grenadeThrowStartPos", "_newVelocity"];
-
-                GVAR(ActiveGrenadeItem) setPosASL _grenadeThrowStartPos;
-                GVAR(ActiveGrenadeItem) setVelocity _newVelocity;
-            }, [_grenadeThrowStartPos, _newVelocity], 0.01] call EFUNC(common,waitAndExecute);
-            [{
-                params ["_grenadeThrowStartPos", "_newVelocity"];
-
-                GVAR(ActiveGrenadeItem) setPosASL _grenadeThrowStartPos;
-                GVAR(ActiveGrenadeItem) setVelocity _newVelocity;
-            }, [_grenadeThrowStartPos, _newVelocity], 0.02] call EFUNC(common,waitAndExecute);
-
-        }, [_startTime, _timeOut, _unit, _vup, _newVelocity]] call EFUNC(common,waitUntilAndExecute);
-
+        GVAR(ActiveGrenadeItem) setVectorUp _vup; // This was null at start sometimes
+        GVAR(ActiveGrenadeItem) setVelocity _newVelocity;
     };
 
     [_unit, "Completed a throw fully"] call FUNC(exitThrowMode);
