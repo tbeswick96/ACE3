@@ -12,6 +12,8 @@ _this spawn {//
     waitUntil {!isNull findDisplay 46};//
     sleep 2;//
 
+    disableSerialization;//
+
     params ["_display"];//
 
     _display displayAddEventHandler ["KeyDown", {_this call FUNC(onKeyDown)}];
