@@ -21,6 +21,8 @@ if (!hasInterface) exitWith {};
     [_this select 1, "Player changed"] call FUNC(exitThrowMode);
 }] call EFUNC(common,addEventhandler);
 
+[QGVAR(throwFiredEH), {_this call FUNC(throwFiredEH)}] call EFUNC(common,addEventHandler);
+
 
 // Display handlers
 ["KeyDown", {_this call FUNC(onKeyDown)}] call CBA_fnc_addDisplayHandler;

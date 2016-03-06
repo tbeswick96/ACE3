@@ -22,7 +22,20 @@ if (!GVAR(CookingGrenade)) then {
     [_unit, GVAR(ActiveGrenadeItem), GVAR(ActiveGrenadeType)] call FUNC(cook);
 };
 
-_unit removeItem ((currentThrowable _unit) select 0);
+private _currentThrowable = (currentThrowable _unit) select 0;
+private _muzzle = [_currentThrowable] call FUNC(getMuzzle);
+
+[QGVAR(throwFiredEH), [
+    _unit, // unit
+    "Throw", // weapon
+    _muzzle, // muzzle
+    _muzzle, // mode
+    GVAR(ActiveGrenadeType), // ammo
+    _currentThrowable, // magazine
+    GVAR(ActiveGrenadeItem) // projectile
+]] call EFUNC(common,globalEvent);
+
+_unit removeItem _currentThrowable;
 
 // Stuff we need to know
 private _direction = [THROWSTYLE_NORMAL_DIR, THROWSTYLE_HIGH_DIR] select (GVAR(ThrowType) == "high");
