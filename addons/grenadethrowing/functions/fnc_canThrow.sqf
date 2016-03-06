@@ -22,12 +22,12 @@ params ["_unit"];
 if (vehicle _unit != _unit) exitWith {
     private _startPos = (eyePos _unit) vectorAdd (positionCameraToWorld (CAMERA_OFFSET vectorAdd CAMERA_ADJUST)) vectorDiff (positionCameraToWorld [0, 0, 0]);
     private _aimLinePos = AGLToASL (positionCameraToWorld [0, 0, 5]);
-    private _intersections = lineIntersectsSurfaces [_startPos, _aimLinePos, _unit, objNull, true, 1, "FIRE"];
+    private _intersections = lineIntersectsSurfaces [_startPos, _aimLinePos, _unit, objNull, true, 1, "GEOM", "FIRE"];
     TRACE_1("Intersections",_intersections);
 
     private _exit = true;
     {
-        if ((vehicle _unit) in (_x select 2)) exitWith {
+        if ((vehicle _unit) in (_x select 3)) exitWith {
             _exit = false;
         };
     } forEach _intersections;
