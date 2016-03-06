@@ -51,7 +51,7 @@ if (GVAR(GrenadeInHand)) then {
         GVAR(GrenadeInHand) = true;
 
         // Add controls hint and throw action
-        [localize LSTRING(Throw), localize ELSTRING(Common,Cancel), localize LSTRING(ChangeModeOrCook)] call EFUNC(interaction,showMouseHint);
+        [localize LSTRING(Throw), localize LSTRING(Cancel), localize LSTRING(ChangeModeOrCook)] call EFUNC(interaction,showMouseHint);
 
         _unit setVariable [QGVAR(ThrowAction), [
             _unit, "DefaultAction",

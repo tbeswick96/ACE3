@@ -19,6 +19,9 @@
         <Key ID="STR_ACE_GrenadeThrowing_Throw">
             <English>Throw</English>
         </Key>
+        <Key ID="STR_ACE_GrenadeThrowing_Cancel">
+            <English>Cancel / (x2) Drop Cooked</English>
+        </Key>
         <Key ID="STR_ACE_GrenadeThrowing_ChangeModeOrCook">
             <English>(Scroll) Change Mode / (Click) Cook</English>
         </Key>
