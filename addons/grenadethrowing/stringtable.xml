@@ -14,7 +14,7 @@
             <English>Cooking Grenade</English>
         </Key>
         <Key ID="STR_ACE_GrenadeThrowing_PrepareGrenade">
-            <English>Prepare Grenade</English>
+            <English>Prepare/Change Grenade</English>
         </Key>
         <Key ID="STR_ACE_GrenadeThrowing_Throw">
             <English>Throw</English>
