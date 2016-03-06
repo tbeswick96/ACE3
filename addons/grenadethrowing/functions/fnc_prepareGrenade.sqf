@@ -42,7 +42,6 @@ if (GVAR(GrenadeInHand)) then {
     // Throw mode is enabled, prepare
     if (GVAR(ToggleThrowMode)) then {
         GVAR(ThrowType) = "normal";
-        GVAR(ThrowGrenade) = false;
 
         // Since we have something to throw, let's create it. By activating GrenadeInHand, the PFH creates a grenade
         GVAR(ActiveGrenadeType) = _dropType;

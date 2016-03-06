@@ -21,6 +21,9 @@ if (GVAR(CtrlHeld) && {!GVAR(CookingGrenade)}) then {
     [_unit, GVAR(ActiveGrenadeItem), GVAR(ActiveGrenadeType)] call FUNC(cook);
 };
 
-if (!GVAR(ThrowGrenade)) then {
-    [_unit] call FUNC(throw);
-};
+_unit playAction "ThrowGrenade";
+
+// If Ctrl is held, we don't delay, otherwise we wait for the playAction to complete, which is roughly 0.3 seconds
+private _waitTime = [0.3, 0] select GVAR(CtrlHeld);
+
+[FUNC(throw), [_unit], _waitTime] call EFUNC(common,waitAndExecute);

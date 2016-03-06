@@ -102,7 +102,7 @@ if (abs _leanCoef < 0.1 || {vehicle _unit != _unit}) then {
     _leanCoef = 0;
 };
 
-GVAR(CameraOffset) = [_leanCoef, 0, 0.3];
+private _cameraOffset = [_leanCoef, 0, 0.3];
 
 private _xAdjustBonus = 0;
 private _yAdjustBonus = 0;
@@ -111,8 +111,8 @@ if (GVAR(ThrowType) == "under") then {
     _yAdjustBonus = 0.1;
 };
 
-GVAR(CameraOffset) = GVAR(CameraOffset) vectorAdd GVAR(Adjust) vectorAdd [_xAdjustBonus, _yAdjustBonus, 0];
-private _posFin = (eyePos _unit) vectorAdd (positionCameraToWorld GVAR(CameraOffset)) vectorDiff (positionCameraToWorld [0, 0, 0]);
+_cameraOffset = _cameraOffset vectorAdd CAMERA_ADJUST vectorAdd [_xAdjustBonus, _yAdjustBonus, 0];
+private _posFin = (eyePos _unit) vectorAdd (positionCameraToWorld _cameraOffset) vectorDiff (positionCameraToWorld [0, 0, 0]);
 
 // Duplicate code
 private _vup = [0, 1, 1];

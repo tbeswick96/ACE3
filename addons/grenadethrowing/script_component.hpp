@@ -15,3 +15,13 @@
 #endif
 
 #include "\z\ace\addons\main\script_macros.hpp"
+
+
+#define THROWSTYLE_NORMAL_DIR [0, 70, 500]
+#define THROWSTYLE_HIGH_DIR [0, 200, 500]
+#define THROWSTYLE_HIGH_VEL 8
+#define THROWSTYLE_EXTARM_DIR [0, 200, 500]
+#define THROWSTYLE_EXTARM_VEL 3
+
+#define CAMERA_OFFSET [0, 0, 0.3]
+#define CAMERA_ADJUST [-0.05, -0.12, -0.03]

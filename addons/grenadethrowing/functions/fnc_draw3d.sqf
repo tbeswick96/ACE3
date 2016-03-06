@@ -24,12 +24,17 @@ if (!([ACE_player] call FUNC(canThrow))) exitWith {
 };
 hint "";
 
-private _direction = GVAR(ThrowStyle_Normal_Direction);
+private _direction = THROWSTYLE_NORMAL_DIR;
 private _velocity = GVAR(CurrentThrowSpeed);
 
 if (GVAR(ThrowType) == "under") then {
-    _direction = GVAR(ThrowStyle_Under_Direction);
-    _velocity = GVAR(ThrowStyle_Under_Velocity);
+    _direction = THROWSTYLE_HIGH_DIR;
+    _velocity = THROWSTYLE_HIGH_VEL;
+};
+
+if (GVAR(CtrlHeld)) then {
+    _direction = THROWSTYLE_EXTARM_DIR;
+    _velocity = THROWSTYLE_EXTARM_VEL;
 };
 
 private _viewStart = AGLToASL (positionCameraToWorld [0, 0, 0]);
