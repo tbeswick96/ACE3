@@ -3,13 +3,15 @@
  * Handles cooking a grenade.
  *
  * Arguments:
- * None
+ * 0: Unit <OBJECT>
+ * 1: Throwable <OBJECT>
+ * 2: Throwable Type <STRING>
  *
  * Return Value:
  * None
  *
  * Example:
- * [] call ace_grenadethrowing_fnc_cook
+ * [unit, grenadeObject, "HandGrenade"] call ace_grenadethrowing_fnc_cook
  *
  * Public: No
  */

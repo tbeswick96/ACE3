@@ -19,15 +19,13 @@ if (isNil QGVAR(ActiveGrenadeItem)) exitWith {};
 
 // Disable drawing when intersecting with the vehicle, it looks ugly
 if (!([ACE_player] call FUNC(canThrow))) exitWith {
-    // Add some better notification here
-    hint "can't throw from here";
+    drawIcon3D ["\a3\ui_f\data\gui\cfg\hints\icon_text\group_0_ca.paa", [1, 0, 0, 1], positionCameraToWorld [0, 0, 1], 2, 2, 0, "", 2];
 };
-hint "";
 
 private _direction = THROWSTYLE_NORMAL_DIR;
 private _velocity = GVAR(CurrentThrowSpeed);
 
-if (GVAR(ThrowType) == "under") then {
+if (GVAR(ThrowType) == "high") then {
     _direction = THROWSTYLE_HIGH_DIR;
     _velocity = THROWSTYLE_HIGH_VEL;
 };
@@ -82,5 +80,5 @@ reverse _pathData;
 // To get the sort order correct from our POV, particularly when using outlined dots
 {
     _x params ["_col", "_newTrajATL", "_iDim"];
-    drawIcon3D ["\a3\ui_f\data\gui\cfg\Hints\icon_text\group_1_ca.paa", _col, _newTrajATL, _iDim, _iDim, 0, "", 2];
+    drawIcon3D ["\a3\ui_f\data\gui\cfg\hints\icon_text\group_1_ca.paa", _col, _newTrajATL, _iDim, _iDim, 0, "", 2];
 } forEach _pathData;

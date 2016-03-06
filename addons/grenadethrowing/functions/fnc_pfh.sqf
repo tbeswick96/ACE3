@@ -40,8 +40,6 @@ if (count _currentThrowable < 1 || {_currentThrowable select 0 == ""}) exitWith 
     [_unit, "No valid throwables"] call FUNC(exitThrowMode);
 };
 
-//@todo: Check to see if we have a grenade like that in our inventory still
-
 private _currentGrenade = getText (configFile >> "CfgMagazines" >> _currentThrowable select 0 >> "ammo");
 private _currentGrenadeMagazineType = _currentThrowable select 0;
 GVAR(CurrentThrowSpeed) = getNumber (configFile >> "CfgMagazines" >> _currentThrowable select 0 >> "initSpeed");
@@ -86,7 +84,6 @@ if ([_unit] call FUNC(canThrow)) then {
     };
 } else {
     if (!isNull GVAR(ActiveGrenadeItem)) then {
-        //GVAR(GrenadeInHand) = false;
         GVAR(LastGrenadeTypeChecked) = "";
         deleteVehicle GVAR(ActiveGrenadeItem);
     };
@@ -103,41 +100,28 @@ if (abs _leanCoef < 0.1 || {vehicle _unit != _unit}) then {
 };
 
 private _cameraOffset = [_leanCoef, 0, 0.3];
-
-private _xAdjustBonus = 0;
-private _yAdjustBonus = 0;
-if (GVAR(ThrowType) == "under") then {
-    _xAdjustBonus = -0.075;
-    _yAdjustBonus = 0.1;
-};
+private _xAdjustBonus = [0, -0.075] select (GVAR(ThrowType) == "high");
+private _yAdjustBonus = [0, 0.1] select (GVAR(ThrowType) == "high");
 
 _cameraOffset = _cameraOffset vectorAdd CAMERA_ADJUST vectorAdd [_xAdjustBonus, _yAdjustBonus, 0];
 private _posFin = (eyePos _unit) vectorAdd (positionCameraToWorld _cameraOffset) vectorDiff (positionCameraToWorld [0, 0, 0]);
 
-// Duplicate code
-private _vup = [0, 1, 1];
-if (GVAR(ThrowType) == "under") then {
-    _vup = [1, 0, 0];
-};
-
-GVAR(ActiveGrenadeItem) setVectorUp _vup;
 GVAR(ActiveGrenadeItem) setVectorDir (vectorDirVisual _unit);
 
 GVAR(ActiveGrenadeItem) setDir ((getDir _unit) + 90);
-[GVAR(ActiveGrenadeItem), -30, 0] call BIS_fnc_setPitchBank;
 
-if (GVAR(ThrowType) == "under") then {
-    [GVAR(ActiveGrenadeItem), -90, 0] call BIS_fnc_setPitchBank;
-};
+private _pitch = [-30, -90] select (GVAR(ThrowType) == "high");
+[GVAR(ActiveGrenadeItem), _pitch, 0] call BIS_fnc_setPitchBank;
+
 
 if (GVAR(CtrlHeld)) then {
-    _posFin = (eyePos _unit) vectorAdd (positionCameraToWorld [_leanCoef, 0, GVAR(TestPercArm)]) vectorDiff (positionCameraToWorld [0, 0, 0]);
+    _posFin = (eyePos _unit) vectorAdd (positionCameraToWorld [_leanCoef, 0, GVAR(ExtArmCoef)]) vectorDiff (positionCameraToWorld [0, 0, 0]);
     private _posView = AGLtoASL (positionCameraToWorld [0, 0, 0]);
 
     if (lineIntersects [_posView, _posFin]) then {
-        GVAR(TestPercArm) = GVAR(TestPercArm) - 0.10;
-        if (GVAR(TestPercArm) < 0.2) then {
-            GVAR(TestPercArm) = 0.2
+        GVAR(ExtArmCoef) = GVAR(ExtArmCoef) - 0.10;
+        if (GVAR(ExtArmCoef) < 0.2) then {
+            GVAR(ExtArmCoef) = 0.2
         };
     };
 

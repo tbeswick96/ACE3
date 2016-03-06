@@ -23,25 +23,25 @@ if (GVAR(CtrlHeld)) then {
     // Extended arm dropping
     if (_amount < 0) then {
         TRACE_1("Move Closer",_amount);
-        GVAR(TestPercArm) = GVAR(TestPercArm) - 0.1;
-        if (GVAR(TestPercArm) < 0.2) then {
-            GVAR(TestPercArm) = 0.2
+        GVAR(ExtArmCoef) = GVAR(ExtArmCoef) - 0.1;
+        if (GVAR(ExtArmCoef) < 0.2) then {
+            GVAR(ExtArmCoef) = 0.2
         };
     } else {
         TRACE_1("Move Further",_amount);
-        GVAR(TestPercArm) = GVAR(TestPercArm) + 0.1;
-        if (GVAR(TestPercArm) > 1) then {
-            GVAR(TestPercArm) = 1
+        GVAR(ExtArmCoef) = GVAR(ExtArmCoef) + 0.1;
+        if (GVAR(ExtArmCoef) > 1) then {
+            GVAR(ExtArmCoef) = 1
         };
     };
 } else {
     if (_amount < 0) then {
-        if (GVAR(ThrowType) == "under") then {
+        if (GVAR(ThrowType) == "high") then {
             GVAR(ThrowType) = "normal";
         };
     } else {
         if (GVAR(ThrowType) == "normal") then {
-            GVAR(ThrowType) = "under";
+            GVAR(ThrowType) = "high";
         };
     };
     TRACE_2("Change Throw Type",_amount,GVAR(ThrowType));

@@ -25,18 +25,9 @@ if (!GVAR(CookingGrenade)) then {
 _unit removeItem ((currentThrowable _unit) select 0);
 
 // Stuff we need to know
-private _direction = THROWSTYLE_NORMAL_DIR;
-private _velocity = GVAR(CurrentThrowSpeed);
-private _vup = [0, 1, 1];
-
-if (GVAR(ThrowType) == "under") then {
-    _direction = THROWSTYLE_HIGH_DIR;
-    _velocity = THROWSTYLE_HIGH_VEL;
-    _vup = [1, 0, 0];
-};
-
-// Calculate the throw vector
-private _newVelocity = [0, 0, 0];
+private _direction = [THROWSTYLE_NORMAL_DIR, THROWSTYLE_HIGH_DIR] select (GVAR(ThrowType) == "high");
+private _velocity = [GVAR(CurrentThrowSpeed), THROWSTYLE_HIGH_VEL] select (GVAR(ThrowType) == "high");
+private _vup = [THROWSTYLE_NORMAL_VECTORUP, THROWSTYLE_HIGH_VECTORUP] select (GVAR(ThrowType) == "high");
 
 if (GVAR(CtrlHeld)) then {
     _direction = THROWSTYLE_EXTARM_DIR;
@@ -46,14 +37,11 @@ if (GVAR(CtrlHeld)) then {
 private _p2 = (eyePos _unit) vectorAdd (positionCameraToWorld _direction) vectorDiff (positionCameraToWorld [0, 0, 0]);
 private _p1 = AGLtoASL (GVAR(ActiveGrenadeItem) modelToWorldVisual [0, 0, 0]);
 
-private _unitV = (_p1 vectorFromTo _p2) vectorMultiply _velocity;
+private _newVelocity = (_p1 vectorFromTo _p2) vectorMultiply _velocity;
 
-if (vehicle _unit == _unit) then {
-    // This method assumes the ability for a human to instinctively provide upper-body throw stabilization to prevent a grenade from being too influenced by how they're moving
-    _newVelocity = [0, 0, 0] vectorAdd _unitV;
-} else {
-    // This method would be for things like the Littlebird throw-from-vehicles, where we have a vehicle-based velocity that can't be compensated for by a human
-    _newVelocity = (velocity (vehicle _unit)) vectorAdd _unitV;
+// Adjust for throwing from inside vehicles, where we have a vehicle-based velocity that can't be compensated for by a human
+if (vehicle _unit != _unit) then {
+    _newVelocity = _newVelocity vectorAdd (velocity (vehicle _unit));
 };
 
 // Drop if unit dies during throw process

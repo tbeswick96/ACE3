@@ -9,7 +9,7 @@
  * None
  *
  * Example:
- * [] call ace_grenadethrowing_fnc_prepareGrenade
+ * [unit] call ace_grenadethrowing_fnc_prepareGrenade
  *
  * Public: No
  */

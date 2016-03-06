@@ -13,7 +13,7 @@ GVAR(ActiveGrenadeType) = "";
 
 GVAR(ThrowType) = "normal";
 GVAR(CurrentThrowSpeed) = 18;
-GVAR(TestPercArm) = 0.2;
+GVAR(ExtArmCoef) = 0.2;
 
 GVAR(LastGrenadeTypeChecked) = "";
 GVAR(DropCookedCounter) = 0;
