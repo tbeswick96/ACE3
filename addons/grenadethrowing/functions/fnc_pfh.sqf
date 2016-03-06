@@ -95,7 +95,7 @@ if (_exit) exitWith {};
 
 private _leanCoef = (_unit selectionPosition "head") select 0;
 _leanCoef = _leanCoef - 0.15; // Counter the base offset
-if (abs _leanCoef < 0.1 || {vehicle _unit != _unit}) then {
+if (abs _leanCoef < 0.15 || {vehicle _unit != _unit}) then {
     _leanCoef = 0;
 };
 

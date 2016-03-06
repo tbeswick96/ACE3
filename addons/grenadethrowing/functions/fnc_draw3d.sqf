@@ -52,7 +52,8 @@ for "_i" from 0.05 to 1.45 step 0.1 do {
         if (_newTrajATL select 2 <= 0) then {
             _cross = 1
         } else {
-            if (lineIntersects [_prevTrajASL, _newTrajASL]) then {
+            private _intersections = lineIntersectsSurfaces [_prevTrajASL, _newTrajASL, ACE_player, objNull, false, 1, "GEOM"];
+            if !(_intersections isEqualTo []) then {
                 _cross = 2;
             };
         };
