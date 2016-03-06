@@ -92,6 +92,10 @@ if ([_unit] call FUNC(canThrow)) then {
 
 if (_exit) exitWith {};
 
+if (isNull GVAR(ActiveGrenadeItem)) exitWith {
+    [_unit, "Cook drop"] call FUNC(exitThrowMode);
+};
+
 
 private _leanCoef = (_unit selectionPosition "head") select 0;
 _leanCoef = _leanCoef - 0.15; // Counter the base offset
@@ -107,7 +111,6 @@ _cameraOffset = _cameraOffset vectorAdd CAMERA_ADJUST vectorAdd [_xAdjustBonus, 
 private _posFin = (eyePos _unit) vectorAdd (positionCameraToWorld _cameraOffset) vectorDiff (positionCameraToWorld [0, 0, 0]);
 
 GVAR(ActiveGrenadeItem) setVectorDir (vectorDirVisual _unit);
-
 GVAR(ActiveGrenadeItem) setDir ((getDir _unit) + 90);
 
 private _pitch = [-30, -90] select (GVAR(ThrowType) == "high");

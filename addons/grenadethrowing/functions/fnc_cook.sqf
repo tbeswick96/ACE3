@@ -24,3 +24,17 @@ GVAR(CookingGrenade) = true;
 private _activeGrenadeItemOld = GVAR(ActiveGrenadeItem);
 GVAR(ActiveGrenadeItem) = _grenadeType createVehicle (position _activeGrenadeItemOld);
 deleteVehicle _activeGrenadeItemOld;
+
+// Throw Fired XEH
+private _currentThrowable = (currentThrowable _unit) select 0;
+private _muzzle = [_currentThrowable] call FUNC(getMuzzle);
+
+[QGVAR(throwFiredEH), [
+    _unit, // unit
+    "Throw", // weapon
+    _muzzle, // muzzle
+    _muzzle, // mode
+    GVAR(ActiveGrenadeType), // ammo
+    _currentThrowable, // magazine
+    GVAR(ActiveGrenadeItem) // projectile
+]] call EFUNC(common,globalEvent);
