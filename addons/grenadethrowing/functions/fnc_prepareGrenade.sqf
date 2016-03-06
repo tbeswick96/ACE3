@@ -51,10 +51,7 @@ if (GVAR(GrenadeInHand)) then {
         GVAR(GrenadeInHand) = true;
 
         // Add controls hint and throw action
-        //[localize LSTRING(Throw), localize ELSTRING(Common,Cancel), localize LSTRING(ChangeModeOrCook)] call EFUNC(interaction,showMouseHint);//@todo: disables drawIcon3D
-        inGameUISetEventHandler ["PrevAction", "true"];
-        inGameUISetEventHandler ["NextAction", "true"];
-        inGameUISetEventHandler ["Action", "true"];
+        [localize LSTRING(Throw), localize ELSTRING(Common,Cancel), localize LSTRING(ChangeModeOrCook)] call EFUNC(interaction,showMouseHint);
 
         _unit setVariable [QGVAR(ThrowAction), [
             _unit, "DefaultAction",
@@ -62,6 +59,7 @@ if (GVAR(GrenadeInHand)) then {
             {[_this select 0] call FUNC(confirmThrow)}
         ] call EFUNC(common,addActionEventHandler)];
 
+        // Start drawing throw arc and visualize the grenade
         GVAR(Draw3DHandle) = addMissionEventHandler ["Draw3D", {call FUNC(draw3d);}];
         [FUNC(pfh), 0, [_unit]] call CBA_fnc_addPerFrameHandler; // Removal inside PFH
     };

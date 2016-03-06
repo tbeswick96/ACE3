@@ -31,10 +31,7 @@ GVAR(CookingGrenade) = false;
 GVAR(DropCookedCounter) = 0;
 
 // Remove controls hint and throw action
-//call EFUNC(interaction,hideMouseHint);//@todo: disables drawIcon3D
-inGameUISetEventHandler ["PrevAction", "false"];
-inGameUISetEventHandler ["NextAction", "false"];
-inGameUISetEventHandler ["Action", "false"];
+call EFUNC(interaction,hideMouseHint);
 [_unit, "DefaultAction", _unit getVariable [QGVAR(ThrowAction), -1]] call EFUNC(common,removeActionEventHandler);
 
 // Remove Draw3D (PFH is self-removed)
