@@ -50,18 +50,25 @@ if (GVAR(GrenadeInHand)) then {
         GVAR(LastGrenadeTypeChecked) = "";
         GVAR(GrenadeInHand) = true;
 
-        // Add controls hint and throw action
-        [localize LSTRING(Throw), localize LSTRING(Cancel), localize LSTRING(ChangeModeOrCook)] call EFUNC(interaction,showMouseHint);
+        // Add controls hint if enabled
+        if (GVAR(ShowMouseControls)) then {
+            [localize LSTRING(Throw), localize LSTRING(Cancel), localize LSTRING(ChangeModeOrCook)] call EFUNC(interaction,showMouseHint);
+        };
 
+        // Add throw action
         _unit setVariable [QGVAR(ThrowAction), [
             _unit, "DefaultAction",
             {[_this select 0] call FUNC(canThrow)},
             {[_this select 0] call FUNC(confirmThrow)}
         ] call EFUNC(common,addActionEventHandler)];
 
-        // Start drawing throw arc and visualize the grenade
-        GVAR(Draw3DHandle) = addMissionEventHandler ["Draw3D", {call FUNC(draw3d);}];
+        // Visualize the grenade
         [FUNC(pfh), 0, [_unit]] call CBA_fnc_addPerFrameHandler; // Removal inside PFH
+
+        // Draw throw arc if enabled
+        if (GVAR(ShowThrowArc)) then {
+            GVAR(Draw3DHandle) = addMissionEventHandler ["Draw3D", {call FUNC(draw3d);}];
+        };
     };
 };
 

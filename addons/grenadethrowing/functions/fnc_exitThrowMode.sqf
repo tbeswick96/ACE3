@@ -30,10 +30,14 @@ GVAR(GrenadeInHand) = false;
 GVAR(CookingGrenade) = false;
 GVAR(DropCookedCounter) = 0;
 
-// Remove controls hint and throw action
+// Remove controls hint (check if ever enabled is inside the function)
 call EFUNC(interaction,hideMouseHint);
+
+// Remove throw action
 [_unit, "DefaultAction", _unit getVariable [QGVAR(ThrowAction), -1]] call EFUNC(common,removeActionEventHandler);
 
-// Remove Draw3D (PFH is self-removed)
-removeMissionEventHandler ["Draw3D", GVAR(Draw3DHandle)];
-GVAR(Draw3DHandle) = nil;
+// Remove throw arc draw
+if (!isNil QGVAR(Draw3DHandle)) then {
+    removeMissionEventHandler ["Draw3D", GVAR(Draw3DHandle)];
+    GVAR(Draw3DHandle) = nil;
+};

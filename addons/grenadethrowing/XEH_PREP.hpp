@@ -5,6 +5,7 @@ PREP(cook);
 PREP(draw3d);
 PREP(exitThrowMode);
 PREP(getMuzzle);
+PREP(moduleInit);
 PREP(onKeyDown);
 PREP(onKeyUp);
 PREP(onMouseButtonDown);

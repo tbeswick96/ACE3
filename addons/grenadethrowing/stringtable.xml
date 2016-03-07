@@ -4,11 +4,26 @@
         <Key ID="STR_ACE_GrenadeThrowing_Category">
             <English>Grenade Throwing</English>
         </Key>
+        <Key ID="STR_ACE_GrenadeThrowing_Module_Description">
+            <English>Allows changing advanced grenade throwing behaviour.</English>
+        </Key>
         <Key ID="STR_ACE_GrenadeThrowing_EnableThrowingSystem_DisplayName">
             <English>Enable Advanced Throwing</English>
         </Key>
         <Key ID="STR_ACE_GrenadeThrowing_EnableThrowingSystem_Description">
             <English>Enables advanced grenade throwing system.</English>
+        </Key>
+        <Key ID="STR_ACE_GrenadeThrowing_ShowThrowArc_DisplayName">
+            <English>Show Throw Arc</English>
+        </Key>
+        <Key ID="STR_ACE_GrenadeThrowing_ShowThrowArc_Description">
+            <English>Enables visualization of the throw arc - where grenade will fly.</English>
+        </Key>
+        <Key ID="STR_ACE_GrenadeThrowing_ShowMouseControls_DisplayName">
+            <English>Show Mouse Controls</English>
+        </Key>
+        <Key ID="STR_ACE_GrenadeThrowing_ShowMouseControls_Description">
+            <English>Enables visual cues for mouse controls when grenade is prepared.</English>
         </Key>
         <Key ID="STR_ACE_GrenadeThrowing_Cooking">
             <English>Cooking Grenade</English>
