@@ -24,7 +24,7 @@ if (!GVAR(GrenadeInHand) || {call EFUNC(common,isFeatureCameraActive)}) exitWith
 params ["", "_key", "_shift", "_ctrl", "_alt"];
 
 // Extend arm drop mode (only on foot)
-if (vehicle ACE_player == ACE_player && {_ctrl}) then {
+if (_ctrl && {vehicle ACE_player == ACE_player}) then {
     GVAR(CtrlHeld) = true;
 };
 

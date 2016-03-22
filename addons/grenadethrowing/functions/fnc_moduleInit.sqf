@@ -1,6 +1,6 @@
 /*
  * Author: Jonpas
- * Initializes the View Restriction module.
+ * Initializes the Grenade Throwing module.
  *
  * Arguments:
  * 0: Logic <OBJECT>
