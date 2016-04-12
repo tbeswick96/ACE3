@@ -15,6 +15,8 @@
  * Public: Yes
  */
 
+#include "script_component.hpp"
+
 params ["_deviceId", "_otherDeviceId"];
 
 private _id = QGVAR(chatMessages);

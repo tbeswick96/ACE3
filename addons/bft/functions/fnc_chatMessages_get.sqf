@@ -16,6 +16,8 @@
  * Public: Yes
  */
 
+#include "script_component.hpp"
+
 params ["_deviceId", "_otherDeviceId"];
 
 // Check if both are valid device Ids

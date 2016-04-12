@@ -15,6 +15,8 @@
  * Public: Yes
  */
 
+#include "script_component.hpp"
+
 params ["_fromId", "_toId", "_message"];
 
 private _messagesListKey = [_deviceId, _otherDeviceId] call FUNC(chatMessage_getId);
