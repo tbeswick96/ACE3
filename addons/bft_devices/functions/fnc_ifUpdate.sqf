@@ -126,7 +126,7 @@ if (isNil "_mode") then {
         if (_x == "nightMode") exitWith {
             private _nightMode = _value;
             // transform nightMode into boolean
-            _nightMode = _nightMode == 1 || {_nightMode == 2 && ([] call EFUNC(common,ambientBrightness)) < 0.2}
+            _nightMode = _nightMode == 1 || {_nightMode == 2 && ([] call EFUNC(common,ambientBrightness)) < 0.2};
 
             // get config path for background
             private _backgroundConfig = ["backgroundDay", "backgroundNight"] select (_nightMode);
