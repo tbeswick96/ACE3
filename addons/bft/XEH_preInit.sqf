@@ -2,6 +2,10 @@
 
 ADDON = false;
 
+PREP(chatMessage_getId);
+PREP(chatMessages_get);
+PREP(chatMessages_send);
+
 PREP(checkInventory);
 PREP(checkItem);
 PREP(getAllReportingModes);
