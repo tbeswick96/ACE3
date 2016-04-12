@@ -42,14 +42,18 @@ if (_startNewLoop) then {
             {
                 if (ACE_time - (AD_GET_TIME(_x)) >= (AD_GET_REFRESH_RATE(_x))) then {
                     if (AD_GET_DEVICE_STATE_VALUE(_x) isEqualTo STATE_NORMAL) then {
-                        //if (!(D_GET_OWNER(_x) isKindOf "CAManBAse") && {!(isEngineOn D_GET_OWNER(_x))}) exitwith {};
+                        private _deviceOwner = AD_GET_OWNER(_x);
+                        //if (!(_deviceOwner isKindOf "CAManBAse") && {!(isEngineOn _deviceOwner)}) exitwith {};
                         //systemChat format["updating a device position: %1", _x];
                         _x set [8, ACE_time];
-                        _x set [4, getPosASL AD_GET_OWNER(_x)];
-                        _x set [12, direction AD_GET_OWNER(_x)];
+                        _x set [4, getPosASL _deviceOwner];
+                        _x set [12, direction _deviceOwner];
                     } else {
+                        if (AD_GET_DEVICE_STATE_VALUE(_x) isEqualTo STATE_OFFLINE) then {
+                            diag_log format["state of a device was online but ended up in drawing available devices loop!"];
+                        };
                         private ["_deviceState"];
-                        _deviceState = AD_GET_DEVICE_STATE(_x);
+                        private _deviceState = AD_GET_DEVICE_STATE(_x);
                         (_x select 6) set [1, [0.6, 0.6, 0.6, (1 - ((ACE_time - (_deviceState select 3)) / 100)) max 0.4]];
                         _x set [4, _deviceState select 1];
                         _x set [12, _deviceState select 2];

@@ -31,8 +31,8 @@ if (_add) then {
 
     {
         if !(isNull D_GET_OWNER(_x)) then {
-            if (!(D_GET_OWNER(_x) isKindOf "CAManBAse") && {D_GET_DEVICE_STATE_VALUE(_x) isEqualTo STATE_NORMAL} && {!(isEngineOn D_GET_OWNER(_x))}) exitwith {};
-
+            if (!(D_GET_OWNER(_x) isKindOf "CAManBAse") && {D_GET_DEVICE_STATE_VALUE(_x) isEqualTo STATE_NORMAL} && {!(isEngineOn D_GET_OWNER(_x)) && alive D_GET_OWNER(_data)}) exitwith {};
+            if (D_GET_DEVICE_STATE_VALUE(_x) in [STATE_OFFLINE, STATE_DESTROYED]) exitwith {};
             _deviceModes = D_GET_DEVICEMODES(_x);
             if !([_deviceModes, _viewModes] call FUNC(encryptionKeyMatch)) exitWith {};
 

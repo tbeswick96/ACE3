@@ -16,7 +16,7 @@
 
 #include "script_component.hpp"
 
-params ["_owner", "_item", "_magazine", "_magID"];
+params ["_owner", "_item", "_magazine", "_magID", ["_initialState", STATE_NORMAL]];
 
 private ["_deviceType", "_deviceSide", "_refreshRate", "_deviceEncryptionKeys", "_assignableInformation", "_app", "_deviceInformation", "_exists", "_deviceModes", "_defaultValues", "_elementCallsign", "_elementSize", "_elementType", "_groupID"];
 
@@ -90,7 +90,7 @@ if (!isnil "_groupID") then {
 _app = [-1, []];
 
 // format: device ID, deviceSide [side, encryptionKeys], deviceInformation [elementType, elementSize, callsign, orbatID], appInformation [appID, appData], timeLoggedIn, owner, item, deviceType, _refreshRate [TX, RX], _deviceModes, deviceState]
-_deviceInformation = [_magID, [_deviceSide, _deviceEncryptionKeys], _assignableInformation, _app, -1, _owner, _item, _deviceType, _refreshRate, _deviceModes, [STATE_NORMAL]];
+_deviceInformation = [_magID, [_deviceSide, _deviceEncryptionKeys], _assignableInformation, _app, -1, _owner, _item, _deviceType, _refreshRate, _deviceModes, [_initialState]];
 
 diag_log format["Prep raising bft_addDeviceData _deviceInformation with: %1", _deviceInformation];
 [{

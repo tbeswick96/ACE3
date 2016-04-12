@@ -32,8 +32,8 @@ if (_add) then {
     // Adding a new key isn't nice. Now we got to add new shit and loop through the massive data collection. yay?
     {
         if !(isNull D_GET_OWNER(_x)) then {
-            if (!(D_GET_OWNER(_x) isKindOf "CAManBAse") && {D_GET_DEVICE_STATE_VALUE(_x) isEqualTo STATE_NORMAL} && {!(isEngineOn D_GET_OWNER(_x))}) exitwith {};
-
+            if (!(D_GET_OWNER(_x) isKindOf "CAManBAse") && {D_GET_DEVICE_STATE_VALUE(_x) isEqualTo STATE_NORMAL} && {!(isEngineOn D_GET_OWNER(_x)) && alive D_GET_OWNER(_data)}) exitwith {};
+            if (D_GET_DEVICE_STATE_VALUE(_x) in [STATE_OFFLINE, STATE_DESTROYED]) exitwith {};
             _encryptionKeys = D_GET_ENCRYPTION(_x);
             if !([_encryptionKeys, _newEncryptionKeys] call FUNC(encryptionKeyMatch)) exitWith {};
 
@@ -60,4 +60,3 @@ if (_add) then {
 if (count GVAR(currentOpenedDevice) > 0) then {
     [GVAR(currentOpenedDevice)] call FUNC(removeDeviceByOwner);
 };
-

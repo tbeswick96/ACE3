@@ -36,10 +36,10 @@ if (_this select 1) then { // add new
         diag_log format["hanldeDeviceDataChanged for: %1 - encryptionkeys not known - %2", _deviceID, _encryptionKeys];
     }; // if the encryption key is not know, the device is not available
     if !([_deviceModes, GVAR(registeredViewModes)] call FUNC(encryptionKeyMatch)) exitwith {
-        diag_log format["hanldeDeviceDataChanged for: %1 - viewModes not known - %2", _deviceID, _deviceModes];         
+        diag_log format["hanldeDeviceDataChanged for: %1 - viewModes not known - %2", _deviceID, _deviceModes];
     }; // if the encryption key is not know, the device is not available
-    if (!(D_GET_OWNER(_data) isKindOf "CAManBAse") && {D_GET_DEVICE_STATE_VALUE(_data) isEqualTo STATE_NORMAL} && {!(isEngineOn D_GET_OWNER(_data))}) exitwith {};
-
+    if (!(D_GET_OWNER(_data) isKindOf "CAManBAse") && {D_GET_DEVICE_STATE_VALUE(_data) isEqualTo STATE_NORMAL} && {!(isEngineOn D_GET_OWNER(_data)) && alive D_GET_OWNER(_data)}) exitwith {};
+    if (D_GET_DEVICE_STATE_VALUE(_data) in [STATE_OFFLINE, STATE_DESTROYED]) exitwith {};
     _displayData = _data call FUNC(deviceDataToMapData);
     if (count _displayData > 0) then {
         GVAR(availableDevices) pushback _displayData;
@@ -53,6 +53,7 @@ if (_this select 1) then { // add new
             if !([_deviceModes, GVAR(registeredViewModes)] call FUNC(encryptionKeyMatch)) exitwith {
                 GVAR(availableDevices) deleteAt _forEachIndex; // no longer a match, so we remove it from available devices
             };
+            if (D_GET_DEVICE_STATE_VALUE(_data) in [STATE_OFFLINE, STATE_DESTROYED]) exitwith {};
             // TODO I don't think we need this check here? It should never make it in and otherwise be removed if the engine goes off?
             //if (!(D_GET_OWNER(_data) isKindOf "CAManBAse") && {D_GET_DEVICE_STATE_VALUE(_data) isEqualTo STATE_NORMAL} && {!(isEngineOn D_GET_OWNER(_data))}) exitwith {
             //    GVAR(availableDevices) deleteAt _forEachIndex; // no longer a match, so we remove it from available devices

@@ -46,3 +46,4 @@
 #define STATE_NORMAL 0
 #define STATE_DESTROYED 1
 #define STATE_LOCKED 2
+#define STATE_OFFLINE 3
