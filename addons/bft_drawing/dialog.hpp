@@ -1,14 +1,12 @@
-#include "functions\script_component.hpp"
-
 class RscControlsGroupNoScrollbars;
 class RscText;
 class RscStructuredText;
 
-class RscMapControlBFTTooltip : RscControlsGroupNoScrollbars {
+class RscMapControlBFTTooltip: RscControlsGroupNoScrollbars {
     idc = IDC_TOOLTIP;
     x = safezoneW;
     y = safezoneH;
-    w = = TT_W;
+    w = TT_W;
     h = 3 * TT_H;
     class controls {
         class Title: RscStructuredText

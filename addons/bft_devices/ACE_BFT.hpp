@@ -115,8 +115,8 @@ class ACE_BFT {
         class MicroDAGR {
             displayName = QGVAR(GD300_dsp);
             dialogName = QEGVAR(bft_device_gd300,GD300_dlg);
-            backgroundDay = QUOTE(PATHTOF(UI\images\MicroDAGR_background_ca.paa));
-            backgroundNight = QUOTE(PATHTOF(UI\images\MicroDAGR_background_night_ca.paa));
+            backgroundDay = "";//QUOTE(PATHTOF(UI\images\MicroDAGR_background_ca.paa));
+            backgroundNight = "";//QUOTE(PATHTOF(UI\images\MicroDAGR_background_night_ca.paa));
 
             class InterfaceSettings {
                 dlgIfPosition[] = {};
