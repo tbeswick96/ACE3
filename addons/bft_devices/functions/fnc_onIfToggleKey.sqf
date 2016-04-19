@@ -63,7 +63,7 @@ if (_playerDeviceId == "" && _vehicleDeviceId == "") exitWith {_handled};
 
 // get device data
 private _playerDeviceData = [[], [_playerDeviceId] call EFUNC(bft,getDeviceData)] select (_playerDeviceId != "");
-private _playerDeviceData = [[], [_vehicleDeviceId] call EFUNC(bft,getDeviceData)] select (_vehicleDeviceId != "");
+private _vehicleDeviceData = [[], [_vehicleDeviceId] call EFUNC(bft,getDeviceData)] select (_vehicleDeviceId != "");
 
 // bail if we could not receive device data
 if (_playerDeviceData isEqualTo [] && _vehicleDeviceData isEqualTo []) exitWith {_handled};

@@ -40,8 +40,8 @@ if (_return) then {
     private _deviceId = D_GET_ID(_deviceDataToBeOpened);
     private _interfaces = [_deviceId, _player] call EFUNC(bft,getInterfaces);
 
+    if (_interfaces isEqualTo []) exitwith {};
     _interfaces params [ ["_interface", nil] ];
-    if (isNil _interface) exitwith {};
 
     _interfaceDisplayName = getText (configFile >> "ACE_BFT" >> "Interfaces" >> _interface >> "dialogName");
     [_deviceID, _interface, 0 /* main interface type */,_interfaceDisplayName, true /*Is Dialog*/, _player, _target] call FUNC(ifOpen);

@@ -23,7 +23,7 @@
 
 #include "script_component.hpp"
 
-PARAMS_2(_startNewLoop,_refreshRateRX)
+params ["_startNewLoop", "_refreshRateRX"];
 
 if (_startNewLoop) then {
     // if there is an ongoing position update loop running, close it down first
@@ -52,7 +52,6 @@ if (_startNewLoop) then {
                         if (AD_GET_DEVICE_STATE_VALUE(_x) isEqualTo STATE_OFFLINE) then {
                             diag_log format["state of a device was online but ended up in drawing available devices loop!"];
                         };
-                        private ["_deviceState"];
                         private _deviceState = AD_GET_DEVICE_STATE(_x);
                         (_x select 6) set [1, [0.6, 0.6, 0.6, (1 - ((ACE_time - (_deviceState select 3)) / 100)) max 0.4]];
                         _x set [4, _deviceState select 1];
