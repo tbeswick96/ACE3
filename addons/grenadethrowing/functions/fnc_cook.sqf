@@ -29,7 +29,7 @@ deleteVehicle _activeGrenadeItemOld;
 private _currentThrowable = (currentThrowable _unit) select 0;
 private _muzzle = [_currentThrowable] call FUNC(getMuzzle);
 
-[QGVAR(throwFiredEH), [
+[QGVAR(throwFiredXEH), [
     _unit, // unit
     "Throw", // weapon
     _muzzle, // muzzle

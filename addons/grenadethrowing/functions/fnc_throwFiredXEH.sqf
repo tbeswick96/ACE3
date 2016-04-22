@@ -15,7 +15,7 @@
  * None
  *
  * Example:
- * [unit, "weapon", "muzle", "mode", "ammo", "magazine", projectile] call ace_grenadethrowing_fnc_throwFiredEH
+ * [unit, "weapon", "muzle", "mode", "ammo", "magazine", projectile] call ace_grenadethrowing_fnc_throwFiredXEH
  *
  * Public: No
  */

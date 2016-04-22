@@ -13,4 +13,4 @@ PREP(onMouseScroll);
 PREP(pfh);
 PREP(prepareGrenade);
 PREP(throw);
-PREP(throwFiredEH);
+PREP(throwFiredXEH);
