@@ -133,6 +133,7 @@ if (isServer) then {
 ["fixFloating", FUNC(fixFloating)] call FUNC(addEventhandler);
 ["fixPosition", FUNC(fixPosition)] call FUNC(addEventhandler);
 
+["loadPersonEvent", FUNC(loadPersonLocal)] call FUNC(addEventhandler);
 ["unloadPersonEvent", FUNC(unloadPersonLocal)] call FUNC(addEventhandler);
 
 ["lockVehicle", {
@@ -146,6 +147,7 @@ if (isServer) then {
 
 ["setDir", {(_this select 0) setDir (_this select 1)}] call FUNC(addEventhandler);
 ["setFuel", {(_this select 0) setFuel (_this select 1)}] call FUNC(addEventhandler);
+["engineOn", {(_this select 0) engineOn (_this select 1)}] call FUNC(addEventhandler);
 ["setSpeaker", {(_this select 0) setSpeaker (_this select 1)}] call FUNC(addEventhandler);
 ["selectLeader", {(_this select 0) selectLeader (_this select 1)}] call FUNC(addEventHandler);
 ["setVelocity", {(_this select 0) setVelocity (_this select 1)}] call FUNC(addEventHandler);
@@ -331,12 +333,6 @@ GVAR(OldCameraView) = "";
 GVAR(OldVisibleMap) = false;
 GVAR(OldInventoryDisplayIsOpen) = nil; //@todo check this
 GVAR(OldIsCamera) = false;
-
-// clean up playerChanged eventhandler from preinit and put it in the same PFH as the other events to reduce overhead and guarantee advantageous execution order
-if (!isNil QGVAR(PreInit_playerChanged_PFHID)) then {
-    [GVAR(PreInit_playerChanged_PFHID)] call CBA_fnc_removePerFrameHandler;
-    GVAR(PreInit_playerChanged_PFHID) = nil;
-};
 
 // PFH to raise varios events
 [{
