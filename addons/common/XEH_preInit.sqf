@@ -46,26 +46,14 @@ if (isServer) then {
 GVAR(statusEffect_Names) = [];
 GVAR(statusEffect_isGlobal) = [];
 
+GVAR(setHearingCapabilityMap) = [];
+
 //////////////////////////////////////////////////
 // Set up PlayerChanged eventhandler for pre init (EH is installed in postInit)
 //////////////////////////////////////////////////
 
 ACE_player = objNull;
 uiNamespace setVariable ["ACE_player", objNull];
-
-//////////////////////////////////////////////////
-// Time handling
-//////////////////////////////////////////////////
-
-ACE_time = diag_tickTime;
-ACE_realTime = diag_tickTime;
-ACE_virtualTime = diag_tickTime;
-ACE_diagTime = diag_tickTime;
-ACE_gameTime = time;
-ACE_pausedTime = 0;
-ACE_virtualPausedTime = 0;
-
-[FUNC(timePFH), 0, []] call CBA_fnc_addPerFrameHandler;
 
 // Init toHex
 [0] call FUNC(toHex);
