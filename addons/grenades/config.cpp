@@ -2,6 +2,7 @@
 
 class CfgPatches {
     class ADDON {
+        name = COMPONENT_NAME;
         units[] = {};
         weapons[] = {};
         requiredVersion = REQUIRED_VERSION;
@@ -20,3 +21,7 @@ class CfgPatches {
 #include "CfgVehicles.hpp"
 
 #include "Effects.hpp"
+
+class ACE_newEvents {
+    flashbangExplosion = "ace_flashbangExploded";
+};

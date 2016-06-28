@@ -2,6 +2,7 @@
 
 class CfgPatches {
     class ADDON {
+        name = COMPONENT_NAME;
         units[] = {};
         weapons[] = {};
         requiredVersion = REQUIRED_VERSION;
@@ -14,11 +15,7 @@ class CfgPatches {
 };
 
 #include "CfgEventHandlers.hpp"
-
 #include "CfgSounds.hpp"
-
 #include "CfgVehicles.hpp"
-
 #include "CfgWeapons.hpp"
-
 #include "RscTitles.hpp"

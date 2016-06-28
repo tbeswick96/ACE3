@@ -2,6 +2,7 @@
 
 class CfgPatches {
     class ADDON {
+        name = COMPONENT_NAME;
         units[] = {};
         weapons[] = {"ACE_EarPlugs"};
         requiredVersion = REQUIRED_VERSION;
@@ -14,13 +15,8 @@ class CfgPatches {
 };
 
 #include "CfgEventHandlers.hpp"
-
 #include "CfgVehicles.hpp"
-
 #include "CfgSounds.hpp"
-
 #include "CfgWeapons.hpp"
-
 #include "CfgAmmo.hpp"
-
 #include "ACE_Settings.hpp"

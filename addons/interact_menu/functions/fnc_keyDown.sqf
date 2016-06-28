@@ -2,10 +2,10 @@
  * Author: NouberNou and esteldunedain
  * Handle interactions key down
  *
- * Argument:
+ * Arguments:
  * 0: Type of key: 0 interaction / 1 self interaction <NUMBER>
  *
- * Return value:
+ * Return Value:
  * true <BOOL>
  *
  * Public: No
@@ -102,6 +102,6 @@ if (GVAR(openedMenuType) == 0) then {
     GVAR(startHoverTime) = -1000;
 };
 
-["interactMenuOpened", [_menuType]] call EFUNC(common,localEvent);
+["ace_interactMenuOpened", [_menuType]] call CBA_fnc_localEvent;
 
 true

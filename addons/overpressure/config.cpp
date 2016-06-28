@@ -2,6 +2,7 @@
 
 class CfgPatches {
     class ADDON {
+        name = COMPONENT_NAME;
         units[] = {};
         weapons[] = {};
         requiredVersion = REQUIRED_VERSION;
@@ -15,3 +16,7 @@ class CfgPatches {
 
 #include "CfgEventHandlers.hpp"
 #include "CfgWeapons.hpp"
+
+class ACE_newEvents {
+    overpressure = "ace_overpressure";
+};

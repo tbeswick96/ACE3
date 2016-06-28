@@ -2,6 +2,7 @@
 
 class CfgPatches {
     class ADDON {
+        name = COMPONENT_NAME;
         units[] = {};
         weapons[] = {"ACE_wirecutter"};
         requiredVersion = REQUIRED_VERSION;
@@ -16,3 +17,7 @@ class CfgPatches {
 #include "CfgEventHandlers.hpp"
 #include "CfgWeapons.hpp"
 #include "CfgVehicles.hpp"
+
+class ACE_newEvents {
+    interactMenuOpened = "ace_interactMenuOpened";
+};

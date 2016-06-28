@@ -2,6 +2,7 @@
 
 class CfgPatches {
     class ADDON {
+        name = COMPONENT_NAME;
         units[] = {"ACE_Item_SpraypaintBlack", "ACE_Item_SpraypaintRed", "ACE_Item_SpraypaintGreen", "ACE_Item_SpraypaintBlue"};
         weapons[] = {"ACE_SpraypaintBlack", "ACE_SpraypaintRed", "ACE_SpraypaintGreen", "ACE_SpraypaintBlue"};
         requiredVersion = REQUIRED_VERSION;
@@ -16,3 +17,8 @@ class CfgPatches {
 #include "CfgEventHandlers.hpp"
 #include "CfgVehicles.hpp"
 #include "CfgWeapons.hpp"
+
+class ACE_newEvents {
+    createTag = QGVAR(createTag);
+    tagCreated = "ace_tagCreated";
+};

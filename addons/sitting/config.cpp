@@ -2,6 +2,7 @@
 
 class CfgPatches {
     class ADDON {
+        name = COMPONENT_NAME;
         units[] = {};
         weapons[] = {};
         requiredVersion = REQUIRED_VERSION;
@@ -17,3 +18,7 @@ class CfgPatches {
 #include "CfgEventHandlers.hpp"
 #include "CfgMoves.hpp"
 #include "CfgVehicles.hpp"
+
+class ACE_newEvents {
+    SetHandcuffed = QEGVAR(captives,setHandcuffed);
+};

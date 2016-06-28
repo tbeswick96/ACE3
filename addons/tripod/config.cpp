@@ -2,6 +2,7 @@
 
 class CfgPatches {
     class ADDON {
+        name = COMPONENT_NAME;
         units[] = {"ACE_Item_Tripod"};
         weapons[] = {"ACE_Tripod"};
         requiredVersion = REQUIRED_VERSION;
@@ -16,3 +17,7 @@ class CfgPatches {
 #include "CfgEventHandlers.hpp"
 #include "CfgVehicles.hpp"
 #include "CfgWeapons.hpp"
+
+class ACE_newEvents {
+    interactMenuOpened = "ace_interactMenuOpened";
+};

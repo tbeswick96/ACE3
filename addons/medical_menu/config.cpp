@@ -2,6 +2,7 @@
 
 class CfgPatches {
     class ADDON {
+        name = COMPONENT_NAME;
         units[] = {};
         weapons[] = {};
         requiredVersion = REQUIRED_VERSION;
@@ -17,3 +18,7 @@ class CfgPatches {
 #include "ui\menu.hpp"
 #include "ACE_Settings.hpp"
 #include "CfgVehicles.hpp"
+
+class ACE_newEvents {
+    Medical_onMenuOpen = "ace_medicalMenuOpened";
+};
