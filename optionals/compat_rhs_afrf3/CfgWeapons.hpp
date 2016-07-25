@@ -65,24 +65,4 @@ class CfgWeapons {
     class rhs_weap_rpg7: Launcher_Base_F {
         ace_reloadlaunchers_enabled = 1;
     };
-
-    class H_HelmetB;
-    class rhs_tsh4: H_HelmetB {
-        ace_hearing_protection = 1;
-        ace_hearing_lowerVolume = 0.80;
-    };
-    class rhs_tsh4_ess: rhs_tsh4 {};
-    class rhs_tsh4_bala: rhs_tsh4 {};
-    class rhs_tsh4_ess_bala: rhs_tsh4 {};
-
-    class rhs_zsh7a: H_HelmetB {
-        ace_hearing_protection = 1;
-        ace_hearing_lowerVolume = 0.80;
-    };
-    class rhs_zsh7a_mike: rhs_zsh7a {};
-
-    class rhs_gssh18: H_HelmetB {
-        ace_hearing_protection = 0.5;
-        ace_hearing_lowerVolume = 0.60;
-    };
 };
