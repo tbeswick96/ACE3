@@ -46,11 +46,11 @@ params ["_mapHandle"];
             _grpName = groupID _group;
 
             // If color settings for the group exist, then use those, otherwise fall back to the default colors
-            _color = if ([GVAR(GroupColorConfigurationMapping), _grpName] call CBA_fnc_hashHasKey) then {
-                (GVAR(GroupColorConfigurations) select ([GVAR(GroupColorConfigurationMapping), _grpName] call CBA_fnc_hashGet)) select (_x != leader _group)
-            } else {
-                if (_x == leader _group) then {GVAR(defaultLeadColor)} else {GVAR(defaultColor)};
-            };
+            //_color = if ([GVAR(GroupColorConfigurationMapping), _grpName] call CBA_fnc_hashHasKey) then {
+            //    (GVAR(GroupColorConfigurations) select ([GVAR(GroupColorConfigurationMapping), _grpName] call CBA_fnc_hashGet)) select (_x != leader _group)
+            //} else {
+            _color = if (_x == leader _group) then {GVAR(defaultLeadColor)} else {GVAR(defaultColor)};
+            //};
 
             // Render icon and player name
             _mapHandle drawIcon ["\a3\ui_f\data\gui\cfg\Hints\icon_text\group_1_ca.paa", _color, _pos, ICON_RENDER_SIZE, ICON_RENDER_SIZE, ICON_ANGLE, "", ICON_SHADOW, TEXT_SIZE, TEXT_FONT, ICON_TEXT_ALIGN];
