@@ -19,7 +19,7 @@
 params [["_unit", objNull, [objNull]], ["_target", objNull, [objNull]]];
 
 [
-    2,
+    0.1,
     [_unit, _target],
     {
         params ["_args"];

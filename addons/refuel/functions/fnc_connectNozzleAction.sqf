@@ -72,7 +72,7 @@ _endPosTestOffset = _startingOffset vectorAdd (_closeInUnitVector vectorMultiply
 _endPosTestOffset set [2, (_startingOffset select 2)];
 
 [
-    2,
+    0.1,
     [_unit, _nozzle, _target, _endPosTestOffset],
     {
         params ["_args"];
