@@ -1463,9 +1463,9 @@ See the make.cfg file for additional build options.
 if __name__ == "__main__":
     start_time = timeit.default_timer()
     #main(sys.argv)
-    #main([sys.argv[0], 'particles'])
-    main([sys.argv[0], 'refuel'])
+    #main([sys.argv[0], 'refuel'])
     #main([sys.argv[0], 'medical'])
+    main([sys.argv[0], 'fastroping'])
     #main([sys.argv[0], 'compat_rhs_afrf3'])
     d,h,m,s = Fract_Sec(timeit.default_timer() - start_time)
     print("\nTotal Program time elapsed: {0:2}h {1:2}m {2:4.5f}s".format(h,m,s))
