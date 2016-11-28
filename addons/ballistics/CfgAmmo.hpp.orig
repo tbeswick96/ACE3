@@ -132,7 +132,11 @@ class CfgAmmo {
         ACE_velocityBoundaries[]={};
         ACE_standardAtmosphere="ICAO";
         ACE_dragModel=7;
+<<<<<<< HEAD
+        ACE_muzzleVelocities[]={790, 930, 970};
+=======
         ACE_muzzleVelocities[]={790, 930, 950};
+>>>>>>> release
         ACE_barrelLengths[]={369.0, 463.0, 600.0};
     };
     class B_65x39_Caseless : BulletBase {
