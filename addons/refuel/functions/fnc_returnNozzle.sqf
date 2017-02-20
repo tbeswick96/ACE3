@@ -24,7 +24,7 @@ private _source = _nozzle getVariable QGVAR(source);
 if (isNull _nozzle || {_source != _target}) exitWith {false};
 
 [
-    2,
+    0.1,
     [_unit, _nozzle, _target],
     {
         params ["_args"];

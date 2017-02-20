@@ -16,3 +16,7 @@ PREP(onCutCommon);
 PREP(onPrepareCommon);
 PREP(onRopeBreak);
 PREP(prepareFRIES);
+PREP(canAttachFRIES);
+PREP(canDetachFRIES);
+PREP(attachFRIES);
+PREP(detachFRIES);

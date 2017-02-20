@@ -37,6 +37,24 @@ class CfgVehicles {
 
     class Air;
     class Helicopter: Air {
+		class ACE_Actions {
+			class ACE_MainActions {
+				class ACE_attachFRIES {
+					displayName = "Attach FRIES";
+					condition = QUOTE([_target] call FUNC(canAttachFRIES));
+					statement = QUOTE([_target] call FUNC(attachFRIES));
+					showDisabled = 0;
+					priority = 1;
+				};
+				class ACE_detachFRIES {
+					displayName = "Detach FRIES";
+					condition = QUOTE([_target] call FUNC(canDetachFRIES));
+					statement = QUOTE([_target] call FUNC(detachFRIES));
+					showDisabled = 0;
+					priority = 1;
+				};
+			};
+		};
         class ACE_SelfActions {
             class ACE_prepareFRIES {
                 displayName = CSTRING(Interaction_prepareFRIES);

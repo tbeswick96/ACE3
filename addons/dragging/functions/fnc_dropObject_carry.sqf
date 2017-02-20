@@ -17,7 +17,7 @@
 #include "script_component.hpp"
 
 params ["_unit", "_target"];
-TRACE_2("params",_unit,_target);
+TRACE_1("params",_this);
 
 // remove drop action
 [_unit, "DefaultAction", _unit getVariable [QGVAR(ReleaseActionID), -1]] call EFUNC(common,removeActionEventHandler);
@@ -75,3 +75,8 @@ if !(_target isKindOf "CAManBase") then {
 if (_target getVariable [QGVAR(isUAV), false]) then {
     createVehicleCrew _target;
 };
+
+// Reenable collision with nearby objects
+{
+    _target enableCollisionWith _x;
+} forEach (_target getVariable [QGVAR(disabledCollisionObjects), []]);

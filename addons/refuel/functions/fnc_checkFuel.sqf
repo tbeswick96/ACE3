@@ -21,7 +21,7 @@ params [["_unit", objNull, [objNull]], ["_target", objNull, [objNull]]];
 private _fuel = [_target] call FUNC(getFuel);
 
 [
-    5,
+    0.1,
     [_unit, _target, _fuel],
     {
         params ["_args"];

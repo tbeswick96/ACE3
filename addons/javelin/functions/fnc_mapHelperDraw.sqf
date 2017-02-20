@@ -1,7 +1,7 @@
 /*
  * Author: PabstMirror
  * Handles the map helper's draw event
- * Resets arguments if not run recently
+ * Resets arguemnts if not run recently
  * And starts a watchdog to detect when weapon display unloaded
  *
  * Arguments:
