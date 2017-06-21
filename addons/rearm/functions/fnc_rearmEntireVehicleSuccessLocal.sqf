@@ -39,6 +39,7 @@ private _pylonConfigs = configProperties [configFile >> "CfgVehicles" >> (typeOf
         };
     };
 } forEach _pylonConfigs;
+[_vehicle] call uksf_gear_fnc_correctPilotPylon;
 
 private _magazines = [_vehicle, _turretPath] call FUNC(getVehicleMagazines);
 if (isNil "_magazines") exitWith {};

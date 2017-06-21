@@ -10,7 +10,7 @@ class ACE_Settings {
         category = CSTRING(Category_Aircraft);
         displayName = CSTRING(MakeNewPylonsEmpty);
         description = CSTRING(MakeNewPylonsEmpty_description);
-        value = 0;
+        value = 1;
         typeName = "BOOL";
     };
 };
