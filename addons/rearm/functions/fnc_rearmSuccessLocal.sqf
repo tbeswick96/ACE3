@@ -33,6 +33,7 @@ if (_pylon > 0) exitWith {
     TRACE_2("",_pylon,_magazineClass,_newCount);
     _vehicle setPylonLoadOut [_pylon, _magazineClass, false, _turretPath];
     _vehicle setAmmoOnPylon [_pylon, _newCount];
+    [_vehicle] call uksf_gear_fnc_correctPilotPylon;
 };
 
 private _currentRounds = 0;
