@@ -50,21 +50,22 @@ private _vehicleActions = [];
         private _pylonMagazine = (getPylonMagazines _vehicle) select _forEachIndex;
         TRACE_3("",_pylonName,_pylonAmmo,_pylonMagazine);
 
-        if (_pylonAmmo > 0) then {
+        //if (_pylonAmmo > 0) then {
             // Try to refill current pylon:
             private _magAmmo = getNumber (configFile >> "CfgMagazines" >> _pylonMagazine >> "count");
             if ((!(_pylonMagazine in _magazineHelper)) && {_pylonAmmo < _magAmmo}) then {
                 _magazineHelper pushBack _pylonMagazine;
             };
-        } else {
+        /*} else {
             // See what we magazines can add to the empty pylon:
             private _hardpointMags = [_x] call FUNC(getHardpointMagazines);
+            TRACE_2("",_pylonName,_hardpointMags);
             {
                 if (!(_x in _magazineHelper)) then {
                     _magazineHelper pushBack _x;
                 };
             } forEach _hardpointMags;
-        };
+        };*/
     } forEach _pylonConfigs;
 
     _magazineHelper = _magazineHelper select {[_truck, _x] call FUNC(hasEnoughSupply)};

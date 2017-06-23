@@ -54,14 +54,14 @@ if (!(_return select 0)) then {
         if (_pylonTurret isEqualTo []) then {_pylonTurret = [-1];}; // convert to expected array for driver
         TRACE_4("",_pylonName,_pylonAmmo,_pylonMagazine,_pylonTurret);
 
-        if (_pylonAmmo > 0) then {
+        //if (_pylonAmmo > 0) then {
             if (_magazineClass == _pylonMagazine) then { // Try to refill current pylon:
                 private _magAmmo = getNumber (configFile >> "CfgMagazines" >> _pylonMagazine >> "count");
                 if (_pylonAmmo < _magAmmo) then {
                     _return = [true, _pylonTurret, 0, _pylonIndex];
                 };
             };
-        } else {
+        /*} else {
             // See what we magazines can add to the empty pylon:
             private _hardpointMags = [_x] call FUNC(getHardpointMagazines);
             {
@@ -69,7 +69,7 @@ if (!(_return select 0)) then {
                     _return = [true, _pylonTurret, 0, _pylonIndex];
                 };
             } forEach _hardpointMags;
-        };
+        };*/
         if (_return select 0) exitWith {};
     } forEach _pylonConfigs;
 };
