@@ -56,13 +56,13 @@ switch( (_attackProfileStateParams select 0) ) do {
     };
     case STAGE_CLIMB: {
         TRACE_1("STAGE_CLIMB","");
-        private _cruisAlt = 140;
-        if (_distanceShooterToTarget < 1250) then {
-            _cruisAlt = 140 * (_distanceShooterToTarget/1250);
+        private _cruisAlt = 160;
+        if (_distanceShooterToTarget < 500) then {
+            _cruisAlt = 160 * (_distanceShooterToTarget/500);
             TRACE_1("_cruisAlt", _cruisAlt);
         };
         if ( ((ASLToAGL _projectilePos) select 2) - ((ASLToAGL _seekerTargetPos) select 2) >= _cruisAlt) then {
-            if (_cruisAlt < 140) then {
+            if (_cruisAlt < 160) then {
                 _attackProfileStateParams set [0, STAGE_TERMINAL];
             } else {
                 _attackProfileStateParams set [0, STAGE_COAST];
