@@ -1,4 +1,5 @@
 PREP(onButtonApply);
+PREP(onButtonApplyLocal);
 PREP(onButtonDelete);
 PREP(onButtonLoad);
 PREP(onButtonSave);
