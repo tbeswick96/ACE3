@@ -18,7 +18,7 @@
 params [["_vehicle", objNull], ["_combos", []]];
 
 if (!local _vehicle) exitWith {
-    [QGVAR(onButtonApplyLocal), [_vehicle, _combos], owner _vehicle] call CBA_fnc_targetEvent;
+    [QGVAR(onButtonApplyLocal), [_vehicle, _combos], _vehicle] call CBA_fnc_targetEvent;
 };
 
 private _pylons = configProperties [configFile >> "CfgVehicles" >> typeOf _vehicle >> "Components" >> "TransportPylonsComponent" >> "Pylons", "isClass _x"];

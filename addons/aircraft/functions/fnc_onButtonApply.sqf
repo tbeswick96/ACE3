@@ -15,4 +15,4 @@
  */
 #include "script_component.hpp"
 
-[QGVAR(onButtonApplyLocal), [GVAR(currentAircraft), GVAR(comboBoxes)], owner GVAR(currentAircraft)] call CBA_fnc_targetEvent;
+[QGVAR(onButtonApplyLocal), [GVAR(currentAircraft), GVAR(comboBoxes)], GVAR(currentAircraft)] call CBA_fnc_targetEvent;
