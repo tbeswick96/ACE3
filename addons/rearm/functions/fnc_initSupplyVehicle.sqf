@@ -41,6 +41,15 @@ private _actionReadSupplyCounter = [ // GVAR(supply) > 0
     {_this call FUNC(canReadSupplyCounter)}
 ] call EFUNC(interact_menu,createAction);
 
+private _actionConfigure = [
+    QGVAR(configurePylons),
+    "Configure Pylons",
+    QPATHTOF(ui\icon_rearm_interact.paa),
+    {},
+    {_this call FUNC(canTakeAmmo)},
+    {_this call FUNC(addConfigureActions)}
+] call EFUNC(interact_menu,createAction);
+
 private _actionTakeAmmo = [
     QGVAR(takeAmmo),
     localize ([LSTRING(Rearm), LSTRING(TakeAmmo)] select (GVAR(level) > 0)),
@@ -61,6 +70,7 @@ private _actionStoreAmmo = [
 if (_oldRearmConfig || {_configSupply > 0}) then {
     TRACE_1("Adding Class Actions",_typeOf);
     [_typeOf, 0, ["ACE_MainActions"], _actionReadSupplyCounter] call EFUNC(interact_menu,addActionToClass);
+    [_typeOf, 0, ["ACE_MainActions"], _actionConfigure] call EFUNC(interact_menu,addActionToClass);
     if (!_oldRearmConfig) then {
         [_typeOf, 0, ["ACE_MainActions"], _actionTakeAmmo] call EFUNC(interact_menu,addActionToClass);
         [_typeOf, 0, ["ACE_MainActions"], _actionStoreAmmo] call EFUNC(interact_menu,addActionToClass);
@@ -70,6 +80,7 @@ if (_oldRearmConfig || {_configSupply > 0}) then {
 } else {
     TRACE_1("Adding Object Actions",_typeOf);
     [_vehicle, 0, ["ACE_MainActions"], _actionReadSupplyCounter] call EFUNC(interact_menu,addActionToObject);
+    [_vehicle, 0, ["ACE_MainActions"], _actionConfigure] call EFUNC(interact_menu,addActionToObject);
     [_vehicle, 0, ["ACE_MainActions"], _actionTakeAmmo] call EFUNC(interact_menu,addActionToObject);
     [_vehicle, 0, ["ACE_MainActions"], _actionStoreAmmo] call EFUNC(interact_menu,addActionToObject);
 };

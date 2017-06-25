@@ -1,6 +1,7 @@
 
 PREP(addMagazineToSupply);
 PREP(addRearmActions);
+PREP(addConfigureActions);
 PREP(addVehicleMagazinesToSupply);
 PREP(canReadSupplyCounter);
 PREP(canRearm);
