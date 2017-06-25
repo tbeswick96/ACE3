@@ -28,7 +28,7 @@ _bodyStatus params ["_headDamage", "_torsoDamage", "_handsDamageR", "_handsDamag
 _unit setHitPointDamage ["hitHead", _headDamage min 0.95];
 _unit setHitPointDamage ["hitBody", _torsoDamage min 0.95];
 _unit setHitPointDamage ["hitHands", (_handsDamageR + _handsDamageL) min 0.95];
-_unit setHitPointDamage ["hitLegs", (_legsDamageR + _legsDamageL) min 0.95];
+_unit setHitPointDamage ["hitLegs", (_legsDamageR + _legsDamageL) min 0.49];
 
 if (_bodyStatus isEqualTo [0,0,0,0,0,0]) then {
     _unit setDamage 0;
