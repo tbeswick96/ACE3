@@ -15,4 +15,11 @@
  */
 #include "script_component.hpp"
 
-[QGVAR(onButtonApplyLocal), [GVAR(currentAircraft), GVAR(comboBoxes)], GVAR(currentAircraft)] call CBA_fnc_targetEvent;
+private _vehicle = GVAR(currentAircraft);
+private _combos = GVAR(comboBoxes);
+private _comboPylons = [];
+{
+    _comboPylons pushBack ((_x select 0) lbData (lbCurSel (_x select 0)));
+} forEach _combos;
+
+[QGVAR(onButtonApplyLocal), [_vehicle, _comboPylons], _vehicle] call CBA_fnc_targetEvent;

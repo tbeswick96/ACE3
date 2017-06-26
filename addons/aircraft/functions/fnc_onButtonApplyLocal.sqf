@@ -3,7 +3,8 @@
  * Applies the current configuration of pylons to the aircraft
  *
  * Arguments:
- * None
+ * 0: Vehicle <OBJECT>
+ * 1: Pylons <ARRAY>
  *
  * Return Value:
  * None
@@ -15,15 +16,14 @@
  */
 #include "script_component.hpp"
 
-params [["_vehicle", objNull], ["_combos", []]];
+params [["_vehicle", objNull], ["_comboPylons", []]];
 
 if (!local _vehicle) exitWith {
-    [QGVAR(onButtonApplyLocal), [_vehicle, _combos], _vehicle] call CBA_fnc_targetEvent;
+    [QGVAR(onButtonApplyLocal), [_vehicle, _comboPylons], _vehicle] call CBA_fnc_targetEvent;
 };
 
 private _pylons = configProperties [configFile >> "CfgVehicles" >> typeOf _vehicle >> "Components" >> "TransportPylonsComponent" >> "Pylons", "isClass _x"];
 private _originalPylonMagazines = getPylonMagazines _vehicle;
-
 {
     if (isText (configFile >> "CfgMagazines" >> (_originalPylonMagazines select _forEachIndex) >> "pylonWeapon")) then {
         private _weapon = getText (configFile >> "CfgMagazines" >> (_originalPylonMagazines select _forEachIndex) >> "pylonWeapon");
@@ -31,7 +31,7 @@ private _originalPylonMagazines = getPylonMagazines _vehicle;
         _vehicle removeWeaponTurret [_weapon, [-1]];
     };
     
-    private _pylon = (_x select 0) lbData (lbCurSel (_x select 0));
+    private _pylon = _x;
     private _pylonMagazines = getPylonMagazines _vehicle;
     private _turret = getArray ((_pylons select _forEachIndex) >> "turret");
     if (GVAR(makeNewPylonsEmpty)) then {
@@ -44,7 +44,7 @@ private _originalPylonMagazines = getPylonMagazines _vehicle;
         _vehicle setPylonLoadout [_forEachIndex + 1, _pylon, true, _turret];
         _vehicle setAmmoOnPylon [_forEachIndex + 1, _count];
     };
-} forEach _combos;
+} forEach _comboPylons;
 
 private _pylonMagazines = getPylonMagazines _vehicle;
 {
