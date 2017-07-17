@@ -1503,6 +1503,7 @@ See the make.cfg file for additional build options.
                 print("- {} not found!".format(missingFile))
         if printedOnlyErrors > 0:
             print_yellow("- {} untraced error(s)!".format(printedOnlyErrors))
+        sys.exit(1)
     else:
         print_green("\nCompleted with 0 errors.")
 
@@ -1516,4 +1517,4 @@ if __name__ == "__main__":
     if ciBuild:
         sys.exit(0)
 
-    input("Press Enter to continue...")
+    #input("Press Enter to continue...")
