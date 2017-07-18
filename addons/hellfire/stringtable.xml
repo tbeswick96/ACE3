@@ -5,6 +5,8 @@
             <English>Set Hellfire mode</English>
             <Italian>Imposta modalità Hellfire</Italian>
             <Japanese>ヘルファイア モードを設定</Japanese>
+            <Chinesesimp>设定地狱火模式</Chinesesimp>
+            <Chinese>設定地獄火模式</Chinese>
         </Key>
     </Package>
 </Project>
