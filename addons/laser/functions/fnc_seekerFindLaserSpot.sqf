@@ -34,7 +34,6 @@ private _seekerCos = cos _seekerFov;
 if (_seekerFov >= 90) then {
     _seekerCos = 0.01;
 };
-//INFO_2("SEEKER: %1, %2",_seekerFov,_seekerCos);
 private _seekerMaxDistSq = _seekerMaxDistance ^ 2;
 
 TRACE_6("",_posASL,_dir,_seekerFov,_seekerMaxDistance,_seekerWavelengths,_seekerCode);
@@ -83,7 +82,6 @@ private _finalOwner = objNull;
                 private _testPoint = _x select 0;
                 private _testPointVector = _posASL vectorFromTo _testPoint;
                 private _testDotProduct = _dir vectorDotProduct _testPointVector;
-                //INFO_2("TEST: %1, %2",abs _testDotProduct,_seekerCos);
                 if ((abs _testDotProduct > _seekerCos) && {(_testPoint vectorDistanceSqr _posASL) < _seekerMaxDistSq}) then {
                     _spots pushBack [_testPoint, _owner];
                 };
@@ -95,7 +93,6 @@ private _finalOwner = objNull;
             if (_distance > 0) then {
                 private _testPointVector = _posASL vectorFromTo _resultPos;
                 private _testDotProduct = _dir vectorDotProduct _testPointVector;
-                //INFO_2("TEST: %1, %2",abs _testDotProduct,_seekerCos);
                 if ((abs _testDotProduct > _seekerCos) && {(_resultPos vectorDistanceSqr _posASL) < _seekerMaxDistSq}) then {
                     _spots pushBack [_resultPos, _owner];
                 };
