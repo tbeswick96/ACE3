@@ -32,16 +32,22 @@ _fnc_parameters = {
     //Set Icon:
     private _icon = "";
     private _size = 0;
+    private _unitNames = configFile >> "CfgUnitNames";
     if (_drawSoundwave) then {
         _icon = format [QPATHTOF(UI\soundwave%1.paa), floor random 10];
         _size = 1;
     } else {
         if (_drawRank && {rank _target != ""}) then {
-            _icon = GVAR(factionRanks) getVariable (_target getVariable [QGVAR(faction), faction _target]);
-            if (!isNil "_icon") then {
-                _icon = _icon param [ALL_RANKS find rank _target, ""];
+            if (isArray (_unitNames >> (roleDescription _target))) then {
+                private _rank = (getArray (_unitNames >> (roleDescription _target))) select 3;
+                _icon = getText (configFile >> "CfgCustomRanks" >> _rank >> "texture");
             } else {
-                _icon = format ["\A3\Ui_f\data\GUI\Cfg\Ranks\%1_gs.paa", rank _target];
+                _icon = GVAR(factionRanks) getVariable (_target getVariable [QGVAR(faction), faction _target]);
+                if (!isNil "_icon") then {
+                    _icon = _icon param [ALL_RANKS find rank _target, ""];
+                } else {
+                    _icon = format ["\A3\Ui_f\data\GUI\Cfg\Ranks\%1_gs.paa", rank _target];
+                };
             };
             _size = 1;
         };
