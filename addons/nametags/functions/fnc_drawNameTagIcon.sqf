@@ -38,9 +38,9 @@ _fnc_parameters = {
         _size = 1;
     } else {
         if (_drawRank && {rank _target != ""}) then {
-            if (isArray (_unitNames >> (roleDescription _target))) then {
-                private _rank = (getArray (_unitNames >> (roleDescription _target))) select 3;
-                _icon = getText (configFile >> "CfgCustomRanks" >> _rank >> "texture");
+            private _rankName = ((name _target) splitString ".") select 0;
+            if (isClass (configFile >> "CfgCustomRanks" >> _rankName)) then {
+                _icon = getText (configFile >> "CfgCustomRanks" >> _rankName >> "texture");
             } else {
                 _icon = GVAR(factionRanks) getVariable (_target getVariable [QGVAR(faction), faction _target]);
                 if (!isNil "_icon") then {
