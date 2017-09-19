@@ -31,6 +31,7 @@
 #define PARTICLE_SMOKE_WIND_EFFECT 1
 
 #define EFFECT_SIZE 1
+#define EFFECT_SIZE_EXTENDED 5
 #define ORIENTATION 5.4
 #define EXPANSION 1
 
@@ -185,6 +186,22 @@ if (isServer) then {
         _x inflame true;
     };
 } forEach (_position nearObjects EFFECT_SIZE);
+
+// --- damage extended
+{
+    if (local _x) then {
+        // --- destroy nearby aircraft
+        if (_x isKindOf "Air") then {
+            [{
+                if ("ace_cookoff" call EFUNC(common,isModLoaded) && {EGVAR(cookoff,enable)}) then {
+                    (_this select 0) call EFUNC(cookoff,cookOff);
+                } else {
+                    (_this select 0) setDamage 1;
+                };
+            }, [_x], (random 5) + 5] call CBA_fnc_waitAndExecute;
+        };
+    };
+} forEach (_position nearObjects EFFECT_SIZE_EXTENDED);
 
 // --- damage local vehicle
 private _vehicle = _position nearestObject "Car";
