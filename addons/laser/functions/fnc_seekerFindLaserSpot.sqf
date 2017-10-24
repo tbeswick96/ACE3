@@ -8,15 +8,15 @@
  * 1: Direction vector (will be normalized) <ARRAY>
  * 2: Seeker FOV in degrees <NUMBER>
  * 3: Seeker max distance in meters <NUMBER>
- * 4: Seeker wavelength sensitivity range, [1550,1550] is common eye safe. <ARRAY>
+ * 4: Seeker wavelength sensitivity range, [1550,1550] is common eye safe <ARRAY>
  * 5: Seeker laser code. <NUMBER>
- * 6: Ignore 1 (e.g. Player's vehicle) <OPTIONAL><OBJECT>
+ * 6: Ignore 1 (e.g. Player's vehicle) <OBJECT> (default: objNull)
  *
  * Return Value:
- * [Strongest compatible laser spot ASL pos, owner object] Nil array values if nothing found. <ARRAY>
+ * [Strongest compatible laser spot ASL pos, owner object] Nil array values if nothing found <ARRAY>
  *
  * Example:
- * [getPosASL player, [0,1,0], 90, [1500, 1500], 1111, player] call ace_laser_fnc_seekerFindLaserSpot;
+ * [getPosASL player, [0,1,0], 90, [1500, 1500], 1111, player] call ace_laser_fnc_seekerFindLaserSpot
  *
  * Public: No
  */
@@ -82,7 +82,7 @@ private _finalOwner = objNull;
                 private _testPoint = _x select 0;
                 private _testPointVector = _posASL vectorFromTo _testPoint;
                 private _testDotProduct = _dir vectorDotProduct _testPointVector;
-                if ((abs _testDotProduct > _seekerCos) && {(_testPoint vectorDistanceSqr _posASL) < _seekerMaxDistSq}) then {
+                if ((_testDotProduct > _seekerCos) && {(_testPoint vectorDistanceSqr _posASL) < _seekerMaxDistSq}) then {
                     _spots pushBack [_testPoint, _owner];
                 };
             } forEach _resultPositions;
@@ -93,7 +93,7 @@ private _finalOwner = objNull;
             if (_distance > 0) then {
                 private _testPointVector = _posASL vectorFromTo _resultPos;
                 private _testDotProduct = _dir vectorDotProduct _testPointVector;
-                if ((abs _testDotProduct > _seekerCos) && {(_resultPos vectorDistanceSqr _posASL) < _seekerMaxDistSq}) then {
+                if ((_testDotProduct > _seekerCos) && {(_resultPos vectorDistanceSqr _posASL) < _seekerMaxDistSq}) then {
                     _spots pushBack [_resultPos, _owner];
                 };
             };

@@ -1,9 +1,2 @@
-PREP(onButtonApply);
-PREP(onButtonApplyLocal);
-PREP(onButtonDelete);
-PREP(onButtonLoad);
-PREP(onButtonSave);
-PREP(onComboSelChange);
-PREP(onNameChange);
-PREP(onPylonMirror);
-PREP(showDialog);
+PREP(initEjectAction);
+PREP(canShowEject);

@@ -22,7 +22,7 @@
 ["forceWalk", false, ["ACE_SwitchUnits", "ACE_Attach", "ACE_dragging", "ACE_Explosives", "ACE_Ladder", "ACE_Sandbag", "ACE_refuel", "ACE_rearm", "ACE_dragging"]] call FUNC(statusEffect_addType);
 ["blockSprint", false, []] call FUNC(statusEffect_addType);
 ["setCaptive", true, [QEGVAR(captives,Handcuffed), QEGVAR(captives,Surrendered), "ace_unconscious"]] call FUNC(statusEffect_addType);
-["blockDamage", false, ["fixCollision"]] call FUNC(statusEffect_addType);
+["blockDamage", false, ["fixCollision", "ACE_cargo"]] call FUNC(statusEffect_addType);
 ["blockEngine", false, ["ACE_Refuel"]] call FUNC(statusEffect_addType);
 
 [QGVAR(forceWalk), {
@@ -123,6 +123,7 @@ if (isServer) then {
 [QGVAR(switchMove), {(_this select 0) switchMove (_this select 1)}] call CBA_fnc_addEventHandler;
 [QGVAR(setVectorDirAndUp), {(_this select 0) setVectorDirAndUp (_this select 1)}] call CBA_fnc_addEventHandler;
 [QGVAR(setVanillaHitPointDamage), {(_this select 0) setHitPointDamage (_this select 1)}] call CBA_fnc_addEventHandler;
+[QGVAR(addWeaponItem), {(_this select 0) addWeaponItem [(_this select 1), (_this select 2)]}] call CBA_fnc_addEventHandler;
 
 // Request framework
 [QGVAR(requestCallback), FUNC(requestCallback)] call CBA_fnc_addEventHandler;
@@ -318,7 +319,7 @@ GVAR(OldIsCamera) = false;
 }, 0.5, []] call CBA_fnc_addPerFrameHandler;
 
 // Add event handler for UAV control change
-ACE_controlledUAV = [objnull, objnull, [], ""];
+ACE_controlledUAV = [objNull, objNull, [], ""];
 addMissionEventHandler ["PlayerViewChanged", {
     // On non-server client this command is semi-broken
     // arg index 5 should be the controlled UAV, but it will often be objNull (delay from locality switching?)
@@ -332,7 +333,7 @@ addMissionEventHandler ["PlayerViewChanged", {
         private _UAV = getConnectedUAV player;
         if (!alive player) then {_UAV = objNull;};
         private _position = (UAVControl _UAV) param [1, ""];
-        private _seatAI = objnull;
+        private _seatAI = objNull;
         private _turret = [];
         switch (toLower _position) do {
             case (""): {
