@@ -34,15 +34,13 @@ if (isNil {GVAR(sharedLoadoutsNamespace) getVariable QGVAR(sharedLoadoutsVars)})
     GVAR(sharedLoadoutsNamespace) setVariable [QGVAR(sharedLoadoutsVars), [], true];
 };
 
-/*
-if (isNil QGVAR(defaultLoadoutsList)) then {
+/*if (isNil QGVAR(defaultLoadoutsList)) then {
     if (is3DEN) then {
         GVAR(defaultLoadoutsList) = (QGVAR(DummyCategory) get3DENMissionAttribute QGVAR(DefaultLoadoutsListAttribute));
     } else {
             GVAR(defaultLoadoutsList) = [];
     };
-};
-*/
+};*/
 GVAR(defaultLoadoutsList) = uiNamespace getVariable ["uksf_arsenal_defaultLoadouts", []];
 
 if (isNil QGVAR(virtualItems)) then {

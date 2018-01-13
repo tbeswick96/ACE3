@@ -37,10 +37,4 @@ class ACE_Settings {
         typeName = "SCALAR";
         sliderSettings[] = {0, 5, 1, 1};
     };
-    class GVAR(probabilityCoef) {
-        displayName = CSTRING(probabilityCoef_name);
-        description = CSTRING(probabilityCoef_tooltip);
-        value = 1;
-        typeName = "SCALAR";
-    };
 };
