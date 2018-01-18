@@ -193,7 +193,8 @@ if (_items isEqualType true) then {
                     switch true do {
                         // Rifle, handgun, secondary weapons mags
                         case (
-                                (getNumber (configFile >> "CfgMagazines" >> _x >> "type") in [256,512,1536,16]) &&
+                                ((getNumber (configFile >> "CfgMagazines" >> _x >> "type") in [256,512,1536,16]) ||
+                                {isNumber (configFile >> "CfgMagazines" >> _x >> "scopeArsenal") && {getNumber (configFile >> "CfgMagazines" >> _x >> "scopeArsenal") == 2}}) &&
                                 {!(_x in _grenadeList)} &&
                                 {!(_x in _putList)}
                             ): {
