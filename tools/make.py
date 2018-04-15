@@ -431,11 +431,17 @@ def cleanup_optionals(mod):
                 dst_sig_path = os.path.join(release_dir, project, "optionals", folder, "addons", sigFile_name)
 
                 if (os.path.isfile(src_file_path)):
+                    if (os.path.isfile(dst_file_path)):
+                        # print("Cleanuping up old file {}".format(dst_file_path))
+                        os.remove(dst_file_path);
                     #print("Preserving {}".format(file_name))
                     if (os.path.isfile(dst_file_path)):
                         os.remove(dst_file_path)
                     os.renames(src_file_path,dst_file_path)
                 if (os.path.isfile(src_sig_path)):
+                    if (os.path.isfile(dst_sig_path)):
+                        # print("Cleanuping up old file {}".format(dst_sig_path))
+                        os.remove(dst_sig_path);
                     #print("Preserving {}".format(sigFile_name))
                     if (os.path.isfile(dst_sig_path)):
                         os.remove(dst_sig_path)
