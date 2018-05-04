@@ -67,9 +67,10 @@ deleteVehicle GVAR(cameraHelper);
 camDestroy GVAR(camera);
 
 if (isMultiplayer) then {
-
-    [QGVAR(broadcastFace), [GVAR(center), GVAR(currentFace)], QGVAR(center) + "_face"] call CBA_fnc_globalEventJIP;
-    [QGVAR(center) + "_face", GVAR(center)] call CBA_fnc_removeGlobalEventJIP;
+    if (GVAR(currentFace) != "Custom") then {
+        [QGVAR(broadcastFace), [GVAR(center), GVAR(currentFace)], QGVAR(center) + "_face"] call CBA_fnc_globalEventJIP;
+        [QGVAR(center) + "_face", GVAR(center)] call CBA_fnc_removeGlobalEventJIP;
+    };
 
     [QGVAR(broadcastVoice), [GVAR(center), GVAR(currentVoice)], QGVAR(center) + "_voice"] call CBA_fnc_globalEventJIP;
     [QGVAR(center) + "_voice", GVAR(center)] call CBA_fnc_removeGlobalEventJIP;
