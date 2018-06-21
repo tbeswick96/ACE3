@@ -84,6 +84,10 @@ class CfgVehicles {
         class ACE_SelfActions {};
         EGVAR(cargo,hasCargo) = 0;
         EGVAR(cargo,space) = 0;
+        // ACRE 2.6.0 Compatibility
+        acre_hasInfantryPhone = 0;
+        class AcreRacks {};
+        class AcreIntercoms {};
     };
     class ACE_friesAnchorBar: ACE_friesBase {
         author = "jokoho48";
@@ -165,6 +169,10 @@ class CfgVehicles {
         class TransportItems {};
         EGVAR(cargo,hasCargo) = 0;
         EGVAR(cargo,space) = 0;
+        // ACRE 2.6.0 Compatibility
+        acre_hasInfantryPhone = 0;
+        class AcreRacks {};
+        class AcreIntercoms {};
     };
 
     class Helicopter_Base_H;
