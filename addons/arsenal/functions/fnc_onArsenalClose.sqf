@@ -105,4 +105,4 @@ GVAR(statsInfo) =  nil;
 GVAR(center) = nil;
 GVAR(centerNotPlayer) = nil;
 
-showHUD true;
+[QUOTE(ADDON), []] call EFUNC(common,showHud);
