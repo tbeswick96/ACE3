@@ -25,7 +25,7 @@ if (_actualProgress == 1) exitWith {};
 // Mark trench as being worked on
 _trench setVariable [QGVAR(digging), true, true];
 
-private _digTime = getNumber (configFile >> "CfgVehicles" >> (typeof _trench) >> QGVAR(diggingDuration));
+private _digTime = getText (configFile >> "CfgVehicles" >> (typeof _trench) >> QGVAR(diggingDuration));
 _digTime = missionNamespace getVariable [_digTime, -1];
 if (_digTime == -1) then {
     ERROR_1("No digging duration specified",typeof _trench);

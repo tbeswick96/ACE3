@@ -14,7 +14,7 @@ class CfgVehicles {
                     priority = 4;
                     class GVAR(digEnvelopeSmall) {
                         displayName = CSTRING(DigEnvelopeSmall);
-                        condition = QUOTE(_player call FUNC(canDigTrench) && && GVAR(allowSmallEnvelope));
+                        condition = QUOTE(_player call FUNC(canDigTrench) && GVAR(allowSmallEnvelope));
                         //wait a frame to handle "Do When releasing action menu key" option
                         statement = QUOTE([ARR_2({_this call FUNC(placeTrench)},[ARR_2(_this select 0,'ACE_envelope_small')])] call CBA_fnc_execNextFrame);
                         exceptions[] = {};
@@ -24,18 +24,18 @@ class CfgVehicles {
                     };
                     class GVAR(digEnvelopeBig): GVAR(digEnvelopeSmall) {
                         displayName = CSTRING(DigEnvelopeBig);
-                        condition = QUOTE(_player call FUNC(canDigTrench) && && GVAR(allowBigEnvelope));
+                        condition = QUOTE(_player call FUNC(canDigTrench) && GVAR(allowBigEnvelope));
                         //wait a frame to handle "Do When releasing action menu key" option
                         statement = QUOTE([ARR_2({_this call FUNC(placeTrench)},[ARR_2(_this select 0,'ACE_envelope_big')])] call CBA_fnc_execNextFrame);
                     };
                     class GVAR(DigEnvelopeGigant): GVAR(digEnvelopeSmall) {
                         displayName = CSTRING(DigEnvelopeGigant);
-                        condition = QUOTE(_player call FUNC(canDigTrench) && && GVAR(allowGigantEnvelope));
+                        condition = QUOTE(_player call FUNC(canDigTrench) && GVAR(allowGigantEnvelope));
                         statement = QUOTE([ARR_2({_this call FUNC(placeTrench)},[ARR_2(_this select 0,'ACE_envelope_gigant')])] call CBA_fnc_execNextFrame);
                     };
                     class GVAR(DigEnvelopeVehicle): GVAR(digEnvelopeSmall) {
                         displayName = CSTRING(DigEnvelopeVehicle);
-                        condition = QUOTE(_player call FUNC(canDigTrench) && && GVAR(allowVehicleEnvelope));
+                        condition = QUOTE(_player call FUNC(canDigTrench) && GVAR(allowVehicleEnvelope));
                         statement = QUOTE([ARR_2({_this call FUNC(placeTrench)},[ARR_2(_this select 0,'ACE_envelope_vehicle')])] call CBA_fnc_execNextFrame);
                     };
                 };
@@ -54,7 +54,7 @@ class CfgVehicles {
         GVAR(diggingDuration) = QGVAR(smallEnvelopeDigTime);
         GVAR(removalDuration) = QGVAR(smallEnvelopeRemovalTime);
         GVAR(noGeoClass) = "ACE_envelope_small_NoGeo";
-        GVAR(placementData)[] = {2,3,0.35};
+        GVAR(placementData)[] = {2,3,0};
         GVAR(grassCuttingPoints)[] = {{0,-0.5,0}};
 
         editorCategory = "EdCat_Things";
