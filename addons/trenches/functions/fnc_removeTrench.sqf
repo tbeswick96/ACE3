@@ -20,19 +20,24 @@ params ["_trench", "_unit"];
 TRACE_2("removeTrench",_trench,_unit);
 
 private _actualProgress = _trench getVariable [QGVAR(progress), 0];
-if(_actualProgress == 0) exitWith {};
+if (_actualProgress == 0) exitWith {};
 
 // Mark trench as being worked on
 _trench setVariable [QGVAR(digging), true, true];
 
-private _removeTime = getNumber (configFile >> "CfgVehicles" >> (typeof _trench) >> QGVAR(removalDuration));
+private _removeTime = getText (configFile >> "CfgVehicles" >> (typeof _trench) >> QGVAR(removalDuration));
+_removeTime = missionNamespace getVariable [_removeTime, -1];
+if (_removeTime == -1) then {
+    ERROR_1("No removal duration specified",typeof _trench);
+    _removeTime = 10; // Default value to handle missing config entry
+};
 private _removeTimeLeft = _removeTime * _actualProgress;
 
 private _placeData = _trench getVariable [QGVAR(placeData), [[], []]];
 _placeData params ["_basePos", "_vecDirAndUp"];
 
 private _trenchId = _unit getVariable [QGVAR(isDiggingId), -1];
-if(_trenchId < 0) then {
+if (_trenchId < 0) then {
     _trenchId = GVAR(trenchId);
     _unit setVariable [QGVAR(isDiggingId), _trenchId, true];
     GVAR(trenchId) = GVAR(trenchId) + 1;
