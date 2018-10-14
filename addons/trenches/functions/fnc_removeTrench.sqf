@@ -25,7 +25,7 @@ if (_actualProgress == 0) exitWith {};
 // Mark trench as being worked on
 _trench setVariable [QGVAR(digging), true, true];
 
-private _removeTime = getNumber (configFile >> "CfgVehicles" >> (typeof _trench) >> QGVAR(removalDuration));
+private _removeTime = getText (configFile >> "CfgVehicles" >> (typeof _trench) >> QGVAR(removalDuration));
 _removeTime = missionNamespace getVariable [_removeTime, -1];
 if (_removeTime == -1) then {
     ERROR_1("No removal duration specified",typeof _trench);

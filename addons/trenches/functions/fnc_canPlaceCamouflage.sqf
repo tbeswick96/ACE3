@@ -19,7 +19,7 @@ params ["_trench", "_unit"];
 
 if (!GVAR(allowCamouflage)) exitWith {false};
 
-if (GVAR(camouflageRequireEntrenchmentTool) && {!("ACE_EntrenchingTool" in items _unit)}) exitWith {false};
+if (GVAR(camouflageRequireEntrenchmentTool) && {!("ACE_EntrenchingTool" in (_unit call EFUNC(common,uniqueItems)))}) exitWith {false};
 
 (count (_trench getVariable [QGVAR(camouflageObjects), []]) == 0) &&
 {count (getArray (configFile >> "CfgWorlds" >> worldName >> QGVAR(camouflageObjects))) > 0} &&

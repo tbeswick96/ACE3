@@ -7,36 +7,38 @@ class CfgVehicles {
             class ACE_Equipment {
                 class ACE_Trenches {
                     displayName = CSTRING(ActionCategory);
-                    condition = QUOTE(true);
+                    condition = QUOTE(_player call FUNC(canDigTrench) && GVAR(allowDigging));
                     statement = "";
-                    exceptions[] = {};
-                    showDisabled = 1;
-                    priority = 4;
+                    exceptions[] = {"notOnMap", "isNotInside", "isNotSitting"};
+                    showDisabled = 0;
+                    priority = 3;
                     class GVAR(digEnvelopeSmall) {
                         displayName = CSTRING(DigEnvelopeSmall);
-                        condition = QUOTE(_player call FUNC(canDigTrench) && GVAR(allowSmallEnvelope));
-                        //wait a frame to handle "Do When releasing action menu key" option
-                        statement = QUOTE([ARR_2({_this call FUNC(placeTrench)},[ARR_2(_this select 0,'ACE_envelope_small')])] call CBA_fnc_execNextFrame);
                         exceptions[] = {};
                         showDisabled = 0;
                         priority = 4;
-                        //icon = QPATHTOF(UI\icon_sandbag_ca.paa);
+                        statement = QUOTE([ARR_2({_this call FUNC(placeTrench)},[ARR_2(_this select 0,'ACE_envelope_small')])] call CBA_fnc_execNextFrame);
+                        condition = QUOTE(([ARR_2(_target,_player)] call FUNC(canContinueDiggingTrench)) && GVAR(allowSmallEnvelope));
                     };
                     class GVAR(digEnvelopeBig): GVAR(digEnvelopeSmall) {
                         displayName = CSTRING(DigEnvelopeBig);
-                        condition = QUOTE(_player call FUNC(canDigTrench) && GVAR(allowBigEnvelope));
-                        //wait a frame to handle "Do When releasing action menu key" option
                         statement = QUOTE([ARR_2({_this call FUNC(placeTrench)},[ARR_2(_this select 0,'ACE_envelope_big')])] call CBA_fnc_execNextFrame);
+                        condition = QUOTE(([ARR_2(_target,_player)] call FUNC(canContinueDiggingTrench)) && GVAR(allowBigEnvelope));
                     };
                     class GVAR(DigEnvelopeGigant): GVAR(digEnvelopeSmall) {
                         displayName = CSTRING(DigEnvelopeGigant);
-                        condition = QUOTE(_player call FUNC(canDigTrench) && GVAR(allowGigantEnvelope));
                         statement = QUOTE([ARR_2({_this call FUNC(placeTrench)},[ARR_2(_this select 0,'ACE_envelope_gigant')])] call CBA_fnc_execNextFrame);
+                        condition = QUOTE(([ARR_2(_target,_player)] call FUNC(canContinueDiggingTrench)) && GVAR(allowGigantEnvelope));
                     };
                     class GVAR(DigEnvelopeVehicle): GVAR(digEnvelopeSmall) {
                         displayName = CSTRING(DigEnvelopeVehicle);
-                        condition = QUOTE(_player call FUNC(canDigTrench) && GVAR(allowVehicleEnvelope));
                         statement = QUOTE([ARR_2({_this call FUNC(placeTrench)},[ARR_2(_this select 0,'ACE_envelope_vehicle')])] call CBA_fnc_execNextFrame);
+                        condition = QUOTE(([ARR_2(_target,_player)] call FUNC(canContinueDiggingTrench)) && GVAR(allowVehicleEnvelope));
+                    };
+                    class GVAR(DigEnvelopeShort): GVAR(digEnvelopeSmall) {
+                        displayName = CSTRING(DigEnvelopeShort);
+                        statement = QUOTE([ARR_2({_this call FUNC(placeTrench)},[ARR_2(_this select 0,'ACE_envelope_short')])] call CBA_fnc_execNextFrame);
+                        condition = QUOTE(([ARR_2(_target,_player)] call FUNC(canContinueDiggingTrench)) && GVAR(allowShortEnvelope));
                     };
                 };
             };
@@ -54,8 +56,9 @@ class CfgVehicles {
         GVAR(diggingDuration) = QGVAR(smallEnvelopeDigTime);
         GVAR(removalDuration) = QGVAR(smallEnvelopeRemovalTime);
         GVAR(noGeoClass) = "ACE_envelope_small_NoGeo";
-        GVAR(placementData)[] = {2,3,0};
+        GVAR(placementData)[] = {8,1.1,0};
         GVAR(grassCuttingPoints)[] = {{0,-0.5,0}};
+        GVAR(isTrench) = 1;
 
         editorCategory = "EdCat_Things";
         editorSubcategory = "EdSubcat_Military";
@@ -139,7 +142,7 @@ class CfgVehicles {
         GVAR(diggingDuration) = QGVAR(gigantEnvelopeDigTime);
         GVAR(removalDuration) = QGVAR(gigantEnvelopeRemovalTime);
         GVAR(noGeoClass) = "ACE_envelope_gigant_noGeo";
-        GVAR(placementData)[] = {15,1.1,0.40};
+        GVAR(placementData)[] = {8,1.1,0.20};
         GVAR(grassCuttingPoints)[] = {{-1.5,-1,0},{1.5,-1,0}};
         model = QPATHTOF(data\trench_gigant.p3d);
 
@@ -157,12 +160,28 @@ class CfgVehicles {
         GVAR(diggingDuration) = QGVAR(vehicleEnvelopeDigTime);
         GVAR(removalDuration) = QGVAR(vehicleEnvelopeRemovalTime);
         GVAR(noGeoClass) = "ACE_envelope_vehicle_noGeo";
-        GVAR(placementData)[] = {6,1.1,0.20};
+        GVAR(placementData)[] = {10,1.1,0.20};
         GVAR(grassCuttingPoints)[] = {{-1.5,-1,0},{1.5,-1,0}};
         model = QPATHTOF(data\trench_vehicle.p3d);
 
         class GVAR(camouflagePositions) {};
         class Attributes {};
+    };
+    class ACE_envelope_short: ACE_envelope_small {
+        author = ECSTRING(common,ACETeam);
+        displayName = CSTRING(EnvelopeShortName);
+        descriptionShort = CSTRING(EnevlopeShortDescription);
+        GVAR(diggingDuration) = QGVAR(shortEnvelopeDigTime);
+        GVAR(removalDuration) = QGVAR(shortEnvelopeRemovalTime);
+        GVAR(noGeoClass) = "ACE_envelope_short_noGeo";
+        GVAR(placementData)[] = {10,1.1,0.20};
+        GVAR(grassCuttingPoints)[] = {{-1.5,-1,0},{1.5,-1,0}};
+        model = QPATHTOF(data\trench_short.p3d);
+
+        class GVAR(camouflagePositions) {
+            right[] = {1.1,0.2,0.2};
+            left[] = {-1.1,0.1,0.2};
+        };
     };
 
     class ACE_envelope_small_NoGeo: ACE_envelope_small {
@@ -184,6 +203,11 @@ class CfgVehicles {
         scope = 1;
         scopeCurator = 0;
         model = QPATHTOF(data\trench_vehicle_nogeo.p3d);
+    };
+    class ACE_envelope_short_NoGeo: ACE_envelope_short {
+        scope = 1;
+        scopeCurator = 0;
+        model = QPATHTOF(data\trench_short_nogeo.p3d);
     };
 
     class Box_NATO_Support_F;

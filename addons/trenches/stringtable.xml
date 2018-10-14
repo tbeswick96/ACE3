@@ -274,6 +274,15 @@
             <English>Dig Vehicle Trench</English>
             <German>Grabe Fahrzeug Schützengraben</German>
         </Key>
+        <Key ID="STR_ACE_Trenches_EnvelopeShortName">
+            <English>Trench (Envelope - Short)</English>
+        </Key>
+        <Key ID="STR_ACE_Trenches_EnevlopeShortDescription">
+            <English>Short Trench</English>
+        </Key>
+        <Key ID="STR_ACE_Trenches_DigEnvelopeShort">
+            <English>Dig Short Trench</English>
+        </Key>
 
         <Key ID="STR_ACE_Trenches_SettingCategory">
             <English>ACE Trenches</English>
@@ -343,6 +352,12 @@
             <English>Allow digging of envelope vehicle trenches</English>
             <German>Erlaube das Graben von runden Fahrzeuggräben</German>
         </Key>
+        <Key ID="STR_ACE_Trenches_AllowShortEnvelope_displayName">
+            <English>Allow Short envelope trenches</English>
+        </Key>
+        <Key ID="STR_ACE_Trenches_AllowShortEnvelope_tooltip">
+            <English>Allow digging of envelope short trenches</English>
+        </Key>
         <Key ID="STR_ACE_Trenches_SmallEnvelopeDigTime">
             <English>Dig time (in seconds) for small envelope trenches</English>
             <German>Zeit (in Sekunden) um kleine runde Gräben zu Graben</German>
@@ -358,6 +373,19 @@
         <Key ID="STR_ACE_Trenches_VehicleEnvelopeDigTime">
             <English>Dig time (in seconds) for vehicle envelope trenches</English>
             <German>Zeit (in Sekunden) um runde Fahrzeuggräben zu Graben</German>
+        </Key>
+        <Key ID="STR_ACE_Trenches_ShortEnvelopeDigTime">
+            <English>Dig time (in seconds) for short envelope trenches</English>
+        </Key>        
+        <Key ID="STR_ACE_Trenches_settingBuildFatigueFactor_displayName">
+            <English>Fatigue factor</English>
+            <German>Ausdauerkoeffizient</German>
+            <Russian>Коэффициент усталости</Russian>
+        </Key>
+        <Key ID="STR_ACE_Trenches_settingBuildFatigueFactor_tooltip">
+            <English>The fatigue factor when building trenches (0 to deactive fatigue use)</English>
+            <German>Der Ausdauerkoeffizient beim Bauen von Gräben (0 zum Deaktivieren)</German>
+            <Russian>Как сильно снижается стамина от копания (0 чтобы не снижалась)</Russian>
         </Key>
     </Package>
 </Project>

@@ -20,7 +20,7 @@
  * Public: No
  */
 
-params ["_unit", "_trench", "_trenchId", "_pos", "_vecDirAndUp", "_progress"];
+params ["_unit", "_trench", "_trenchId", "_pos", "_vecDirAndUp", "_progress", "_digTime"];
 
 // If the progress bar was cancelled, cancel elevation
 // We use an uid to avoid any chance of an older trench being raised when a new one is built
@@ -28,6 +28,10 @@ if (_unit getVariable [QGVAR(isDiggingId), -1] != _trenchId) exitWith {};
 
 _trench setPosASL _pos;
 _trench setVectorDirAndUp _vecDirAndUp;
+if (!isNil "_digTime") then {
+    EGVAR(advanced_fatigue,anReserve) = (EGVAR(advanced_fatigue,anReserve) - ((_digTime) * GVAR(buildFatigueFactor))) max 0;
+    EGVAR(advanced_fatigue,anFatigue) = (EGVAR(advanced_fatigue,anFatigue) + (((_digTime) * GVAR(buildFatigueFactor))/120)) min 1;
+};
 
 // Save progress local
 _trench setVariable [QGVAR(progress), _progress];
