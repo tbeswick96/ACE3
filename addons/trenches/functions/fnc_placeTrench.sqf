@@ -20,7 +20,7 @@ params ["_unit", "_trenchClass"];
 
 //Load trench data
 private _noGeoModel = getText (configFile >> "CfgVehicles" >> _trenchClass >> QGVAR(noGeoClass));
-if(_noGeoModel == "") then {_noGeoModel = _trenchClass;};
+if (_noGeoModel == "") then {_noGeoModel = _trenchClass;};
 
 GVAR(trenchClass) = _trenchClass;
 GVAR(trenchPlacementData) = getArray (configFile >> "CfgVehicles" >> _trenchClass >> QGVAR(placementData));
@@ -30,8 +30,8 @@ TRACE_1("",GVAR(trenchPlacementData));
 [_unit, "forceWalk", "ACE_Trenches", true] call EFUNC(common,statusEffect_set);
 [_unit, "blockThrow", "ACE_Trenches", true] call EFUNC(common,statusEffect_set);
 
-// create the trench
-private _trench = createVehicle [_noGeoModel, [0, 0, 0], [], 0, "NONE"];
+// create the trench at players position below surface to ensure trench init sets right texture
+private _trench = createVehicle [_noGeoModel, (player modelToWorld [0, 0, -100]), [], 0, "NONE"];
 
 GVAR(trench) = _trench;
 
@@ -39,6 +39,7 @@ GVAR(trench) = _trench;
 [QEGVAR(common,enableSimulationGlobal), [_trench, false]] call CBA_fnc_serverEvent;
 
 GVAR(digDirection) = 0;
+GVAR(currentSurface) = "";
 
 // pfh that runs while the dig is in progress
 GVAR(digPFH) = [{
@@ -86,6 +87,13 @@ GVAR(digPFH) = [{
     _trench setPosASL _basePos;
     _trench setVectorDirAndUp [_v1, _v3];
     GVAR(trenchPos) = _basePos;
+
+    if (surfaceType (position _trench) != GVAR(currentSurface)) then {
+        GVAR(currentSurface) = surfaceType (position _trench);
+        TRACE_1("Current surface",GVAR(currentSurface));
+
+        _trench setObjectTextureGlobal [0, [_trench] call FUNC(getSurfaceTexturePath)];
+    };
 
 }, 0, [_unit, _trench]] call CBA_fnc_addPerFrameHandler;
 
