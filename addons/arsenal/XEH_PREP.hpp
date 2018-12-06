@@ -64,6 +64,8 @@ PREP(statTextStatement_accuracy);
 PREP(statTextStatement_mass);
 PREP(statTextStatement_rateOfFire);
 PREP(statTextStatement_scopeMag);
+PREP(statTextStatement_scopeVisionMode);
+PREP(statTextStatement_smokeChemTTL);
 PREP(updateCamPos);
 PREP(updateRightPanel);
 PREP(updateUniqueItemsList);

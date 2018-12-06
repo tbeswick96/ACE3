@@ -194,6 +194,7 @@ if (_items isEqualType true) then {
                         // Rifle, handgun, secondary weapons mags
                         case (
                                 ((getNumber (configFile >> "CfgMagazines" >> _x >> "type") in [TYPE_MAGAZINE_PRIMARY_AND_THROW,TYPE_MAGAZINE_SECONDARY_AND_PUT,1536,TYPE_MAGAZINE_HANDGUN_AND_GL]) ||
+                                {(getNumber (configFile >> "CfgMagazines" >> _x >> QGVAR(hide))) == -1} ||
                                 {isNumber (configFile >> "CfgMagazines" >> _x >> "scopeArsenal") && {getNumber (configFile >> "CfgMagazines" >> _x >> "scopeArsenal") == 2}}) &&
                                 {!(_x in _grenadeList)} &&
                                 {!(_x in _putList)}
