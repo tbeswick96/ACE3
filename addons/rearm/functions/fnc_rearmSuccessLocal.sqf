@@ -47,7 +47,7 @@ if (_pylon > 0) exitWith {
             getText(configFile >> "CfgMagazines" >> _magazineClass >> "displayName"),
             getText(configFile >> "CfgVehicles" >> (typeOf _vehicle) >> "displayName")], 3, _unit], [_unit]] call CBA_fnc_targetEvent;
     };
-    [QGVAR(loadoutChanged), [_vehicle], _vehicle] call CBA_fnc_targetEvent;
+    [QGVAR(success), [_vehicle], _vehicle] call CBA_fnc_targetEvent;
 };
 
 private _currentRounds = 0;
