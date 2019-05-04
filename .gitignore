@@ -11,3 +11,4 @@ texHeaders.bin
 *.biprivatekey
 Thumbs.db
 CHANGELOG.md
+.vscode/ipch/

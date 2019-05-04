@@ -151,8 +151,10 @@ if (_onFiredFunc != "") then {
 //} else {
     // [FUNC(guidancePFH), 0, _args ] call CBA_fnc_addPerFrameHandler;
 //};
-
-[FUNC(guidancePFH), 0, _args ] call CBA_fnc_addPerFrameHandler;
+private _initTime = getNumber (configFile >> "CfgAmmo" >> _ammo >> "initTime");
+[{
+    [FUNC(guidancePFH), 0, _this] call CBA_fnc_addPerFrameHandler;
+}, _args, _initTime / 2] call CBA_fnc_waitAndExecute;
 
 
 /* Clears locking settings

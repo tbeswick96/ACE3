@@ -44,7 +44,7 @@ TRACE_2("", _distanceToTarget, _distanceToShooter);
 // Add height depending on distance for compensate
 private _returnTargetPos = _seekerTargetPos;
 
-switch( (_attackProfileStateParams select 0) ) do {
+switch( (_attackProfileStateParams#0) ) do {
     case STAGE_LAUNCH: {
         TRACE_1("STAGE_LAUNCH","");
         if (_distanceToShooter < 10) then {
@@ -56,27 +56,27 @@ switch( (_attackProfileStateParams select 0) ) do {
     case STAGE_CLIMB: {
         TRACE_1("STAGE_CLIMB","");
         private _cruisAlt = 160;
-        if (_distanceShooterToTarget < 500) then {
-            _cruisAlt = 160 * (_distanceShooterToTarget/500);
+        if (_distanceShooterToTarget < 1300) then {
+            _cruisAlt = 160 * (_distanceShooterToTarget/1500);
             TRACE_1("_cruisAlt", _cruisAlt);
         };
-        if ( ((ASLToAGL _projectilePos) select 2) - ((ASLToAGL _seekerTargetPos) select 2) >= _cruisAlt) then {
+        if (((ASLToAGL _projectilePos)#2) - ((ASLToAGL _seekerTargetPos)#2) >= _cruisAlt) then {
             if (_cruisAlt < 160) then {
                 _attackProfileStateParams set [0, STAGE_TERMINAL];
             } else {
                 _attackProfileStateParams set [0, STAGE_COAST];
             };
         } else {
-             _returnTargetPos = _seekerTargetPos vectorAdd [0,0,_distanceToTarget*1.5];
+            _returnTargetPos = _seekerTargetPos vectorAdd [0,0,_distanceToTarget*1.5];
         };
     };
     case STAGE_COAST: {
         TRACE_1("STAGE_COAST","");
-        TRACE_1("", ((ASLToAGL _projectilePos) select 2) - (( ASLToAGL _seekerTargetPos) select 2) );
-        if (_distanceToTarget < ( ((ASLToAGL _projectilePos) select 2) - (( ASLToAGL _seekerTargetPos) select 2) ) * 2) then {
+        TRACE_1("", ((ASLToAGL _projectilePos)#2) - (( ASLToAGL _seekerTargetPos)#2) );
+        if (_distanceToTarget < ( ((ASLToAGL _projectilePos)#2) - (( ASLToAGL _seekerTargetPos)#2) ) * 2) then {
             _attackProfileStateParams set [0, STAGE_TERMINAL];
         } else {
-            _returnTargetPos = _seekerTargetPos vectorAdd [0,0,(_projectilePos select 2)];
+            _returnTargetPos = _seekerTargetPos vectorAdd [0,0,(_projectilePos#2)];
         };
     };
     case STAGE_TERMINAL: {
