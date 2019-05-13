@@ -96,7 +96,7 @@ if (GVAR(isLockKeyDown) && {cameraView == "GUNNER"} && {((currentVisionMode ACE_
                 private _angleOkay = [ACE_player, _foundTargetPos, _seekerAngle] call EFUNC(missileguidance,checkSeekerAngle);
                 private _losOkay = false;
                 if (_angleOkay) then {
-                    _losOkay = [ACE_player, _newTarget] call EFUNC(missileguidance,checkLos);
+                    _losOkay = [ACE_player, _newTarget, true] call EFUNC(missileguidance,checkLos);
                 };
                 if (!_losOkay) then {
                     _newTarget = objNull;
