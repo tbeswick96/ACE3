@@ -16,7 +16,7 @@
  * Public: No
  */
 
-params ["_seeker", "_target"];
+params ["_seeker", "_target", ["_isLocking", false]];
 
 if ((isNil "_seeker") || {isNil "_target"}) exitWith {
     ERROR_2("nil",_seeker,_target);
@@ -25,7 +25,7 @@ if ((isNil "_seeker") || {isNil "_target"}) exitWith {
 
 private _targetPos = getPosASL _target;
 private _targetAimPos = aimPos _target;
-private _seekerPos = getPosASL _seeker;
+private _seekerPos = [getPosASL _seeker, eyePos _seeker] select _isLocking;
 private _return = true;
 
 if (!((terrainIntersectASL [_seekerPos, _targetPos]) && {terrainIntersectASL [_seekerPos, _targetAimPos]})) then {
