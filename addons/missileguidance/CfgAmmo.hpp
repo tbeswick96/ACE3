@@ -82,7 +82,7 @@ class CfgAmmo {
             defaultSeekerLockMode = "LOBL";
             seekerLockModes[] = { "LOBL" };
 
-            seekerAngle = 90;   // Angle in front of the missile which can be searched
+            seekerAngle = 180;   // Angle in front of the missile which can be searched
             seekerAccuracy = 1;  // seeker accuracy multiplier
 
             seekerMinRange = 0;

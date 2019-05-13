@@ -82,22 +82,26 @@ if (GVAR(isLockKeyDown) && {cameraView == "GUNNER"} && {((currentVisionMode ACE_
         BEGIN_COUNTER(getTarget);
         _newTarget = [_currentTarget, 2500, 0.6] call FUNC(getTarget);
         if (!(isNull _newTarget)) then {
-            // determine lead required (position infront of target)
-            private _foundTargetPos = aimPos _newTarget;
-            private _ammoType = getText (configFile >> "CfgMagazines" >> _currentMagazine >> "ammo");
-            private _typicalSpeed = (getNumber (configFile >> "CfgAmmo" >> _ammoType >> "typicalSpeed")) / 1.5;
-            private _distanceToTarget = (getPosASL ACE_player) vectorDistance _foundTargetPos;
-            private _eta = _distanceToTarget / _typicalSpeed;
-            private _adjustDistance = (velocity _newTarget) vectorMultiply _eta;
-            _foundTargetPos = _foundTargetPos vectorAdd _adjustDistance;
-            // check if lead position in seeker LOS
-            private _seekerAngle = getNumber ((_ammoConfig select 0) >> "seekerAngle");
-            private _angleOkay = [ACE_player, _foundTargetPos, _seekerAngle] call EFUNC(missileguidance,checkSeekerAngle);
-            private _losOkay = false;
-            if (_angleOkay) then {
-                _losOkay = [ACE_player, _newTarget] call EFUNC(missileguidance,checkLos);
-            };
-            if (!_losOkay) then {
+            if (speed _newTarget < 150) then {
+                // determine lead required (position infront of target)
+                private _foundTargetPos = aimPos _newTarget;
+                private _ammoType = getText (configFile >> "CfgMagazines" >> _currentMagazine >> "ammo");
+                private _typicalSpeed = (getNumber (configFile >> "CfgAmmo" >> _ammoType >> "typicalSpeed")) / 1.5;
+                private _distanceToTarget = (getPosASL ACE_player) vectorDistance _foundTargetPos;
+                private _eta = _distanceToTarget / _typicalSpeed;
+                private _adjustDistance = (velocity _newTarget) vectorMultiply _eta;
+                _foundTargetPos = _foundTargetPos vectorAdd _adjustDistance;
+                // check if lead position in seeker LOS
+                private _seekerAngle = getNumber ((_ammoConfig select 0) >> "seekerAngle");
+                private _angleOkay = [ACE_player, _foundTargetPos, _seekerAngle] call EFUNC(missileguidance,checkSeekerAngle);
+                private _losOkay = false;
+                if (_angleOkay) then {
+                    _losOkay = [ACE_player, _newTarget] call EFUNC(missileguidance,checkLos);
+                };
+                if (!_losOkay) then {
+                    _newTarget = objNull;
+                };
+            } else {
                 _newTarget = objNull;
             };
         };
