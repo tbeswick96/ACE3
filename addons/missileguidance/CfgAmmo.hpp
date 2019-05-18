@@ -70,7 +70,7 @@ class CfgAmmo {
             enabled = 1;
 
             minDeflection = 0.00005;  // Minium flap deflection for guidance
-            maxDeflection = 0.0025;  // Maximum flap deflection for guidance
+            maxDeflection = 0.025;  // Maximum flap deflection for guidance
             incDeflection = 0.00005;  // The increment in which deflection adjusts.
 
             canVanillaLock = 0;
