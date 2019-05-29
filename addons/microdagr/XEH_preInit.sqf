@@ -9,7 +9,7 @@ PREP_RECOMPILE_END;
 //Functions that are called for each draw of the map:
 GVAR(miniMapDrawHandlers) = [];
 
-ple(QGVAR(TheRscTitleDisplay) call BIS_fnc_rscLayer) cutText ["", "PLAIN"];
+(QGVAR(TheRscTitleDisplay) call BIS_fnc_rscLayer) cutText ["", "PLAIN"];
 
 #include "initSettings.sqf"
 
