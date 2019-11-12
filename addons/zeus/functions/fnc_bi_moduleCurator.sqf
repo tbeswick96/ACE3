@@ -61,41 +61,41 @@ if (_activated) then {
             _logic setvariable ["adminVar",_adminVar,true];
         };
 
-        //--- Get allowed addons
-        _addonsType = _logic getvariable ["Addons",2];
-        _addons = [];
-        switch _addonsType do {
+        // //--- Get allowed addons
+        // _addonsType = _logic getvariable ["Addons",2];
+        // _addons = [];
+        // switch _addonsType do {
 
-            //--- All (including unofficial ones)
-            case 3: {
-                _cfgPatches = configfile >> "cfgpatches";
-                for "_i" from 0 to (count _cfgPatches - 1) do {
-                    _class = _cfgPatches select _i;
-                    if (isclass _class) then {_addons set [count _addons,configname _class];};
-                };
-                _addons call bis_fnc_activateaddons;
-                removeallcuratoraddons _logic;
-                _logic addcuratoraddons _addons;
-            };
+        //     //--- All (including unofficial ones)
+        //     case 3: {
+        //         _cfgPatches = configfile >> "cfgpatches";
+        //         for "_i" from 0 to (count _cfgPatches - 1) do {
+        //             _class = _cfgPatches select _i;
+        //             if (isclass _class) then {_addons set [count _addons,configname _class];};
+        //         };
+        //         _addons call bis_fnc_activateaddons;
+        //         removeallcuratoraddons _logic;
+        //         _logic addcuratoraddons _addons;
+        //     };
 
-            //--- All active
-            case 2: {};
+        //     //--- All active
+        //     case 2: {};
 
-            //--- All mission
-            case 1: {
-                _addonsList = [];
-                {
-                    _addonsList = _addonsList + (unitaddons typeof _x);
-                } foreach (entities "all");
-                removeallcuratoraddons _logic;
-                _logic addcuratoraddons _addonsList;
-            };
+        //     //--- All mission
+        //     case 1: {
+        //         _addonsList = [];
+        //         {
+        //             _addonsList = _addonsList + (unitaddons typeof _x);
+        //         } foreach (entities "all");
+        //         removeallcuratoraddons _logic;
+        //         _logic addcuratoraddons _addonsList;
+        //     };
 
-            //--- None
-            case 0: {
-                removeallcuratoraddons _logic;
-            };
-        };
+        //     //--- None
+        //     case 0: {
+        //         removeallcuratoraddons _logic;
+        //     };
+        // };
 
         //--- Handle ownership
         [_logic,_ownerVar,_ownerUID,_adminVar] spawn {
@@ -112,10 +112,10 @@ if (_activated) then {
             //--- Wait until mission starts
             waitUntil {time > 0}; // NOTE: DO NOT CHANGE TO CBA_missionTime, IT BREAKS THE MODULE
 
-            //--- Refresh addon list, so it's broadcasted to clients
-            _addons = curatoraddons _logic;
-            removeAllCuratorAddons _logic;
-            _logic addcuratoraddons _addons;
+            // //--- Refresh addon list, so it's broadcasted to clients
+            // _addons = curatoraddons _logic;
+            // removeAllCuratorAddons _logic;
+            // _logic addcuratoraddons _addons;
 
             while {true} do {
                 //--- Wait for player to become Zeus
@@ -236,20 +236,20 @@ if (_activated) then {
             [_logic] call _birdCode;
         };
 
-        //--- Activated all future addons
-        _addons = [];
-        {
-            if (typeof _x == "ModuleCuratorAddAddons_F") then {
-                _paramAddons = call compile ("[" + (_x getvariable ["addons",""]) + "]");
-                {
-                    if !(_x in _addons) then {_addons set [count _addons,_x];};
-                    {
-                        if !(_x in _addons) then {_addons set [count _addons,_x];};
-                    } foreach (unitaddons _x);
-                } foreach _paramAddons;
-            };
-        } foreach (synchronizedobjects _logic);
-        _addons call bis_fnc_activateaddons;
+        // //--- Activated all future addons
+        // _addons = [];
+        // {
+        //     if (typeof _x == "ModuleCuratorAddAddons_F") then {
+        //         _paramAddons = call compile ("[" + (_x getvariable ["addons",""]) + "]");
+        //         {
+        //             if !(_x in _addons) then {_addons set [count _addons,_x];};
+        //             {
+        //                 if !(_x in _addons) then {_addons set [count _addons,_x];};
+        //             } foreach (unitaddons _x);
+        //         } foreach _paramAddons;
+        //     };
+        // } foreach (synchronizedobjects _logic);
+        // _addons call bis_fnc_activateaddons;
     };
 
     //--- Player
@@ -307,39 +307,39 @@ if (_activated) then {
             };
         };
 
-        [_logic] spawn {
-            _logic = _this select 0;
-            sleep 1;
-            waituntil {alive player};
+        // [_logic] spawn {
+        //     _logic = _this select 0;
+        //     sleep 1;
+        //     waituntil {alive player};
 
-            //--- Show warning when Zeus key is not assigned
-            if (count (actionkeys "curatorInterface") == 0) then {
-                [
-                    format [
-                        localize "str_a3_cfgvehicles_modulecurator_f_keyNotAssigned",
-                        (["IGUI","WARNING_RGB"] call bis_fnc_displaycolorget) call bis_fnc_colorRGBAtoHTML
-                    ]
-                ] call bis_fnc_guiMessage;
-            };
+        //     //--- Show warning when Zeus key is not assigned
+        //     if (count (actionkeys "curatorInterface") == 0) then {
+        //         [
+        //             format [
+        //                 localize "str_a3_cfgvehicles_modulecurator_f_keyNotAssigned",
+        //                 (["IGUI","WARNING_RGB"] call bis_fnc_displaycolorget) call bis_fnc_colorRGBAtoHTML
+        //             ]
+        //         ] call bis_fnc_guiMessage;
+        //     };
 
-            //--- Show hint about pinging for players
-            if (
-                isnil {profilenamespace getvariable "bis_fnc_curatorPinged_done"}
-                &&
-                {isTutHintsEnabled}
-                &&
-                {isnull getassignedcuratorlogic player}
-                &&
-                {player in curatoreditableobjects _logic}
-            ) then {
-                sleep 0.5;
-                [["Curator","Ping"]] call bis_fnc_advHint;
-            };
-        };
+        //     //--- Show hint about pinging for players
+        //     if (
+        //         isnil {profilenamespace getvariable "bis_fnc_curatorPinged_done"}
+        //         &&
+        //         {isTutHintsEnabled}
+        //         &&
+        //         {isnull getassignedcuratorlogic player}
+        //         &&
+        //         {player in curatoreditableobjects _logic}
+        //     ) then {
+        //         sleep 0.5;
+        //         [["Curator","Ping"]] call bis_fnc_advHint;
+        //     };
+        // };
 
         //--- Add local event handlers
         _logic addeventhandler ["curatorFeedbackMessage",{_this call bis_fnc_showCuratorFeedbackMessage;}];
-        _logic addeventhandler ["curatorPinged",{_this call bis_fnc_curatorPinged;}];
+        // _logic addeventhandler ["curatorPinged",{_this call bis_fnc_curatorPinged;}];
         _logic addeventhandler ["curatorObjectPlaced",{_this call bis_fnc_curatorObjectPlaced;}];
         _logic addeventhandler ["curatorObjectEdited",{_this call bis_fnc_curatorObjectEdited;}];
         _logic addeventhandler ["curatorWaypointPlaced",{_this call bis_fnc_curatorWaypointPlaced;}];
