@@ -60,4 +60,17 @@ GVAR(modList) = ["","curator","kart","heli","mark","expansion","expansionpremium
 
 call FUNC(compileStats);
 
+[QUOTE(ADDON), {!isNil QGVAR(camera)}] call CBA_fnc_registerFeatureCamera;
+
+// Compatibility with CBA scripted optics and dispoable framework
+[QGVAR(displayOpened), {
+    "cba_optics_arsenalOpened" call CBA_fnc_localEvent;
+    "cba_disposable_arsenalOpened" call CBA_fnc_localEvent;
+}] call CBA_fnc_addEventHandler;
+
+[QGVAR(displayClosed), {
+    "cba_optics_arsenalClosed" call CBA_fnc_localEvent;
+    "cba_disposable_arsenalClosed" call CBA_fnc_localEvent;
+}] call CBA_fnc_addEventHandler;
+
 ADDON = true;
