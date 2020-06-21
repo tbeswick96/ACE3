@@ -29,6 +29,8 @@ if (_state) then {
 
     _unit setVariable [QGVAR(escortedUnit), _target, true];
 
+    [QGVAR(doEscort), [_target, true]] call CBA_fnc_localEvent;
+
     //Add Actionmenu to release captive
     private _actionID = _unit addAction [format ["<t color='#FF0000'>%1</t>", localize LSTRING(StopEscorting)],
     {[(_this select 0), ((_this select 0) getVariable [QGVAR(escortedUnit), objNull]), false] call FUNC(doEscortCaptive);},
@@ -50,6 +52,7 @@ if (_state) then {
             detach _target;
             _unit removeAction _actionID;
             _unit setVariable [QGVAR(escortedUnit), objNull, true];
+            [QGVAR(doEscort), [_target, false]] call CBA_fnc_localEvent;
         };
     }, 0, [_unit, _target, _actionID]] call CBA_fnc_addPerFrameHandler;
 
