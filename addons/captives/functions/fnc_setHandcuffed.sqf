@@ -83,7 +83,7 @@ if (_state) then {
         };
         _animChangedEHID = _unit addEventHandler ["AnimChanged", {call FUNC(handleAnimChangedHandcuffed)}];
         TRACE_2("Adding animChangedEH",_unit,_animChangedEHID);
-        _unit setVariable [QGVAR(handcuffAnimEHID), _animChangedEHID, true];
+        _unit setVariable [QGVAR(handcuffAnimEHID), _animChangedEHID];
 
     }, [_unit], 0.01] call CBA_fnc_waitAndExecute;
 } else {
@@ -94,7 +94,7 @@ if (_state) then {
     private _animChangedEHID = _unit getVariable [QGVAR(handcuffAnimEHID), -1];
     TRACE_1("removing animChanged EH",_animChangedEHID);
     _unit removeEventHandler ["AnimChanged", _animChangedEHID];
-    _unit setVariable [QGVAR(handcuffAnimEHID), -1, true];
+    _unit setVariable [QGVAR(handcuffAnimEHID), -1];
 
     if (((vehicle _unit) == _unit) && {!(_unit getVariable ["ACE_isUnconscious", false])}) then {
         //Break out of hands up animation loop
