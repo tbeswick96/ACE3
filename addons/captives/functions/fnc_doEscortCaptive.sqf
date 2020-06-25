@@ -17,7 +17,7 @@
  * Public: No
  */
 
-params ["_unit", "_target","_state"];
+params ["_unit", "_target", "_state"];
 
 if (_state) then {
     if (_unit getVariable [QGVAR(isEscorting), false]) exitWith {};
@@ -52,7 +52,7 @@ if (_state) then {
             detach _target;
             _unit removeAction _actionID;
             _unit setVariable [QGVAR(escortedUnit), objNull, true];
-            [QGVAR(stopEscorting), _this] call CBA_fnc_localEvent;
+            [QGVAR(stopEscorting), _args] call CBA_fnc_localEvent;
         };
     }, 0, [_unit, _target, _actionID]] call CBA_fnc_addPerFrameHandler;
 
