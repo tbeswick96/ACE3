@@ -53,6 +53,14 @@ if (_state) then {
         ["captive", [false, false, false, false, false, false, false, false, false, true]] call EFUNC(common,showHud);
     };
 
+    if !(isPlayer _unit) then {
+        private _move = _unit checkAIFeature "MOVE";
+        if (_move) then {
+            _unit disableAI "MOVE";
+        };
+        _unit setVariable [QGVAR(moveState), _move, true];
+    };
+
     // fix anim on mission start (should work on dedicated servers)
     [{
         params ["_unit"];
@@ -99,6 +107,16 @@ if (_state) then {
 
     if (_unit == ACE_player) then {
         ["captive", []] call EFUNC(common,showHud); //same as showHud true;
+    };
+
+    if !(isPlayer _unit) then {
+        private _move = _unit checkAIFeature "MOVE";
+        if !(_move) then {
+            private _moveState = _unit getVariable [QGVAR(moveState), true];
+            if (_moveState) then {
+                _unit enableAI "MOVE";
+            };
+        };
     };
 };
 
