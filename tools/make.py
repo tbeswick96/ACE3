@@ -1285,7 +1285,7 @@ See the make.cfg file for additional build options.
                         ret = subprocess.call(cmd, stdout=devnull)
                         devnull.close()
                     else:
-                        ret = subprocess.call(cmd, creationflags=0x08000000)
+                        ret = subprocess.call(cmd)
                     color("reset")
 
                     if ret == 0:
