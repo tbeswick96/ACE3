@@ -1319,6 +1319,7 @@ See the make.cfg file for additional build options.
                         else:
                             cmd = [pboproject, "-P", os.path.join(work_drive, prefix, module), "+Engine=Arma3", "-S", "+Noisy", "-G", "+Clean", "+Mod="+os.path.join(module_root, release_dir, project), "-Key"]
 
+                    ret = 0
                     color("grey")
                     if quiet:
                         devnull = open(os.devnull, 'w')
@@ -1326,7 +1327,7 @@ See the make.cfg file for additional build options.
                         devnull.close()
                     else:
                         try:
-                            for path in execute([cmd]):
+                            for path in execute(cmd):
                                 print(path, end="")
                         except:
                             ret = 1
