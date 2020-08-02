@@ -74,6 +74,8 @@ pbo_name_prefix = "ace_"
 signature_blacklist = []
 importantFiles = ["mod.cpp", "README.md", "docs\\README_DE.md", "docs\\README_PL.md", "AUTHORS.txt", "LICENSE", "logo_ace3_ca.paa", "meta.cpp"]
 versionFiles = ["README.md", "docs\\README_DE.md", "docs\\README_PL.md", "mod.cpp"]
+printedErrors = 0
+redirectColours = False
 
 ciBuild = False # Used for CI builds
 
@@ -290,27 +292,50 @@ def color(color):
         elif color == "reset":
             sys.stdout.write('\033[0m')
 
+def print_as_json(message, colour):
+    print('JSON:{{"message": "{}", "colour": "{}"}}'.format(message.replace('\n', '\\n'), colour))
+
+
 def print_error(msg):
-    color("red")
-    print("ERROR: {}".format(msg))
-    color("reset")
+    global redirectColours
+    if (redirectColours):
+        print_as_json("ERROR: {}".format(msg), "#f14c4c")
+    else:
+        color("red")
+        print("ERROR: {}".format(msg))
+        color("reset")
     global printedErrors
     printedErrors += 1
 
+
 def print_green(msg):
-    color("green")
-    print(msg)
-    color("reset")
+    global redirectColours
+    if (redirectColours):
+        print_as_json(msg, "#20d18b")
+    else:
+        color("green")
+        print(msg)
+        color("reset")
+
 
 def print_blue(msg):
-    color("blue")
-    print(msg)
-    color("reset")
+    global redirectColours
+    if (redirectColours):
+        print_as_json(msg, "#165ead")
+    else:
+        color("blue")
+        print(msg)
+        color("reset")
+
 
 def print_yellow(msg):
-    color("yellow")
-    print(msg)
-    color("reset")
+    global redirectColours
+    if (redirectColours):
+        print_as_json(msg, "#f5f543")
+    else:
+        color("yellow")
+        print(msg)
+        color("reset")
 
 
 def copy_important_files(source_dir,destination_dir):
@@ -787,6 +812,13 @@ def version_stamp_pboprefix(module,commitID):
 
 
 def main(argv):
+    global redirectColours
+    if "redirect" in argv:
+        argv.remove("redirect")
+        redirectColours = True
+    else:
+        redirectColours = False
+
     """Build an Arma addon suite in a directory from rules in a make.cfg file."""
     print_blue("\nmake.py for Arma, modified for Advanced Combat Environment v{}".format(__version__))
 
