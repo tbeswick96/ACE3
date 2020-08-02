@@ -337,6 +337,14 @@ def print_yellow(msg):
         print(msg)
         color("reset")
 
+def execute(cmd):
+    popen = subprocess.Popen(cmd, stdout=subprocess.PIPE, universal_newlines=True)
+    for stdout_line in iter(popen.stdout.readline, ""):
+        yield stdout_line
+    popen.stdout.close()
+    return_code = popen.wait()
+    if return_code:
+        raise subprocess.CalledProcessError(return_code, cmd)
 
 def copy_important_files(source_dir,destination_dir):
     originalDir = os.getcwd()
@@ -1317,7 +1325,12 @@ See the make.cfg file for additional build options.
                         ret = subprocess.call(cmd, stdout=devnull)
                         devnull.close()
                     else:
-                        ret = subprocess.call(cmd)
+                        try:
+                            for path in execute([cmd]):
+                                print(path, end="")
+                        except:
+                            ret = 1
+                        # ret = subprocess.call(cmd)
                     color("reset")
 
                     if ret == 0:
