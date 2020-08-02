@@ -958,9 +958,6 @@ See the make.cfg file for additional build options.
     if "ci" in argv:
         argv.remove("ci")
         ciBuild = True
-    
-    sdfsfg()
-    sfdjipofsregw90i-
 
     print_yellow("\nCheck external references is set to {}".format(str(check_external)))
 
