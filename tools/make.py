@@ -1169,7 +1169,7 @@ See the make.cfg file for additional build options.
                     purge(os.path.join(module_root, release_dir, project, "optionals"), "^.*\.bisign$","*.bisign")
                     purge(os.path.join(module_root, release_dir, project, "keys"), "^.*\.bikey$","*.bikey")
                 else:
-                    print_error("Failed to create key!")
+                    print_error("Failed to create key")
 
 
 
