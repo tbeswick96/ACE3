@@ -39,7 +39,8 @@ if (isNull GVAR(trench)) exitWith {};
 
 private _trenchTexture = (getObjectTextures GVAR(trench)) select 0;
 deleteVehicle GVAR(trench);
-private _trench = createVehicle [GVAR(trenchClass), position _unit, [], 0, "NONE"];
+private _trench = createVehicle [GVAR(trenchClass), [0, 0, 0], [], 0, "NONE"];
+_trench setVariable [QGVAR(progress), 0, true];
 _trench setObjectTextureGlobal [0,_trenchTexture];
 
 GVAR(trenchPlacementData) params ["_dx", "_dy", "_offset"];
