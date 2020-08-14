@@ -24,3 +24,12 @@
     [0, 25, 1, 1],
     true
 ] call CBA_settings_fnc_init;
+
+[
+    QEGVAR(medical,simplePAK),
+    "SLIDER",
+    ["Simple PAK Conditions", "Simplifies conditions for PAK use to only require stitched wounds"],
+    [ELSTRING(medical,Category), LSTRING(SubCategory)],
+    false,
+    true
+] call CBA_settings_fnc_init;
