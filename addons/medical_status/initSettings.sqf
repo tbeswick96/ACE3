@@ -27,7 +27,7 @@
 
 [
     QEGVAR(medical,simplePAK),
-    "SLIDER",
+    "CHECKBOX",
     ["Simple PAK Conditions", "Simplifies conditions for PAK use to only require stitched wounds"],
     [ELSTRING(medical,Category), LSTRING(SubCategory)],
     false,
