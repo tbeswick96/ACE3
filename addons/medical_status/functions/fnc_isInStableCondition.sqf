@@ -19,9 +19,4 @@ params ["_unit"];
 
 alive _unit
 && {GET_WOUND_BLEEDING(_unit) == 0}
-&& {
-    EGVAR(medical,simplePAK) || {
-        {!IS_UNCONSCIOUS(_unit)}
-        && {_unit call FUNC(hasStableVitals)}
-    }
-}
+&& {EGVAR(medical,simplePAK) || {!IS_UNCONSCIOUS(_unit) && {_unit call FUNC(hasStableVitals)}}}
