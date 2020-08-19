@@ -103,7 +103,7 @@ class ACE_Medical_StateMachine {
         };
         class Bleedout {
             targetState = "Dead";
-            condition = QGVAR(cardiacArrestBleedoutEnabled);
+            condition = QFUNC(conditionCardiacArrestBleedout);
             events[] = {QEGVAR(medical,Bleedout)};
         };
     };
