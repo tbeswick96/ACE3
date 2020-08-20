@@ -138,6 +138,22 @@ class GVAR(actions) {
         treatmentLocations = QGVAR(locationEpinephrine);
         litter[] = {{"ACE_MedicalLitter_epinephrine"}};
     };
+    class Painkillers: FieldDressing {
+        displayName = CSTRING(Take_Painkillers);
+        displayNameProgress = CSTRING(Taking_Painkillers);
+        icon = QPATHTOEF(medical_gui,ui\painkillers.paa);
+        allowedSelections[] = {"Head"};
+        category = "medication";
+        items[] = {"ACE_painkillers"};
+        condition = QUOTE(_patient == ACE_player);
+        treatmentTime = 3;
+        callbackSuccess = QFUNC(medication);
+        animationMedic = "";
+        animationMedicProne = "";
+        animationMedicSelf = "";
+        animationMedicSelfProne = "";
+        litter[] = {{"ACE_MedicalLitter_painkillers"}};
+    };
 
     // - IV Bags --------------------------------------------------------------
     class BloodIV: BasicBandage {

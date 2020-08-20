@@ -71,6 +71,9 @@ class CfgVehicles {
     class ACE_MedicalLitter_morphine: ACE_MedicalLitterBase {
         model = QPATHTOF(data\littergeneric_morphine.p3d);
     };
+    class ACE_MedicalLitter_painkillers: ACE_MedicalLitterBase {
+        model = "\A3\Structures_F_EPA\Items\Medical\PainKillers_F.p3d";
+    };
     class ACE_MedicalLitter_QuickClot: ACE_MedicalLitterBase {
         model = QPATHTOF(data\littergeneric_Quikclot.p3d);
     };
@@ -170,6 +173,16 @@ class CfgVehicles {
             MACRO_ADDITEM(ACE_epinephrine,1);
         };
     };
+    class ACE_painkillerItem: Item_Base_F {
+        scope = 2;
+        scopeCurator = 2;
+        displayName = CSTRING(Painkillers_Display);
+        author = ECSTRING(common,ACETeam);
+        vehicleClass = "Items";
+        class TransportItems {
+            MACRO_ADDITEM(ACE_painkillers,1);
+        };
+    };
     class ACE_plasmaIVItem: Item_Base_F {
         scope = 2;
         scopeCurator = 2;
@@ -264,6 +277,7 @@ class CfgVehicles {
             MACRO_ADDITEM(ACE_fieldDressing,50);
             MACRO_ADDITEM(ACE_morphine,25);
             MACRO_ADDITEM(ACE_epinephrine,25);
+            MACRO_ADDITEM(ACE_painkillers,25);
             MACRO_ADDITEM(ACE_bloodIV,15);
             MACRO_ADDITEM(ACE_bloodIV_500,15);
             MACRO_ADDITEM(ACE_bloodIV_250,15);
@@ -310,6 +324,7 @@ class CfgVehicles {
             MACRO_ADDITEM(ACE_morphine,15);
             MACRO_ADDITEM(ACE_adenosine,15);
             MACRO_ADDITEM(ACE_epinephrine,15);
+            MACRO_ADDITEM(ACE_painkillers,15);
             MACRO_ADDITEM(ACE_plasmaIV,7);
             MACRO_ADDITEM(ACE_plasmaIV_500,7);
             MACRO_ADDITEM(ACE_plasmaIV_250,7);

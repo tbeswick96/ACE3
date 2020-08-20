@@ -6,6 +6,7 @@ class EGVAR(medical,replacementItems) {
         {"ACE_fieldDressing", 1},
         {"ACE_packingBandage", 1},
         {"ACE_morphine", 1},
+        {"ACE_painkillers", 1},
         {"ACE_tourniquet", 1}
     };
     DOUBLES(ItemType,TYPE_MEDIKIT)[] = {
@@ -13,6 +14,7 @@ class EGVAR(medical,replacementItems) {
         {"ACE_packingBandage", 2},
         {"ACE_epinephrine", 1},
         {"ACE_morphine", 1},
+        {"ACE_painkillers", 2},
         {"ACE_salineIV_250", 1},
         {"ACE_tourniquet", 1},
         {"ACE_splint", 2}

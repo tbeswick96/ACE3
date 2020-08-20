@@ -1418,6 +1418,15 @@
             <Chinesesimp>俗称强心针, 为一种支气管扩张药物, 会增加心跳速率并减缓过敏反应(过敏性休克), 在心跳骤停时有恢复心跳的效果!</Chinesesimp>
             <Chinese>俗稱強心針, 為一種支氣管擴張藥物, 會增加心跳速率並減緩過敏反應(過敏性休克), 在心跳驟停時有恢復心跳的效果!</Chinese>
         </Key>
+        <Key ID="STR_ACE_Medical_Treatment_Painkillers_Display">
+            <English>Painkillers</English>
+        </Key>
+        <Key ID="STR_ACE_Medical_Treatment_Painkillers_Desc_Short">
+            <English>Used to combat light pain experiences</English>
+        </Key>
+        <Key ID="STR_ACE_Medical_Treatment_Painkillers_Desc_Use">
+            <English>An analgesic used to combat light pain experiences.</English>
+        </Key>
         <Key ID="STR_ACE_Medical_Treatment_Plasma_IV">
             <English>Plasma IV (1000ml)</English>
             <Russian>Плазма для в/в вливания (1000 мл)</Russian>
@@ -1967,6 +1976,9 @@
             <Chinesesimp>注射吗啡</Chinesesimp>
             <Chinese>注射嗎啡</Chinese>
         </Key>
+        <Key ID="STR_ACE_Medical_Treatment_Take_Painkillers">
+            <English>Take Painkillers</English>
+        </Key>
         <Key ID="STR_ACE_Medical_Treatment_Transfuse_Blood">
             <English>Transfuse Blood</English>
             <German>Bluttransfusion</German>
@@ -2158,6 +2170,9 @@
             <Korean>모르핀 주사중...</Korean>
             <Chinesesimp>正在注射吗啡...</Chinesesimp>
             <Chinese>嗎啡注射中...</Chinese>
+        </Key>
+        <Key ID="STR_ACE_Medical_Treatment_Taking_Painkillers">
+            <English>Taking Painkillers...</English>
         </Key>
         <Key ID="STR_ACE_Medical_Treatment_Injecting_Epinephrine">
             <English>Injecting Epinephrine...</English>
