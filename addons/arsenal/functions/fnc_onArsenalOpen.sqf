@@ -289,7 +289,7 @@ if (is3DEN) then {
     } forEach [
         IDC_buttonFace,
         IDC_buttonVoice,
-        IDC_buttonInsigna
+        IDC_buttonInsignia
     ];
 
     _buttonCloseCtrl = _display displayCtrl IDC_menuBarClose;
@@ -309,7 +309,7 @@ if (is3DEN) then {
     } forEach [
         IDC_buttonFace,
         IDC_buttonVoice,
-        IDC_buttonInsigna
+        IDC_buttonInsignia
     ];
 };
 

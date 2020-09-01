@@ -53,8 +53,8 @@ class CfgVehicles {
         model = QPATHTOF(data\trench_small.p3d);
         scope = 2;
         scopeCurator = 2;
-        GVAR(diggingDuration) = QGVAR(smallEnvelopeDigTime);
-        GVAR(removalDuration) = QGVAR(smallEnvelopeRemovalTime);
+        GVAR(diggingDuration) = QGVAR(smallEnvelopeDigDuration);
+        GVAR(removalDuration) = QGVAR(smallEnvelopeRemoveDuration);
         GVAR(noGeoClass) = "ACE_envelope_small_NoGeo";
         GVAR(placementData)[] = {8,1.1,0};
         GVAR(grassCuttingPoints)[] = {{0,-0.5,0}};
@@ -123,8 +123,9 @@ class CfgVehicles {
         displayName = CSTRING(EnvelopeBigName);
         descriptionShort = CSTRING(EnevlopeBigDescription);
         model = QPATHTOF(data\trench_big.p3d);
-        GVAR(diggingDuration) = QGVAR(bigEnvelopeDigTime);
-        GVAR(removalDuration) = QGVAR(bigEnvelopeRemovalTime);
+        scope = 2;
+        GVAR(diggingDuration) = QGVAR(bigEnvelopeDigDuration);
+        GVAR(removalDuration) = QGVAR(bigEnvelopeRemoveDuration);
         GVAR(noGeoClass) = "ACE_envelope_big_NoGeo";
         GVAR(placementData)[] = {6,1.1,0.20};
         GVAR(grassCuttingPoints)[] = {{-1.5,-1,0},{1.5,-1,0}};
@@ -139,8 +140,8 @@ class CfgVehicles {
         author = ECSTRING(common,ACETeam);
         displayName = CSTRING(EnvelopeGigantName);
         descriptionShort = CSTRING(EnevlopeGigantDescription);
-        GVAR(diggingDuration) = QGVAR(gigantEnvelopeDigTime);
-        GVAR(removalDuration) = QGVAR(gigantEnvelopeRemovalTime);
+        GVAR(diggingDuration) = QGVAR(gigantEnvelopeDigDuration);
+        GVAR(removalDuration) = QGVAR(gigantEnvelopeRemovalDuration);
         GVAR(noGeoClass) = "ACE_envelope_gigant_noGeo";
         GVAR(placementData)[] = {8,1.1,0.20};
         GVAR(grassCuttingPoints)[] = {{-1.5,-1,0},{1.5,-1,0}};
@@ -157,8 +158,8 @@ class CfgVehicles {
         author = ECSTRING(common,ACETeam);
         displayName = CSTRING(EnvelopeVehicleName);
         descriptionShort = CSTRING(EnevlopeVehicleDescription);
-        GVAR(diggingDuration) = QGVAR(vehicleEnvelopeDigTime);
-        GVAR(removalDuration) = QGVAR(vehicleEnvelopeRemovalTime);
+        GVAR(diggingDuration) = QGVAR(vehicleEnvelopeDigDuration);
+        GVAR(removalDuration) = QGVAR(vehicleEnvelopeRemovalDuration);
         GVAR(noGeoClass) = "ACE_envelope_vehicle_noGeo";
         GVAR(placementData)[] = {10,1.1,0.20};
         GVAR(grassCuttingPoints)[] = {{-1.5,-1,0},{1.5,-1,0}};
@@ -171,8 +172,8 @@ class CfgVehicles {
         author = ECSTRING(common,ACETeam);
         displayName = CSTRING(EnvelopeShortName);
         descriptionShort = CSTRING(EnevlopeShortDescription);
-        GVAR(diggingDuration) = QGVAR(shortEnvelopeDigTime);
-        GVAR(removalDuration) = QGVAR(shortEnvelopeRemovalTime);
+        GVAR(diggingDuration) = QGVAR(shortEnvelopeDigDuration);
+        GVAR(removalDuration) = QGVAR(shortEnvelopeRemovalDuration);
         GVAR(noGeoClass) = "ACE_envelope_short_noGeo";
         GVAR(placementData)[] = {10,1.1,0.20};
         GVAR(grassCuttingPoints)[] = {{-1.5,-1,0},{1.5,-1,0}};
