@@ -144,10 +144,7 @@ if (_onFiredFunc != "") then {
 //          _targetLaunchParams params ["_target", "_targetPos", "_launchPos"];
 //      _stateParams params ["_lastRunTime", "_seekerStateParams", "_attackProfileStateParams", "_lastKnownPosState"];
 //      _seekerParams params ["_seekerAngle", "_seekerAccuracy", "_seekerMaxRange", "_seekerMinRange"];
-private _initTime = getNumber (configFile >> "CfgAmmo" >> _ammo >> "initTime");
-[{
-    [FUNC(guidancePFH), 0, _this] call CBA_fnc_addPerFrameHandler;
-}, _args, _initTime / 2] call CBA_fnc_waitAndExecute;
+[FUNC(guidancePFH), 0, _args ] call CBA_fnc_addPerFrameHandler;
 
 
 /* Clears locking settings
