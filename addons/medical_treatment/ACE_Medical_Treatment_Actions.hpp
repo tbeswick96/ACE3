@@ -265,17 +265,16 @@ class GVAR(actions) {
         allowSelfTreatment = 0;
         callbackSuccess = QFUNC(checkResponse);
     };
-    class CheckPupils: Diagnose {
+    class CheckPupils: CheckPulse {
         displayName = CSTRING(Actions_CheckPupils);
         displayNameProgress = CSTRING(Check_Pupils_Content);
-        allowedSelections[] = {"Head"};
         condition = QGVAR(advancedDiagnose);
         callbackSuccess = QFUNC(checkPupils);
         animationMedicProne = "";
         animationMedicSelfProne = "";
         items[] = {"ACE_penTorch"};
         consumeItem = "false";
-        medicRequired = 2;
+        medicRequired = 1;
         treatmentTime = 1;
     };
 

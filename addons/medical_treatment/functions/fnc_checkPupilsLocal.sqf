@@ -19,35 +19,37 @@
 
 params ["_medic", "_patient", "_bodyPart"];
 
-private _comatose = false;
-private _comaTime = _unit setVariable [QEGVAR(medical_statemachine,comaTimeLeft), nil];
-if (alive _patient && {IN_COMA(_patient)}) then {
-    _comatose = true;
-};
+private _comatose = IN_COMA(_patient);
+private _comaTime = _unit setVariable [QEGVAR(medical_statemachine,comaTimeLeft), -1];
 
-/*
-    time > 10: constrict normally
-    time > 5: constrict mostly
-    time < 5: constrict barely
-    time < 1: remain fully dilated
-*/
-
-// < 1 or dead: remain fully dilated
+// dead: remain fully dilated
 private _dilationOutput = LSTRING(Check_Pupils_Output_Fully);
 private _logOutput = LSTRING(Check_Pupils_Dilated);
 
-if (_comatose && _comaTime > 1) then {
-    if (_comaTime > 5) then {
-        if (_comaTime > 10) then { // > 10: constrict normally
-            _dilationOutput = LSTRING(Check_Pupils_Output_Constricted);
-            _logOutput = LSTRING(Check_Pupils_Constricted);
-        } else { // > 5: constrict slowly
-            _dilationOutput = LSTRING(Check_Pupils_Output_Constrict_Mostly);
-            _logOutput = LSTRING(Check_Pupils_Constrict_Mostly);
+if (alive _patient) then {
+    if (_comatose) then {
+        if (_comaTime > 1) then {
+            if (_comaTime > 6) then {
+                if (_comaTime > 12) then {
+                    // > 12: constrict normally
+                    _dilationOutput = LSTRING(Check_Pupils_Output_Constricted);
+                    _logOutput = LSTRING(Check_Pupils_Constricted);
+                } else {
+                    // > 6: constrict slowly
+                    _dilationOutput = LSTRING(Check_Pupils_Output_Constrict_Mostly);
+                    _logOutput = LSTRING(Check_Pupils_Constrict_Mostly);
+                };
+            } else {
+                // < 6: constrict barely
+                _dilationOutput = LSTRING(Check_Pupils_Output_Constrict_Barely);
+                _logOutput = LSTRING(Check_Pupils_Constrict_Barely);
+            };
         };
-    } else { // < 5: constrict barely
-        _dilationOutput = LSTRING(Check_Pupils_Output_Constrict_Barely);
-        _logOutput = LSTRING(Check_Pupils_Constrict_Barely);
+        // < 1: remain fully dilated
+    } else {
+        // alive not comatose: constrict normally
+        _dilationOutput = LSTRING(Check_Pupils_Output_Constricted);
+        _logOutput = LSTRING(Check_Pupils_Constricted);
     };
 };
 

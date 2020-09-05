@@ -33,7 +33,7 @@ GVAR(dev_watchVariableRunning) = true;
     private _cardiactArrestFlag = if IN_CRDC_ARRST(_unit) then {format ["[<t color='#BBBBFF'>CA</t> %1]", _timeLeft toFixed 1]} else {""};
     private _timeLeftComa = _unit getVariable [QEGVAR(medical_statemachine,comaTimeLeft), -1];
     private _comaFlag = if IN_COMA(_unit) then {format ["[<t color='#BBBBFF'>Comatose</t> %1]", _timeLeftComa toFixed 1]} else {""};
-    _return pushBack format ["[StableVitals: %1] [StableCon: %2] %3 %4", _hasStableVitals, _hasStableCondition, _unconcFlag, _cardiactArrestFlag, _comaFlag];
+    _return pushBack format ["[StableVitals: %1] [StableCon: %2] %3 %4 %5,", _hasStableVitals, _hasStableCondition, _unconcFlag, _cardiactArrestFlag, _comaFlag];
 
     // Blood:
     private _bloodVolume = GET_BLOOD_VOLUME(_unit);
