@@ -31,10 +31,19 @@ if (!isNil {_unit getVariable QEGVAR(medical,ivBags)}) then {
         if (_tourniquets select _bodyPart == 0) then {
             private _bagChange = (_deltaT * EGVAR(medical,ivFlowRate) * IV_CHANGE_PER_SECOND) min _bagVolumeRemaining; // absolute value of the change in miliLiters
             _bagVolumeRemaining = _bagVolumeRemaining - _bagChange;
-            _bloodVolumeChange = _bloodVolumeChange + (_bagChange / 1000);
+
+            // special case for amantadine
+            if (_type != "Amantadine") then {
+                _bloodVolumeChange = _bloodVolumeChange + (_bagChange / 1000);
+            };
         };
 
         if (_bagVolumeRemaining < 0.01) then {
+            // special case for amantadine
+            if (_type == "Amantadine") then {
+                [QEGVAR(medical,amantadineComplete), _patient] call CBA_fnc_localEvent;
+            };
+
             []
         } else {
             [_bagVolumeRemaining, _type, _bodyPart]

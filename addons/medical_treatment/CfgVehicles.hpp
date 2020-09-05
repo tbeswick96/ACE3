@@ -214,6 +214,16 @@ class CfgVehicles {
             MACRO_ADDITEM(ACE_salineIV,1);
         };
     };
+    class ACE_amantadineIVItem: Item_Base_F {
+        scope = 2;
+        scopeCurator = 2;
+        displayName = CSTRING(Amantadine_IV);
+        author = ECSTRING(common,ACETeam);
+        vehicleClass = "Items";
+        class TransportItems {
+            MACRO_ADDITEM(ACE_amantadineIV,1);
+        };
+    };
     class ACE_quikClotItem: Item_Base_F {
         scope = 2;
         scopeCurator = 2;
@@ -252,6 +262,16 @@ class CfgVehicles {
         vehicleClass = "Items";
         class TransportItems {
             MACRO_ADDITEM(ACE_bodyBag,1);
+        };
+    };
+    class ACE_penTorchItem: Item_Base_F {
+        scope = 2;
+        scopeCurator = 2;
+        displayName = CSTRING(PenTorch_Display);
+        author = ECSTRING(common,ACETeam);
+        vehicleClass = "Items";
+        class TransportItems {
+            MACRO_ADDITEM(ACE_penTorch,1);
         };
     };
 
@@ -333,6 +353,7 @@ class CfgVehicles {
             MACRO_ADDITEM(ACE_salineIV,7);
             MACRO_ADDITEM(ACE_salineIV_500,7);
             MACRO_ADDITEM(ACE_salineIV_250,7);
+            MACRO_ADDITEM(ACE_amantadineIV,7);
             MACRO_ADDITEM(ACE_bloodIV,7);
             MACRO_ADDITEM(ACE_bloodIV_500,7);
             MACRO_ADDITEM(ACE_bloodIV_250,7);
@@ -340,6 +361,7 @@ class CfgVehicles {
             MACRO_ADDITEM(ACE_personalAidKit,3);
             MACRO_ADDITEM(ACE_surgicalKit,2);
             MACRO_ADDITEM(ACE_bodyBag,5);
+            MACRO_ADDITEM(ACE_penTorch,2);
         };
     };
 };

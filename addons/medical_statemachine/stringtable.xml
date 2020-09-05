@@ -134,13 +134,11 @@
             <Polish>Zatrzymanie Akcji Serca</Polish>
             <Turkish>Kalbi Durdu</Turkish>
         </Key>
-        <Key ID="STR_ACE_Medical_Statemachine_CardiacArrestBleedout_DisplayName">
-            <English>Bleedout during cardiac arrest</English>
-            <German>Ausbluten im Herzstillstand</German>
+        <Key ID="STR_ACE_Medical_Statemachine_ComaTime_DisplayName">
+            <English>Comatose Time</English>
         </Key>
-        <Key ID="STR_ACE_Medical_Statemachine_CardiacArrestBleedout_Description">
-            <English>Controls whether you can die in cardiac arrest by blood loss before the cardiac arrest time runs out.</English>
-            <German>Legt fest, ob man während des Herzstillstands durch Blutverlust sterben kann, auch wenn die Überlebenszeit im Herzstillstand noch nicht ausgelaufen ist.</German>
+        <Key ID="STR_ACE_Medical_Statemachine_ComaTime_Description">
+            <English>Controls how long it takes to die aftr entering a coma.</English>
         </Key>
     </Package>
 </Project>

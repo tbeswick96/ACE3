@@ -27,6 +27,13 @@ if (_isLocal) then {
     TRACE_1("local",_currentState);
 
     switch (true) do {
+        case (IN_COMA(_unit)): {
+            if (_currentState == "Comatose") exitWith {};
+            _unit setVariable [VAR_COMA, false]; // force reset vars so setCardiacArrestState can run (enteredStateCardiacArrest will also be called)
+            _unit setVariable [VAR_UNCON, false];
+            TRACE_1("manually changing state to Comatose",_currentState);
+            [_unit, EGVAR(medical,STATE_MACHINE), _currentState, "Comatose", {}, "LocalityChange"] call CBA_statemachine_fnc_manualTransition;
+        };
         case (IN_CRDC_ARRST(_unit)): {
             if (_currentState == "CardiacArrest") exitWith {};
             _unit setVariable [VAR_CRDC_ARRST, false]; // force reset vars so setCardiacArrestState can run (enteredStateCardiacArrest will also be called)

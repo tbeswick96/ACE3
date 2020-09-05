@@ -13,6 +13,7 @@ PREP(isBeingCarried);
 PREP(isBeingDragged);
 PREP(isInStableCondition);
 PREP(setCardiacArrestState);
+PREP(setComaState);
 PREP(setDead);
 PREP(setUnconsciousState);
 PREP(updateWoundBloodLoss);

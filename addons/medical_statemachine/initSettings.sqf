@@ -43,10 +43,10 @@
 ] call CBA_settings_fnc_init;
 
 [
-    QGVAR(cardiacArrestBleedoutEnabled),
-    "CHECKBOX",
-    [LSTRING(CardiacArrestBleedout_DisplayName), LSTRING(CardiacArrestBleedout_Description)],
+    QGVAR(comaTime),
+    "TIME",
+    [LSTRING(ComaTime_DisplayName), LSTRING(ComaTime_Description)],
     [ELSTRING(medical,Category), LSTRING(SubCategory)],
-    true,
+    [1, 3600, 300],
     true
 ] call CBA_settings_fnc_init;

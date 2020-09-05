@@ -108,6 +108,7 @@ _bloodPressure params ["_bloodPressureL", "_bloodPressureH"];
 
 // Statements are ordered by most lethal first.
 switch (true) do {
+    case (IN_COMA(_unit)): {}; // if in cardiac arrest just break now to avoid throwing unneeded events
     case (_bloodVolume < BLOOD_VOLUME_FATAL): {
         TRACE_3("BloodVolume Fatal",_unit,BLOOD_VOLUME_FATAL,_bloodVolume);
         [QEGVAR(medical,Bleedout), _unit] call CBA_fnc_localEvent;

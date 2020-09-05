@@ -229,6 +229,14 @@ class CfgWeapons {
             mass = 2.5;
         };
     };
+    class ACE_amantadineIV: ACE_salineIV {
+        displayName = CSTRING(Amantadine_IV);
+        model = QPATHTOF(data\IVBag_250ml.p3d);
+        hiddenSelectionsTextures[] = {QPATHTOF(data\IVBag_saline_250ml_ca.paa)};
+        class ItemInfo: CBA_MiscItem_ItemInfo {
+            mass = 2.5;
+        };
+    };
     class ACE_quikclot: ACE_ItemCore {
         scope = 2;
         author = ECSTRING(common,ACETeam);
@@ -274,6 +282,18 @@ class CfgWeapons {
         descriptionUse = CSTRING(Bodybag_Desc_Use);
         class ItemInfo: CBA_MiscItem_ItemInfo {
             mass = 7;
+        };
+    };
+    class ACE_penTorch: ACE_ItemCore {
+        scope = 2;
+        author = ECSTRING(common,ACETeam);
+        displayName= CSTRING(PenTorch_Display);
+        model = QPATHTOEF(flashlights,data\maglite_xl50.p3d);
+        picture = QPATHTOEF(flashlights,UI\maglite_xl50_ca.paa);
+        descriptionShort = CSTRING(PenTorch_Desc_Short);
+        descriptionUse = CSTRING(PenTorch_Desc_Use);
+        class ItemInfo: CBA_MiscItem_ItemInfo {
+            mass = 2;
         };
     };
 };

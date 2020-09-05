@@ -207,6 +207,22 @@ class GVAR(actions) {
         displayName = CSTRING(Actions_Saline4_250);
         items[] = {"ACE_salineIV_250"};
     };
+    class AmantadineIV: SalineIV {
+        displayName = CSTRING(Actions_Amantadine);
+        displayNameProgress = CSTRING(Transfusing_Amantadine);
+        icon = QPATHTOEF(medical_gui,ui\iv.paa);
+        treatmentLocations = QGVAR(locationAmantadine);
+        allowedSelections[] = {"LeftArm", "RightArm"};
+        allowSelfTreatment = "false";
+        category = "advanced";
+        medicRequired = QGVAR(medicIV);
+        treatmentTime = 15;
+        items[] = {"ACE_amantadineIV"};
+        condition = "";
+        callbackSuccess = QFUNC(ivBag);
+        animationMedic = "AinvPknlMstpSnonWnonDnon_medic1";
+        litter[] = {};
+    };
 
     // - Diagnose -------------------------------------------------------------
     class Diagnose: BasicBandage {
@@ -248,6 +264,19 @@ class GVAR(actions) {
         allowedSelections[] = {"Head"};
         allowSelfTreatment = 0;
         callbackSuccess = QFUNC(checkResponse);
+    };
+    class CheckPupils: Diagnose {
+        displayName = CSTRING(Actions_CheckPupils);
+        displayNameProgress = CSTRING(Check_Pupils_Content);
+        allowedSelections[] = {"Head"};
+        condition = QGVAR(advancedDiagnose);
+        callbackSuccess = QFUNC(checkPupils);
+        animationMedicProne = "";
+        animationMedicSelfProne = "";
+        items[] = {"ACE_penTorch"};
+        consumeItem = "false";
+        medicRequired = 2;
+        treatmentTime = 1;
     };
 
     // - Misc -----------------------------------------------------------------

@@ -15,6 +15,8 @@ PREP(checkBloodPressure);
 PREP(checkBloodPressureLocal);
 PREP(checkPulse);
 PREP(checkPulseLocal);
+PREP(checkPupils);
+PREP(checkPupilsLocal);
 PREP(checkResponse);
 PREP(cprSuccess);
 PREP(cprFailure);

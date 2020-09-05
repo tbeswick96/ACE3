@@ -39,7 +39,7 @@
             <Turkish>Gelişmiş Teşhis</Turkish>
         </Key>
         <Key ID="STR_ACE_Medical_Treatment_AdvancedDiagnose_Description">
-            <English>Enables the Check Pulse, Check Blood Pressure, and Check Response treatment actions instead of the generic Diagnose action.\nWhen disabled, the CPR action will only be shown when performing CPR is appropriate.\nThe actions this setting enables are needed to determine whether a person is unconscious or in cardiac arrest.</English>
+            <English>Enables the Check Pulse, Check Blood Pressure, Check Response, and Check Pupils treatment actions instead of the generic Diagnose action.\nWhen disabled, the CPR action will only be shown when performing CPR is appropriate.\nThe actions this setting enables are needed to determine whether a person is unconscious or in cardiac arrest.</English>
             <Japanese>有効化すると通常の診断動作に代わり、心拍や血圧測定、反応を確認できます。</Japanese>
             <French>Active le diagnostic avancé, permettant la vérification du pouls, de la pression sanguine, ainsi que la réponse du patient aux traitements.\nSi l'option est désactivée, l'action de RCP ne sera visible que si elle est effectivement appropriée.\nLe diagnostic avancé est indispensable pour différencier une personne inconsciente d'une personne en arrêt cardiaque.</French>
             <Russian>Включает действия «Проверить пульс», «Проверить давление» и «Проверить реакцию» вместо общего действия «Диагностика».</Russian>
@@ -4045,6 +4045,63 @@
             <Korean>이 부위에는 지혈대가 없습니다!</Korean>
             <Chinesesimp>该部位没有使用止血带!</Chinesesimp>
             <Chinese>這部位沒有止血帶!</Chinese>
+        </Key>
+        <Key ID="STR_ACE_Medical_Treatment_Amantadine_IV">
+            <English>Amantadine IV</English>
+        </Key>
+        <Key ID="STR_ACE_Medical_Treatment_Actions_Amantadine">
+            <English>Give Amantadine IV</English>
+        </Key>
+        <Key ID="STR_ACE_Medical_Treatment_Transfusing_Amantadine">
+            <English>Transfusing Amantadine...</English>
+        </Key>
+        <Key ID="STR_ACE_Medical_Treatment_LocationAmantadine_DisplayName">
+            <English>Locations Amantadine</English>
+        </Key>
+        <Key ID="STR_ACE_Medical_Treatment_LocationAmantadine_Description">
+            <English>Controls where amantadine can be used.</English>
+        </Key>
+        <Key ID="STR_ACE_Medical_Treatment_PenTorch_Display">
+            <English>Pen Torch</English>
+        </Key>
+        <Key ID="STR_ACE_Medical_Treatment_PenTorch_Desc_Short">
+            <English>Pen Torch for in field advanced medical diagnosis</English>
+        </Key>
+        <Key ID="STR_ACE_Medical_Treatment_PenTorch_Desc_Use">
+            <English>Pen Torch for in field advanced medical diagnosis</English>
+        </Key>
+        <Key ID="STR_ACE_Medical_Treatment_Actions_CheckPupils">
+            <English>Check Pupils</English>
+        </Key>
+        <Key ID="STR_ACE_Medical_Treatment_Check_Pupils_Content">
+            <English>You check pupil dilation of patient</English>
+        </Key>
+        <Key ID="STR_ACE_Medical_Treatment_Check_Pupils_Log">
+            <English>%1 checked pupil dilation: %2</English>
+        </Key>
+        <Key ID="STR_ACE_Medical_Treatment_Check_Pupils_Dilated">
+            <English>Fully Dilated</English>
+        </Key>
+        <Key ID="STR_ACE_Medical_Treatment_Check_Pupils_Constrict_Barely">
+            <English>Barely Constricted</English>
+        </Key>
+        <Key ID="STR_ACE_Medical_Treatment_Check_Pupils_Constrict_Mostly">
+            <English>Mostly Constricted</English>
+        </Key>
+        <Key ID="STR_ACE_Medical_Treatment_Check_Pupils_Constricted">
+            <English>Constricted Normally</English>
+        </Key>
+        <Key ID="STR_ACE_Medical_Treatment_Check_Pupils_Output_Fully">
+            <English>The pupils remail fully dilated</English>
+        </Key>
+        <Key ID="STR_ACE_Medical_Treatment_Check_Pupils_Output_Constrict_Barely">
+            <English>The pupils barely constrict</English>
+        </Key>
+        <Key ID="STR_ACE_Medical_Treatment_Check_Pupils_Output_Constrict_Mostly">
+            <English>The pupils mostly constrict</English>
+        </Key>
+        <Key ID="STR_ACE_Medical_Treatment_Check_Pupils_Output_Constricted">
+            <English>The pupils constrict normally</English>
         </Key>
     </Package>
 </Project>

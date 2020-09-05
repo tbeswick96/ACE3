@@ -19,9 +19,10 @@
 
 params ["_patient", "_bodyPart", "_classname"];
 
-// Exit if patient has max blood volume
 private _bloodVolume = GET_BLOOD_VOLUME(_patient);
-if (_bloodVolume >= DEFAULT_BLOOD_VOLUME) exitWith {};
+
+// Special case for amantadine, exit if patient has max blood volume
+if (_classname != "Amantadine" && _bloodVolume >= DEFAULT_BLOOD_VOLUME) exitWith {};
 
 private _partIndex = ALL_BODY_PARTS find toLower _bodyPart;
 

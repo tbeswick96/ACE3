@@ -89,7 +89,7 @@ class ACE_Medical_StateMachine {
             condition = QUOTE(!GVAR(AIUnconsciousness) && {!isPlayer _this});
         };
         class Timeout {
-            targetState = "Dead";
+            targetState = "Comatose"; // Dead
             condition = QFUNC(conditionCardiacArrestTimer);
         };
         class Reanimation {
@@ -102,9 +102,21 @@ class ACE_Medical_StateMachine {
             events[] = {QEGVAR(medical,FatalInjury)};
         };
         class Bleedout {
-            targetState = "Dead";
-            condition = QFUNC(conditionCardiacArrestBleedout);
+            targetState = "Comatose"; // Dead
             events[] = {QEGVAR(medical,Bleedout)};
+        };
+    };
+    class Comatose {
+        onState = QFUNC(handleStateComa);
+        onStateEntered = QFUNC(enteredStateComa);
+        onStateLeaving = QFUNC(leftStateComa);
+        class Timeout {
+            targetState = "Dead";
+            condition = QFUNC(conditionComaTimer);
+        };
+        class Reanimation {
+            targetState = "Unconscious";
+            events[] = {QEGVAR(medical,amantadineComplete)};
         };
     };
     class Dead {

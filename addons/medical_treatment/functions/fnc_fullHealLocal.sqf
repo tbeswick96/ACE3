@@ -25,6 +25,12 @@ TRACE_1("start",_state);
 
 // Treatment conditions would normally limit full heal to non-unconscious units
 // However, this may be called externally (through Zeus)
+if IN_COMA(_patient) then {
+    TRACE_1("Exiting coma",_patient);
+    [QEGVAR(medical,amantadineComplete), _patient] call CBA_fnc_localEvent;
+    _state = GET_SM_STATE(_patient);
+    TRACE_1("after amantadineComplete",_state);
+};
 if IN_CRDC_ARRST(_patient) then {
     TRACE_1("Exiting cardiac arrest",_patient);
     [QEGVAR(medical,CPRSucceeded), _patient] call CBA_fnc_localEvent;
