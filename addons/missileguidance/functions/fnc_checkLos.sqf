@@ -19,14 +19,15 @@
 
 params ["_seeker", "_target", ["_checkVisibilityTest", true]];
 
+if ((isNil "_seeker") || {isNil "_target"}) exitWith {
+    ERROR_2("nil",_seeker,_target);
+    false
+};
+
 // Boolean checkVisibilityTest so that if the seeker type is one that ignores smoke we revert back to raw LOS checking.
 if (_checkVisibilityTest) exitWith {
     private _visibility = [_seeker, "VIEW", _target] checkVisibility [getPosASL _seeker, aimPos _target];
     _visibility > 0.001
-};
-if ((isNil "_seeker") || {isNil "_target"}) exitWith {
-    ERROR_2("nil",_seeker,_target);
-    false
 };
 
 private _targetPos = getPosASL _target;

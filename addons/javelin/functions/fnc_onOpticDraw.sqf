@@ -90,18 +90,23 @@ if (GVAR(isLockKeyDown) && {cameraView == "GUNNER"} && {((currentVisionMode ACE_
                 private _distanceToTarget = (getPosASL ACE_player) vectorDistance _foundTargetPos;
                 private _eta = _distanceToTarget / _typicalSpeed;
                 private _adjustDistance = (velocity _newTarget) vectorMultiply _eta;
+                TRACE_5("",_newTarget,_foundTargetPos,_ammoType,_typicalSpeed,_distanceToTarget);
                 _foundTargetPos = _foundTargetPos vectorAdd _adjustDistance;
                 // check if lead position in seeker LOS
                 private _seekerAngle = getNumber ((_ammoConfig select 0) >> "seekerAngle");
                 private _angleOkay = [ACE_player, _foundTargetPos, _seekerAngle] call EFUNC(missileguidance,checkSeekerAngle);
                 private _losOkay = false;
                 if (_angleOkay) then {
-                    _losOkay = [ACE_player, _newTarget, true] call EFUNC(missileguidance,checkLos);
+                    private _visibility = [ACE_player, "VIEW", _newTarget] checkVisibility [eyePos ACE_player, aimPos _newTarget];
+                    _losOkay = _visibility > 0.001;
                 };
                 if (!_losOkay) then {
                     _newTarget = objNull;
                 };
+                TRACE_2("",_newTarget,_foundTargetPos);
+                TRACE_5("",_eta,_adjustDistance,_seekerAngle,_angleOkay,_losOkay);
             } else {
+                TRACE_1("too fast",_newTarget);
                 _newTarget = objNull;
             };
         };
