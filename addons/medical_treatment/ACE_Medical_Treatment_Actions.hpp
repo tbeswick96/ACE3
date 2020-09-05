@@ -265,7 +265,7 @@ class GVAR(actions) {
         allowSelfTreatment = 0;
         callbackSuccess = QFUNC(checkResponse);
     };
-    class CheckPupils: CheckPulse {
+    class CheckPupils: CheckResponse {
         displayName = CSTRING(Actions_CheckPupils);
         displayNameProgress = CSTRING(Check_Pupils_Content);
         condition = QGVAR(advancedDiagnose);

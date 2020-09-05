@@ -20,7 +20,10 @@
 params ["_medic", "_patient", "_bodyPart"];
 
 private _comatose = IN_COMA(_patient);
-private _comaTime = _unit setVariable [QEGVAR(medical_statemachine,comaTimeLeft), -1];
+private _comaTime = _patient getVariable [QEGVAR(medical_statemachine,comaTimeLeft), -1];
+private _upper = EGVAR(medical_statemachine,comaTime) * 0.95;
+private _lower = EGVAR(medical_statemachine,comaTime) * 0.5;
+private _minimum = EGVAR(medical_statemachine,comaTime) * 0.1;
 
 // dead: remain fully dilated
 private _dilationOutput = LSTRING(Check_Pupils_Output_Fully);
@@ -28,24 +31,24 @@ private _logOutput = LSTRING(Check_Pupils_Dilated);
 
 if (alive _patient) then {
     if (_comatose) then {
-        if (_comaTime > 1) then {
-            if (_comaTime > 6) then {
-                if (_comaTime > 12) then {
-                    // > 12: constrict normally
+        if (_comaTime > _minimum) then {
+            if (_comaTime > _lower) then {
+                if (_comaTime > _upper) then {
+                    // > _upper: constrict normally
                     _dilationOutput = LSTRING(Check_Pupils_Output_Constricted);
                     _logOutput = LSTRING(Check_Pupils_Constricted);
                 } else {
-                    // > 6: constrict slowly
+                    // > _lower: constrict slowly
                     _dilationOutput = LSTRING(Check_Pupils_Output_Constrict_Mostly);
                     _logOutput = LSTRING(Check_Pupils_Constrict_Mostly);
                 };
             } else {
-                // < 6: constrict barely
+                // < _lower: constrict barely
                 _dilationOutput = LSTRING(Check_Pupils_Output_Constrict_Barely);
                 _logOutput = LSTRING(Check_Pupils_Constrict_Barely);
             };
         };
-        // < 1: remain fully dilated
+        // < _minimum: remain fully dilated
     } else {
         // alive not comatose: constrict normally
         _dilationOutput = LSTRING(Check_Pupils_Output_Constricted);
