@@ -232,12 +232,3 @@
     [-1, 3600, 600, 0],
     true
 ] call CBA_settings_fnc_init;
-
-[
-    QGVAR(locationAmantadine),
-    "LIST",
-    [LSTRING(LocationAmantadine_DisplayName), LSTRING(LocationAmantadine_Description)],
-    [ELSTRING(medical,Category), LSTRING(SubCategory_Treatment)],
-    [[0, 1, 2, 3, 4], [ELSTRING(common,Anywhere), ELSTRING(common,Vehicle), LSTRING(MedicalFacilities), LSTRING(VehiclesAndFacilities), ELSTRING(common,Disabled)], 2],
-    true
-] call CBA_settings_fnc_init;

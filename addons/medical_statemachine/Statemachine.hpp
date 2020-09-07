@@ -101,10 +101,10 @@ class ACE_Medical_StateMachine {
             condition = QFUNC(conditionExecutionDeath);
             events[] = {QEGVAR(medical,FatalInjury)};
         };
-        class Bleedout {
-            targetState = "Comatose"; // Dead
-            events[] = {QEGVAR(medical,Bleedout)};
-        };
+        // class Bleedout {
+        //     targetState = "Comatose"; // Dead
+        //     events[] = {QEGVAR(medical,Bleedout)};
+        // };
     };
     class Comatose {
         onState = QFUNC(handleStateComa);
@@ -113,10 +113,6 @@ class ACE_Medical_StateMachine {
         class Timeout {
             targetState = "Dead";
             condition = QFUNC(conditionComaTimer);
-        };
-        class Reanimation {
-            targetState = "Unconscious";
-            events[] = {QEGVAR(medical,amantadineComplete)};
         };
     };
     class Dead {

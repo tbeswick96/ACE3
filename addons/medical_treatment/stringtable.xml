@@ -4046,21 +4046,6 @@
             <Chinesesimp>该部位没有使用止血带!</Chinesesimp>
             <Chinese>這部位沒有止血帶!</Chinese>
         </Key>
-        <Key ID="STR_ACE_Medical_Treatment_Amantadine_IV">
-            <English>Amantadine IV</English>
-        </Key>
-        <Key ID="STR_ACE_Medical_Treatment_Actions_Amantadine">
-            <English>Give Amantadine IV</English>
-        </Key>
-        <Key ID="STR_ACE_Medical_Treatment_Transfusing_Amantadine">
-            <English>Transfusing Amantadine...</English>
-        </Key>
-        <Key ID="STR_ACE_Medical_Treatment_LocationAmantadine_DisplayName">
-            <English>Locations Amantadine</English>
-        </Key>
-        <Key ID="STR_ACE_Medical_Treatment_LocationAmantadine_Description">
-            <English>Controls where amantadine can be used.</English>
-        </Key>
         <Key ID="STR_ACE_Medical_Treatment_PenTorch_Display">
             <English>Pen Torch</English>
         </Key>

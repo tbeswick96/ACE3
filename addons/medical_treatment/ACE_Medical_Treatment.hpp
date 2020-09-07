@@ -651,9 +651,5 @@ class ADDON {
         class SalineIV_250: SalineIV {
             volume = 250;
         };
-        class AmantadineIV: SalineIV {
-            volume = 250;
-            type = "Amantadine";
-        };
     };
 };

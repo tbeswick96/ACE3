@@ -16,7 +16,6 @@ class EGVAR(medical,replacementItems) {
         {"ACE_morphine", 1},
         {"ACE_painkillers", 2},
         {"ACE_salineIV_250", 1},
-        {"ACE_amantadineIV", 1},
         {"ACE_tourniquet", 1},
         {"ACE_splint", 2}
     };

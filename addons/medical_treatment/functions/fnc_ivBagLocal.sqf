@@ -21,9 +21,6 @@ params ["_patient", "_bodyPart", "_classname"];
 
 private _bloodVolume = GET_BLOOD_VOLUME(_patient);
 
-// Special case for amantadine, exit if patient has max blood volume
-if (_classname != "Amantadine" && _bloodVolume >= DEFAULT_BLOOD_VOLUME) exitWith {};
-
 private _partIndex = ALL_BODY_PARTS find toLower _bodyPart;
 
 // Get attributes for the used IV

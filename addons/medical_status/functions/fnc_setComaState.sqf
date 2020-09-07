@@ -25,11 +25,5 @@ TRACE_2("setComaState",_unit,_active);
 if (_active isEqualTo IN_COMA(_unit)) exitWith { TRACE_2("no change",_active,IN_COMA(_unit)); };
 
 _unit setVariable [VAR_COMA, _active, true];
-_unit setVariable [VAR_HEART_RATE, [40, 0] select _active, true];
-
-// Coma is an extension of unconsciousness, but only set when entering Coma
-if (_active) then {
-    [_unit, true] call FUNC(setUnconsciousState);
-};
 
 ["ace_coma", [_unit, _active]] call CBA_fnc_localEvent;

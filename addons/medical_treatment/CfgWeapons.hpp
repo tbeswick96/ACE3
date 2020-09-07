@@ -229,14 +229,6 @@ class CfgWeapons {
             mass = 2.5;
         };
     };
-    class ACE_amantadineIV: ACE_salineIV {
-        displayName = CSTRING(Amantadine_IV);
-        model = QPATHTOF(data\IVBag_250ml.p3d);
-        hiddenSelectionsTextures[] = {QPATHTOF(data\IVBag_saline_250ml_ca.paa)};
-        class ItemInfo: CBA_MiscItem_ItemInfo {
-            mass = 2.5;
-        };
-    };
     class ACE_quikclot: ACE_ItemCore {
         scope = 2;
         author = ECSTRING(common,ACETeam);
