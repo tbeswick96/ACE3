@@ -114,6 +114,10 @@ class ACE_Medical_StateMachine {
             targetState = "Dead";
             condition = QFUNC(conditionComaTimer);
         };
+        class Revive {
+            targetState = "Unconscious";
+            events[] = {QEGVAR(medical,Revive)};
+        };
     };
     class Dead {
         // When the unit is killed it's no longer handled by the statemachine
