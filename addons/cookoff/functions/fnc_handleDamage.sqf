@@ -52,13 +52,17 @@ private _newDamage = _damage - _oldDamage;
 // because the config version ignores the return value completely
 if (_simulationType == "car") exitWith {
     // prevent destruction, let cook-off handle it if necessary
-    if (_hitpoint in ["hithull", "hitfuel", "#structural"] && {!IS_EXPLOSIVE_AMMO(_ammo)}) then {
+    if (_hitpoint in ["hithull", "#structural"] && {!IS_EXPLOSIVE_AMMO(_ammo)}) then {
         _damage min 0.89
     } else {
-        if (_hitpoint isEqualTo "hitengine" && {_damage > 0.9}) then {
-            _vehicle call FUNC(engineFire);
+        if (_hitpoint in ["hithull", "hitfuel", "#structural"] && {_newDamage > 0.5 + random 0.2}) then {
+            _vehicle setDamage 1;
+        } else {
+            if (_hitpoint isEqualTo "hitengine" && {_damage > 0.9}) then {
+                _vehicle call FUNC(engineFire);
+            };
+            _damage
         };
-        _damage
     };
 };
 
@@ -86,14 +90,14 @@ if (_simulationType == "tank") exitWith {
             };
         };
     } else {
-        if (_hitpoint in ["hithull", "hitturret", "#structural"] && {_newDamage > 0.8 + random 0.2}) then {
+        if (_hitpoint in ["hithull", "hitfuel", "hitturret", "#structural"] && {_newDamage > 0.8 + random 0.2}) then {
             if ((_hitpoint == "hitturret") && {(getNumber (_vehicle call CBA_fnc_getObjectConfig >> QGVAR(ignoreTurret))) == 1}) exitWith {}; // ignore turrets like RCWS
             _vehicle setDamage 1;
         };
     };
 
     // prevent destruction, let cook-off handle it if necessary
-    if (_hitpoint in ["hithull", "hitfuel", "#structural"]) then {
+    if (_hitpoint in ["hithull", "#structural"]) then {
         _damage min 0.89
     } else {
         _damage
