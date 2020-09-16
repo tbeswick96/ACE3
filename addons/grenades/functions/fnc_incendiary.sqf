@@ -194,17 +194,17 @@ if (isServer) then {
 
 // --- damage extended
 {
-    if (local _x) then {
-        // --- destroy nearby aircraft
-        if (_x isKindOf "Air") then {
-            [{
-                if ("ace_cookoff" call EFUNC(common,isModLoaded) && {EGVAR(cookoff,enable)}) then {
-                    (_this select 0) call EFUNC(cookoff,cookOff);
-                } else {
-                    (_this select 0) setDamage 1;
-                };
-            }, [_x], (random 5) + 5] call CBA_fnc_waitAndExecute;
-        };
+    if (local _x && {_x isKindOf "Air"}) then {
+        [{
+            params ["_vehicle"];
+
+            private _enabled = _vehicle getVariable [QEGVAR(cookoff,enable), EGVAR(cookoff,enable)];
+            if ("ace_cookoff" call EFUNC(common,isModLoaded) && {_enabled in [1, 2]}) then {
+                call EFUNC(cookoff,cookOff);
+            } else {
+                _vehicle setDamage 1;
+            };
+        }, [_x], (random 5) + 5] call CBA_fnc_waitAndExecute;
     };
 } forEach (_position nearObjects EFFECT_SIZE_EXTENDED);
 
