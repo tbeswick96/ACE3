@@ -55,7 +55,7 @@ if (_simulationType == "car") exitWith {
     if (_hitpoint in ["hithull", "#structural"] && {!IS_EXPLOSIVE_AMMO(_ammo)}) then {
         _damage min 0.89
     } else {
-        if (_hitpoint in ["hithull", "hitfuel", "#structural"] && {_newDamage > 0.5 + random 0.2}) then {
+        if (_hitpoint in ["hithull", "hitfuel", "#structural"] && {_newDamage > 0.8 + random 0.2}) then {
             _vehicle setDamage 1;
         } else {
             if (_hitpoint isEqualTo "hitengine" && {_damage > 0.9}) then {
