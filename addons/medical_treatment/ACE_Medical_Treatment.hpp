@@ -576,9 +576,9 @@ class ADDON {
         // specific details for the ACE_Morphine treatment action
         class Morphine {
             painReduce = 0.8;
-            hrIncreaseLow[] = {-10, -20};
-            hrIncreaseNormal[] = {-10, -30};
-            hrIncreaseHigh[] = {-10, -35};
+            hrIncreaseLow[] = {-3.3, -6.6};
+            hrIncreaseNormal[] = {-3.3, -10};
+            hrIncreaseHigh[] = {-3.3, -11.55};
             timeInSystem = 1800;
             timeTillMaxEffect = 30;
             maxDose = 4;
