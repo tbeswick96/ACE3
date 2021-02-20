@@ -35,7 +35,7 @@ _fnc_parameters = {
         _icon = format [QPATHTOF(UI\soundwave%1.paa), floor random 10];
     } else {
         if (_drawRank && {rank _target != ""}) then {
-            private _rankName = ((name _target) splitString ".") select 0;
+            private _rankName = (((name _target) splitString ".") select 0) splitString " " joinString "";
             if (isClass (configFile >> "CfgCustomRanks" >> _rankName)) then {
                 _icon = getText (configFile >> "CfgCustomRanks" >> _rankName >> "texture");
             } else {
