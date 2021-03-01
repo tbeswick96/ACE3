@@ -69,9 +69,12 @@ if (isNil "_loudness") then {
         _loudness = 0;
         TRACE_2("No mag for Weapon/Ammo??",_weapon,_ammo);
     } else {
-        private _initSpeed = getNumber(configFile >> "CfgMagazines" >> _magazine >> "initSpeed");
+        private _initSpeed = getNumber (configFile >> "CfgMagazines" >> _magazine >> "initSpeed");
         private _caliber = getNumber (configFile >> "CfgAmmo" >> _ammo >> "ACE_caliber");
         _caliber = call {
+            if ((count configProperties [(configFile >> "CfgAmmo" >> _ammo), "configName _x == 'ACE_hearing_caliber'", false]) == 1) exitWith {
+                getNumber (configFile >> "CfgAmmo" >> _ammo >> "ACE_hearing_caliber")
+            };
             // If explicilty defined, use ACE_caliber
             if ((count configProperties [(configFile >> "CfgAmmo" >> _ammo), "configName _x == 'ACE_caliber'", false]) == 1) exitWith {_caliber};
             if (_ammo isKindOf ["ShellBase", (configFile >> "CfgAmmo")]) exitWith { 80 };
