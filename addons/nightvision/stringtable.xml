@@ -84,6 +84,9 @@
             <Chinese>夜視鏡 (三代, 棕色)</Chinese>
             <Turkish>GG Gözlüğü (3. Jen Kahverengi)</Turkish>
         </Key>
+        <Key ID="STR_ACE_NightVision_NVG_Gen3_brown_WP">
+            <English>NV Goggles (Gen3, WP, Brown)</English>
+        </Key>
         <Key ID="STR_ACE_NightVision_NVG_Gen3_green">
             <English>NV Goggles (Gen3, Green)</English>
             <Czech>Noktovizor (Gen3, zelený)</Czech>

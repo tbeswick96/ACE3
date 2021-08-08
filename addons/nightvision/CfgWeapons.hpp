@@ -7,11 +7,9 @@ class CfgWeapons {
         GVAR(bluRadius) = 0.15;
         colorPreset[] = {0, {0.0, 0.0, 0.0, 0.0}, {1.3, 1.2, 0.0, 0.9}, {6, 1, 1, 0.0}}; // Green color (by default)
     };
-    class NVGoggles_WP: NVGoggles { // White Phosphor version (example)
-        author = "JDT & AleM";
-        displayName = "NV Goggles (Gen3 WP tubes, Sand)";
-        descriptionShort = "3rd Generation NVD /w White Phosphor tubes";
-        colorPreset[] = {0.0, {0.0, 0.0, 0.0, 0.0}, {0.7, 0.3, 1.3, 0.9}, {1, 1, 6, 0.0}}; // White Phosphor tube Preset
+    class NVGoggles_WP: NVGoggles {
+        displayName = CSTRING(NVG_Gen3_brown_WP);
+        colorPreset[] = {0, {0.0, 0.0, 0.0, 0.0}, {1.1, 0.8, 1.9, 0.9}, {1, 1, 6, 0.0}}; // White Phosphor
     };
     class O_NVGoggles_hex_F: NVGoggles { // APEX NVG with multiple lenses (spider eyes)
         modelOptics = "";
@@ -52,7 +50,6 @@ class CfgWeapons {
         modelOptics = QPATHTOF(models\ACE_nvg_wide_optics);
         displayName = CSTRING(NVG_FullScreen);
     };
-
 
     // Examples of different goggle effect types (scope=1)
     // These all function differently, but we have no models to go with them

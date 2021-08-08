@@ -13,6 +13,10 @@ GVAR(nvgFog) = [0,0,0];
 
 GVAR(nvgBlurRadius) = -1;
 GVAR(nvgGeneration) = -1;
+GVAR(nvgOffset) = 0;
+GVAR(nvgBlend) = [0.0, 0.0, 0.0, 0.0];
+GVAR(nvgColorize) = [1.3, 1.2, 0.0, 0.9];
+GVAR(nvgWeight) = [6, 1, 1, 0.0];
 GVAR(defaultPositionBorder) = [];
 GVAR(defaultPositionHex) = [];
 
