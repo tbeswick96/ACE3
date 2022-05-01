@@ -220,7 +220,7 @@ class GVAR(actions) {
         medicRequired = 0;
         treatmentTime = 2.5;
         items[] = {};
-        condition = QUOTE(!GVAR(advancedDiagnose));
+        condition = QUOTE(GVAR(advancedDiagnose) == 0);
         callbackSuccess = QFUNC(diagnose);
         callbackFailure = "";
         callbackProgress = "";
@@ -232,7 +232,7 @@ class GVAR(actions) {
         displayName = CSTRING(Actions_CheckPulse);
         displayNameProgress = CSTRING(Check_Pulse_Content);
         allowedSelections[] = {"All"};
-        condition = QGVAR(advancedDiagnose);
+        condition = QUOTE(GVAR(advancedDiagnose) != 0);
         callbackSuccess = QFUNC(checkPulse);
         animationMedicProne = "";
         animationMedicSelfProne = "";

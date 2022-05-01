@@ -6,6 +6,7 @@ PREP(enteredStateCardiacArrest);
 PREP(enteredStateComa);
 PREP(enteredStateDeath);
 PREP(enteredStateFatalInjury);
+PREP(enteredStateUnconscious);
 PREP(handleStateCardiacArrest);
 PREP(handleStateComa);
 PREP(handleStateDefault);

@@ -22,7 +22,7 @@ if (!local _unit) exitWith { ERROR_1("unit [%1] is not local",_unit) };
 
 // If unit is not initialized yet, wait until event is raised
 if !(_unit getVariable [QGVAR(initialized), false]) exitWith {
-    [QGVAR(initialized), {
+    [QEGVAR(medical_status,initialized), {
         params ["_unit"];
         _thisArgs params ["_target"];
 
@@ -96,3 +96,5 @@ private _targetState = _state getVariable [QGVAR(statemachineState), "Default"];
 if (_currentState in ["Unconscious", "CardiacArrest"] && {_targetState in ["Default", "Injured"]}) then {
     [_unit, false] call EFUNC(medical_status,setUnconsciousState);
 };
+
+_state call CBA_fnc_deleteNamespace;

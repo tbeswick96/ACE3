@@ -72,6 +72,14 @@ if (!isNil QGVAR(moduleUsed)) then {
 
 ACE_player switchCamera GVAR(cameraView);
 
+// Restore curator camera state
+if (!isNull curatorCamera) then {
+    GVAR(curatorCameraData) params ["_position", "_dirAndUp"];
+
+    curatorCamera setPosASL _position;
+    curatorCamera setVectorDirAndUp _dirAndUp;
+};
+
 if (isMultiplayer) then {
     if (GVAR(currentFace) != "Custom") then {
         [QGVAR(broadcastFace), [GVAR(center), GVAR(currentFace)], QGVAR(center) + "_face"] call CBA_fnc_globalEventJIP;
@@ -87,6 +95,8 @@ GVAR(currentBox) = objNull;
 GVAR(camera) = nil;
 GVAR(cameraHelper) = nil;
 
+GVAR(curatorCameraData) = nil;
+
 GVAR(mouseButtonState) = nil;
 GVAR(currentLeftPanel) = nil;
 GVAR(currentRightPanel) = nil;
@@ -99,6 +109,7 @@ GVAR(rightTabLnBFocus) = nil;
 
 GVAR(selectedWeaponType) = nil;
 GVAR(virtualItems) = nil;
+GVAR(virtualItemsFlat) = nil;
 GVAR(currentItems) = nil;
 GVAR(currentFace) = nil;
 GVAR(currentVoice) = nil;
