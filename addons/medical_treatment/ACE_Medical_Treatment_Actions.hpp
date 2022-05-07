@@ -253,10 +253,7 @@ class GVAR(actions) {
     class CheckPupils: CheckResponse {
         displayName = CSTRING(Actions_CheckPupils);
         displayNameProgress = CSTRING(Check_Pupils_Content);
-        condition = QGVAR(advancedDiagnose);
         callbackSuccess = QFUNC(checkPupils);
-        animationMedicProne = "";
-        animationMedicSelfProne = "";
         items[] = {"ACE_penTorch"};
         consumeItem = "false";
         medicRequired = 1;
