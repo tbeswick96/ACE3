@@ -255,7 +255,6 @@ class GVAR(actions) {
         displayNameProgress = CSTRING(Check_Pupils_Content);
         callbackSuccess = QFUNC(checkPupils);
         items[] = {"ACE_penTorch"};
-        consumeItem = "false";
         medicRequired = 1;
         treatmentTime = 1;
     };
