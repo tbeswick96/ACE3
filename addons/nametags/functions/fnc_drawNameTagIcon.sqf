@@ -41,19 +41,14 @@ _fnc_parameters = {
         case (rank _target == ""): {""};
 
         default {
-            private _rankName = (((name _target) splitString ".") select 0) splitString " " joinString "";
-            if (isClass (configFile >> "CfgCustomRanks" >> _rankName)) then {
-                getText (configFile >> "CfgCustomRanks" >> _rankName >> "texture") // return
-            } else {
-                private _targetFaction = _target getVariable [QGVAR(faction), faction _target];
-                private _customRankIcons = GVAR(factionRanks) getVariable _targetFaction;
+            private _targetFaction = _target getVariable [QGVAR(faction), faction _target];
+            private _customRankIcons = GVAR(factionRanks) getVariable _targetFaction;
 
-                if (!isNil "_customRankIcons") then {
-                    _customRankIcons param [ALL_RANKS find rank _target, ""] // return
-                } else {
-                    // default rank icons
-                    format ["\A3\Ui_f\data\GUI\Cfg\Ranks\%1_gs.paa", rank _target] // return
-                };
+            if (!isNil "_customRankIcons") then {
+                _customRankIcons param [ALL_RANKS find rank _target, ""] // return
+            } else {
+                // default rank icons
+                format ["\A3\Ui_f\data\GUI\Cfg\Ranks\%1_gs.paa", rank _target] // return
             };
         };
     };
