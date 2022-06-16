@@ -1,6 +1,6 @@
 #include "script_component.hpp"
 /*
- * Author: Brandon (TCVM)
+ * Author: Dani (TCVM)
  * Sets up line state arrays (called from missileGuidance's onFired).
  *
  * Arguments:
@@ -27,7 +27,7 @@ if (_correctionDistance == 0) then {
 };
 
 private _navigationParams = [
-    _p, _i, _d,
+    _p, 0, _d,
     0,
     0,
     _correctionDistance
