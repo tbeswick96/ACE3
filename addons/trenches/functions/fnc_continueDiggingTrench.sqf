@@ -19,8 +19,8 @@
 params ["_trench", "_unit"];
 TRACE_2("continueDiggingTrench",_trench,_unit);
 
-private _actualProgress = _trench getVariable [QGVAR(progress), 0];
-if (_actualProgress == 1) exitWith {};
+private _actualProgress = _trench getVariable [QGVAR(progress), 1];
+if(_actualProgress == 1) exitWith {};
 
 // Mark trench as being worked on
 _trench setVariable [QGVAR(digging), true, true];
@@ -32,7 +32,7 @@ private _placeData = _trench getVariable [QGVAR(placeData), [[], []]];
 _placeData params ["_basePos", "_vecDirAndUp"];
 
 private _trenchId = _unit getVariable [QGVAR(isDiggingId), -1];
-if (_trenchId < 0) then {
+if(_trenchId < 0) then {
     _trenchId = GVAR(trenchId);
     _unit setVariable [QGVAR(isDiggingId), _trenchId, true];
     GVAR(trenchId) = GVAR(trenchId) + 1;
@@ -69,7 +69,7 @@ private _fnc_condition = {
 };
 [(_digTimeLeft + 0.5), [_unit, _trench], _fnc_onFinish, _fnc_onFailure, localize LSTRING(DiggingTrench), _fnc_condition] call EFUNC(common,progressBar);
 
-if (_actualProgress == 0) then {
+if(_actualProgress == 0) then {
     [_unit, _trench, _trenchId, _basePos vectorDiff [0, 0, 1.0], _vecDirAndUp, _actualProgress] call FUNC(setTrenchPlacement);
 
     //Remove grass
@@ -88,7 +88,7 @@ for "_i" from _progressLeft to 10 do {
     private _vectorDiffZ = 1 - (_i / 10);
     private _delay = _digTime * ((_i / 10) - _actualProgress);
     private _progress = _i / 10;
-    [DFUNC(setTrenchPlacement), [_unit, _trench, _trenchId, _basePos vectorDiff [0, 0, _vectorDiffZ], _vecDirAndUp, _progress, _digTime], _delay] call CBA_fnc_waitAndExecute;
+    [DFUNC(setTrenchPlacement), [_unit, _trench, _trenchId, _basePos vectorDiff [0, 0, _vectorDiffZ], _vecDirAndUp, _progress], _delay] call CBA_fnc_waitAndExecute;
 };
 
 // Play animation

@@ -24,7 +24,6 @@ params ["_unit"];
 // remove dig pfh
 [GVAR(digPFH)] call CBA_fnc_removePerFrameHandler;
 GVAR(digPFH) = -1;
-GVAR(currentSurface) = nil;
 
 // remove mouse button actions
 call EFUNC(interaction,hideMouseHint);
@@ -37,11 +36,9 @@ _unit setVariable [QGVAR(isPlacing), false, true];
 params ["_unit"];
 if (isNull GVAR(trench)) exitWith {};
 
-private _trenchTexture = (getObjectTextures GVAR(trench)) select 0;
 deleteVehicle GVAR(trench);
 private _trench = createVehicle [GVAR(trenchClass), [0, 0, 0], [], 0, "NONE"];
 _trench setVariable [QGVAR(progress), 0, true];
-_trench setObjectTextureGlobal [0,_trenchTexture];
 
 GVAR(trenchPlacementData) params ["_dx", "_dy", "_offset"];
 private _basePos = GVAR(trenchPos);
