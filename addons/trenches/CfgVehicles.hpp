@@ -1,5 +1,32 @@
 class CBA_Extended_EventHandlers;
 
+<<<<<<< HEAD
+=======
+#define ACE_TRENCHES_ACTIONS class ACE_Actions { \
+        class ACE_MainActions { \
+            displayName = ECSTRING(interaction,MainAction); \
+            selection = ""; \
+            distance = 3; \
+            condition = QUOTE(true); \
+            class ACE_ContinueDiggingTrench { \
+                displayName = CSTRING(ContinueDiggingTrench); \
+                condition = QUOTE([ARR_2(_target,_player)] call FUNC(canContinueDiggingTrench)); \
+                statement = QUOTE([ARR_2(_target,_player)] call FUNC(continueDiggingTrench);); \
+            }; \
+            class ACE_RemoveTrench { \
+                displayName = CSTRING(RemoveEnvelope); \
+                condition = QUOTE([ARR_2(_target,_player)] call FUNC(canRemoveTrench)); \
+                statement = QUOTE([ARR_2(_target,_player)] call FUNC(removeTrench);); \
+            }; \
+            class ACE_CamouflageTrench { \
+                displayName = CSTRING(CamouflageTrench); \
+                condition = QUOTE([ARR_2(_target,_player)] call FUNC(canCamouflageTrench)); \
+                statement = QUOTE([ARR_2(_target,_player)] call FUNC(camouflageTrench)); \
+            }; \
+        }; \
+    }
+
+>>>>>>> upstream/master
 class CfgVehicles {
     class Man;
     class CAManBase: Man {
@@ -117,6 +144,8 @@ class CfgVehicles {
         class EventHandlers {
             class CBA_Extended_EventHandlers: CBA_Extended_EventHandlers {};
         };
+        hiddenSelections[] = {"velka"};
+        hiddenSelectionsTextures[] = {"a3\map_data\gdt_mud_co.paa"};
     };
     class ACE_envelope_big: ACE_envelope_small {
         author = ECSTRING(common,ACETeam);
@@ -183,6 +212,8 @@ class CfgVehicles {
             right[] = {1.1,0.2,0.2};
             left[] = {-1.1,0.1,0.2};
         };
+        hiddenSelections[] = {"velka"};
+        hiddenSelectionsTextures[] = {"a3\map_data\gdt_mud_co.paa"};
     };
 
     class ACE_envelope_small_NoGeo: ACE_envelope_small {

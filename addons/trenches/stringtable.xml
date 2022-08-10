@@ -230,6 +230,11 @@
             <Turkish>Siperi Kaldır</Turkish>
             <Spanish>Eliminar trinchera</Spanish>
         </Key>
+        <Key ID="STR_ACE_Trenches_CamouflageTrench">
+            <English>Camouflage Trench</English>
+            <Polish>Zakamufluj Okop</Polish>
+            <Chinesesimp>伪装掩体</Chinesesimp>
+        </Key>
         <Key ID="STR_ACE_Trenches_RemovingTrench">
             <English>Removing Trench</English>
             <Polish>Usuwanie wnęki</Polish>

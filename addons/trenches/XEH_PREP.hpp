@@ -1,4 +1,10 @@
+<<<<<<< HEAD
 PREP(applyCamouflageAttribute);
+=======
+
+PREP(camouflageTrench);
+PREP(canCamouflageTrench);
+>>>>>>> upstream/master
 PREP(canContinueDiggingTrench);
 PREP(canDigTrench);
 PREP(canPlaceCamouflage);
