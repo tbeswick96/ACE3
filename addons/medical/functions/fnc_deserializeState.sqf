@@ -97,4 +97,20 @@ if (_currentState in ["Unconscious", "CardiacArrest"] && {_targetState in ["Defa
     [_unit, false] call EFUNC(medical_status,setUnconsciousState);
 };
 
+// Set logs, 1s later due to logs being wiped on unit init
+private _logs = _state getVariable [QGVAR(logs), []];
+[{
+    params ["_unit", "_logs"];
+
+    private _allLogs = [];
+    {
+        _x params ["_variable", "_state"];
+
+        _allLogs pushBack _variable;
+        _unit setVariable [_variable, _state, true];
+    } forEach _logs;
+
+    _unit setVariable [QGVAR(allLogs), _allLogs, true];
+}, [_unit, _logs], 1] call CBA_fnc_waitAndExecute;
+
 _state call CBA_fnc_deleteNamespace;

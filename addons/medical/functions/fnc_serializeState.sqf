@@ -60,6 +60,11 @@ _state setVariable [VAR_MEDICATIONS, _medications];
 private _currentState = [_unit, GVAR(STATE_MACHINE)] call CBA_statemachine_fnc_getCurrentState;
 _state setVariable [QGVAR(statemachineState), _currentState];
 
+// Logs
+private _logs = (_unit getVariable [QGVAR(allLogs), []]) apply {[_x, _unit getVariable [_x, []]]};
+TRACE_1("Saved",_logs);
+_state setVariable [QGVAR(logs), _logs];
+
 // Serialize & return
 private _json = [_state] call CBA_fnc_encodeJSON;
 _state call CBA_fnc_deleteNamespace;
