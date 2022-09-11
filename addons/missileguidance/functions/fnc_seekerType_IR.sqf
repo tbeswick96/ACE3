@@ -31,7 +31,6 @@ _seekerParams params ["_seekerAngle", "_seekerAccuracy", "_seekerMaxRange", "_se
 _targetData params ["_targetDirection", "_attackProfileDirection", "_targetRange", "_targetVelocity", "_targetAcceleration"];
 
 _seekerStateParams params ["_flareDistanceFilter", "_flareAngleFilter", "_trackingTarget"];
-TRACE_3("",_projectile,_target,_trackingTarget);
 
 private _distanceFromLaunch = _launchPos distanceSqr getPosASLVisual _projectile;
 if (_distanceFromLaunch <= _seekerMinRange * _seekerMinRange) exitWith {
@@ -49,7 +48,6 @@ if (isNull _trackingTarget) then {
     private _potentialTargets = _projectile nearEntities ["Air", _seekerMaxRange];
     private _bestAngle = 90;
     {
-        TRACE_2("potential",_projectile,_x);
         private _withinView = [_projectile, getPosASLVisual _x, _seekerAngle] call FUNC(checkSeekerAngle);
         private _canSee = [_projectile, _x, false] call FUNC(checkLos);
 
