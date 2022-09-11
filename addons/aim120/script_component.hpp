@@ -1,8 +1,8 @@
 #define COMPONENT aim120
 #define COMPONENT_BEAUTIFIED AIM-120
 #include "\z\ace\addons\main\script_mod.hpp"
-
-#define DEBUG_MODE_FULL
+// 
+// #define DEBUG_MODE_FULL
 // #define DISABLE_COMPILE_CACHE
 // #define ENABLE_PERFORMANCE_COUNTERS
 

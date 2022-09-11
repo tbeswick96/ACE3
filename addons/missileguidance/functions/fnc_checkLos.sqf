@@ -32,10 +32,8 @@ if (_checkVisibilityTest) exitWith {
 
 private _targetPos = getPosASL _target;
 private _targetAimPos = aimPos _target;
-private _seekerPos = [getPosASL _seeker, eyePos _seeker] select _isLocking;
+private _seekerPos = getPosASL _seeker;
 private _return = true;
-TRACE_4("",_seeker,getPosASL _seeker,eyePos _seeker,_isLocking);
-TRACE_3("",_targetPos,_targetAimPos,_seekerPos);
 
 if (!((terrainIntersectASL [_seekerPos, _targetPos]) && {terrainIntersectASL [_seekerPos, _targetAimPos]})) then {
     if (lineIntersects [_seekerPos, _targetPos, _seeker, _target]) then {

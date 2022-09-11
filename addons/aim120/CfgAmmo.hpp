@@ -37,7 +37,7 @@ class CfgAmmo {
             navigationTypes[] = { "ZeroEffortMiss" };
 
             seekLastTargetPos = 0;      // seek last target position [if seeker loses LOS of target, continue to last known pos]
-            seekerAngle = 50;           // Angle from the shooter's view that can track the missile
+            seekerAngle = 30;           // Angle from the shooter's view that can track the missile
             seekerAccuracy = 1;         // seeker accuracy multiplier
 
             seekerMinRange = 75;
@@ -51,8 +51,8 @@ class CfgAmmo {
     };
 
     class GVAR(c): ammo_Missile_AMRAAM_C {
-        missileLockCone = 30;
-        missileKeepLockedCone = 30;
+        missileLockCone = 50;
+        missileKeepLockedCone = 50;
         missileLockMaxDistance = 16000;
         missileLockMinDistance = 75;
 
@@ -100,8 +100,8 @@ class CfgAmmo {
     
     class ammo_Missile_AMRAAM_D;
     class GVAR(d): ammo_Missile_AMRAAM_D {
-        missileLockCone = 45;
-        missileKeepLockedCone = 45;
+        missileLockCone = 50;
+        missileKeepLockedCone = 50;
         missileLockMaxDistance = 16000;
         missileLockMinDistance = 75;
 
