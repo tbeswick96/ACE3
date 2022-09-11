@@ -6,7 +6,7 @@ class CfgAmmo {
         missileLockCone = 30;
         missileKeepLockedCone = 30;
         missileLockMaxDistance = 16000;
-        missileLockMinDistance = 500;
+        missileLockMinDistance = 75;
 
         author = "Dani (TCVM)";
         maneuvrability = 0;
@@ -54,7 +54,7 @@ class CfgAmmo {
         missileLockCone = 30;
         missileKeepLockedCone = 30;
         missileLockMaxDistance = 16000;
-        missileLockMinDistance = 500;
+        missileLockMinDistance = 75;
 
         author = "Dani (TCVM)";
         maneuvrability = 0;
@@ -103,7 +103,7 @@ class CfgAmmo {
         missileLockCone = 45;
         missileKeepLockedCone = 45;
         missileLockMaxDistance = 16000;
-        missileLockMinDistance = 500;
+        missileLockMinDistance = 75;
 
         author = "Dani (TCVM)";
         maneuvrability = 0;
@@ -153,7 +153,7 @@ class CfgAmmo {
         missileLockCone = 50;
         missileKeepLockedCone = 50;
         missileLockMaxDistance = 16000;
-        missileLockMinDistance = 500;
+        missileLockMinDistance = 75;
 
         author = "Dani (TCVM)";
         maneuvrability = 0;

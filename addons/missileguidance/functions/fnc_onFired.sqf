@@ -92,7 +92,7 @@ if (isNil "_target") then {
     } else {
         private _canUseLock = getNumber (_config >> "canVanillaLock");
         // @TODO: Get vanilla target
-        if (_canUseLock > 0 || difficulty < 1) then {
+        if (_canUseLock > 0) then {
             private _vanillaTarget = missileTarget _projectile;
 
             TRACE_1("Using Vanilla Locking", _vanillaTarget);
