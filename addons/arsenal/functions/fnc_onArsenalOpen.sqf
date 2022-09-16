@@ -80,7 +80,7 @@ for "_index" from 0 to 14 do {
             };
 
             if ((_array select 2) isNotEqualTo "") then {
-                 ((GVAR(virtualItems) select _index) select 2) pushBackUnique (_array select 2);
+                ((GVAR(virtualItems) select _index) select 2) pushBackUnique (_array select 2);
             };
         };
 
