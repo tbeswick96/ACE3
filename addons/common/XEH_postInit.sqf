@@ -83,7 +83,7 @@
         _object setVariable ["tf_unable_to_use_radio", _set > 0, true];
     };
     if (["acre_main"] call FUNC(isModLoaded)) then {
-        _object setVariable ["acre_sys_core_isDisabled", _set > 0, true]; // Revert to isDisabled until ace fix
+        _object setVariable ["acre_sys_core_isDisabledRadio", _set > 0, true];
     };
 }] call CBA_fnc_addEventHandler;
 
@@ -558,10 +558,7 @@ GVAR(deviceKeyCurrentIndex) = -1;
 
 ["CBA_loadoutSet", {
     params ["_unit", "_loadout"];
-    // remove if with https://github.com/CBATeam/CBA_A3/pull/1548
-    if (count _loadout == 2) then {
-        _loadout = _loadout select 0;
-    };
+    
     _loadout params ["_primaryWeaponArray"];
     if ((_primaryWeaponArray param [0, ""]) == "ACE_FakePrimaryWeapon") then {
         TRACE_1("Ignoring fake gun",_primaryWeaponArray);
