@@ -71,9 +71,10 @@ if (
 // It seems to fire twice with ammo type "FuelExplosion" or "FuelExplosionBig"
 if (
     _hitPoint isEqualTo "#structural" &&
-    {_ammo isKindOf "FuelExplosion"} &&
+    {GET_NUMBER(configFile >> "CfgAmmo" >> _ammo >> "explosive",0) == 1} &&
+    // {_ammo isKindOf "FuelExplosion"} &&
     {_vehicle != _unit} &&
-    {_damage == 1}
+    {_damage >= 1}
 ) exitwith {
     // triggers twice, so do half damage each time. not very important as it's basically always lethal
     private _hit = GET_NUMBER(configFile >> "CfgAmmo" >> _ammo >> "indirectHit", 10)/2;
