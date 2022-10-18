@@ -44,7 +44,7 @@ if (isServer) then {
         private _cargoClassname = getText (_x >> "type");
         private _cargoCount = getNumber (_x >> "amount");
         TRACE_3("adding ACE_Cargo", (configName _x), _cargoClassname, _cargoCount);
-        ["ace_addCargo", [_cargoClassname, _vehicle, _cargoCount]] call CBA_fnc_localEvent;
+        ["ace_addCargo", [_cargoClassname, _vehicle, _cargoCount, false, true]] call CBA_fnc_localEvent;
     } forEach ("true" configClasses (_config >> QUOTE(ADDON) >> "Cargo"));
 };
 
