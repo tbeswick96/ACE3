@@ -21,3 +21,5 @@
 inGameUISetEventHandler ["PrevAction", "false"];
 inGameUISetEventHandler ["NextAction", "false"];
 inGameUISetEventHandler ["Action", "false"];
+
+[QGVAR(hideMouseHint), []] call CBA_fnc_localEvent;

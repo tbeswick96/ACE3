@@ -93,3 +93,5 @@ if (_textMMB == "") then {
         _yOffset = _yOffset + 1;
     };
 } forEach _extraIconSets;
+
+[QGVAR(showMouseHint), []] call CBA_fnc_localEvent;
