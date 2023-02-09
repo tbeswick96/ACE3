@@ -29,6 +29,7 @@ if (isServer) then {
 [QGVAR(placeInBodyBag), LINKFUNC(placeInBodyBag)] call CBA_fnc_addEventHandler;
 [QGVAR(splintLocal), LINKFUNC(splintLocal)] call CBA_fnc_addEventHandler;
 [QGVAR(tourniquetLocal), LINKFUNC(tourniquetLocal)] call CBA_fnc_addEventHandler;
+[QGVAR(pissBagLocal), LINKFUNC(pissBagLocal)] call CBA_fnc_addEventHandler;
 
 // Logging events
 [QGVAR(addToLog), LINKFUNC(addToLog)] call CBA_fnc_addEventHandler;

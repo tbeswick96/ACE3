@@ -208,6 +208,21 @@ class GVAR(actions) {
         displayName = CSTRING(Actions_Saline4_250);
         items[] = {"ACE_salineIV_250"};
     };
+    class BagOfPiss: BloodIV {
+        displayName = "Give bag of piss";
+        displayNameProgress = "Forcing patient to drink piss";
+        items[] = {"ACE_bagOfPiss"};
+        allowedSelections[] = {"Head"};
+        allowSelfTreatment = 1;
+        category = "advanced";
+        medicRequired = 0;
+        treatmentTime = 3;
+        treatmentLocations = TREATMENT_LOCATIONS_ALL;
+        condition = "";
+        callbackSuccess = QFUNC(pissBag);
+        animationMedic = "AinvPknlMstpSnonWnonDnon_medic1";
+        litter[] = {};
+    };
 
     // - Diagnose -------------------------------------------------------------
     class Diagnose: BasicBandage {

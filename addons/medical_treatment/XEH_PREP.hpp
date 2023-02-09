@@ -49,6 +49,8 @@ PREP(loadUnit);
 PREP(medication);
 PREP(medicationLocal);
 PREP(onMedicationUsage);
+PREP(pissBag);
+PREP(pissBagLocal);
 PREP(placeInBodyBag);
 PREP(removeBody);
 PREP(setTriageStatus);

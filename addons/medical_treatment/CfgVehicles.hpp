@@ -265,6 +265,16 @@ class CfgVehicles {
             MACRO_ADDITEM(ACE_penTorch,1);
         };
     };
+    class ACE_bagOfPissItem: Item_Base_F {
+        scope = 2;
+        scopeCurator = 2;
+        displayName = "Bag of piss";
+        author = ECSTRING(common,ACETeam);
+        vehicleClass = "Items";
+        class TransportItems {
+            MACRO_ADDITEM(ACE_bagOfPiss,1);
+        };
+    };
 
     // Medical supply crates
     class ThingX;
