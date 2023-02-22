@@ -290,7 +290,7 @@ class CfgWeapons {
     };
     class ACE_bagOfPiss: ACE_bloodIV_250 {
         displayName = "Bag of piss";
-        descriptionShort = "Bag of piss. Healthy piss. Normal piss."
+        descriptionShort = "Bag of piss. Healthy piss. Normal piss.";
         descriptionUse = "It's a bag of piss. Force your patients to drink it while they're unconscious. See what happens. They'll never know.";
         model = QPATHTOF(data\IVBag_250ml.p3d);
         hiddenSelectionsTextures[] = {QPATHTOF(data\IVBag_blood_250ml_ca.paa)};
