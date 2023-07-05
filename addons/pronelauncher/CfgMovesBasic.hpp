@@ -54,7 +54,7 @@ class CfgMovesBasic {
             HandGunOn = "AmovPpneMstpSrasWpstDnon";
             stance = "ManStanceProne";
             ReloadRPG = "LauncherProne_Reload_Start";
-            //GestureReloadRPG7[] = {"GestureReloadRPG7Kneel", "Gesture"};
+            // GestureReloadRPG7[] = {"GestureReloadRPG7Kneel", "Gesture"};
             weaponOn = "ACE_LauncherProne";
             WeaponOff = "AmovPpneMstpSrasWrflDnon";
             WalkB = "AmovPpneMrunSrasWlnrDb";

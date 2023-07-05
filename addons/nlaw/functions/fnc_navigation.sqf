@@ -65,7 +65,7 @@ private _yawChangeDerivative = if (_timestep == 0) then {
 _navigationParams set [6, _yawRateDifference];
 
 private _desiredYawChange = _yawRateDifference * PROPORTIONALITY_CONSTANT + _yawRateDifference * 2;
-systemChat str [_yawChange, _yawRate];
+// systemChat str [_yawChange, _yawRate];
 
 #ifdef DRAW_NLAW_INFO
 drawIcon3D ["\a3\ui_f\data\IGUI\Cfg\Cursors\selectover_ca.paa", [1,0,1,1], ASLtoAGL getPosASLVisual _projectile, 0.75, 0.75, 0, format ["dP [%1] dY: [%2]", _desiredPitchChange, _desiredYawChange], 1, 0.025, "TahomaB"];
