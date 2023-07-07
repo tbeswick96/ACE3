@@ -1,4 +1,4 @@
-// #if __has_include("\x\grad_trenches\addons\main\config.bin")
+// #if __has_include("\x\grad_trenches\addons\main\config.bin") // TODO: UNDO  after hemmt
 // #else
 class Man;
 class CAManBase: Man {

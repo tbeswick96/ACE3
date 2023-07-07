@@ -1,5 +1,6 @@
 #include "script_component.hpp"
 
+// TODO: UNDO  after hemmt
 // #if __has_include("\lxWS\data_f_lxWS\config.bin")
 // #else
 // #define PATCH_SKIP "Western Sahara"
