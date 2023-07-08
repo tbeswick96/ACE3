@@ -33,11 +33,11 @@ if !(_unit getVariable [QGVAR(initialized), false]) exitWith {
     }, _this] call CBA_fnc_addEventHandlerArgs;
 };
 
-private _state = [_json] call CBA_fnc_parseJSON;
+private _state = [_json, 2] call CBA_fnc_parseJSON;
 
 // Migration from old array wounding storage serialized in old versions (<= 3.16.0)
 {
-    if ((_state getVariable [_x, createHashMap]) isEqualType []) then {
+    if ((_state getOrDefault [toLower _x, createHashMap]) isEqualType []) then {
         private _migratedWounds = createHashMap;
 
         {
@@ -45,16 +45,16 @@ private _state = [_json] call CBA_fnc_parseJSON;
 
             private _partWounds = _migratedWounds getOrDefault [ALL_BODY_PARTS select _bodyPartIndex, [], true];
             _partWounds pushBack [_class, _amountOf, _bleeding, _damage];
-        } forEach (_state getVariable _x);
+        } forEach (_state get (toLower _x));
 
-        _state setVariable [_x, _migratedWounds];
+        _state set [_x, _migratedWounds];
     };
 } forEach [VAR_OPEN_WOUNDS, VAR_BANDAGED_WOUNDS, VAR_STITCHED_WOUNDS];
 
 // Set medical variables
 {
     _x params ["_var", "_default"];
-    private _value = _state getVariable _x;
+    private _value = _state getOrDefault [toLower _var, _default];
 
     // Treat null as nil
     if (_value isEqualTo objNull) then {
@@ -93,7 +93,7 @@ private _state = [_json] call CBA_fnc_parseJSON;
 _unit setVariable [QEGVAR(medical,lastWakeUpCheck), nil];
 
 // Convert medications offset to time
-private _medications = _state getVariable [VAR_MEDICATIONS, []];
+private _medications = _state getOrDefault [toLower VAR_MEDICATIONS, []];
 {
     _x set [1, _x#1 + CBA_missionTime];
 } forEach _medications;
@@ -105,7 +105,7 @@ _unit setVariable [VAR_MEDICATIONS, _medications, true];
 
 // Transition within statemachine
 private _currentState = [_unit, GVAR(STATE_MACHINE)] call CBA_statemachine_fnc_getCurrentState;
-private _targetState = _state getVariable [QGVAR(statemachineState), "Default"];
+private _targetState = _state getOrDefault [toLower QGVAR(statemachineState), "Default"];
 [_unit, GVAR(STATE_MACHINE), _currentState, _targetState] call CBA_statemachine_fnc_manualTransition;
 
 // Manually call wake up tranisition if necessary
@@ -114,7 +114,7 @@ if (_currentState in ["Unconscious", "CardiacArrest"] && {_targetState in ["Defa
 };
 
 // Set logs, 1s later due to logs being wiped on unit init
-private _logs = _state getVariable [QGVAR(logs), []];
+private _logs = _state getOrDefault [toLower QGVAR(logs), []];
 [{
     params ["_unit", "_logs"];
 
@@ -128,5 +128,3 @@ private _logs = _state getVariable [QGVAR(logs), []];
 
     _unit setVariable [QGVAR(allLogs), _allLogs, true];
 }, [_unit, _logs], 1] call CBA_fnc_waitAndExecute;
-
-_state call CBA_fnc_deleteNamespace;
