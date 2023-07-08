@@ -52,6 +52,7 @@ PREP(pissBag);
 PREP(pissBagLocal);
 PREP(placeInBodyBag);
 PREP(removeBody);
+PREP(scanMedicalItems);
 PREP(setTriageStatus);
 PREP(splint);
 PREP(splintLocal);
