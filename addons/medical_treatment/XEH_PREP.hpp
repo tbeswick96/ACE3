@@ -32,6 +32,7 @@ PREP(fullHeal);
 PREP(fullHealLocal);
 PREP(getBandageTime);
 PREP(getHealTime);
+PREP(getStitchableWounds);
 PREP(getStitchTime);
 PREP(getTriageStatus);
 PREP(handleBandageOpening);

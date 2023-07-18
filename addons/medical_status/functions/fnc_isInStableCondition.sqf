@@ -19,6 +19,12 @@ params ["_unit"];
 
 alive _unit
 && {GET_WOUND_BLEEDING(_unit) == 0}
-&& {([_unit] call EFUNC(medical_treatment,getStitchableWounds)) isEqualTo []}
+&& {(count ([_unit] call EFUNC(medical_treatment,getStitchableWounds))) == 0}
 
 // && {!IS_UNCONSCIOUS(_unit) && {_unit call FUNC(hasStableVitals)}}
+
+
+// alive _unit
+// && {!IS_UNCONSCIOUS(_unit)}
+// && {GET_WOUND_BLEEDING(_unit) == 0}
+// && {_unit call FUNC(hasStableVitals)}
