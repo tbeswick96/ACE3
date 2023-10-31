@@ -222,7 +222,7 @@
             <Czech>Azimut:</Czech>
             <Hungarian>Irányszög</Hungarian>
             <Italian>Azimut</Italian>
-            <Portuguese>Direção na bússula</Portuguese>
+            <Portuguese>Direção na bússola</Portuguese>
             <Japanese>方位磁石での方位</Japanese>
             <Korean>방위</Korean>
             <Chinesesimp>指南针方位</Chinesesimp>
@@ -495,7 +495,7 @@
             <Hungarian>Semmi (nem használható a térképnézet)</Hungarian>
             <Russian>Не показывать (запрещает использовать режим карты)</Russian>
             <Italian>Nessuno (Non puoi usare la vista mappa)</Italian>
-            <Japanese>なし（地図表示を使えません）</Japanese>
+            <Japanese>なし (地図表示を使えません)</Japanese>
             <Korean>없음 (지도를 볼 수 없음)</Korean>
             <Chinesesimp>无（无法检视地图）</Chinesesimp>
             <Chinese>無 (無法檢視地圖)</Chinese>

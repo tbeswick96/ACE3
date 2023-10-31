@@ -1,7 +1,7 @@
-#include "script_component.hpp"
+#include "..\script_component.hpp"
 /*
- * Author: Salluci
- * Caches all item classnames used as field rations, their thirst/hunger values, and whether they are treated as magazines
+ * Author: LinkIsGrim
+ * Caches all item classnames used as field rations
  *
  * Arguments:
  * None
@@ -31,4 +31,4 @@ private _fnc_isFieldRationItem = toString {
     _list set [configName _x, ""];
 } forEach (_fnc_isFieldRationItem configClasses _cfgMagazines);
 
-uiNamespace setVariable [QXGVAR(fieldRationItems), compileFinal str _list];
+uiNamespace setVariable [QXGVAR(fieldRationItems), compileFinal _list];

@@ -1,3 +1,4 @@
+PREP(addInventoryActions);
 PREP(addMedicationAdjustment);
 PREP(adjustPainLevel);
 PREP(getBloodLoss);
@@ -15,5 +16,6 @@ PREP(isInStableCondition);
 PREP(setCardiacArrestState);
 PREP(setComaState);
 PREP(setDead);
+PREP(setStatusEffects);
 PREP(setUnconsciousState);
 PREP(updateWoundBloodLoss);

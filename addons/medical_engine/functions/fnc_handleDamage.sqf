@@ -1,6 +1,6 @@
-#include "script_component.hpp"
+#include "..\script_component.hpp"
 /*
- * Author: commy2, SilentSpike
+ * Author: commy2, kymckay
  * HandleDamage EH where wound events are raised based on incoming damage.
  * Be aware that for each source of damage, the EH can fire multiple times (once for each hitpoint).
  * We store these incoming damages and compare them on our final hitpoint: "ace_hdbracket".
@@ -32,9 +32,16 @@ if (_hitPoint isEqualTo "") then {
 if !(isDamageAllowed _unit && {_unit getVariable [QEGVAR(medical,allowDamage), true]}) exitWith {_oldDamage};
 
 private _newDamage = _damage - _oldDamage;
-// Get armor value of hitpoint and calculate damage before armor
-private _armor = [_unit, _hitpoint] call FUNC(getHitpointArmor);
+// Get scaled armor value of hitpoint and calculate damage before armor
+// We scale using passThrough to handle explosive-resistant armor properly (#9063)
+// We need realDamage to determine which limb was hit correctly
+[_unit, _hitpoint] call FUNC(getHitpointArmor) params ["_armor", "_armorScaled"];
 private _realDamage = _newDamage * _armor;
+if (_hitPoint isNotEqualTo "#structural") then {
+    private _armorCoef = _armor/_armorScaled;
+    private _damageCoef = linearConversion [0, 1, GVAR(damagePassThroughEffect), 1, _armorCoef];
+    _newDamage = _newDamage * _damageCoef;
+};
 TRACE_4("Received hit",_hitpoint,_ammo,_newDamage,_realDamage);
 
 // Drowning doesn't fire the EH for each hitpoint so the "ace_hdbracket" code never runs
@@ -50,14 +57,16 @@ if (
     0
 };
 
+// Faster than (vehicle _unit), also handles dead units
+private _vehicle = objectParent _unit;
+
 // Crashing a vehicle doesn't fire the EH for each hitpoint so the "ace_hdbracket" code never runs
 // It does fire the EH multiple times, but this seems to scale with the intensity of the crash
-private _vehicle = vehicle _unit;
 if (
     EGVAR(medical,enableVehicleCrashes) &&
     {_hitPoint isEqualTo "#structural"} &&
     {_ammo isEqualTo ""} &&
-    {_vehicle != _unit} &&
+    {!isNull _vehicle} &&
     {vectorMagnitude (velocity _vehicle) > 5}
     // todo: no way to detect if stationary and another vehicle hits you
 ) exitWith {
@@ -67,58 +76,25 @@ if (
     0
 };
 
-// Being inside exploding vehicle should just kill the occupants/cause massive damage
-// if (
-//     _hitPoint isEqualTo "#structural" &&
-//     {!alive _vehicle} &&
-//     {_vehicle != _unit} &&
-//     {_damage >= 1}
-// ) exitwith {
-//     private _explosionEffect = GET_STRING(configFile >> "CfgVehicles" >> typeOf _vehicle >> "explosionEffect","FuelExplosion");
-//     private _hit = GET_NUMBER(configFile >> "CfgAmmo" >> _explosionEffect >> "indirectHit", 100);
-//     diag_log format ["%1, %2, %3", typeOf _vehicle, _explosionEffect, _hit];
-//     private _uniform = uniform _unit;
-//     if (_uniform isEqualTo "") then {
-//         _uniform = getText (configOf _unit >> "nakedUniform");
-//     };
-//     private _uniformClass = GET_STRING(configFile >> "CfgWeapons" >> _uniform >> "ItemInfo" >> "uniformClass", "U_BasicBody");
-//     private _damages = [];
-//     {
-//         private _armor = [_unit, _x] call FUNC(getHitpointArmor);
-//         // would be nice to move this into getHitpointArmor
-//         private _shielding = GET_NUMBER(configFile >> "CfgVehicles" >> _uniformClass >> "Hitpoints" >> _x >> "explosionShielding", 1);
-//         _damages pushBack [_hit*_shielding/_armor, ALL_BODY_PARTS select _forEachIndex, _hit*_shielding];
-//     } forEach ALL_HITPOINTS;
-//     TRACE_6("Vehicle total explosion",_unit,_shooter,_instigator,_damage,_newDamage,_damages);
-//     [QEGVAR(medical,woundReceived), [_unit, _damages, _unit, _ammo]] call CBA_fnc_localEvent;
-
-//     0
-// };
-
-// Being inside an exploding vehicle doesn't trigger for each hitpoint
-// It seems to fire twice with ammo type "FuelExplosion" or "FuelExplosionBig"
+// Receiving explosive damage inside a vehicle doesn't trigger for each hitpoint
+// This is the case for mines, explosives, artillery, and catasthrophic vehicle explosions
+// Triggers twice, but that doesn't matter as damage is low
 if (
     _hitPoint isEqualTo "#structural" &&
-    {_ammo isKindOf "FuelExplosion"} &&
-    {_vehicle != _unit} &&
-    {_damage == 1}
-) exitwith {
-    // triggers twice, so do half damage each time. not very important as it's basically always lethal
-    private _hit = GET_NUMBER(configFile >> "CfgAmmo" >> _ammo >> "indirectHit", 10)/2;
-    private _uniform = uniform _unit;
-    if (_uniform isEqualTo "") then {
-        _uniform = getText (configOf _unit >> "nakedUniform");
-    };
-    private _uniformClass = GET_STRING(configFile >> "CfgWeapons" >> _uniform >> "ItemInfo" >> "uniformClass", "U_BasicBody");
-    private _damages = [];
+    {!isNull _vehicle} &&
+    {_ammo isNotEqualTo ""} &&
     {
-        private _armor = [_unit, _x] call FUNC(getHitpointArmor);
-        // would be nice to move this into getHitpointArmor
-        private _shielding = GET_NUMBER(configFile >> "CfgVehicles" >> _uniformClass >> "Hitpoints" >> _x >> "explosionShielding", 1);
-        _damages pushBack [_hit*_shielding/_armor, ALL_BODY_PARTS select _forEachIndex, _hit*_shielding];
-    } forEach ALL_HITPOINTS;
-    TRACE_6("Vehicle explosion",_unit,_shooter,_instigator,_damage,_newDamage,_damages);
-    [QEGVAR(medical,woundReceived), [_unit, _damages, _unit, _ammo]] call CBA_fnc_localEvent;
+        private _ammoCfg = configFile >> "CfgAmmo" >> _ammo;
+        GET_NUMBER(_ammoCfg >> "explosive", 0) > 0 ||
+        {GET_NUMBER(_ammoCfg >> "indirectHit", 0) > 0}
+    }
+) exitwith {
+    TRACE_6("Vehicle hit",_unit,_shooter,_instigator,_damage,_newDamage,_damages);
+
+    _unit setVariable [QEGVAR(medical,lastDamageSource), _shooter];
+    _unit setVariable [QEGVAR(medical,lastInstigator), _instigator];
+
+    [QEGVAR(medical,woundReceived), [_unit, [[_newDamage, _hitPoint, _newDamage]], _shooter, "vehiclehit"]] call CBA_fnc_localEvent;
 
     0
 };
@@ -157,8 +133,9 @@ if (_hitPoint isEqualTo "ace_hdbracket") exitWith {
     private _damageLeftLeg = _unit getVariable [QGVAR($HitLeftLeg), [0,0]];
     private _damageRightLeg = _unit getVariable [QGVAR($HitRightLeg), [0,0]];
 
-    // Find hit point that received the maxium damage
+    // Find hit point that received the maximum damage
     // Priority used for sorting if incoming damage is equal
+    // _realDamage, priority, _newDamage, body part name
     private _allDamages = [
         [_damageHead select 0,       PRIORITY_HEAD,       _damageHead select 1,       "Head"],
         [_damageBody select 0,       PRIORITY_BODY,       _damageBody select 1,       "Body"],
@@ -172,7 +149,7 @@ if (_hitPoint isEqualTo "ace_hdbracket") exitWith {
 
     _allDamages sort false;
     _allDamages = _allDamages apply {[_x select 2, _x select 3, _x select 0]};
-    
+
     // Environmental damage sources all have empty ammo string
     // No explicit source given, we infer from differences between them
     if (_ammo isEqualTo "") then {
