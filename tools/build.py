@@ -13,7 +13,7 @@ def tryHemttBuild(projectpath):
     hemttExe = os.path.join(projectpath, "hemtt.exe")
     if os.path.isfile(hemttExe):
         os.chdir(projectpath)
-        ret = subprocess.call([hemttExe, "pack"], stderr=subprocess.STDOUT)
+        ret = subprocess.call([hemttExe, "dev"], stderr=subprocess.STDOUT)
         print("Using hemtt: {}".format(ret));
         return True
     else:
