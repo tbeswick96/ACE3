@@ -1,4 +1,4 @@
-#include "script_component.hpp"
+#include "..\script_component.hpp"
 /*
  * Author: Dani (TCVM)
  * Condition to switch to next navigation profile

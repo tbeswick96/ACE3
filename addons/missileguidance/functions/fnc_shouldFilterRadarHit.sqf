@@ -1,4 +1,4 @@
-#include "script_component.hpp"
+#include "..\script_component.hpp"
 /*
  * Author: Dani (TCVM)
  * Whether or not we should filter out this target due to masking. Useful for only doppler radar types

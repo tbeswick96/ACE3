@@ -1,4 +1,4 @@
-#include "script_component.hpp"
+#include "..\script_component.hpp"
 /*
  * Author: Tim Beswick
  * Local callback for checking the pupil dilation of a patient.

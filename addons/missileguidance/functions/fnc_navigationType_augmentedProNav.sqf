@@ -1,4 +1,4 @@
-#include "script_component.hpp"
+#include "..\script_component.hpp"
 /*
  * Author: Dani (TCVM)
  * Determine path for projectile to take in accordance to proportional navigation, takes target acceleration into account

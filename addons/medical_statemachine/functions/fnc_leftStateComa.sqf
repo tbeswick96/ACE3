@@ -1,4 +1,4 @@
-#include "script_component.hpp"
+#include "..\script_component.hpp"
 /*
  * Author: Tim Beswick
  * Handles a unit leaving coma (calls for a status update).

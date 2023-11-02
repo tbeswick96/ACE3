@@ -1,4 +1,4 @@
-#include "script_component.hpp"
+#include "..\script_component.hpp"
 /*
  * Author: Dani (TCVM)
  * Confirm GPS weapon settings and serialize to variables

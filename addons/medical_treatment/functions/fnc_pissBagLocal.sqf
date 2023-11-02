@@ -1,4 +1,4 @@
-#include "script_component.hpp"
+#include "..\script_component.hpp"
 /*
  * Author: Yep
  * Local callback for forcing patient to drink a bag of bloody piss

@@ -1,8 +1,8 @@
 #include "script_component.hpp"
 
-#if __has_include("\z\ace\addons\norealisticnames\script_component.hpp")
-#define PATCH_SKIP "No Realistic Names"
-#endif
+// #if __has_include("\z\ace\addons\norealisticnames\script_component.hpp")
+// #define PATCH_SKIP "No Realistic Names"
+// #endif
 
 #ifdef PATCH_SKIP
 ACE_PATCH_NOT_LOADED(ADDON,PATCH_SKIP)
