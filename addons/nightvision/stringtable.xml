@@ -546,6 +546,12 @@
             <Spanish>Efecto obturador por los fogonazos de la boca del cañón</Spanish>
             <Korean>총구화염에 의한 셔터효과를 구현합니다</Korean>
         </Key>
+        <Key ID="STR_ACE_NightVision_alwaysUseWP_DisplayName">
+            <English>Always Use WP</English>
+        </Key>
+        <Key ID="STR_ACE_NightVision_alwaysUseWP_description">
+            <English>Always use white phosphorus colour preset</English>
+        </Key>
         <Key ID="STR_ACE_NightVision_NVGeneration">
             <English>Night Vision Generation</English>
             <Japanese>暗視装置の世代</Japanese>

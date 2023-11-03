@@ -82,3 +82,11 @@
     true, // default value
     false // isGlobal
 ] call CBA_fnc_addSetting;
+
+[
+    QGVAR(alwaysUseWP), "CHECKBOX",
+    [LSTRING(alwaysUseWP_DisplayName), LSTRING(alwaysUseWP_description)],
+    localize LSTRING(Category),
+    false, // default value
+    false // isGlobal
+] call CBA_fnc_addSetting;

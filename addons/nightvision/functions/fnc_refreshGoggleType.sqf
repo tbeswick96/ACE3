@@ -74,6 +74,10 @@ systemChat format ["NVG Refresh - Border: %1", _borderImage];
 systemChat format ["EyeCups: %1, HideHex %2, NVGen: %3, BluRadius: %4", _eyeCups, _hideHex, _nvgGen, _blurRadius];
 #endif
 
+if (GVAR(alwaysUseWP)) then {
+    _preset = NVG_WHITE_PRESET_ARRAY;
+};
+
 // Selection cancelled, params added
 _preset params ["_offset", "_blend", "_colorize", "_weight"];
 
