@@ -16,11 +16,8 @@
 
 #include "\z\ace\addons\main\script_macros.hpp"
 
-
-// Effect Settings / Magic values to tweak:
-
-#define NVG_GREEN_PRESET GVAR(colorPreset)[] = {0, {0.0, 0.0, 0.0, 0.0}, {1.3, 1.2, 0.0, 0.9}, {6, 1, 1, 0.0}}
-#define NVG_WHITE_PRESET GVAR(colorPreset)[] = {0.0, {0.0, 0.0, 0.0, 0.0}, {1.1, 0.8, 1.9, 0.9}, {1, 1, 6, 0.0}}
+// Effect Settings / Magic values to tweak
+#include "defines.hpp"
 
 // Decreases fog when in air vehicles
 #define ST_NVG_AIR_FOG_MULTIPLIER 0.5
