@@ -341,7 +341,6 @@ class CfgVehicles {
         author = ECSTRING(common,ACETeam);
         class TransportItems {
             MACRO_ADDITEM(ACE_fieldDressing,50);
-            MACRO_ADDITEM(ACE_painkillers,25);
             MACRO_ADDITEM(ACE_morphine,25);
             MACRO_ADDITEM(ACE_epinephrine,25);
             MACRO_ADDITEM(ACE_painkillers,25);
@@ -390,7 +389,6 @@ class CfgVehicles {
             MACRO_ADDITEM(ACE_elasticBandage,25);
             MACRO_ADDITEM(ACE_tourniquet,15);
             MACRO_ADDITEM(ACE_splint,15);
-            MACRO_ADDITEM(ACE_painkillers,15);
             MACRO_ADDITEM(ACE_morphine,15);
             MACRO_ADDITEM(ACE_adenosine,15);
             MACRO_ADDITEM(ACE_epinephrine,15);

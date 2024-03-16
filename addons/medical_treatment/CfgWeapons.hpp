@@ -137,18 +137,6 @@ class CfgWeapons {
             mass = 1;
         };
     };
-    class ACE_painkillers: ACE_ItemCore {
-        scope = 2;
-        author = ECSTRING(common,ACETeam);
-        displayName = CSTRING(Painkillers_Display);
-        picture = QPATHTOF(ui\painkillers_ca.paa);
-        model = "\A3\Structures_F_EPA\Items\Medical\PainKillers_F.p3d";
-        descriptionShort = CSTRING(Painkillers_Desc_Short);
-        descriptionUse = CSTRING(Painkillers_Desc_Use);
-        class ItemInfo: CBA_MiscItem_ItemInfo {
-            mass = 1;
-        };
-    };
 
     class ACE_plasmaIV: ACE_ItemCore {
         scope = 2;
@@ -346,13 +334,12 @@ class CfgWeapons {
     };
     class ACE_painkillers: ACE_ItemCore {
         scope = 2;
-        author = "Alganthe";
-        displayName = CSTRING(painkillers_Display);
-        model = "\A3\Structures_F_EPA\Items\Medical\PainKillers_F.p3d";
+        author = ECSTRING(common,ACETeam);
+        displayName = CSTRING(Painkillers_Display);
         picture = QPATHTOF(ui\painkillers_ca.paa);
-        descriptionShort = CSTRING(painkillers_Desc_Short);
-        descriptionUse = CSTRING(painkillers_Desc_Use);
-        ACE_isMedicalItem = 1;
+        model = "\A3\Structures_F_EPA\Items\Medical\PainKillers_F.p3d";
+        descriptionShort = CSTRING(Painkillers_Desc_Short);
+        descriptionUse = CSTRING(Painkillers_Desc_Use);
         class ItemInfo: CBA_MiscItem_ItemInfo {
             mass = 1;
         };
