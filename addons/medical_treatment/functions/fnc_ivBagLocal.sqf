@@ -21,7 +21,7 @@ params ["_patient", "_bodyPart", "_classname"];
 
 private _bloodVolume = GET_BLOOD_VOLUME(_patient);
 
-private _partIndex = ALL_BODY_PARTS find toLower _bodyPart;
+private _partIndex = ALL_BODY_PARTS find tolowerANSI _bodyPart;
 
 // Get attributes for the used IV
 private _defaultConfig = configFile >> QUOTE(ADDON) >> "IV";

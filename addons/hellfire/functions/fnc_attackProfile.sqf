@@ -108,9 +108,16 @@ switch (_attackStage) do {
     };
 };
 
-// missile guidance defines this variable in doAttackProfile
-//IGNORE_PRIVATE_WARNING ["_attackProfileName"];
-_attackProfileName = ["na", "hellfire - LAUNCH", "hellfire - SEEK CRUISE", "hellfire - ATTACK CRUISE", "hellfire - TERMINAL"] select _attackStage;
+// Special radar case. Adjust target position such that we are leading it
+if (_attackStage >= 3 && { _seekerType isEqualTo "ARH" }) then {
+    _seekerStateParams params ["", "", "", "", "", "", "", "_lastKnownVelocity"];
+    private _projectileVelocity = velocity _projectile;
+    if (_projectileVelocity#2 < 0) then {
+        private _projectileSpeed = vectorMagnitude _projectileVelocity; // this gives a precise impact time versus using speed _projectile. Dont change
+        private _timeUntilImpact = (_seekerTargetPos distance _projectilePos) / _projectileSpeed;
+        _returnTargetPos = _returnTargetPos vectorAdd (_lastKnownVelocity vectorMultiply _timeUntilImpact);
+    };
+};
 
-TRACE_1("Adjusted target position", _returnTargetPos);
+// TRACE_1("Adjusted target position",_returnTargetPos);
 _returnTargetPos;

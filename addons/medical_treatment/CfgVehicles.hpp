@@ -206,16 +206,6 @@ class CfgVehicles {
             MACRO_ADDITEM(ACE_epinephrine,1);
         };
     };
-    class ACE_painkillerItem: Item_Base_F {
-        scope = 2;
-        scopeCurator = 2;
-        displayName = CSTRING(Painkillers_Display);
-        author = ECSTRING(common,ACETeam);
-        vehicleClass = "Items";
-        class TransportItems {
-            MACRO_ADDITEM(ACE_painkillers,1);
-        };
-    };
     class ACE_plasmaIVItem: Item_Base_F {
         scope = 2;
         scopeCurator = 2;
@@ -297,6 +287,19 @@ class CfgVehicles {
             MACRO_ADDITEM(ACE_bodyBag,1);
         };
     };
+    class ACE_painkillersItem: Item_Base_F {
+        scope = 2;
+        scopeCurator = 2;
+        displayName = CSTRING(painkillers_Display);
+        vehicleClass = "Items";
+        class TransportItems {
+            MACRO_ADDITEM(ACE_painkillers,1);
+        };
+    };
+    class ACE_painkillerItem : ACE_painkillersItem {
+        scope = 1;
+        scopeCurator = 0;
+    };
     class ACE_penTorchItem: Item_Base_F {
         scope = 2;
         scopeCurator = 2;
@@ -338,6 +341,7 @@ class CfgVehicles {
         author = ECSTRING(common,ACETeam);
         class TransportItems {
             MACRO_ADDITEM(ACE_fieldDressing,50);
+            MACRO_ADDITEM(ACE_painkillers,25);
             MACRO_ADDITEM(ACE_morphine,25);
             MACRO_ADDITEM(ACE_epinephrine,25);
             MACRO_ADDITEM(ACE_painkillers,25);
@@ -386,6 +390,7 @@ class CfgVehicles {
             MACRO_ADDITEM(ACE_elasticBandage,25);
             MACRO_ADDITEM(ACE_tourniquet,15);
             MACRO_ADDITEM(ACE_splint,15);
+            MACRO_ADDITEM(ACE_painkillers,15);
             MACRO_ADDITEM(ACE_morphine,15);
             MACRO_ADDITEM(ACE_adenosine,15);
             MACRO_ADDITEM(ACE_epinephrine,15);

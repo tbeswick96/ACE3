@@ -47,4 +47,5 @@ if ((count _test) > 0) then {
 };
 #endif
 
-[0, 0, 1]
+// TRACE_1("Adjusted target position",_returnTargetPos);
+_returnTargetPos;
