@@ -292,8 +292,8 @@ class CfgVehicles {
         scopeCurator = 2;
         displayName = CSTRING(painkillers_Display);
         vehicleClass = "Items";
-        class TransportItems {
-            MACRO_ADDITEM(ACE_painkillers,1);
+        class TransportMagazines {
+            MACRO_ADDMAGAZINE(ACE_painkillers,1);
         };
     };
     class ACE_painkillerItem : ACE_painkillersItem {
@@ -339,6 +339,9 @@ class CfgVehicles {
         model = QPATHTOF(data\ace_medcrate.p3d);
         editorPreview = QPATHTOF(data\ACE_medicalSupplyCrate.jpg);
         author = ECSTRING(common,ACETeam);
+        class TransportMagazines {
+            MACRO_ADDMAGAZINE(ACE_painkillers,25);
+        };
         class TransportItems {
             MACRO_ADDITEM(ACE_fieldDressing,50);
             MACRO_ADDITEM(ACE_morphine,25);
@@ -383,6 +386,9 @@ class CfgVehicles {
     };
     class ACE_medicalSupplyCrate_advanced: ACE_medicalSupplyCrate {
         displayName = CSTRING(medicalSupplyCrate_advanced);
+        class TransportMagazines {
+            MACRO_ADDMAGAZINE(ACE_painkillers,15);
+        };
         class TransportItems {
             MACRO_ADDITEM(ACE_fieldDressing,25);
             MACRO_ADDITEM(ACE_packingBandage,25);
