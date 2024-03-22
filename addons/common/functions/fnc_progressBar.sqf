@@ -45,6 +45,20 @@ _display call (uiNamespace getVariable "CBA_events_fnc_initDisplayCurator");
 if (_dialog) then {
     private _map = _display displayCtrl 101;
     _map ctrlMapCursor ["", QGVAR(blank)];
+    
+    if (!isMultiplayer) then {
+        _display displayAddEventHandler ["KeyDown", {
+            params ["", "_key"];
+
+            switch (_key) do {
+                case DIK_MINUS: { setAccTime ((accTime / 2) max 1) };
+                case DIK_EQUALS: { setAccTime ((accTime * 2) min 4) };
+                default { };
+            };
+
+            true
+        }];
+    };
 } else { // Add key handler for ESC to cancel
     [DIK_ESCAPE, [false, false, false], {
         QGVAR(progressBarDisplay) cutText ["", "PLAIN"];
