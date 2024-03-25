@@ -19,7 +19,7 @@
 
 // todo: move this macro to script_macros_medical.hpp?
 #define MORPHINE_PAIN_SUPPRESSION 0.6
-#define MORPHINE_PAIN_SUPPRESSION 0.1
+#define PAINKILLER_PAIN_SUPPRESSION 0.1
 
 params ["_patient", "_bodyPart", "_classname"];
 TRACE_3("medicationLocal",_patient,_bodyPart,_classname);
@@ -39,7 +39,7 @@ if (!GVAR(advancedMedication)) exitWith {
         };
         case "PainKillers": {
             private _painSuppress = GET_PAIN_SUPPRESS(_patient);
-            _patient setVariable [VAR_PAIN_SUPP, (_painSuppress + MORPHINE_PAIN_SUPPRESSION) min 1, true];
+            _patient setVariable [VAR_PAIN_SUPP, (_painSuppress + PAINKILLER_PAIN_SUPPRESSION) min 1, true];
         };
     };
 };

@@ -20,7 +20,7 @@ private _hasWeaponOnBack = !isNull _weaponHolder;
 // Hide attachment slots if player has weapon on their back
 {
     private _ctrl = _display displayCtrl _x;
-    _ctrl ctrlSetFade ([0, 1] select _hasWeaponOnBack);
+    _ctrl ctrlSetFade (parseNumber _hasWeaponOnBack);
     _ctrl ctrlCommit 0;
 } forEach IDCS_SECONDARY_ATTACHMENTS;
 
