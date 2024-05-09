@@ -49,6 +49,7 @@ if (!XGVAR(enabled)) exitWith {true};
 
 // Remove HC
 GVAR(headlessClients) deleteAt (GVAR(headlessClients) find _object);
+[QXGVAR(headlessClientLeft), [_object]] call CBA_fnc_globalEvent;
 
 if (XGVAR(log)) then {
     INFO_1("Removed HC: %1",_object);
