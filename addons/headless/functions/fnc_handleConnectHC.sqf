@@ -20,6 +20,7 @@ params ["_headlessClient"];
 // Exit if HC already registered
 // No need to check if distribution or end mission enabled, as if disabled this will never run
 if (GVAR(headlessClients) pushBackUnique _headlessClient == -1) exitWith {};
+publicVariable QGVAR(headlessClients);
 
 if (XGVAR(log)) then {
     INFO_1("Registered HC: %1",_headlessClient);

@@ -8,8 +8,9 @@ PREP_RECOMPILE_END;
 
 #include "initSettings.inc.sqf"
 
+GVAR(headlessClients) = [];
+
 if (isServer) then {
-    GVAR(headlessClients) = [];
     GVAR(inRebalance) = false;
     GVAR(endMissionCheckDelayed) = false;
     [QXGVAR(headlessClientJoined), LINKFUNC(handleConnectHC)] call CBA_fnc_addEventHandler;
