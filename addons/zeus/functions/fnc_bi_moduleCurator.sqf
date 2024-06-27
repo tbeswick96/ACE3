@@ -23,13 +23,13 @@ params ["_logic", "_units", "_activated"];
 
 if (_activated) then {
 
-    //--- Terminate when not created on the server
-    if (!isserver && local _logic && isnull (getassignedcuratorunit _logic)) exitwith {
+    // Terminate when not created on the server
+    if (!isServer && local _logic && isnull (getassignedcuratorunit _logic)) exitwith {
         [format ["%1 is trying to create curator logic ModuleCurator_F",profilename],"bis_fnc_error",false] call bis_fnc_mp;
         deletevehicle _logic;
     };
 
-    //--- Get curator owner
+    // Get curator owner
     _ownerVar = _logic getvariable ["owner",""];
     _ownerUID = parsenumber _ownerVar;
     if (cheatsenabled) then {
@@ -46,13 +46,13 @@ if (_activated) then {
     };
     _isAdmin = _ownerVar == "#adminLogged" || _ownerVar == "#adminVoted";
 
-    //--- Wipe out the variable so clients can't access it
+    // Wipe out the variable so clients can't access it
     _logic setvariable ["owner",nil];
 
-    //--- Server
+    // Server
     if (isserver) then {
 
-        //--- Prepare admin variable
+        // Prepare admin variable
         _adminVar = "";
         if (_isAdmin) then {
             _letters = ["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"];
@@ -98,7 +98,7 @@ if (_activated) then {
         //     };
         // };
 
-        //--- Handle ownership
+        // Handle ownership
         [_logic,_ownerVar,_ownerUID,_adminVar] spawn {
             scriptname "BIS_fnc_moduleCurator: Owner";
 
@@ -110,7 +110,7 @@ if (_activated) then {
             _name = _logic getvariable ["name",""];
             if (_name == "") then {_name = localize "STR_A3_curator";};
 
-            //--- Wait until mission starts
+            // Wait until mission starts
             waitUntil {time > 0}; // NOTE: DO NOT CHANGE TO CBA_missionTime, IT BREAKS THE MODULE
 
             // //--- Refresh addon list, so it's broadcasted to clients
@@ -119,7 +119,7 @@ if (_activated) then {
             // _logic addcuratoraddons _addons;
 
             while {true} do {
-                //--- Wait for player to become Zeus
+                // Wait for player to become Zeus
                 switch true do {
                     case (_ownerUID > 0): {
                         waituntil {
@@ -133,7 +133,7 @@ if (_activated) then {
                 };
                 if (isnull _logic) exitwith {};
 
-                //--- Assign
+                // Assign
                 _player = objnull;
                 switch true do {
                     case (_ownerUID > 0): {
@@ -150,7 +150,7 @@ if (_activated) then {
                 waituntil {_player assignCurator _logic; getassignedcuratorunit _logic == _player || isnull _logic};
                 if (isnull _logic) exitwith {};
 
-                //--- Add radio channels
+                // Add radio channels
                 {
                     _x radiochanneladd [_player];
                 } foreach (_logic getvariable ["channels",[]]);
@@ -159,7 +159,7 @@ if (_activated) then {
                 private _msgCode = {
                     params ["_logic","_player"];
 
-                    //--- Sent notification to all assigned players
+                    // Sent notification to all assigned players
                     if ((_logic getVariable ["showNotification",true]) && GVAR(zeusAscension)) then {
                         {
                             if (isplayer _x) then {
@@ -181,7 +181,7 @@ if (_activated) then {
                 // Added by ace_zeus
                 [QGVAR(zeusUnitAssigned), [_logic,_player]] call CBA_fnc_globalEvent;
 
-                //--- Wait for player to stop being Zeus
+                // Wait for player to stop being Zeus
                 switch true do {
                     case (_ownerUID > 0): {
                         waituntil {
@@ -195,12 +195,12 @@ if (_activated) then {
                 };
                 if (isnull _logic) exitwith {};
 
-                //--- Add radio channels
+                // Add radio channels
                 {
                     _x radiochannelremove [_player];
                 } foreach (_logic getvariable ["channels",[]]);
 
-                //--- Unassign
+                // Unassign
                 waituntil {unassigncurator _logic; isnull (getassignedcuratorunit _logic) || isnull _logic};
                 if (isnull _logic) exitwith {};
             };
@@ -211,14 +211,14 @@ if (_activated) then {
             params ["_logic"];
 
             if (GVAR(zeusBird)) then {
-                //--- Create bird
+                // Create bird
                 _birdType = _logic getVariable ["birdType","eagle_f"];
                 if (_birdType != "") then {
                     _bird = createvehicle [_birdType,[100,100,100],[],0,"none"];
                     _logic setVariable ["bird",_bird,true];
                 };
 
-                //--- Locality changed
+                // Locality changed
                 _logic addeventhandler [
                     "local",
                     {
@@ -254,12 +254,12 @@ if (_activated) then {
         // if (time <= 0) then { // _addons call bis_fnc_activateaddons; };
     };
 
-    //--- Player
+    // Player
     if (hasinterface) then {
         waituntil {local player};
         _serverCommand = ["#kick", "#shutdown"] select (_ownerVar == "#adminLogged");
 
-        //--- Black effect until the interface is open
+        // Black effect until the interface is open
         _forced = _logic getvariable ["forced",0] > 0;
         if (_forced) then {
             _isCurator = switch true do {
@@ -279,15 +279,15 @@ if (_activated) then {
             };
         };
 
-        //--- Check if player is server admin
+        // Check if player is server admin
         if (_isAdmin) then {
             _adminVar = _logic getvariable ["adminVar",""];
             _logic setvariable ["adminVar",nil];
             if (isserver) then {
-                //--- Host
+                // Host
                 missionnamespace setvariable [_adminVar,player];
             } else {
-                //--- Client
+                // Client
                 [_logic,_adminVar,_serverCommand] spawn {
                     scriptname "BIS_fnc_moduleCurator: Admin check";
 
@@ -339,7 +339,7 @@ if (_activated) then {
         //     };
         // };
 
-        //--- Add local event handlers
+        // Add local event handlers
         _logic addeventhandler ["curatorFeedbackMessage",{_this call bis_fnc_showCuratorFeedbackMessage;}];
         // _logic addeventhandler ["curatorPinged",{_this call bis_fnc_curatorPinged;}];
         _logic addeventhandler ["curatorObjectPlaced",{_this call bis_fnc_curatorObjectPlaced;}];
