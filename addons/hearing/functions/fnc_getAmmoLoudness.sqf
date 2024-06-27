@@ -28,6 +28,9 @@ GVAR(cacheAmmoLoudness) getOrDefaultCall [_magazine, {
     private _caliber = getNumber (_ammoConfig >> "ACE_caliber");
 
     _caliber = switch (true) do {
+        if ((count configProperties [(configFile >> "CfgAmmo" >> _ammo), "configName _x == 'ACE_hearing_caliber'", false]) == 1) exitWith {
+            getNumber (configFile >> "CfgAmmo" >> _ammo >> "ACE_hearing_caliber")
+        };
         // If explicilty defined, use ACE_caliber
         case (inheritsFrom (_ammoConfig >> "ACE_caliber") isEqualTo _ammoConfig): {_caliber};
         case (_ammo isKindOf ["ShellBase", _cfgAmmo]): {80};
