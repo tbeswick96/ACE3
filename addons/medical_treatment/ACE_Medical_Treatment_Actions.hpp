@@ -272,6 +272,16 @@ class GVAR(actions) {
         medicRequired = 1;
         treatmentTime = 1;
     };
+    class CheckSpo2: CheckResponse {
+        displayName = CSTRING(Actions_CheckSpo2);
+        displayNameProgress = CSTRING(CheckSpo2_Content);
+        allowedSelections[] = {"LeftArm", "RightArm"};
+        allowSelfTreatment = 1;
+        callbackSuccess = QFUNC(CheckSpo2);
+        animationMedicSelf = "";
+        items[] = {"ACE_oximeter"};
+        treatmentTime = 3;
+    };
 
     // - Misc -----------------------------------------------------------------
     class BodyBag: BasicBandage {

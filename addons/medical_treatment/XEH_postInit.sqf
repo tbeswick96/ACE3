@@ -22,6 +22,7 @@ if (isServer) then {
 [QGVAR(checkBloodPressureLocal), LINKFUNC(checkBloodPressureLocal)] call CBA_fnc_addEventHandler;
 [QGVAR(checkPulseLocal), LINKFUNC(checkPulseLocal)] call CBA_fnc_addEventHandler;
 [QGVAR(checkPupilsLocal), LINKFUNC(checkPupilsLocal)] call CBA_fnc_addEventHandler;
+[QGVAR(checkSpo2Local), LINKFUNC(checkSpo2Local)] call CBA_fnc_addEventHandler;
 [QGVAR(cprLocal), LINKFUNC(cprLocal)] call CBA_fnc_addEventHandler;
 [QGVAR(fullHealLocal), LINKFUNC(fullHealLocal)] call CBA_fnc_addEventHandler;
 [QGVAR(ivBagLocal), LINKFUNC(ivBagLocal)] call CBA_fnc_addEventHandler;

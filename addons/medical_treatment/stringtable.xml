@@ -5005,6 +5005,27 @@
         <Key ID="STR_ACE_Medical_Treatment_Check_Pupils_Output_Constricted">
             <English>The pupils constrict normally</English>
         </Key>
+        <Key ID="STR_ACE_Medical_Treatment_Oximeter_Display">
+            <English>Oximeter</English>
+        </Key>
+        <Key ID="STR_ACE_Medical_Treatment_Oximeter_Desc_Short">
+            <English>Oximeter for measuring Spo2</English>
+        </Key>
+        <Key ID="STR_ACE_Medical_Treatment_Oximeter_Desc_Use">
+            <English>Oximeter for measuring Spo2</English>
+        </Key>
+        <Key ID="STR_ACE_Medical_Treatment_Actions_CheckSpo2">
+            <English>Check SpO2</English>
+        </Key>
+        <Key ID="STR_ACE_Medical_Treatment_CheckSpo2_Content">
+            <English>You check SpO2 of patient</English>
+        </Key>
+        <Key ID="STR_ACE_Medical_Treatment_CheckSpo2_Log">
+            <English>%1 checked SpO2: %2%</English>
+        </Key>
+        <Key ID="STR_ACE_Medical_Treatment_CheckSpo2_Output">
+            <English>SpO2: %1%</English>
+        </Key>
         <Key ID="STR_ACE_Medical_Treatment_checkHeadstoneName">
             <English>Check name on headstone</English>
             <Polish>Sprawdź imię na grobie</Polish>

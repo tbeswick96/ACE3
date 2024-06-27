@@ -308,6 +308,17 @@ class CfgWeapons {
             mass = 2;
         };
     };
+    class ACE_oximeter: ACE_ItemCore {
+        scope = 2;
+        author = ECSTRING(common,ACETeam);
+        displayName= CSTRING(Oximeter_Display);
+        picture = QPATHTOF(ui\oximeter_ca.paa);
+        descriptionShort = CSTRING(Oximeter_Desc_Short);
+        descriptionUse = CSTRING(Oximeter_Desc_Use);
+        class ItemInfo: CBA_MiscItem_ItemInfo {
+            mass = 1;
+        };
+    };
     class ACE_bagOfPiss: ACE_bloodIV_250 {
         displayName = "Bag of piss";
         descriptionShort = "Bag of piss. Healthy piss. Normal piss.";

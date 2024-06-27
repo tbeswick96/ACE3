@@ -310,6 +310,16 @@ class CfgVehicles {
             MACRO_ADDITEM(ACE_penTorch,1);
         };
     };
+    class ACE_oximeterItem: Item_Base_F {
+        scope = 2;
+        scopeCurator = 2;
+        displayName = CSTRING(Oximeter_Display);
+        author = ECSTRING(common,ACETeam);
+        vehicleClass = "Items";
+        class TransportItems {
+            MACRO_ADDITEM(ACE_oximeter,1);
+        };
+    };
     class ACE_bagOfPissItem: Item_Base_F {
         scope = 2;
         scopeCurator = 2;
