@@ -11,22 +11,22 @@ if (isServer) then {
     }] call CBA_fnc_addEventHandler;
 };
 
-["CBA_settingsInitialized", {
-    TRACE_1("settingInit - common",GVAR(enableCombatDeafness));
-    // Only install event handler if combat deafness is enabled
-    if (!GVAR(enableCombatDeafness)) exitWith {};
+// ["CBA_settingsInitialized", {
+//     TRACE_1("settingInit - common",GVAR(enableCombatDeafness));
+//     // Only install event handler if combat deafness is enabled
+//     if (!GVAR(enableCombatDeafness)) exitWith {};
 
-    addMissionEventHandler ["ProjectileCreated", {
-        params ["_projectile"];
+//     addMissionEventHandler ["ProjectileCreated", {
+//         params ["_projectile"];
 
-        if (!local _projectile) exitWith {};
+//         if (!local _projectile) exitWith {};
 
-        // Rockets only explode on local clients
-        _projectile addEventHandler ["Explode", {
-            [QGVAR(explosion), _this] call CBA_fnc_globalEvent;
-        }];
-    }];
-}] call CBA_fnc_addEventHandler;
+//         // Rockets only explode on local clients
+//         _projectile addEventHandler ["Explode", {
+//             [QGVAR(explosion), _this] call CBA_fnc_globalEvent;
+//         }];
+//     }];
+// }] call CBA_fnc_addEventHandler;
 
 if (!hasInterface) exitWith {};
 
