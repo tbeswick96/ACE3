@@ -220,3 +220,12 @@ if (isServer) then {
     // Damage vehicles (locality is checked in FUNC(damageEngineAndWheels))
     [_x, _position] call FUNC(damageEngineAndWheels);
 } forEach (_position nearEntities ["Car", SEARCH_RADIUS]);
+
+{
+    // Destroy aircraft
+    if (local _x) then {
+        [{
+            _this setDamage 1;
+        }, _x, (random 10) + 5] call CBA_fnc_waitAndExecute;
+    };
+} forEach (_position nearEntities ["Air", SEARCH_RADIUS]);
