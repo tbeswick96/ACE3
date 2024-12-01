@@ -11,10 +11,10 @@ if (isServer) then {
     }] call CBA_fnc_addEventHandler;
 };
 
-// ["CBA_settingsInitialized", {
-//     TRACE_1("settingInit - common",GVAR(enableCombatDeafness));
-//     // Only install event handler if combat deafness is enabled
-//     if (!GVAR(enableCombatDeafness)) exitWith {};
+["CBA_settingsInitialized", {
+    TRACE_1("settingInit - common",GVAR(enableCombatDeafness));
+    // Only install event handler if combat deafness is enabled
+    if (!GVAR(enableCombatDeafness)) exitWith {};
 
     if (isMultiplayer) then {
         [{ // Convert ace_common's local explosion to a hearing global explosion event

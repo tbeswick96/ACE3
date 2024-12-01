@@ -13,7 +13,7 @@ PREFIX = "ace_"
 def tryHemttBuild(projectpath):
     if shutil.which("hemtt"):
         os.chdir(projectpath)
-        ret = subprocess.call(["hemtt", "pack"], stderr=subprocess.STDOUT)
+        ret = subprocess.call(["hemtt", "dev"], stderr=subprocess.STDOUT)
         print("Using hemtt: {}".format(ret))
         return True
     else:
