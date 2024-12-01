@@ -1,4 +1,4 @@
-#include "\z\ace\addons\missileguidance\script_component.hpp"
+#include "..\script_component.hpp"
 
 private _configs = configProperties [configFile >> "CfgAmmo", QUOTE((isClass _x) && { isClass (_x >> QUOTE(QUOTE(ADDON)))})];
 
@@ -9,7 +9,7 @@ private _attackProfiles = createHashMap;
     private _seekerType = getText (_x >> QUOTE(ADDON) >> "defaultSeekerType");
     private _navigationType = getText (_x >> QUOTE(ADDON) >> "defaultNavigationType");
     private _attackProfile = getText (_x >> QUOTE(ADDON) >> "defaultAttackProfile");
- 
+
     private _seekers = _seekerTypes getOrDefault [_seekerType, []];
     private _navigations = _navigationTypes getOrDefault [_navigationType, []];
     private _attacks = _attackProfiles getOrDefault [_attackProfile, []];
@@ -24,4 +24,3 @@ private _attackProfiles = createHashMap;
 } forEach _configs;
 
 [_seekerTypes, _navigationTypes, _attackProfiles]
-

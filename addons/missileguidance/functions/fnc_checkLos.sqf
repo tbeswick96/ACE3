@@ -29,19 +29,22 @@ if (_checkVisibilityTest) exitWith {
     private _visibility = [_seeker, "VIEW", _target] checkVisibility [getPosASL _seeker, aimPos _target];
     _visibility > 0.001
 };
+if ((isNil "_seeker") || {isNil "_target"}) exitWith {
+    ERROR_2("nil [%1]->[%2]",_seeker,_target);
+    false
+};
 
 private _targetPos = getPosASL _target;
 private _targetAimPos = aimPos _target;
 private _seekerPos = getPosASL _seeker;
 private _return = true;
 
-if (!((terrainIntersectASL [_seekerPos, _targetPos]) && {terrainIntersectASL [_seekerPos, _targetAimPos]})) then {
+if ((terrainIntersectASL [_seekerPos, _targetPos]) && {terrainIntersectASL [_seekerPos, _targetAimPos]}) then {
+    _return = false;
+} else {
     if (lineIntersects [_seekerPos, _targetPos, _seeker, _target]) then {
         _return = false;
     };
-} else {
-    _return = false;
 };
 
 _return
-

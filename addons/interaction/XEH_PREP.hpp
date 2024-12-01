@@ -13,6 +13,7 @@ PREP(showMouseHint);
 PREP(hideMouseHint);
 
 // interaction with units
+PREP(addSquadChildren);
 PREP(canInteractWithCivilian);
 PREP(canInteractWithVehicleCrew);
 PREP(getDown);
@@ -23,7 +24,9 @@ PREP(modifyTeamManagementAction);
 PREP(canJoinTeam);
 PREP(joinTeam);
 PREP(canPassMagazine);
+PREP(canPassThrowable);
 PREP(passMagazine);
+PREP(passThrowable);
 PREP(canBecomeLeader);
 PREP(doBecomeLeader);
 PREP(doRemoteControl);

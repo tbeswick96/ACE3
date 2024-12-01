@@ -39,7 +39,7 @@ GVAR(mapLaserSource) = call {
         TRACE_1("using player's aircraft",_vehicle);
         _vehicle
     };
-    if (GVAR(showLaserOnMap) == 2) exitWith { 
+    if (GVAR(showLaserOnMap) == 2) exitWith {
         TRACE_1("setting - no UAV or vehicle",GVAR(showLaserOnMap));
         objNull
     };

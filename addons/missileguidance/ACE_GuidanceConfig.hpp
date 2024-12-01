@@ -88,45 +88,13 @@ class GVAR(SeekerTypes) {
         functionName = QFUNC(seekerType_SACLOS);
         onFired = QFUNC(SACLOS_onFired);
     };
-    class MCLOS {
-        name = "";
-        visualName = "";
-        description = "";
-
-        functionName = QFUNC(seekerType_MCLOS);
-        onFired = QFUNC(MCLOS_onFired);
-    };
     class MillimeterWaveRadar {
         name = "";
         visualName = "";
         description = "";
-        
+
         functionName = QFUNC(seekerType_MWR);
         onFired = QFUNC(mwr_onFired);
-    };
-    class DopplerRadar {
-        name = "";
-        visualName = "";
-        description = "";
-        
-        functionName = QFUNC(seekerType_Doppler);
-        onFired = QFUNC(doppler_onFired);
-    };
-    class IR {
-        name = "";
-        visualName = "";
-        description = "";
-        
-        functionName = QFUNC(seekerType_IR);
-        onFired = QFUNC(IR_onFired);
-    };
-    class GPS {
-        name = "";
-        visualName = "";
-        description = "";
-        
-        functionName = QFUNC(seekerType_GPS);
-        onFired = QFUNC(gps_seekerOnFired);
     };
 };
 
@@ -143,11 +111,11 @@ class GVAR(NavigationTypes) {
         functionName = QFUNC(navigationType_lineOfSight);
         onFired = QFUNC(proNav_onFired);
     };
-    class ProportionalNavigation {       
+    class ProportionalNavigation {
         functionName = QFUNC(navigationType_proNav);
         onFired = QFUNC(proNav_onFired);
     };
-    class AugmentedProportionalNavigation {       
+    class AugmentedProportionalNavigation {
         functionName = QFUNC(navigationType_augmentedProNav);
         onFired = QFUNC(proNav_onFired);
     };

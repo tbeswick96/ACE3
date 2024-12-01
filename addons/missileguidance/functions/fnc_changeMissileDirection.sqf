@@ -2,6 +2,7 @@
 /*
  * Author: jaynus / nou
  * Change a projectile's direction, maintaing speed
+ * No longer used in guidancePFH, kept for backwards compatibility
  *
  * Arguments:
  * 0: Projectile <OBJECT>
@@ -22,5 +23,3 @@ private _dir = [sin _yaw * cos _pitch, cos _yaw * cos _pitch, sin _pitch];
 private _up = [[sin _roll, -sin _pitch, cos _roll * cos _pitch], -_yaw] call BIS_fnc_rotateVector2D;
 
 _projectile setVectorDirAndUp [_dir, _up];
-
-

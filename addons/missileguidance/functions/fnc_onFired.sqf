@@ -19,9 +19,6 @@
 
 params ["_shooter","_weapon","","_mode","_ammo","","_projectile"];
 
-// Bail on not missile
-// if !(_ammo isKindOf "MissileBase") exitWith {};
-
 // Bail if guidance is disabled for this ammo
 if ((getNumber (configFile >> "CfgAmmo" >> _ammo >> QUOTE(ADDON) >> "enabled")) != 1) exitWith {};
 
@@ -95,7 +92,7 @@ if (isNil "_target") then {
     } else {
         private _canUseLock = getNumber (_config >> "canVanillaLock");
         // @TODO: Get vanilla target
-        if (_canUseLock > 0) then {
+        if (_canUseLock > 0 || difficulty < 1) then {
             private _vanillaTarget = missileTarget _projectile;
 
             TRACE_1("Using Vanilla Locking",_vanillaTarget);
@@ -140,10 +137,8 @@ private _navigationStateSubclass = _config >> "navigationStates";
 private _states = getArray (_navigationStateSubclass >> "states");
 
 private _navigationStateData = [];
-private _initialState = "";
 
 if (_states isNotEqualTo []) then {
-    _initialState = _states select 0;
     {
         private _stateClass = _navigationStateSubclass >> _x;
         _navigationStateData pushBack [
@@ -242,10 +237,10 @@ if (_onFiredFunc != "") then {
 //      _seekerParams params ["_seekerAngle", "_seekerAccuracy", "_seekerMaxRange", "_seekerMinRange"];
 //      _targetData params ["_targetDirection", "_attackProfileDirection", "_targetRange", "_targetVelocity", "_targetAcceleration"];
 
-[LINKFUNC(guidancePFH), 0, _args] call CBA_fnc_addPerFrameHandler;
+[LINKFUNC(guidancePFH),0, _args ] call CBA_fnc_addPerFrameHandler;
 
 if (GVAR(debug_enableMissileCamera)) then {
-    [_projectile] call GVAR(dev_fnc_projectileCamera);
+    [_projectile] call FUNC(dev_ProjectileCamera);
 };
 
 
