@@ -96,7 +96,7 @@ class GVAR(gpsAttackOptionsUI) {
             x = QUOTE(30 * GUI_GRID_W + GUI_GRID_CENTER_X);
             y = QUOTE(7.5 * GUI_GRID_H + GUI_GRID_CENTER_Y);
             w = QUOTE(1 * GUI_GRID_W);
-            h = QUOTE(GUID_GRID_H);
+            h = QUOTE(GUI_GRID_H);
             colorActive[] = {0, 0, 0, 1};
             colorBackground[] = {0, 0, 0, 0.8};
             colorFocused[] = {0, 0, 0, 0.8};
@@ -108,7 +108,7 @@ class GVAR(gpsAttackOptionsUI) {
             x = QUOTE(14 * GUI_GRID_W + GUI_GRID_CENTER_X);
             y = QUOTE(8.5 * GUI_GRID_H + GUI_GRID_CENTER_Y);
             w = QUOTE(3 * GUI_GRID_W);
-            h = QUOTE(GUID_GRID_H);
+            h = QUOTE(GUI_GRID_H);
             colorActive[] = {0, 0, 0, 1};
             colorBackground[] = {0, 0, 0, 0};
             colorFocused[] = {0, 0, 0, 0.8};
@@ -120,7 +120,7 @@ class GVAR(gpsAttackOptionsUI) {
             x = QUOTE(17.3 * GUI_GRID_W + GUI_GRID_CENTER_X);
             y = QUOTE(8.5 * GUI_GRID_H + GUI_GRID_CENTER_Y);
             w = QUOTE(2.5 * GUI_GRID_W);
-            h = QUOTE(GUID_GRID_H);
+            h = QUOTE(GUI_GRID_H);
             colorActive[] = {0, 0, 0, 1};
             colorBackground[] = {0, 0, 0, 0.8};
             colorFocused[] = {0, 0, 0, 0.8};
@@ -133,7 +133,7 @@ class GVAR(gpsAttackOptionsUI) {
             x = QUOTE(14 * GUI_GRID_W + GUI_GRID_CENTER_X);
             y = QUOTE(9.7 * GUI_GRID_H + GUI_GRID_CENTER_Y);
             w = QUOTE(3 * GUI_GRID_W);
-            h = QUOTE(GUID_GRID_H);
+            h = QUOTE(GUI_GRID_H);
             colorActive[] = {0, 0, 0, 1};
             colorBackground[] = {0, 0, 0, 0};
             colorFocused[] = {0, 0, 0, 0.8};
@@ -151,7 +151,7 @@ class GVAR(gpsAttackOptionsUI) {
             x = QUOTE(14 * GUI_GRID_W + GUI_GRID_CENTER_X);
             y = QUOTE(11.7 * GUI_GRID_H + GUI_GRID_CENTER_Y);
             w = QUOTE(3 * GUI_GRID_W);
-            h = QUOTE(GUID_GRID_H);
+            h = QUOTE(GUI_GRID_H);
             colorActive[] = {0, 0, 0, 1};
             colorBackground[] = {0, 0, 0, 0};
             colorFocused[] = {0, 0, 0, 0.8};
@@ -168,7 +168,7 @@ class GVAR(gpsAttackOptionsUI) {
             x = QUOTE(19.6 * GUI_GRID_W + GUI_GRID_CENTER_X);
             y = QUOTE(11.7 * GUI_GRID_H + GUI_GRID_CENTER_Y);
             w = QUOTE(1 * GUI_GRID_W);
-            h = QUOTE(GUID_GRID_H);
+            h = QUOTE(GUI_GRID_H);
             colorActive[] = {0, 0, 0, 1};
             colorBackground[] = {0, 0, 0, 0};
             colorFocused[] = {0, 0, 0, 0.8};
@@ -181,7 +181,7 @@ class GVAR(gpsAttackOptionsUI) {
             x = QUOTE(21 * GUI_GRID_W + GUI_GRID_CENTER_X);
             y = QUOTE(9.7 * GUI_GRID_H + GUI_GRID_CENTER_Y);
             w = QUOTE(4 * GUI_GRID_W);
-            h = QUOTE(GUID_GRID_H);
+            h = QUOTE(GUI_GRID_H);
             colorActive[] = {0, 0, 0, 1};
             colorBackground[] = {0, 0, 0, 0};
             colorFocused[] = {0, 0, 0, 0.8};
@@ -192,7 +192,7 @@ class GVAR(gpsAttackOptionsUI) {
             x = QUOTE(26.3 * GUI_GRID_W + GUI_GRID_CENTER_X);
             y = QUOTE(9.7 * GUI_GRID_H + GUI_GRID_CENTER_Y);
             w = QUOTE(2 * GUI_GRID_W);
-            h = QUOTE(GUID_GRID_H);
+            h = QUOTE(GUI_GRID_H);
             text = "";
             colorActive[] = {0, 0, 0, 1};
             colorBackground[] = {0, 0, 0, 0.8};
@@ -206,7 +206,7 @@ class GVAR(gpsAttackOptionsUI) {
             x = QUOTE(21 * GUI_GRID_W + GUI_GRID_CENTER_X);
             y = QUOTE(11 * GUI_GRID_H + GUI_GRID_CENTER_Y);
             w = QUOTE(5 * GUI_GRID_W);
-            h = QUOTE(GUID_GRID_H);
+            h = QUOTE(GUI_GRID_H);
             colorActive[] = {0, 0, 0, 1};
             colorBackground[] = {0, 0, 0, 0};
             colorFocused[] = {0, 0, 0, 0.8};
@@ -217,7 +217,7 @@ class GVAR(gpsAttackOptionsUI) {
             x = QUOTE(26.3 * GUI_GRID_W + GUI_GRID_CENTER_X);
             y = QUOTE(11 * GUI_GRID_H + GUI_GRID_CENTER_Y);
             w = QUOTE(2 * GUI_GRID_W);
-            h = QUOTE(GUID_GRID_H);
+            h = QUOTE(GUI_GRID_H);
             text = "";
             colorActive[] = {0, 0, 0, 1};
             colorBackground[] = {0, 0, 0, 0.8};
@@ -232,7 +232,7 @@ class GVAR(gpsAttackOptionsUI) {
             x = QUOTE(13.5 * GUI_GRID_W + GUI_GRID_CENTER_X);
             y = QUOTE(14.2 * GUI_GRID_H + GUI_GRID_CENTER_Y);
             w = QUOTE(5 * GUI_GRID_W);
-            h = QUOTE(GUID_GRID_H);
+            h = QUOTE(GUI_GRID_H);
             colorActive[] = {0, 0, 0, 1};
             colorBackground[] = {0, 0, 0, 0.8};
             colorFocused[] = {0, 0, 0, 0.8};
