@@ -55,14 +55,6 @@ class GVAR(AttackProfiles) {
         functionName = QFUNC(attackProfile_BEAM);
         onFired = QFUNC(wire_onFired); // since Beam guidance is pretty much the same as Wire guidance, we can reuse this
     };
-    class JDAM {
-        name = "";
-        visualName = "";
-        description = "";
-
-        functionName = QFUNC(attackProfile_JDAM);
-        onFired = QFUNC(gps_attackOnFired);
-    };
 };
 
 class GVAR(SeekerTypes) {
@@ -95,6 +87,14 @@ class GVAR(SeekerTypes) {
 
         functionName = QFUNC(seekerType_MWR);
         onFired = QFUNC(mwr_onFired);
+    };
+    class IR {
+        name = "";
+        visualName = "";
+        description = "";
+
+        functionName = QFUNC(seekerType_IR);
+        onFired = QFUNC(IR_onFired);
     };
 };
 

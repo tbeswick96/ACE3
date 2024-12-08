@@ -21,5 +21,3 @@ class CfgPatches {
 #include "CfgAmmo.hpp"
 #include "CfgMagazines.hpp"
 #include "CfgWeapons.hpp"
-
-#include "GPSDialog.hpp"
