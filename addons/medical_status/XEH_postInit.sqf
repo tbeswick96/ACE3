@@ -7,6 +7,8 @@
     _unit setVariable [QEGVAR(medical,initialized), true, true];
 }] call CBA_fnc_addEventHandler;
 
+// Update wound bleeding on injury
+[QEGVAR(medical,injured), LINKFUNC(updateWoundBloodLoss)] call CBA_fnc_addEventHandler;
 
 // Add inventory and open backpack actions to units
 [QGVAR(addInventoryActions), LINKFUNC(addInventoryActions)] call CBA_fnc_addEventHandler;

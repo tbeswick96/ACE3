@@ -9,6 +9,7 @@ PREP(checkLos);
 PREP(dev_ProjectileCamera);
 
 PREP(onFired);
+PREP(onFiredGetArgs);
 PREP(onIncomingMissile);
 
 PREP(guidancePFH);
@@ -19,7 +20,6 @@ PREP(doHandoff);
 PREP(handleHandoff);
 
 PREP(shouldFilterRadarHit);
-
 PREP(MCLOS_buttonPressed);
 
 // Attack Profiles
@@ -51,8 +51,8 @@ PREP(seekerType_SACLOS);
 PREP(seekerType_MCLOS);
 PREP(seekerType_Doppler);
 PREP(seekerType_MWR);
-PREP(seekerType_GPS);
 PREP(seekerType_IR);
+PREP(seekerType_GPS);
 
 // Attack Profiles OnFired
 PREP(wire_onFired);
@@ -63,8 +63,8 @@ PREP(doppler_onFired);
 PREP(SACLOS_onFired);
 PREP(MCLOS_onFired);
 PREP(mwr_onFired);
-PREP(gps_seekerOnFired);
 PREP(IR_onFired);
+PREP(gps_seekerOnFired);
 
 // Navigation OnFired
 PREP(navigationType_lineOfSight);
