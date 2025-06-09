@@ -103,6 +103,12 @@
             <Turkish>Nabzı Kontrol Et</Turkish>
             <Hungarian>Pulzus ellenőrzése</Hungarian>
         </Key>
+        <Key ID="STR_ACE_Medical_Treatment_Actions_CheckPupils">
+            <English>Check Pupils</English>
+        </Key>
+        <Key ID="STR_ACE_Medical_Treatment_Actions_CheckSpo2">
+            <English>Check SpO2</English>
+        </Key>
         <Key ID="STR_ACE_Medical_Treatment_Actions_Diagnose">
             <English>Diagnose</English>
             <Czech>Diagnóza</Czech>
@@ -1868,6 +1874,15 @@
             <Turkish>ACE Medikal Tedavi</Turkish>
             <Hungarian>ACE Orvosi Rendszer</Hungarian>
         </Key>
+        <Key ID="STR_ACE_Medical_Treatment_CheckSpo2_Content">
+            <English>You check SpO2 of patient</English>
+        </Key>
+        <Key ID="STR_ACE_Medical_Treatment_CheckSpo2_Log">
+            <English>%1 checked SpO2: %2%</English>
+        </Key>
+        <Key ID="STR_ACE_Medical_Treatment_CheckSpo2_Output">
+            <English>SpO2: %1%</English>
+        </Key>
         <Key ID="STR_ACE_Medical_Treatment_Check_Bloodpressure">
             <English>Blood Pressure</English>
             <Czech>Krevní tlak</Czech>
@@ -2322,6 +2337,36 @@
             <Chinesesimp>微弱</Chinesesimp>
             <Turkish>Zayıf</Turkish>
             <Hungarian>Gyenge</Hungarian>
+        </Key>
+        <Key ID="STR_ACE_Medical_Treatment_Check_Pupils_Constrict_Barely">
+            <English>Barely Constricted</English>
+        </Key>
+        <Key ID="STR_ACE_Medical_Treatment_Check_Pupils_Constrict_Mostly">
+            <English>Mostly Constricted</English>
+        </Key>
+        <Key ID="STR_ACE_Medical_Treatment_Check_Pupils_Constricted">
+            <English>Constricted Normally</English>
+        </Key>
+        <Key ID="STR_ACE_Medical_Treatment_Check_Pupils_Content">
+            <English>You check pupil dilation of patient</English>
+        </Key>
+        <Key ID="STR_ACE_Medical_Treatment_Check_Pupils_Dilated">
+            <English>Fully Dilated</English>
+        </Key>
+        <Key ID="STR_ACE_Medical_Treatment_Check_Pupils_Log">
+            <English>%1 checked pupil dilation: %2</English>
+        </Key>
+        <Key ID="STR_ACE_Medical_Treatment_Check_Pupils_Output_Constrict_Barely">
+            <English>The pupils barely constrict</English>
+        </Key>
+        <Key ID="STR_ACE_Medical_Treatment_Check_Pupils_Output_Constrict_Mostly">
+            <English>The pupils mostly constrict</English>
+        </Key>
+        <Key ID="STR_ACE_Medical_Treatment_Check_Pupils_Output_Constricted">
+            <English>The pupils constrict normally</English>
+        </Key>
+        <Key ID="STR_ACE_Medical_Treatment_Check_Pupils_Output_Fully">
+            <English>The pupils remail fully dilated</English>
         </Key>
         <Key ID="STR_ACE_Medical_Treatment_Check_Response">
             <English>Response</English>
@@ -3697,6 +3742,15 @@
             <Japanese>脈拍の数値化</Japanese>
             <Chinesesimp>显示心率数值</Chinesesimp>
         </Key>
+        <Key ID="STR_ACE_Medical_Treatment_Oximeter_Desc_Short">
+            <English>Oximeter for measuring Spo2</English>
+        </Key>
+        <Key ID="STR_ACE_Medical_Treatment_Oximeter_Desc_Use">
+            <English>Oximeter for measuring Spo2</English>
+        </Key>
+        <Key ID="STR_ACE_Medical_Treatment_Oximeter_Display">
+            <English>Oximeter</English>
+        </Key>
         <Key ID="STR_ACE_Medical_Treatment_Packing_Bandage_Desc_Short">
             <English>Used to pack medium to large wounds and stem the bleeding</English>
             <Czech>Používá se k zastavení středních až silnějších krvácení</Czech>
@@ -3747,6 +3801,15 @@
             <Chinesesimp>绷带（包扎型）</Chinesesimp>
             <Turkish>Bandaj (Paket)</Turkish>
             <Hungarian>Nyomókötszer</Hungarian>
+        </Key>
+        <Key ID="STR_ACE_Medical_Treatment_PenTorch_Desc_Short">
+            <English>Pen Torch for in field advanced medical diagnosis</English>
+        </Key>
+        <Key ID="STR_ACE_Medical_Treatment_PenTorch_Desc_Use">
+            <English>Pen Torch for in field advanced medical diagnosis</English>
+        </Key>
+        <Key ID="STR_ACE_Medical_Treatment_PenTorch_Display">
+            <English>Pen Torch</English>
         </Key>
         <Key ID="STR_ACE_Medical_Treatment_PlaceInBodyBagBlack">
             <English>Place body in black bodybag</English>
@@ -5468,69 +5531,6 @@
             <Chinese>固定板</Chinese>
             <Chinesesimp>夹板</Chinesesimp>
             <Turkish>Atel</Turkish>
-        </Key>
-        <Key ID="STR_ACE_Medical_Treatment_PenTorch_Display">
-            <English>Pen Torch</English>
-        </Key>
-        <Key ID="STR_ACE_Medical_Treatment_PenTorch_Desc_Short">
-            <English>Pen Torch for in field advanced medical diagnosis</English>
-        </Key>
-        <Key ID="STR_ACE_Medical_Treatment_PenTorch_Desc_Use">
-            <English>Pen Torch for in field advanced medical diagnosis</English>
-        </Key>
-        <Key ID="STR_ACE_Medical_Treatment_Actions_CheckPupils">
-            <English>Check Pupils</English>
-        </Key>
-        <Key ID="STR_ACE_Medical_Treatment_Check_Pupils_Content">
-            <English>You check pupil dilation of patient</English>
-        </Key>
-        <Key ID="STR_ACE_Medical_Treatment_Check_Pupils_Log">
-            <English>%1 checked pupil dilation: %2</English>
-        </Key>
-        <Key ID="STR_ACE_Medical_Treatment_Check_Pupils_Dilated">
-            <English>Fully Dilated</English>
-        </Key>
-        <Key ID="STR_ACE_Medical_Treatment_Check_Pupils_Constrict_Barely">
-            <English>Barely Constricted</English>
-        </Key>
-        <Key ID="STR_ACE_Medical_Treatment_Check_Pupils_Constrict_Mostly">
-            <English>Mostly Constricted</English>
-        </Key>
-        <Key ID="STR_ACE_Medical_Treatment_Check_Pupils_Constricted">
-            <English>Constricted Normally</English>
-        </Key>
-        <Key ID="STR_ACE_Medical_Treatment_Check_Pupils_Output_Fully">
-            <English>The pupils remail fully dilated</English>
-        </Key>
-        <Key ID="STR_ACE_Medical_Treatment_Check_Pupils_Output_Constrict_Barely">
-            <English>The pupils barely constrict</English>
-        </Key>
-        <Key ID="STR_ACE_Medical_Treatment_Check_Pupils_Output_Constrict_Mostly">
-            <English>The pupils mostly constrict</English>
-        </Key>
-        <Key ID="STR_ACE_Medical_Treatment_Check_Pupils_Output_Constricted">
-            <English>The pupils constrict normally</English>
-        </Key>
-        <Key ID="STR_ACE_Medical_Treatment_Oximeter_Display">
-            <English>Oximeter</English>
-        </Key>
-        <Key ID="STR_ACE_Medical_Treatment_Oximeter_Desc_Short">
-            <English>Oximeter for measuring Spo2</English>
-        </Key>
-        <Key ID="STR_ACE_Medical_Treatment_Oximeter_Desc_Use">
-            <English>Oximeter for measuring Spo2</English>
-        </Key>
-        <Key ID="STR_ACE_Medical_Treatment_Actions_CheckSpo2">
-            <English>Check SpO2</English>
-        </Key>
-        <Key ID="STR_ACE_Medical_Treatment_CheckSpo2_Content">
-            <English>You check SpO2 of patient</English>
-        </Key>
-        <Key ID="STR_ACE_Medical_Treatment_CheckSpo2_Log">
-            <English>%1 checked SpO2: %2%</English>
-        </Key>
-        <Key ID="STR_ACE_Medical_Treatment_CheckSpo2_Output">
-            <English>SpO2: %1%</English>
         </Key>
     </Package>
 </Project>

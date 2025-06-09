@@ -485,12 +485,6 @@
             <Japanese>NVゴーグル (ワイド、グリーン、白色蛍光)</Japanese>
             <Chinesesimp>夜视仪（宽，绿色, 白磷）</Chinesesimp>
         </Key>
-        <Key ID="STR_ACE_NightVision_alwaysUseWP_DisplayName">
-            <English>Always Use WP</English>
-        </Key>
-        <Key ID="STR_ACE_NightVision_alwaysUseWP_description">
-            <English>Always use white phosphorus colour preset</English>
-        </Key>
         <Key ID="STR_ACE_NightVision_NVGeneration">
             <English>Night Vision Generation</English>
             <French>Génération de jumelles de vision nocturne</French>
@@ -518,6 +512,12 @@
             <Japanese>照準時のぼかし効果</Japanese>
             <Chinese>瞄準具模糊程度</Chinese>
             <Chinesesimp>瞄准具模糊程度</Chinesesimp>
+        </Key>
+        <Key ID="STR_ACE_NightVision_alwaysUseWP_DisplayName">
+            <English>Always Use WP</English>
+        </Key>
+        <Key ID="STR_ACE_NightVision_alwaysUseWP_description">
+            <English>Always use white phosphorus colour preset</English>
         </Key>
         <Key ID="STR_ACE_NightVision_effectScaling_Description">
             <English>Blur and brightness effects [Setting to 0 will disable ALL nightvision effects]</English>

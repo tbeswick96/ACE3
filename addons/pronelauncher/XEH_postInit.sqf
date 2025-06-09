@@ -4,7 +4,7 @@ if (hasInterface) exitWith {
     addUserActionEventHandler ["Prone", "Activate", { 
         if ((!alive ACE_player) || {!(isNull objectParent ACE_player)}) exitWith {};
         private _launcherWeapon = secondaryWeapon ACE_player;
-        if ((_launcherWeapon == "") || {currentWeapon ACE_player != _launcherWeapon}) exitwith {};
+        if ((_launcherWeapon == "") || {currentWeapon ACE_player != _launcherWeapon}) exitWith {};
 
         ACE_player playMoveNow "ACE_LauncherProne";
     }];
@@ -12,7 +12,7 @@ if (hasInterface) exitWith {
     addUserActionEventHandler ["moveUp", "Activate", { // (X) Crouch / Stand Up
         if ((!alive ACE_player) || {!(isNull objectParent ACE_player)}) exitWith {};
         private _launcherWeapon = secondaryWeapon ACE_player;
-        if ((_launcherWeapon == "") || {currentWeapon ACE_player != _launcherWeapon}) exitwith {};
+        if ((_launcherWeapon == "") || {currentWeapon ACE_player != _launcherWeapon}) exitWith {};
 
         if ((stance ACE_player) == "PRONE") then {
             ACE_player playMoveNow "AmovPpneMstpSrasWlnrDnon_AmovPknlMstpSrasWlnrDnon";
@@ -22,7 +22,7 @@ if (hasInterface) exitWith {
     addUserActionEventHandler ["MoveDown", "Activate", { // (Z) Go Prone / Stand Up
         if ((!alive ACE_player) || {!(isNull objectParent ACE_player)}) exitWith {};
         private _launcherWeapon = secondaryWeapon ACE_player;
-        if ((_launcherWeapon == "") || {currentWeapon ACE_player != _launcherWeapon}) exitwith {};
+        if ((_launcherWeapon == "") || {currentWeapon ACE_player != _launcherWeapon}) exitWith {};
 
         if ((stance ACE_player) == "PRONE") then {
             ACE_player playMoveNow "AmovPpneMstpSrasWlnrDnon_AmovPknlMstpSrasWlnrDnon";

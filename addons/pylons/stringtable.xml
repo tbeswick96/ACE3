@@ -107,9 +107,6 @@
             <Chinesesimp>&lt;空&gt;</Chinesesimp>
             <Turkish>&lt;boş&gt;</Turkish>
         </Key>
-        <Key ID="STR_ACE_Pylons_TooFar">
-            <English>Vehicle too far</English>
-        </Key>
         <Key ID="STR_ACE_Pylons_EnabledForZeus">
             <English>Enable Pylons Menu for Zeus</English>
             <Czech>Povolit menu s pylony pro Zeuse</Czech>

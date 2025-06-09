@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project name="ACE">
     <Package name="Aircraft">
+        <Key ID="STR_ACE_Aircraft_AircraftLoadoutTitle">
+            <English>AIRCRAFT LOADOUT</English>
+        </Key>
+        <Key ID="STR_ACE_Aircraft_Category_Aircraft">
+            <English>Aircraft</English>
+        </Key>
         <Key ID="STR_ACE_Aircraft_CloseCargoRamp">
             <English>Close Cargo Door</English>
             <Czech>Zavřít nákladní prostor</Czech>
@@ -17,6 +23,9 @@
             <Chinesesimp>关闭货舱门</Chinesesimp>
             <Turkish>Kargo kapısını kapat</Turkish>
             <Hungarian>Rakodórámpa zárása</Hungarian>
+        </Key>
+        <Key ID="STR_ACE_Aircraft_ConfigurePylons">
+            <English>Configure Pylons</English>
         </Key>
         <Key ID="STR_ACE_Aircraft_DroneFollowDistance">
             <English>Follow Distance</English>
@@ -39,6 +48,12 @@
             <Korean>%1m 이내로 유닛을 따라갑니다</Korean>
             <Japanese>%1m 間隔で 目標を追跡します</Japanese>
             <Chinesesimp>在%1m内跟随单位</Chinesesimp>
+        </Key>
+        <Key ID="STR_ACE_Aircraft_EnableLoadoutMenu">
+            <English>Enable Aircraft Loadout Menu</English>
+        </Key>
+        <Key ID="STR_ACE_Aircraft_EnableLoadoutMenu_description">
+            <English>Allow aircraft near ammo trucks to open the aircraft loadout menu.</English>
         </Key>
         <Key ID="STR_ACE_Aircraft_GatlingDescriptionAP">
             <English>30mm DU Armor Piercing</English>
@@ -165,6 +180,18 @@
             <Chinesesimp>30mm 高爆燃烧</Chinesesimp>
             <Turkish>30mm HEI</Turkish>
         </Key>
+        <Key ID="STR_ACE_Aircraft_LoadoutsFor">
+            <English>Loadouts for %1</English>
+        </Key>
+        <Key ID="STR_ACE_Aircraft_MakeNewPylonsEmpty">
+            <English>Make New Pylons Empty</English>
+        </Key>
+        <Key ID="STR_ACE_Aircraft_MakeNewPylonsEmpty_description">
+            <English>When a pylon changes it'll be empty and will have to be rearmed by other means.</English>
+        </Key>
+        <Key ID="STR_ACE_Aircraft_Mirror">
+            <English>Mirror</English>
+        </Key>
         <Key ID="STR_ACE_Aircraft_OpenCargoRamp">
             <English>Open Cargo Door</English>
             <Czech>Otevřít nákladní prostor</Czech>
@@ -198,33 +225,6 @@
             <Chinesesimp>XM301</Chinesesimp>
             <Turkish>XM301</Turkish>
             <Hungarian>XM301</Hungarian>
-        </Key>
-        <Key ID="STR_ACE_Aircraft_Mirror">
-            <English>Mirror</English>
-        </Key>
-        <Key ID="STR_ACE_Aircraft_AircraftLoadoutTitle">
-            <English>AIRCRAFT LOADOUT</English>
-        </Key>
-        <Key ID="STR_ACE_Aircraft_LoadoutsFor">
-            <English>Loadouts for %1</English>
-        </Key>
-        <Key ID="STR_ACE_Aircraft_ConfigurePylons">
-            <English>Configure Pylons</English>
-        </Key>
-        <Key ID="STR_ACE_Aircraft_Category_Aircraft">
-            <English>Aircraft</English>
-        </Key>
-        <Key ID="STR_ACE_Aircraft_EnableLoadoutMenu">
-            <English>Enable Aircraft Loadout Menu</English>
-        </Key>
-        <Key ID="STR_ACE_Aircraft_EnableLoadoutMenu_description">
-            <English>Allow aircraft near ammo trucks to open the aircraft loadout menu.</English>
-        </Key>
-        <Key ID="STR_ACE_Aircraft_MakeNewPylonsEmpty">
-            <English>Make New Pylons Empty</English>
-        </Key>
-        <Key ID="STR_ACE_Aircraft_MakeNewPylonsEmpty_description">
-            <English>When a pylon changes it'll be empty and will have to be rearmed by other means.</English>
         </Key>
     </Package>
 </Project>

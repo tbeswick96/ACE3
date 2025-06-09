@@ -28,7 +28,7 @@ private _config = configFile >> "CfgAmmo" >> _ammo >> QUOTE(ADDON);
 
 private _configurationSource = _shooter;
 if (isNull (ACE_controlledUAV param [0, objNull])) then {
-    if (((vehicle _shooter) == _shooter) || {_shooter call CBA_fnc_canUseWeapon}) then {
+    if ((isNull objectParent _shooter) || {_shooter call CBA_fnc_canUseWeapon}) then {
         _configurationSource = _shooter;
     } else {
         _configurationSource = vehicle _shooter;

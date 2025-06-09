@@ -92,6 +92,12 @@
             <Chinesesimp>心脏骤停时间</Chinesesimp>
             <Turkish>Kalp Durma Süresi</Turkish>
         </Key>
+        <Key ID="STR_ACE_Medical_Statemachine_ComaTime_Description">
+            <English>Controls how long it takes to die after entering a coma.</English>
+        </Key>
+        <Key ID="STR_ACE_Medical_Statemachine_ComaTime_DisplayName">
+            <English>Comatose Time</English>
+        </Key>
         <Key ID="STR_ACE_Medical_Statemachine_FatalInjuriesAI_Description">
             <English>Controls when AI can receive fatal injuries. A fatal injury is caused by significant damage to the head or troso.\nWhen set to "Always", this effectively produces "AI Instant Death" behaviour as AI will immediately die from any fatal injury.\nNOTE: Any mode other than "Always" requires AI Unconsciousness to be enabled.</English>
             <Czech>Nastavuje zda AI může utrpět smrtelné zranění. Smrtelné zranění je utrpěto významným poškozením hlavy nebo trupu.\nPokud je tato možnost nastavena na "Vždy", efektivně nastává stav "Povolit okamžitou smrt AI", protože AI okamžitě zemře při jakémkoliv smrtelném zranění.\nPOZNÁMKA: Jakýkoliv jiný stav než "Vždy" potřebuje zapnutou možnost "Bezvědomí AI".</Czech>
@@ -187,12 +193,6 @@
             <Chinese>狀態</Chinese>
             <Chinesesimp>状态</Chinesesimp>
             <Turkish>Devletler</Turkish>
-        </Key>
-        <Key ID="STR_ACE_Medical_Statemachine_ComaTime_DisplayName">
-            <English>Comatose Time</English>
-        </Key>
-        <Key ID="STR_ACE_Medical_Statemachine_ComaTime_Description">
-            <English>Controls how long it takes to die after entering a coma.</English>
         </Key>
     </Package>
 </Project>
