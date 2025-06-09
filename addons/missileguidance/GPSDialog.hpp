@@ -12,7 +12,7 @@ class GVAR(gpsAttackOptionsUI) {
     idd = -1;
     movingEnable = 1;
     enableSimulation = 1;
-    onLoad = QUOTE(_this call FUNC(gps_onLoad));
+    onLoad = QUOTE(call FUNC(gps_onLoad));
     onUnload = QUOTE(call FUNC(gps_onUnload));
     class controlsBackground {
         class Header: RscText {
@@ -72,8 +72,8 @@ class GVAR(gpsAttackOptionsUI) {
             colorActive[] = {0, 0, 0, 1};
             colorBackground[] = {0, 0, 0, 1};
             colorFocused[] = {0, 0, 0, 0.8};
-            align = "CENTER";
-              style = 2;
+            align = QUOTE(CENTER);
+            style = 2;
         };
 
         class PPMissionBackward: RscButton {
