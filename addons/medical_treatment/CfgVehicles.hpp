@@ -348,6 +348,8 @@ class CfgVehicles {
         displayName = CSTRING(medicalSupplyCrate);
         model = QPATHTOF(data\ace_medcrate.p3d);
         editorPreview = QPATHTOF(data\ACE_medicalSupplyCrate.jpg);
+        hiddenSelections[] = { "camo" };
+        hiddenSelectionsTextures[] = { QPATHTOF(data\ace_medcrate_co.paa) };
         author = ECSTRING(common,ACETeam);
         class TransportMagazines {
             MACRO_ADDMAGAZINE(ACE_painkillers,25);
