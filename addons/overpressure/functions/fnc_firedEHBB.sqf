@@ -16,7 +16,7 @@
  */
 
 //IGNORE_PRIVATE_WARNING ["_unit", "_weapon", "_muzzle", "_mode", "_ammo", "_magazine", "_projectile", "_gunner"];
-TRACE_8("firedEH:",_unit,_weapon,_muzzle,_mode,_ammo,_magazine,_projectile,_gunner);
+TRACE_8("BBfiredEH:",_unit,_weapon,_muzzle,_mode,_ammo,_magazine,_projectile,_gunner);
 
 private _shooter = [_gunner, _unit] select (isNil "_gunner");
 
