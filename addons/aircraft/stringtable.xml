@@ -23,6 +23,7 @@
             <Chinesesimp>关闭货舱门</Chinesesimp>
             <Turkish>Kargo kapısını kapat</Turkish>
             <Hungarian>Rakodórámpa zárása</Hungarian>
+            <Ukrainian>Закрити вантажний відсік</Ukrainian>
         </Key>
         <Key ID="STR_ACE_Aircraft_ConfigurePylons">
             <English>Configure Pylons</English>
@@ -37,6 +38,7 @@
             <Korean>따라가는 거리</Korean>
             <Japanese>追跡距離</Japanese>
             <Chinesesimp>跟随距离</Chinesesimp>
+            <Ukrainian>Відстань відстеження</Ukrainian>
         </Key>
         <Key ID="STR_ACE_Aircraft_DroneFollowHint">
             <English>Following unit within %1m</English>
@@ -48,6 +50,7 @@
             <Korean>%1m 이내로 유닛을 따라갑니다</Korean>
             <Japanese>%1m 間隔で 目標を追跡します</Japanese>
             <Chinesesimp>在%1m内跟随单位</Chinesesimp>
+            <Ukrainian>Відстеження в межах %1m</Ukrainian>
         </Key>
         <Key ID="STR_ACE_Aircraft_EnableLoadoutMenu">
             <English>Enable Aircraft Loadout Menu</English>
@@ -70,6 +73,7 @@
             <Chinese>30毫米貧化鈾穿甲彈</Chinese>
             <Chinesesimp>30 mm 贫铀穿甲</Chinesesimp>
             <Turkish>30mm DU Zırh Delici</Turkish>
+            <Ukrainian>30мм ЗУ Бронебійний Снаряд</Ukrainian>
         </Key>
         <Key ID="STR_ACE_Aircraft_GatlingDescriptionCM41">
             <English>30mm Combat Mix 4:1 DU:HEI</English>
@@ -86,6 +90,7 @@
             <Chinese>30毫米戰鬥混合彈4:1 穿甲:高爆</Chinese>
             <Chinesesimp>30mm 战斗混合 穿甲/高爆 4:1</Chinesesimp>
             <Turkish>30mm Combat Mix 4:1 DU:HEI</Turkish>
+            <Ukrainian>30мм Змішане боєзабезпечення 4:1 ЗУ:ОФЗ</Ukrainian>
         </Key>
         <Key ID="STR_ACE_Aircraft_GatlingDescriptionCM51">
             <English>30mm Combat Mix 5:1 DU:HEI</English>
@@ -101,6 +106,7 @@
             <Chinese>30毫米戰鬥混合彈5:1 穿甲:高爆</Chinese>
             <Chinesesimp>30 mm 战斗混合 穿甲/高爆 5:1</Chinesesimp>
             <Turkish>30mm Combat Mix 5:1 DU:HEI</Turkish>
+            <Ukrainian>30мм Змішане боєзабезпечення 5:1 ЗУ:ОФЗ</Ukrainian>
         </Key>
         <Key ID="STR_ACE_Aircraft_GatlingDescriptionHEI">
             <English>30mm High-Explosive Incendiary</English>
@@ -117,6 +123,7 @@
             <Chinese>30毫米高爆燃燒彈</Chinese>
             <Chinesesimp>30 mm 高爆燃烧</Chinesesimp>
             <Turkish>30mm Yüksek Patlayıcı</Turkish>
+            <Ukrainian>30мм Осколково-Фугасний Запалювальний</Ukrainian>
         </Key>
         <Key ID="STR_ACE_Aircraft_GatlingDescriptionShortAP">
             <English>30mm DU AP</English>
@@ -133,6 +140,7 @@
             <Chinese>30毫米貧鈾穿甲</Chinese>
             <Chinesesimp>30mm 贫铀穿甲</Chinesesimp>
             <Turkish>30mm DU AP</Turkish>
+            <Ukrainian>30мм ЗУ БС</Ukrainian>
         </Key>
         <Key ID="STR_ACE_Aircraft_GatlingDescriptionShortCM41">
             <English>30mm CM 4:1</English>
@@ -148,6 +156,7 @@
             <Chinese>30毫米 穿高混合 4:1</Chinese>
             <Chinesesimp>30mm 穿爆混合 4:1</Chinesesimp>
             <Turkish>30mm CM 4:1</Turkish>
+            <Ukrainian>30мм БС 4:1</Ukrainian>
         </Key>
         <Key ID="STR_ACE_Aircraft_GatlingDescriptionShortCM51">
             <English>30mm CM 5:1</English>
@@ -163,6 +172,7 @@
             <Chinese>30毫米 穿高混合 5:1</Chinese>
             <Chinesesimp>30mm 穿爆混合 5:1</Chinesesimp>
             <Turkish>30mm CM 5:1</Turkish>
+            <Ukrainian>30мм БС 5:1</Ukrainian>
         </Key>
         <Key ID="STR_ACE_Aircraft_GatlingDescriptionShortHEI">
             <English>30mm HEI</English>
@@ -179,6 +189,7 @@
             <Chinese>30毫米高爆燃燒</Chinese>
             <Chinesesimp>30mm 高爆燃烧</Chinesesimp>
             <Turkish>30mm HEI</Turkish>
+            <Ukrainian>30мм ОФЗ</Ukrainian>
         </Key>
         <Key ID="STR_ACE_Aircraft_LoadoutsFor">
             <English>Loadouts for %1</English>
@@ -208,6 +219,7 @@
             <Chinesesimp>开启货舱门</Chinesesimp>
             <Turkish>Kargo kapısını aç</Turkish>
             <Hungarian>Rakodórámpa nyitása</Hungarian>
+            <Ukrainian>Відкрити вантажний відсік</Ukrainian>
         </Key>
         <Key ID="STR_ACE_Aircraft_gatling_20mm_Name">
             <English>XM301</English>
@@ -225,6 +237,7 @@
             <Chinesesimp>XM301</Chinesesimp>
             <Turkish>XM301</Turkish>
             <Hungarian>XM301</Hungarian>
+            <Ukrainian>XM301</Ukrainian>
         </Key>
     </Package>
 </Project>

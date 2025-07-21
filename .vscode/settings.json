@@ -1,6 +1,7 @@
 {
-	"files.exclude": {
-		"**/include": true,
-		"**/extras": true
-	}
+    "files.exclude": {
+        "**/include": true,
+        "**/extras": true
+    },
+    "files.insertFinalNewline": true
 }
