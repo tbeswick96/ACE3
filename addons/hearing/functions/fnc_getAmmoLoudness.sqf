@@ -8,7 +8,7 @@
  * 0: Magazine <STRING>
  *
  * Return Value:
- * None
+ * <NUMBER>
  *
  * Example:
  * "30Rnd_65x39_caseless_mag" call ace_hearing_fnc_getAmmoLoudness
@@ -31,7 +31,7 @@ GVAR(cacheAmmoLoudness) getOrDefaultCall [_magazine, {
         if ((count configProperties [(configFile >> "CfgAmmo" >> _ammo), "configName _x == 'ACE_hearing_caliber'", false]) == 1) exitWith {
             getNumber (configFile >> "CfgAmmo" >> _ammo >> "ACE_hearing_caliber")
         };
-        // If explicilty defined, use ACE_caliber
+        // If explicitly defined, use ACE_caliber
         case (inheritsFrom (_ammoConfig >> "ACE_caliber") isEqualTo _ammoConfig): {_caliber};
         case (_ammo isKindOf ["ShellBase", _cfgAmmo]): {80};
         case (_ammo isKindOf ["RocketBase", _cfgAmmo]): {200};
@@ -41,7 +41,14 @@ GVAR(cacheAmmoLoudness) getOrDefaultCall [_magazine, {
     };
 
     private _hearingDamageFactor = [_ammoConfig >> QGVAR(hearingDamageFactor), "NUMBER", 1] call CBA_fnc_getConfigEntry;
-    private _loudness = _hearingDamageFactor * (_caliber ^ 1.25 / 10) * (_initspeed / 1000) / 5;
+    private _loudness = _hearingDamageFactor * (_caliber ^ 1.25 / 10) * (_initSpeed / 1000) / 5;
+    
+    // Limit to max magazine loudness, if explicitly defined
+    private _cfgMaxMagazineLoudness = _magazineConfig >> QGVAR(maxLoudness);
+    if (isNumber _cfgMaxMagazineLoudness) then {
+        _loudness = _loudness min (getNumber _cfgMaxMagazineLoudness);
+    };
+
     TRACE_6("building cache",_ammo,_magazine,_initSpeed,_caliber,_hearingDamageFactor,_loudness);
 
     _loudness
