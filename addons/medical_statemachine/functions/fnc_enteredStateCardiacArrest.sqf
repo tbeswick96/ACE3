@@ -25,7 +25,7 @@ if (isNull _unit || {!isNil {_unit getVariable QEGVAR(medical,causeOfDeath)}}) e
 private _time = GVAR(cardiacArrestTime);
 _time = _time + _time * random [-0.2, 0, 0.2];
 
-_unit setVariable [QGVAR(cardiacArrestTimeLeft), _time];
+_unit setVariable [QGVAR(cardiacArrestTimeLeft), _time, true];
 _unit setVariable [QGVAR(cardiacArrestTimeLastUpdate), CBA_missionTime];
 
 TRACE_3("enteredStateCardiacArrest",_unit,_time,CBA_missionTime);

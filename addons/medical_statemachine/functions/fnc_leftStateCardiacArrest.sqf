@@ -19,7 +19,7 @@
 params ["_unit"];
 TRACE_1("leftStateCardiacArrest",_unit);
 
-_unit setVariable [QGVAR(cardiacArrestTimeLeft), nil];
+_unit setVariable [QGVAR(cardiacArrestTimeLeft), nil, true];
 _unit setVariable [QGVAR(cardiacArrestTimeLastUpdate), nil];
 
 [_unit, false] call EFUNC(medical_status,setCardiacArrestState);

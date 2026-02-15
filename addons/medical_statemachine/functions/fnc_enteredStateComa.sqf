@@ -22,7 +22,7 @@ params ["_unit"];
 private _time = GVAR(comaTime);
 _time = _time + _time * random [-0.1, 0, 0.1];
 
-_unit setVariable [QGVAR(comaTimeLeft), _time];
+_unit setVariable [QGVAR(comaTimeLeft), _time, true];
 _unit setVariable [QGVAR(comaTimeLastUpdate), CBA_missionTime];
 
 TRACE_3("enteredStateComa",_unit,_time,CBA_missionTime);
