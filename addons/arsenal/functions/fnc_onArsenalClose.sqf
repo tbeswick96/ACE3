@@ -83,7 +83,7 @@ if (isMultiplayer && {!is3DEN}) then {
         [_id, GVAR(center)] call CBA_fnc_removeGlobalEventJIP;
     };
 
-    _id = [QGVAR(broadcastVoice), [GVAR(center), GVAR(currentVoice)], QGVAR(centerVoice_) + hashValue GVAR(center)] call CBA_fnc_globalEventJIP;
+    private _id = [QGVAR(broadcastVoice), [GVAR(center), GVAR(currentVoice)], QGVAR(centerVoice_) + hashValue GVAR(center)] call CBA_fnc_globalEventJIP;
     [_id, GVAR(center)] call CBA_fnc_removeGlobalEventJIP;
 };
 
