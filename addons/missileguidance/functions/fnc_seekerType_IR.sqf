@@ -133,7 +133,7 @@ if (GVAR(debug_drawGuidanceInfo) && { _targetPosition isNotEqualTo [0, 0, 0] }) 
 };
 
 _targetData set [0, (getPosASL _projectile) vectorFromTo _targetPosition];
-_targetData set [2, 0];
+_targetData set [2, _projectile distance _targetPosition];
 _targetData set [3, velocity _trackingTarget];
 
 if (_targetPosition isEqualTo [0, 0, 0]) then {
