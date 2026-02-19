@@ -1,4 +1,5 @@
 #include "..\script_component.hpp"
+#include "..\cruise_missile_defines.hpp"
 /*
  * Author: UKSF
  * PFH that draws target, approach WP, waypoint path, and vehicle
@@ -12,8 +13,6 @@
  *
  * Public: No
  */
-
-#define APPROACH_WAYPOINT_DIST 2000
 
 private _display = uiNamespace getVariable [QGVAR(cruisePlannerDisplay), displayNull];
 if (isNull _display) exitWith {};

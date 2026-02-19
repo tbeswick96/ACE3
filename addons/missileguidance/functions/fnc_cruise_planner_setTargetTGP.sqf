@@ -16,6 +16,8 @@ private _display = uiNamespace getVariable [QGVAR(cruisePlannerDisplay), display
 if (isNull _display) exitWith {};
 
 private _vehicle = vehicle ACE_PLAYER;
+if (_vehicle == ACE_PLAYER) exitWith {};
+
 private _target = getPilotCameraTarget _vehicle;
 _target params ["_tracking", "_position", "_object"];
 

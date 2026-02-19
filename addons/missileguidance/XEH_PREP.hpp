@@ -24,7 +24,6 @@ PREP(handleHandoff);
 PREP(shouldFilterRadarHit);
 PREP(MCLOS_buttonPressed);
 
-PREP(MCLOS_buttonPressed);
 PREP(MCLOS_mouseInput);
 
 // Attack Profiles
@@ -61,6 +60,7 @@ PREP(seekerType_IR);
 
 // Cruise missile
 PREP(attackProfile_cruise_missile);
+PREP(cruise_missile_debugDraw);
 PREP(cruise_missile_terrainSample);
 PREP(cruise_missile_tfAimPoint);
 PREP(cruise_missile_tfSmooth);

@@ -28,6 +28,8 @@ private _wpIndex = _list lbValue _selectedIndex;
 if (_wpIndex < 0) exitWith {};
 
 private _vehicle = vehicle ACE_PLAYER;
+if (_vehicle == ACE_PLAYER) exitWith {};
+
 private _waypoints = _vehicle getVariable [QGVAR(cruiseWaypoints), []];
 
 if (_wpIndex >= count _waypoints) exitWith {};

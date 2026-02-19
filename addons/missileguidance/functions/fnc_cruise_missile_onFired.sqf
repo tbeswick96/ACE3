@@ -1,4 +1,5 @@
 #include "..\script_component.hpp"
+#include "..\cruise_missile_defines.hpp"
 /*
  * Author: UKSF
  * Initializes cruise missile state on fired event.
@@ -17,8 +18,6 @@
  * Public: No
  */
 
-#define STAGE_LAUNCH 1
-#define APPROACH_WAYPOINT_DIST 2000
 #define DEFAULT_CRUISE_ALT 100
 
 params ["_firedEH", "", "", "", "_stateParams", "", ""];
@@ -28,7 +27,7 @@ _firedEH params ["_shooter","","","","_ammo","","_projectile"];
 private _vehicle = vehicle _shooter;
 
 // Read target data from our own vehicle variable (NOT from gps_getAttackData)
-private _settings = +(_vehicle getVariable [QGVAR(cruiseTargetSettings), []]);
+private _settings = _vehicle getVariable [QGVAR(cruiseTargetSettings), []];
 private _targetPosition = [0, 0, 0];
 private _impactAngle = -1;
 private _attackDirection = -1;

@@ -1,4 +1,5 @@
 #include "..\script_component.hpp"
+#include "..\cruise_missile_defines.hpp"
 /*
  * Author: UKSF
  * Refreshes the waypoint listbox display with target, approach WP, and user waypoints.
@@ -13,8 +14,6 @@
  *
  * Public: No
  */
-
-#define APPROACH_WAYPOINT_DIST 2000
 
 private _display = uiNamespace getVariable [QGVAR(cruisePlannerDisplay), displayNull];
 if (isNull _display) exitWith {};
@@ -72,7 +71,7 @@ for "_i" from 0 to (_waypointCount - 1) do {
 
     private _distanceString = "";
     if (_previousPosition isNotEqualTo []) then {
-        private _legDistance = _previousPosition vectorDistance _waypoint;
+        private _legDistance = [_previousPosition#0, _previousPosition#1, 0] vectorDistance [_waypoint#0, _waypoint#1, 0];
         _totalDistance = _totalDistance + _legDistance;
         _distanceString = format [" (%1m)", round _legDistance];
     };

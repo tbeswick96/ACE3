@@ -13,6 +13,8 @@
  */
 
 private _vehicle = vehicle ACE_PLAYER;
+if (_vehicle == ACE_PLAYER) exitWith {};
+
 private _target = getPilotCameraTarget _vehicle;
 _target params ["_tracking", "_position", "_object"];
 

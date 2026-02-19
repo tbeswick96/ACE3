@@ -1,4 +1,5 @@
 #include "..\script_component.hpp"
+#include "..\cruise_missile_defines.hpp"
 /*
  * Author: UKSF
  * Compute terrain-following aim point for cruise missile guidance.
@@ -28,9 +29,6 @@
  *
  * Public: No
  */
-
-#define RATE_USAGE      0.8
-#define RESPONSE_TIME   1
 
 params ["_navTarget", "_desiredAltitude", "_projectilePosition", "_velocityDirection", "_pitchRate", "_speed"];
 

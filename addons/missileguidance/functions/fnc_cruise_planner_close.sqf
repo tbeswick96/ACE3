@@ -18,6 +18,7 @@ private _display = uiNamespace getVariable [QGVAR(cruisePlannerDisplay), display
 
 if (!isNull _display) then {
     private _vehicle = vehicle ACE_PLAYER;
+    if (_vehicle == ACE_PLAYER) exitWith {};
 
     // Save target fields to vehicle variable
     private _eastingStr = ctrlText (_display displayCtrl CRUISE_PLANNER_IDC_TGT_EASTING);

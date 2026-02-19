@@ -1,4 +1,5 @@
 #include "..\script_component.hpp"
+#include "..\cruise_missile_defines.hpp"
 /*
  * Author: UKSF
  * Terrain-following altitude computer for cruise missile guidance.
@@ -30,7 +31,6 @@
 
 #define SAMPLE_STEP       100
 #define MIN_SPEED         30
-#define RATE_USAGE        0.8
 #define LOOKAHEAD_MARGIN  1.5
 #define MIN_LOOKAHEAD     200
 
