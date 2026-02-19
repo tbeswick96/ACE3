@@ -45,6 +45,10 @@ if (!hasInterface) exitWith {};
     ["turret", LINKFUNC(gps_setupVehicle), false] call CBA_fnc_addPlayerEventHandler;
     ["vehicle", LINKFUNC(gps_setupVehicle), true] call CBA_fnc_addPlayerEventHandler; // only one of these needs the retro flag
 
+    // Cruise missile mode selection
+    ["turret", LINKFUNC(cruise_missile_setupVehicle), false] call CBA_fnc_addPlayerEventHandler;
+    ["vehicle", LINKFUNC(cruise_missile_setupVehicle), true] call CBA_fnc_addPlayerEventHandler;
+
     // Add UAV Control Compatibility
     ["ACE_controlledUAV", {
         params ["_UAV", "_seatAI", "_turret", "_position"];

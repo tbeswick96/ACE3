@@ -16,6 +16,7 @@ class CfgPatches {
 class RscText;
 class RscEdit;
 class RscButton;
+class RscCombo;
 class RscPicture;
 
 #include "ACE_GuidanceConfig.hpp"
@@ -28,6 +29,7 @@ class RscPicture;
 #include "CfgWeapons.hpp"
 #include "GPSDialog.hpp"
 #include "MCLOSDialog.hpp"
+#include "CruisePlannerDialog.hpp"
 #ifdef CREATE_MOCK_PLATFORMS
 #include "dev\mock_vehicles.hpp"
 #endif

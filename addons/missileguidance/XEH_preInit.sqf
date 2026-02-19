@@ -39,6 +39,8 @@ GVAR(gps_weapons) = createHashMap;
 
 GVAR(mclos_weapons) = createHashMap;
 
+GVAR(cruisePlanner_mapClickEH) = -1;
+
 GVAR(debug_enableMissileCamera) = false;
 GVAR(debug_drawGuidanceInfo) = false;
 

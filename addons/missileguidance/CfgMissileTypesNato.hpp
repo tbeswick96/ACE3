@@ -300,6 +300,33 @@ class GVAR(type_Javelin) {
     };
 };
 
+class GVAR(type_CruiseMissile) {
+    enabled = 0;
+
+    pitchRate = 25;
+    yawRate = 25;
+
+    canVanillaLock = 0;
+
+    defaultSeekerType = "GPS";
+    seekerTypes[] = { "GPS" };
+
+    defaultSeekerLockMode = "LOBL";
+    seekerLockModes[] = { "LOBL" };
+
+    defaultNavigationType = "Direct";
+    navigationTypes[] = { "Direct" };
+
+    seekerAngle = 90;
+    seekerAccuracy = 1;
+
+    seekerMinRange = 5;
+    seekerMaxRange = 25000;
+
+    defaultAttackProfile = "cruise_missile";
+    attackProfiles[] = { "cruise_missile" };
+};
+
 class GVAR(type_Jdam) {
     enabled = 0;
 
