@@ -31,10 +31,7 @@ params ["_posASL", "_dir", "_seekerFov", "_seekerMaxDistance", "_seekerWavelengt
 _dir = vectorNormalized _dir;
 _seekerWavelengths params ["_seekerWavelengthMin", "_seekerWavelengthMax"];
 
-private _seekerCos = cos _seekerFov;
-if (_seekerFov >= 90) then {
-    _seekerCos = 0.01;
-};
+private _seekerCos = cos (180 min _seekerFov);
 private _seekerMaxDistSq = _seekerMaxDistance ^ 2;
 
 TRACE_6("",_posASL,_dir,_seekerFov,_seekerMaxDistance,_seekerWavelengths,_seekerCode);
