@@ -141,4 +141,9 @@ private _logs = _state getVariable [QGVAR(logs), []];
     _unit setVariable [QGVAR(allLogs), _allLogs, true];
 }, [_unit, _logs], 1] call CBA_fnc_waitAndExecute;
 
+// Manually activate if non-defaults are present
+[_unit] call EFUNC(medical_engine,checkForMedicalActivity);
+
+[QGVAR(deserialize), [_unit, _state]] call CBA_fnc_localEvent;
+
 _state call CBA_fnc_deleteNamespace;

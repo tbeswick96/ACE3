@@ -65,6 +65,8 @@ private _logs = (_unit getVariable [QGVAR(allLogs), []]) apply {[_x, _unit getVa
 TRACE_1("Saved",_logs);
 _state setVariable [QGVAR(logs), _logs];
 
+[QGVAR(serialize), [_unit, _state]] call CBA_fnc_localEvent;
+
 // Serialize & return
 private _json = [_state] call CBA_fnc_encodeJSON;
 _state call CBA_fnc_deleteNamespace;
