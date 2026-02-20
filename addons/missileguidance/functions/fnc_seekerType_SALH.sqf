@@ -43,14 +43,11 @@ private _positionSum = [0, 0, 0];
 private _aproximateVelocity = [0, 0, 0];
 _positionSum = _positionSum vectorAdd _foundTargetPos;
 
-if (_foundTargetPos isNotEqualTo [0, 0, 0]) then {
-    _lastPositions set [_lastPositionIndex % MAX_AVERAGES, _foundTargetPos];
-    _seekerParams set [4, _lastPositions];
-    _seekerParams set [5, _lastPositionIndex + 1];
-};
-if (MAX_AVERAGES == count _lastPositions) then {
-    _positionSum = _positionSum vectorMultiply (1 / (1 + count _lastPositions));
+// divisor is always (old buffer count + 1 for the new position)
+private _bufferCount = count _lastPositions;
+_positionSum = _positionSum vectorMultiply (1 / (1 + _bufferCount));
 
+if (_bufferCount == MAX_AVERAGES) then {
     // if we are within a meter of the previous average, just use the previous average
     if (_positionSum distanceSqr _lastPositionSum < MINIMUM_DISTANCE_UNTIL_NEW_POS * MINIMUM_DISTANCE_UNTIL_NEW_POS) then {
         _positionSum = _lastPositionSum;
@@ -59,15 +56,19 @@ if (MAX_AVERAGES == count _lastPositions) then {
     if (_timestep != 0) then {
         _aproximateVelocity = (_positionSum vectorDiff _lastPositionSum) vectorMultiply (1 / _timestep);
     };
-} else {
-    if (count _lastPositions > 0) then {
-        _positionSum = _positionSum vectorMultiply (1 / count _lastPositions);
-    };
+};
+
+// write to buffer after all averaging computation
+if (_foundTargetPos isNotEqualTo [0, 0, 0]) then {
+    _lastPositions set [_lastPositionIndex % MAX_AVERAGES, _foundTargetPos];
+    _seekerParams set [4, _lastPositions];
+    _seekerParams set [5, _lastPositionIndex + 1];
 };
 
 _seekerParams set [6, _positionSum];
 
 _targetData set [0, (getPosASL _projectile) vectorFromTo _positionSum];
+_targetData set [2, (getPosASL _projectile) vectorDistance _positionSum];
 _targetData set [3, _aproximateVelocity];
 
 TRACE_3("laser target found",_foundTargetPos,_positionSum,count _lastPositions);

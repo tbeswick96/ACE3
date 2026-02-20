@@ -26,5 +26,12 @@ _seekerParams params ["_seekerAngle", "_seekerAccuracy", "_seekerMaxRange", "_se
 _targetData params ["_targetDirection", "_attackProfileDirection", "_targetRange", "_targetVelocity", "_targetAcceleration"];
 
 _attackProfileStateParams params ["_state"];
-_state isEqualTo STAGE_ATTACK_TERMINAL;
 
+if (_state isNotEqualTo STAGE_ATTACK_TERMINAL) exitWith { false };
+
+// Don't switch to ZEM until missile is roughly aligned with the target.
+// ZEM gives wrong corrections when the missile is far off-axis (e.g. drone launch
+// where the missile is heading perpendicular to the target direction).
+private _velocityDir = vectorNormalized velocity _projectile;
+private _angleOff = acos (_velocityDir vectorCos _attackProfileDirection);
+_angleOff < 30
