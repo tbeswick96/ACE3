@@ -25,7 +25,7 @@ if (isNull _target && isVehicleRadarOn vehicle _shooter) then {
     _target = cursorTarget;
 };
 if !(_target isKindOf "AllVehicles") then {
-    _target = nil;
+    _target = objNull;
 };
 _launchParams set [0, _target];
 _projectile setMissileTarget objNull; // to emulate a no launch warning
@@ -42,15 +42,14 @@ private _lockTypes = [_config >> "lockableTypes", "ARRAY", ["Air", "LandVehicle"
 
 private _velocityAtImpact = _projectileThrust * _projectileThrustTime;
 private _timeToActive = 0;
-if (!isNil "_target" && _velocityAtImpact > 0) then {
+if (!isNull _target && _velocityAtImpact > 0) then {
     private _distanceUntilActive = (((getPosASL _shooter) vectorDistance (getPosASL _target)) - _activeRadarDistance);
     _timeToActive = 0 max (_distanceUntilActive / _velocityAtImpact);
 };
 
-if (isNil "_target") then {
+if (isNull _target) then {
     _timeToActive = 0;
     _isActive = true;
-    _target = objNull;
 };
 
 private _shooterHasActiveRadar = {

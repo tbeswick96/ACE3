@@ -40,14 +40,14 @@ private _positionSum = [0, 0, 0];
     _positionSum = _positionSum vectorAdd _x;
 } forEach _lastPositions;
 
+private _aproximateVelocity = [0, 0, 0];
+_positionSum = _positionSum vectorAdd _foundTargetPos;
+
 if (_foundTargetPos isNotEqualTo [0, 0, 0]) then {
     _lastPositions set [_lastPositionIndex % MAX_AVERAGES, _foundTargetPos];
     _seekerParams set [4, _lastPositions];
     _seekerParams set [5, _lastPositionIndex + 1];
 };
-
-private _aproximateVelocity = [0, 0, 0];
-_positionSum = _positionSum vectorAdd _foundTargetPos;
 if (MAX_AVERAGES == count _lastPositions) then {
     _positionSum = _positionSum vectorMultiply (1 / (1 + count _lastPositions));
 
@@ -60,7 +60,9 @@ if (MAX_AVERAGES == count _lastPositions) then {
         _aproximateVelocity = (_positionSum vectorDiff _lastPositionSum) vectorMultiply (1 / _timestep);
     };
 } else {
-    _positionSum = _positionSum vectorMultiply (1 / count _lastPositions);
+    if (count _lastPositions > 0) then {
+        _positionSum = _positionSum vectorMultiply (1 / count _lastPositions);
+    };
 };
 
 _seekerParams set [6, _positionSum];
