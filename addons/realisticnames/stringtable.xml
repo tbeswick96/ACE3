@@ -1889,9 +1889,6 @@
             <Turkish>JAS 39 Gripen</Turkish>
             <Ukrainian>JAS 39 Gripen</Ukrainian>
         </Key>
-        <Key ID="STR_ACE_RealisticNames_UAV_05_Name">
-            <English>XQ-47B</English>
-        </Key>
         <Key ID="STR_ACE_RealisticNames_SLAM_Name">
             <English>M4A1 SLAM</English>
             <Czech>M4A1 SLAM</Czech>
@@ -2566,6 +2563,9 @@
             <Turkish>YABHON-R3</Turkish>
             <Hungarian>YABHON-R3</Hungarian>
             <Ukrainian>YABHON-R3</Ukrainian>
+        </Key>
+        <Key ID="STR_ACE_RealisticNames_UAV_05_Name">
+            <English>XQ-47B</English>
         </Key>
         <Key ID="STR_ACE_RealisticNames_afv_wheeled_01">
             <English>Rooikat 120</English>

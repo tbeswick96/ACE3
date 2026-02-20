@@ -134,6 +134,9 @@
             <Japanese>PP</Japanese>
             <Ukrainian>PP</Ukrainian>
         </Key>
+        <Key ID="STR_ACE_MissileGuidance_GPS_ui_pp_tooltip">
+            <English>Ordnance will guide to the provided 10 digit grid coordinates</English>
+        </Key>
         <Key ID="STR_ACE_MissileGuidance_GPS_ui_too">
             <English>TARGET OF OPPORTUNITY</English>
             <French>CIBLE D'OPPORTUNITÉ</French>
@@ -144,6 +147,9 @@
             <Korean>기회 표적</Korean>
             <Japanese>臨機目標 (TOO)</Japanese>
             <Ukrainian>ЦІЛЬ ЩО ПІДВЕРНУЛАСЯ</Ukrainian>
+        </Key>
+        <Key ID="STR_ACE_MissileGuidance_GPS_ui_too_tooltip">
+            <English>Ordnance will guide to the location the targeting camera is looking at</English>
         </Key>
         <Key ID="STR_ACE_MissileGuidance_Hellfire_AGM114K">
             <English>Hellfire II AGM-114K Missile</English>
@@ -466,12 +472,6 @@
             <Korean>미사일 - 위</Korean>
             <Japanese>ミサイル - 上</Japanese>
             <Ukrainian>Ракета - Вгору</Ukrainian>
-        </Key>
-        <Key ID="STR_ACE_MissileGuidance_GPS_ui_too_tooltip">
-            <English>Ordnance will guide to the location the targeting camera is looking at</English>
-        </Key>
-        <Key ID="STR_ACE_MissileGuidance_GPS_ui_pp_tooltip">
-            <English>Ordnance will guide to the provided 10 digit grid coordinates</English>
         </Key>
     </Package>
 </Project>
