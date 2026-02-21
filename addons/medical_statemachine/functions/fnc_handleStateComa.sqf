@@ -30,6 +30,11 @@ if (_timeDiff >= 1) then {
     private _timeLeft = _unit getVariable [QGVAR(comaTimeLeft), -1];
     TRACE_2("coma life tick",_unit,_timeDiff);
     _timeLeft = _timeLeft - _timeDiff; // negative values are fine
-    _unit setVariable [QGVAR(comaTimeLeft), _timeLeft, diag_tickTime % 5 < diag_deltaTime];
+
+    private _broadcast = CBA_missionTime - (_unit getVariable [QGVAR(comaTimeLastBroadcast), 0]) >= 5;
+    if (_broadcast) then {
+        _unit setVariable [QGVAR(comaTimeLastBroadcast), CBA_missionTime];
+    };
+    _unit setVariable [QGVAR(comaTimeLeft), _timeLeft, _broadcast];
 };
 

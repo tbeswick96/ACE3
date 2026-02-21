@@ -31,5 +31,10 @@ if (_timeDiff >= 1) then {
     TRACE_3("cardiac arrest life tick",_unit,_recieveingCPR,_timeDiff);
     if (_recieveingCPR) then { _timeDiff = _timeDiff * 0.5; }; // if being cpr'ed, then time decrease is reduced
     _timeLeft = _timeLeft - _timeDiff; // negative values are fine
-    _unit setVariable [QGVAR(cardiacArrestTimeLeft), _timeLeft, diag_tickTime % 5 < diag_deltaTime];
+
+    private _broadcast = CBA_missionTime - (_unit getVariable [QGVAR(cardiacArrestTimeLastBroadcast), 0]) >= 5;
+    if (_broadcast) then {
+        _unit setVariable [QGVAR(cardiacArrestTimeLastBroadcast), CBA_missionTime];
+    };
+    _unit setVariable [QGVAR(cardiacArrestTimeLeft), _timeLeft, _broadcast];
 };
