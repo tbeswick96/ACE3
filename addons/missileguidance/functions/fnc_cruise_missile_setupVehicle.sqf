@@ -23,9 +23,9 @@ if (_vehicle getVariable [QGVAR(cruise_missile_actionsAdded), false]) exitWith {
 _vehicle setVariable [QGVAR(cruise_missile_actionsAdded), true];
 TRACE_2("adding cruise missile planner action",_player,typeOf _vehicle);
 
-// Set default cruise mode if not already set
-if (isNil {_vehicle getVariable QGVAR(cruiseMode)}) then {
-    _vehicle setVariable [QGVAR(cruiseMode), "high_tf", true];
+// Set default cruise altitude if not already set
+if (isNil {_vehicle getVariable QGVAR(cruiseAltitude)}) then {
+    _vehicle setVariable [QGVAR(cruiseAltitude), 100, true];
 };
 
 // Cruise Planner action - condition checks turret weapons (cached per weapon)

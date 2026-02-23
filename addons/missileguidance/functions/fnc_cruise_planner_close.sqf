@@ -42,12 +42,12 @@ if (!isNull _display) then {
         TRACE_3("cruise_planner_close saved target",_posASL,_impactAngle,_attackHeading);
     };
 
-    // Save cruise mode from combo box
+    // Save cruise altitude from combo box
     private _combo = _display displayCtrl CRUISE_PLANNER_IDC_CRUISE_MODE;
     private _selIndex = lbCurSel _combo;
     if (_selIndex >= 0) then {
-        private _modes = ["low_tf", "high_tf", "cruise"];
-        _vehicle setVariable [QGVAR(cruiseMode), _modes select _selIndex, true];
+        private _altitudes = [50, 100, 150];
+        _vehicle setVariable [QGVAR(cruiseAltitude), _altitudes select _selIndex, true];
     };
 
     // Remove any pending map click handlers

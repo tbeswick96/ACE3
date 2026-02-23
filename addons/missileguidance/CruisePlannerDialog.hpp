@@ -210,10 +210,10 @@ class GVAR(cruisePlannerUI) {
             colorFocused[] = {0, 0, 0, 0.8};
         };
 
-        // Cruise mode
+        // Cruise altitude
         class CruiseModeLabel: RscText {
             idc = -1;
-            text = "Flight Mode";
+            text = "Cruise Alt";
             x = QUOTE(22 * GUI_GRID_W + GUI_GRID_CENTER_X);
             y = QUOTE(10.5 * GUI_GRID_H + GUI_GRID_CENTER_Y);
             w = QUOTE(4.5 * GUI_GRID_W);

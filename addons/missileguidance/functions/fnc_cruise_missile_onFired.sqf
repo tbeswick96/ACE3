@@ -18,8 +18,6 @@
  * Public: No
  */
 
-#define DEFAULT_CRUISE_ALT 100
-
 params ["_firedEH", "", "", "", "_stateParams", "", ""];
 _stateParams params ["", "_seekerStateParams", "_attackProfileStateParams"];
 _firedEH params ["_shooter","","","","_ammo","","_projectile"];
@@ -46,14 +44,8 @@ private _gpsData = [+_targetPosition, _impactAngle, _attackDirection];
 //  we overwrite it here with our own data)
 _seekerStateParams set [0, [+_targetPosition, _impactAngle, _attackDirection]];
 
-// Get cruise mode from vehicle variable (set by ACE interaction menu)
-private _cruiseMode = _vehicle getVariable [QGVAR(cruiseMode), "high_tf"];
-private _cruiseAltitude = switch (_cruiseMode) do {
-    case "low_tf": { 50 };
-    case "high_tf": { DEFAULT_CRUISE_ALT };
-    case "cruise": { 150 };
-    default { DEFAULT_CRUISE_ALT };
-};
+// Get cruise altitude from vehicle variable (set by cruise planner dialog)
+private _cruiseAltitude = _vehicle getVariable [QGVAR(cruiseAltitude), 100];
 
 // Compute approach waypoint if attack direction is set
 private _approachWaypoint = [0, 0, 0];

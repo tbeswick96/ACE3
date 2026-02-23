@@ -48,15 +48,15 @@
         };
     };
 
-    // Populate cruise mode combo
+    // Populate cruise altitude combo
     private _combo = _display displayCtrl CRUISE_PLANNER_IDC_CRUISE_MODE;
-    _combo lbAdd "Low TF (50m)";
-    _combo lbAdd "High TF (100m)";
-    _combo lbAdd "Cruise (150m)";
+    _combo lbAdd "50m";
+    _combo lbAdd "100m";
+    _combo lbAdd "150m";
 
-    private _cruiseMode = _vehicle getVariable [QGVAR(cruiseMode), "high_tf"];
-    private _modeIndex = ["low_tf", "high_tf", "cruise"] find _cruiseMode;
-    _combo lbSetCurSel ([_modeIndex, 1] select (_modeIndex < 0));
+    private _cruiseAltitude = _vehicle getVariable [QGVAR(cruiseAltitude), 100];
+    private _altitudeIndex = [50, 100, 150] find _cruiseAltitude;
+    _combo lbSetCurSel ([_altitudeIndex, 1] select (_altitudeIndex < 0));
 
     // Populate waypoint list
     call FUNC(cruise_planner_updateList);
