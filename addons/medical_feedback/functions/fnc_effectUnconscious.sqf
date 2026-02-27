@@ -26,6 +26,9 @@ switch (_mode) do {
     };
     // Animated (triggered on unconscious event)
     case 1: {
+        // Skip animations if in Zeus/curator camera - effects handled by featureCamera handler
+        if (!isNull curatorCamera) exitWith {};
+
         if (_enable) then {
             ACE_player setVariable [QGVAR(effectUnconsciousTimeout), CBA_missionTime + FX_UNCON_FADE_IN];
             GVAR(ppUnconsciousBlur)     ppEffectEnable true;
