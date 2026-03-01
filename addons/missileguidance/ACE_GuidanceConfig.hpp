@@ -75,21 +75,21 @@ class GVAR(AttackProfiles) {
 
 class GVAR(SeekerTypes) {
     class SALH {
-        name = "";
+        name = "SALH";
         visualName = "";
         description = "";
 
         functionName = QFUNC(seekerType_SALH);
     };
     class Optic {
-        name = "";
+        name = "Optic";
         visualName = "";
         description = "";
 
         functionName = QFUNC(seekerType_Optic);
     };
     class SACLOS {
-        name = "";
+        name = "SACLOS";
         visualName = "";
         description = "";
 
@@ -97,7 +97,7 @@ class GVAR(SeekerTypes) {
         onFired = QFUNC(SACLOS_onFired);
     };
     class MCLOS {
-        name = "";
+        name = "MCLOS";
         visualName = "";
         description = "";
 
@@ -105,7 +105,7 @@ class GVAR(SeekerTypes) {
         onFired = QFUNC(MCLOS_onFired);
     };
     class MillimeterWaveRadar {
-        name = "";
+        name = "MMW Radar";
         visualName = "";
         description = "";
 
@@ -113,7 +113,7 @@ class GVAR(SeekerTypes) {
         onFired = QFUNC(mwr_onFired);
     };
     class GPS {
-        name = "";
+        name = "GPS";
         visualName = "";
         description = "";
 
@@ -121,7 +121,7 @@ class GVAR(SeekerTypes) {
         onFired = QFUNC(gps_seekerOnFired);
     };
     class IR {
-        name = "";
+        name = "IR";
         visualName = "";
         description = "";
 
@@ -129,7 +129,7 @@ class GVAR(SeekerTypes) {
         onFired = QFUNC(IR_onFired);
     };
     class DopplerRadar {
-        name = "";
+        name = "Doppler Radar";
         visualName = "";
         description = "";
 

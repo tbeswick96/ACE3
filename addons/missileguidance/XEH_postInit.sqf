@@ -10,6 +10,11 @@ if (!hasInterface) exitWith {};
 }, {
 }, [DIK_TAB, [false, true, false]], false] call CBA_fnc_addKeybind;  //Ctrl+Tab Key
 
+["ACE3 Weapons", QGVAR(cycleSeekerType), LLSTRING(CycleSeekerType), {
+    [] call FUNC(cycleSeekerType)
+}, {
+}, [DIK_TAB, [true, true, false]], false] call CBA_fnc_addKeybind;  //Ctrl+Shift+Tab Key
+
 ["up", {
     [[0, 0, 1], ACE_player] call FUNC(MCLOS_buttonPressed)
 }, {
@@ -48,6 +53,10 @@ if (!hasInterface) exitWith {};
     // Cruise missile mode selection
     ["turret", LINKFUNC(cruise_missile_setupVehicle), false] call CBA_fnc_addPlayerEventHandler;
     ["vehicle", LINKFUNC(cruise_missile_setupVehicle), true] call CBA_fnc_addPlayerEventHandler;
+
+    // Seeker type interact actions
+    ["turret", LINKFUNC(setupSeekerActions), false] call CBA_fnc_addPlayerEventHandler;
+    ["vehicle", LINKFUNC(setupSeekerActions), true] call CBA_fnc_addPlayerEventHandler;
 
     // Add UAV Control Compatibility
     ["ACE_controlledUAV", {
