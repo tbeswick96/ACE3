@@ -20,12 +20,13 @@
 BEGIN_COUNTER(guidancePFH);
 
 params ["_args", "_pfID"];
-_args params ["_firedEH", "_launchParams", "_flightParams", "_seekerParams", "_stateParams", "_targetData", "_navigationStateParams"];
+_args params ["_firedEH", "_launchParams", "_flightParams", "_seekerParams", "_stateParams", "_targetData", "_navigationStateParams", ["_seekerStateMachineParams", [0, []]]];
 _firedEH params ["_shooter","","","","_ammo","","_projectile"];
 _launchParams params ["","_targetLaunchParams","","","","","_navigationType"];
 _stateParams params ["_lastRunTime", "_seekerStateParams", "_attackProfileStateParams", "_lastKnownPosState", "_navigationParameters", "_guidanceParameters"];
 _navigationStateParams params ["_currentState", "_navigationStateData"];
 _flightParams params ["_pitchRate", "_yawRate", "_isBangBangGuidance", "_stabilityCoefficient", "_showTrail"];
+_seekerStateMachineParams params ["_currentSeekerState", "_seekerStateData"];
 
 if (!alive _projectile || isNull _projectile || isNull _shooter) exitWith {
     [_pfID] call CBA_fnc_removePerFrameHandler;
@@ -38,6 +39,33 @@ if (_showTrail) then {
 };
 
 private _timestep = diag_deltaTime * accTime;
+
+// Evaluate seeker state machine (if configured)
+if (_seekerStateData isNotEqualTo []) then {
+    (_seekerStateData select _currentSeekerState) params ["_seekerTransitionCondition", "_stateSeekerType"];
+    if (_seekerTransitionCondition != "") then {
+        private _seekerTransition = ([_args, _timestep] call (missionNamespace getVariable [_seekerTransitionCondition, { false }]));
+        if (_seekerTransition) then {
+            private _previousSeekerState = _currentSeekerState;
+            _currentSeekerState = _currentSeekerState + 1;
+            _seekerStateMachineParams set [0, _currentSeekerState];
+
+            // Get new seeker type from the new state
+            private _newSeekerType = (_seekerStateData select _currentSeekerState) select 1;
+            TRACE_3("Seeker state transition",_previousSeekerState,_currentSeekerState,_newSeekerType);
+
+            // Update launch params with new seeker type
+            _launchParams set [2, _newSeekerType];
+
+            // Swap seeker state params to the new state's initialised params
+            private _newSeekerStateParamsData = +((_seekerStateData select _currentSeekerState) select 2);
+            _stateParams set [1, _newSeekerStateParamsData];
+
+            // Reset last known position state for new seeker
+            _lastKnownPosState set [1, [0, 0, 0]];
+        };
+    };
+};
 
 // Run seeker function:
 private _seekerTargetPos = [[0,0,0], _args, _seekerStateParams, _lastKnownPosState, _timestep] call FUNC(doSeekerSearch);
@@ -79,6 +107,10 @@ if ((_pitchRate != 0 || {_yawRate != 0}) && {_profileAdjustedTargetPos isNotEqua
         drawIcon3D ["\a3\ui_f\data\IGUI\Cfg\Cursors\selectover_ca.paa", [1,0,0,1], _projectilePosAGL vectorAdd [0, 0, 1], 0.75, 0.75, 0, format ["cmdPitch: %1 cmdYaw %2", _cmdAccelLocal#2, _cmdAccelLocal#0], 1, 0.025, "TahomaB"];
         drawIcon3D ["\a3\ui_f\data\IGUI\Cfg\Cursors\selectover_ca.paa", [1,1,0,1], _projectilePosAGL vectorAdd [0, 0, 2], 0.75, 0.75, 0, _navigationType, 1, 0.025, "TahomaB"];
         drawLine3D [_projectilePosAGL, _projectilePosAGL vectorAdd _commandedAcceleration, [1, 0, 1, 1]];
+        if (_seekerStateData isNotEqualTo []) then {
+            private _seekerStateName = (_seekerStateData select _currentSeekerState) select 1;
+            drawIcon3D ["\a3\ui_f\data\IGUI\Cfg\Cursors\selectover_ca.paa", [0,1,1,1], _projectilePosAGL vectorAdd [0, 0, 3], 0.75, 0.75, 0, format ["Seeker: %1 [%2/%3]", _seekerStateName, _currentSeekerState + 1, count _seekerStateData], 1, 0.025, "TahomaB"];
+        };
     };
 
     // activate missile servos and change direction

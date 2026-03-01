@@ -140,6 +140,27 @@ if (_states isNotEqualTo []) then {
     } forEach _states;
 };
 
+// Parse seeker state machine (if configured)
+private _seekerStateSubclass = _config >> "seekerStates";
+private _seekerStates = getArray (_seekerStateSubclass >> "states");
+
+private _seekerStateData = [];
+
+if (_seekerStates isNotEqualTo []) then {
+    {
+        private _stateClass = _seekerStateSubclass >> _x;
+        _seekerStateData pushBack [
+            getText (_stateClass >> "transitionCondition"),
+            getText (_stateClass >> "seekerType"),
+            []  // per-state seeker state params, initialised by onFired
+        ];
+    } forEach _seekerStates;
+
+    // Override initial seeker type from the first state
+    _seekerType = (_seekerStateData select 0) select 1;
+    TRACE_2("seekerStates override initial seeker",_seekerType,_seekerStates);
+};
+
 private _initialRoll = getNumber (_config >> "initialRoll");
 private _initialYaw = getNumber (_config >> "initialYaw");
 private _initialPitch = getNumber (_config >> "initialPitch");
@@ -178,13 +199,45 @@ private _args = [_this,
                 [0, 0, 0],  // target velocity
                 [0, 0, 0]   // target acceleration
             ],
-            [0, _navigationStateData]
+            [0, _navigationStateData],
+            [0, _seekerStateData]    // [7] — seeker state machine [_currentSeekerState, _seekerStateData]
         ];
 
-private _onFiredFunc = getText (configFile >> QGVAR(SeekerTypes) >> _seekerType >> "onFired");
-TRACE_1("seeker on fired",_onFiredFunc);
-if (_onFiredFunc != "") then {
-    _args call (missionNamespace getVariable _onFiredFunc);
+if (_seekerStates isEqualTo []) then {
+    // No state machine — single seeker, existing behaviour
+    private _onFiredFunc = getText (configFile >> QGVAR(SeekerTypes) >> _seekerType >> "onFired");
+    TRACE_1("seeker on fired",_onFiredFunc);
+    if (_onFiredFunc != "") then {
+        _args call (missionNamespace getVariable _onFiredFunc);
+    };
+} else {
+    // State machine — call onFired for each seeker state to initialise their state params
+    {
+        private _stateSeekerType = _x select 1;
+        private _onFiredFunc = getText (configFile >> QGVAR(SeekerTypes) >> _stateSeekerType >> "onFired");
+        TRACE_2("seeker state on fired",_stateSeekerType,_onFiredFunc);
+        if (_onFiredFunc != "") then {
+            // Temporarily set seeker type in launch params so onFired reads the right type
+            (_args select 1) set [2, _stateSeekerType];
+
+            // Save current seekerStateParams, swap in the state-specific one
+            private _savedSeekerStateParams = (_args select 4) select 1;
+            private _stateSeekerStateParams = [];
+            (_args select 4) set [1, _stateSeekerStateParams];
+
+            _args call (missionNamespace getVariable _onFiredFunc);
+
+            // Store the initialised state params back into seekerStateData
+            (_seekerStateData select _forEachIndex) set [2, _stateSeekerStateParams];
+
+            // Restore
+            (_args select 4) set [1, _savedSeekerStateParams];
+        };
+    } forEach _seekerStateData;
+
+    // Restore initial seeker type and set initial seeker state params
+    (_args select 1) set [2, (_seekerStateData select 0) select 1];
+    (_args select 4) set [1, +((_seekerStateData select 0) select 2)];
 };
 
 _onFiredFunc = getText (configFile >> QGVAR(AttackProfiles) >> _attackProfile >> "onFired");
@@ -219,7 +272,7 @@ if (_onFiredFunc != "") then {
 };
 
 // Reverse:
-//  _args params ["_firedEH", "_launchParams", "_flightParams", "_seekerParams", "_stateParams", "_targetData", "_navigationStateData"];
+//  _args params ["_firedEH", "_launchParams", "_flightParams", "_seekerParams", "_stateParams", "_targetData", "_navigationStateParams", "_seekerStateMachineParams"];
 //      _firedEH params ["_shooter","","","","_ammo","","_projectile"];
 //      _launchParams params ["_shooter","_targetLaunchParams","_seekerType","_attackProfile","_lockMode","_laserInfo","_navigationType"];
 //          _targetLaunchParams params ["_target", "_targetPos", "_launchPos", "_launchDir", "_launchTime"];
@@ -227,5 +280,7 @@ if (_onFiredFunc != "") then {
 //      _stateParams params ["_lastRunTime", "_seekerStateParams", "_attackProfileStateParams", "_lastKnownPosState", "_navigationParams", "_guidanceParameters"];
 //      _seekerParams params ["_seekerAngle", "_seekerAccuracy", "_seekerMaxRange", "_seekerMinRange"];
 //      _targetData params ["_targetDirection", "_attackProfileDirection", "_targetRange", "_targetVelocity", "_targetAcceleration"];
+//      _navigationStateParams params ["_currentNavigationState", "_navigationStateData"];
+//      _seekerStateMachineParams params ["_currentSeekerState", "_seekerStateData"];
 
 _args
