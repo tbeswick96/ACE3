@@ -817,3 +817,32 @@ class GVAR(type_Blowpipe) {
     defaultAttackProfile = "BEAM";
     attackProfiles[] = {"BEAM"};
 };
+
+class GVAR(type_Hellfire_DualMode): GVAR(type_Hellfire) {
+    // Dual-mode Hellfire supporting both SALH and MMW seekers
+    defaultSeekerType = "SALH";
+    seekerTypes[] = { "SALH", "MillimeterWaveRadar" };
+
+    // MMW radar parameters
+    lockableTypes[] = {"Tank", "Car", "Ship", "LandVehicle"};
+    activeRadarEngageDistance = 500;
+};
+
+class GVAR(type_CruiseMissile_LaserTerminal): GVAR(type_CruiseMissile) {
+    // Cruise missile with GPS waypoint following and SALH terminal guidance
+    seekerTypes[] = { "GPS", "SALH" };
+
+    seekLastTargetPos = 1;
+
+    class seekerStates {
+        class cruise {
+            transitionCondition = QFUNC(cruiseMissile_seekerTransition);
+            seekerType = "GPS";
+        };
+        class terminal {
+            transitionCondition = "";
+            seekerType = "SALH";
+        };
+        states[] = {"cruise", "terminal"};
+    };
+};
