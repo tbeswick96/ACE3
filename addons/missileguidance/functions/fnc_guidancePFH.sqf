@@ -45,7 +45,7 @@ if (_seekerStateData isNotEqualTo []) then {
     (_seekerStateData select _currentSeekerState) params ["_seekerTransitionCondition", "_stateSeekerType"];
     if (_seekerTransitionCondition != "") then {
         private _seekerTransition = ([_args, _timestep] call (missionNamespace getVariable [_seekerTransitionCondition, { false }]));
-        if (_seekerTransition) then {
+        if (_seekerTransition && {(_currentSeekerState + 1) < count _seekerStateData}) then {
             private _previousSeekerState = _currentSeekerState;
             _currentSeekerState = _currentSeekerState + 1;
             _seekerStateMachineParams set [0, _currentSeekerState];
@@ -60,6 +60,7 @@ if (_seekerStateData isNotEqualTo []) then {
             // Swap seeker state params to the new state's initialised params
             private _newSeekerStateParamsData = +((_seekerStateData select _currentSeekerState) select 2);
             _stateParams set [1, _newSeekerStateParamsData];
+            _seekerStateParams = _newSeekerStateParamsData;
 
             // Reset last known position state for new seeker
             _lastKnownPosState set [1, [0, 0, 0]];
