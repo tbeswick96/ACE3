@@ -26,7 +26,7 @@
         private _ammo = getText (configFile >> "CfgMagazines" >> _magazine >> "ammo");
         private _ammoConfig = configFile >> "CfgAmmo" >> _ammo >> "ace_missileguidance";
         private _attackProfiles = getArray (_ammoConfig >> "attackProfiles");
-        private _seeker = getText (_ammoConfig >> "defaultSeekerType");
+        private _seeker = _vehicle getVariable [QEGVAR(missileguidance,seekerType), getText (_ammoConfig >> "defaultSeekerType")];
         private _hudFnc = getText (configFile >> QEGVAR(missileguidance,SeekerTypes) >> _seeker >> "hudInfo");
         if (_hudFnc != "") exitWith { _hasAttackMode = true; };
 
@@ -51,7 +51,7 @@
         private _ammoConfig = configFile >> "CfgAmmo" >> _ammo >> "ace_missileguidance";
         private _defaultAttackProfile = getText (_ammoConfig >> "defaultAttackProfile");
         private _attackProfiles = getArray (_ammoConfig >> "attackProfiles");
-        private _seeker = getText (_ammoConfig >> "defaultSeekerType");
+        private _seeker = _vehicle getVariable [QEGVAR(missileguidance,seekerType), getText (_ammoConfig >> "defaultSeekerType")];
         private _hudFnc = getText (configFile >> QEGVAR(missileguidance,SeekerTypes) >> _seeker >> "hudInfo");
         private _modes = createHashMap;
         {
@@ -70,6 +70,12 @@
     private _magazine = _vehicle currentMagazineTurret _turretPath;
     if !(_magazine in _magazineDetails) exitWith { [] };
     (_magazineDetails get _magazine) params ["_modes", "_defaultAttackProfile", "_hudFnc", "_ammoConfig"];
+
+    // Override HUD function based on the currently selected seeker type
+    private _selectedSeeker = _vehicle getVariable [QEGVAR(missileguidance,seekerType), ""];
+    if (_selectedSeeker != "") then {
+        _hudFnc = getText (configFile >> QEGVAR(missileguidance,SeekerTypes) >> _selectedSeeker >> "hudInfo");
+    };
 
     private _mode = _vehicle getVariable [QEGVAR(missileguidance,attackProfile), _defaultAttackProfile];
     (_modes getOrDefault [_mode, ["", ""]]) params ["_idleDisplay", "_lockedDisplay"];

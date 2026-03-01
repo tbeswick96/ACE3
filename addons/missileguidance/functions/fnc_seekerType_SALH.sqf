@@ -19,14 +19,15 @@
 #define MAX_AVERAGES 15
 #define MINIMUM_DISTANCE_UNTIL_NEW_POS 1
 
-params ["", "_args", "", "", "_timestep"];
+params ["", "_args", "_seekerStateParams", "", "_timestep"];
 _args params ["_firedEH", "_launchParams", "", "_seekerParams", "", "_targetData"];
 _firedEH params ["","","","","","","_projectile"];
 _launchParams params ["","","","","","_laserParams"];
-_seekerParams params ["_seekerAngle", "", "_seekerMaxRange", "", ["_lastPositions", []], ["_lastPositionIndex", 0], ["_lastPositionSum", [0, 0, 0]]];
+_seekerParams params ["_seekerAngle", "", "_seekerMaxRange"];
+_seekerStateParams params [["_lastPositions", []], ["_lastPositionIndex", 0], ["_lastPositionSum", [0, 0, 0]]];
 _laserParams params ["_code", "_wavelengthMin", "_wavelengthMax"];
 
-private _laserResult = [(getPosASL _projectile), (velocity _projectile), _seekerAngle, _seekerMaxRange, [_wavelengthMin, _wavelengthMax], _code, _projectile] call EFUNC(laser,seekerFindLaserSpot);
+private _laserResult = [getPosASL _projectile, vectorDir _projectile, _seekerAngle, _seekerMaxRange, [_wavelengthMin, _wavelengthMax], _code, _projectile] call EFUNC(laser,seekerFindLaserSpot);
 private _foundTargetPos = _laserResult select 0;
 TRACE_1("Search",_laserResult);
 
@@ -61,11 +62,11 @@ if (_bufferCount == MAX_AVERAGES) then {
 // write to buffer after all averaging computation
 if (_foundTargetPos isNotEqualTo [0, 0, 0]) then {
     _lastPositions set [_lastPositionIndex % MAX_AVERAGES, _foundTargetPos];
-    _seekerParams set [4, _lastPositions];
-    _seekerParams set [5, _lastPositionIndex + 1];
+    _seekerStateParams set [0, _lastPositions];
+    _seekerStateParams set [1, _lastPositionIndex + 1];
 };
 
-_seekerParams set [6, _positionSum];
+_seekerStateParams set [2, _positionSum];
 
 _targetData set [0, (getPosASL _projectile) vectorFromTo _positionSum];
 _targetData set [2, (getPosASL _projectile) vectorDistance _positionSum];
