@@ -240,7 +240,7 @@ if (_seekerStates isEqualTo []) then {
     (_args select 4) set [1, +((_seekerStateData select 0) select 2)];
 };
 
-_onFiredFunc = getText (configFile >> QGVAR(AttackProfiles) >> _attackProfile >> "onFired");
+private _onFiredFunc = getText (configFile >> QGVAR(AttackProfiles) >> _attackProfile >> "onFired");
 TRACE_1("attack on fired",_onFiredFunc);
 if (_onFiredFunc != "") then {
     _args call (missionNamespace getVariable _onFiredFunc);

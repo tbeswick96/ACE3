@@ -31,9 +31,6 @@
         <Key ID="STR_ACE_MissileGuidance_CycleSeekerType">
             <English>Missile - Cycle Seeker Type</English>
         </Key>
-        <Key ID="STR_ACE_MissileGuidance_SeekerTypeAction">
-            <English>Set Seeker Type</English>
-        </Key>
         <Key ID="STR_ACE_MissileGuidance_Desc">
             <English>Advanced missile guidance, or AMG, provides multiple enhancements to missile locking and firing. It is also a framework required for missile weapon types.</English>
             <Czech>Pokočilé navádění raket (AMG) poskytuje několik vylepšení pro lepší zaměření a následnou střelbu. Je to prvek vyžadovaný u typu zbraní jako jsou rakety.</Czech>
@@ -353,6 +350,9 @@
             <Turkish>Sadece Oyuncular</Turkish>
             <Hungarian>Csak játékosok</Hungarian>
             <Ukrainian>Тільки гравець</Ukrainian>
+        </Key>
+        <Key ID="STR_ACE_MissileGuidance_SeekerTypeAction">
+            <English>Set Seeker Type</English>
         </Key>
         <Key ID="STR_ACE_MissileGuidance_Title">
             <English>Advanced Missile Guidance</English>

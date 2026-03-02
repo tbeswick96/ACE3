@@ -1,7 +1,9 @@
 LOG("prep");
 PREP(cycleAttackProfileKeyDown);
+PREP(cycleSeekerType);
 PREP(keybind_add);
 PREP(keybind_pressed);
+PREP(setupSeekerActions);
 
 PREP(changeMissileDirection);
 
