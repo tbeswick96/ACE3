@@ -17,7 +17,7 @@
  */
 params [["_manualUpdate", false]];
 
-if (EGVAR(common,OldIsCamera) || {!alive ACE_player}) exitWith {
+if (EGVAR(common,OldIsCamera) || {!alive ACE_player} || {!isNull findDisplay 312}) exitWith { // 312 = Zeus curator display
     [false, 0] call FUNC(effectUnconscious);
     [false]    call FUNC(effectPain);
     [false]    call FUNC(effectBloodVolume);

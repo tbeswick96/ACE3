@@ -26,8 +26,9 @@ switch (_mode) do {
     };
     // Animated (triggered on unconscious event)
     case 1: {
-        // Skip animations if in Zeus/curator camera - effects handled by featureCamera handler
-        if (!isNull curatorCamera) exitWith {};
+        // Skip animations if in Zeus/curator - effects handled by featureCamera handler
+        // Check display 312 too: setUnconscious can destroy curatorCamera while leaving the display open
+        if (!isNull curatorCamera || {!isNull findDisplay 312}) exitWith {};
 
         if (_enable) then {
             ACE_player setVariable [QGVAR(effectUnconsciousTimeout), CBA_missionTime + FX_UNCON_FADE_IN];
@@ -59,7 +60,7 @@ switch (_mode) do {
 
             // Step 2: Open it
             [{
-                if (!isNull curatorCamera || {!alive ACE_player}) exitWith {};
+                if (!isNull curatorCamera || {!isNull findDisplay 312} || {!alive ACE_player}) exitWith {};
 
                 GVAR(ppUnconsciousBlur)     ppEffectAdjust [0];
                 GVAR(ppUnconsciousBlackout) ppEffectAdjust [1, 1, 0, [0, 0, 0, 0.8], [0, 0, 0, 1], [0, 0, 0, 0], [0.7, 0.78, 0, 0, 0, 0, 1]];
@@ -69,7 +70,7 @@ switch (_mode) do {
 
             // Step 3: Fade away vignette
             [{
-                if (!isNull curatorCamera || {!alive ACE_player}) exitWith {};
+                if (!isNull curatorCamera || {!isNull findDisplay 312} || {!alive ACE_player}) exitWith {};
 
                 GVAR(ppUnconsciousBlackout) ppEffectAdjust [1, 1, 0, [0, 0, 0, 0], [0, 0, 0, 1], [0, 0, 0, 0], [0.7, 0.78, 0, 0, 0, 0, 1]];
                 GVAR(ppUnconsciousBlackout) ppEffectCommit (FX_UNCON_FADE_OUT * 1/3);
@@ -90,7 +91,7 @@ switch (_mode) do {
                 GVAR(ppUnconsciousBlackout) ppEffectCommit (FX_UNCON_FADE_OUT * 2/3);
 
                 [{
-                    if (!isNull curatorCamera || {!alive ACE_player}) exitWith {};
+                    if (!isNull curatorCamera || {!isNull findDisplay 312} || {!alive ACE_player}) exitWith {};
 
                     GVAR(ppUnconsciousBlackout) ppEffectAdjust [1, 1, 0, [0, 0, 0, 1], [0, 0, 0, 1], [0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 1]];
                     GVAR(ppUnconsciousBlackout) ppEffectCommit (FX_UNCON_FADE_OUT * 1/3);
