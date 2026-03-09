@@ -2,8 +2,8 @@
 /*
  * Author: UKSF
  * Called on unload of cruise planner dialog.
- * Saves target fields and cruise mode to vehicle variables,
- * removes map draw PFH, and cleans up map click handlers.
+ * Saves target fields and cruise mode to vehicle variables
+ * and cleans up map click handlers.
  *
  * Arguments:
  * None
@@ -55,5 +55,4 @@ if (!isNull _display) then {
     _map ctrlRemoveAllEventHandlers "MouseButtonClick";
 };
 
-// Remove map draw PFH
-[GVAR(cruisePlanner_drawPFH)] call CBA_fnc_removePerFrameHandler;
+// Draw EH on map control is auto-removed when dialog closes

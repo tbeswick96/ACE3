@@ -454,6 +454,13 @@ switch (_stage) do {
         // Terminal dive along impact line (JDAM-style line navigation).
         // Aim is always ON the impact line, at (distance - lead) from target.
         // This pulls the missile onto the line and maintains correct attack angle.
+        // If seeker provides an updated target (e.g. SALH laser spot), use it
+        if (_seekerTargetPosition isNotEqualTo [0,0,0] && {_seekerTargetPosition isNotEqualTo _targetPositionASL}) then {
+            _targetPositionASL = _seekerTargetPosition;
+            _distanceToTarget = _projectilePosition vectorDistance _targetPositionASL;
+            _horizontalDistance = [_projectilePosition#0, _projectilePosition#1, 0] vectorDistance [_targetPositionASL#0, _targetPositionASL#1, 0];
+        };
+
         private _finalAttackDirection = _gpsData#2;
         if (_finalAttackDirection < 0) then {
             _finalAttackDirection = direction _projectile;

@@ -3,7 +3,7 @@
  * Author: UKSF
  * Called on load of cruise planner dialog.
  * Stores display reference, populates target fields from vehicle data,
- * populates cruise mode combo, populates waypoint list, and starts map draw PFH.
+ * populates cruise mode combo, populates waypoint list, and registers map Draw EH.
  *
  * Arguments:
  * Display <DISPLAY> (from onLoad)
@@ -66,8 +66,9 @@
     // Populate waypoint list
     call FUNC(cruise_planner_updateList);
 
-    // Start map draw PFH
-    GVAR(cruisePlanner_drawPFH) = [{
+    // Register Draw EH on map control (drawIcon/drawLine require onDraw context)
+    private _map = _display displayCtrl CRUISE_PLANNER_IDC_MAP;
+    _map ctrlAddEventHandler ["Draw", {
         call FUNC(cruise_planner_drawMap);
-    }] call CBA_fnc_addPerFrameHandler;
+    }];
 }, _this] call CBA_fnc_execNextFrame;
