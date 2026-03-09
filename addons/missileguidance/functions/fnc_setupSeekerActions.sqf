@@ -74,6 +74,9 @@ private _parentAction = [
         private _seekerTypes = getArray (_config >> "seekerTypes");
         if (count _seekerTypes <= 1) exitWith { [] };
 
+        // Don't allow manual switching for state-machine seekers (e.g. Stormshadow GPS→SALH terminal)
+        if ((getArray (_config >> "seekerStates" >> "states")) isNotEqualTo []) exitWith { [] };
+
         // Get the seeker type hashmap
         private _seekerTypeMap = _target getVariable [QGVAR(seekerTypes), createHashMap];
         private _currentSeekerType = _seekerTypeMap getOrDefault [_ammo, ""];

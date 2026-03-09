@@ -58,6 +58,11 @@
     private _altitudeIndex = [50, 100, 150] find _cruiseAltitude;
     _combo lbSetCurSel ([_altitudeIndex, 1] select (_altitudeIndex < 0));
 
+    // Refresh list when heading field changes (approach WP depends on heading)
+    (_display displayCtrl CRUISE_PLANNER_IDC_TGT_HEADING) ctrlAddEventHandler ["KeyUp", {
+        call FUNC(cruise_planner_updateList);
+    }];
+
     // Populate waypoint list
     call FUNC(cruise_planner_updateList);
 

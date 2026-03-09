@@ -105,12 +105,12 @@ if ((_pitchRate != 0 || {_yawRate != 0}) && {_profileAdjustedTargetPos isNotEqua
     if (GVAR(debug_drawGuidanceInfo)) then {
         private _projectilePosAGL = ASLToAGL _projectilePos;
         private _cmdAccelLocal = _projectile vectorWorldToModelVisual _commandedAcceleration;
-        drawIcon3D ["\a3\ui_f\data\IGUI\Cfg\Cursors\selectover_ca.paa", [1,0,0,1], _projectilePosAGL vectorAdd [0, 0, 1], 0.75, 0.75, 0, format ["cmdPitch: %1 cmdYaw %2", _cmdAccelLocal#2, _cmdAccelLocal#0], 1, 0.025, "TahomaB"];
-        drawIcon3D ["\a3\ui_f\data\IGUI\Cfg\Cursors\selectover_ca.paa", [1,1,0,1], _projectilePosAGL vectorAdd [0, 0, 2], 0.75, 0.75, 0, _navigationType, 1, 0.025, "TahomaB"];
+        drawIcon3D ["\a3\ui_f\data\IGUI\Cfg\Cursors\selectover_ca.paa", [1,0,0,1], _projectilePosAGL, 0.75, 0.75, 0, format ["cmdPitch: %1 cmdYaw %2", _cmdAccelLocal#2, _cmdAccelLocal#0], 1, 0.025, "TahomaB", "center", false, 0, -0.01];
+        drawIcon3D ["", [1,1,0,1], _projectilePosAGL, 0, 0, 0, _navigationType, 1, 0.025, "TahomaB", "center", false, 0, -0.02];
         drawLine3D [_projectilePosAGL, _projectilePosAGL vectorAdd _commandedAcceleration, [1, 0, 1, 1]];
         if (_seekerStateData isNotEqualTo []) then {
             private _seekerStateName = (_seekerStateData select _currentSeekerState) select 1;
-            drawIcon3D ["\a3\ui_f\data\IGUI\Cfg\Cursors\selectover_ca.paa", [0,1,1,1], _projectilePosAGL vectorAdd [0, 0, 3], 0.75, 0.75, 0, format ["Seeker: %1 [%2/%3]", _seekerStateName, _currentSeekerState + 1, count _seekerStateData], 1, 0.025, "TahomaB"];
+            drawIcon3D ["", [0,1,1,1], _projectilePosAGL, 0, 0, 0, format ["Seeker: %1 [%2/%3]", _seekerStateName, _currentSeekerState + 1, count _seekerStateData], 1, 0.025, "TahomaB", "center", false, 0, -0.03];
         };
     };
 

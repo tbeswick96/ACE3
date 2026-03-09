@@ -88,48 +88,27 @@ if (count _returnTargetPosition >= 3) then {
     ERROR_2("drawAIM: _returnTargetPosition invalid count=%1 val=%2",count _returnTargetPosition,_returnTargetPosition);
 };
 
-// --- Missile height readouts (5m behind missile to reduce label clutter) ---
-// Each marker drawn at the height it represents
-private _labelASL = _projectilePosition vectorAdd (_velocityDirection vectorMultiply -5);
+// --- Missile height readouts (using offsetY to avoid overlap with guidance PFH labels) ---
+private _missileAGL = ASLToAGL _projectilePosition;
 private _terrainASLHere = getTerrainHeightASL _projectilePosition;
-private _missileASL = _projectilePosition#2;
-private _missileATL = _missileASL - _terrainASLHere;
-private _missileAGL = (ASLToAGL _projectilePosition)#2;
-
-// ASL marker (white) — drawn at missile ASL height
-drawIcon3D ["\a3\ui_f\data\IGUI\Cfg\Cursors\selectover_ca.paa", [1,1,1,1],
-    ASLToAGL _labelASL, 0.25, 0.25, 0,
-    format ["ASL: %1m", round _missileASL], 1, 0.022, "TahomaB"];
-
-// ATL marker (yellow) — drawn at missile ATL height above terrain
-// ATL position in ASL = terrainASL + ATL = missileASL, so same physical point
-// Over water terrain is seabed, so ATL differs from AGL
-private _atlDrawASL = _terrainASLHere + _missileATL;
-drawIcon3D ["\a3\ui_f\data\IGUI\Cfg\Cursors\selectover_ca.paa", [1,1,0,1],
-    ASLToAGL [_labelASL#0 + 3, _labelASL#1, _atlDrawASL], 0.25, 0.25, 0,
-    format ["ATL: %1m (ter:%2)", round _missileATL, round _terrainASLHere], 1, 0.022, "TahomaB"];
-
-// AGL marker (green) — drawn at missile AGL height above ground
-// AGL = ATL over land, = ASLW over water (above water surface)
-drawIcon3D ["\a3\ui_f\data\IGUI\Cfg\Cursors\selectover_ca.paa", [0,1,0,1],
-    ASLToAGL [_labelASL#0 - 3, _labelASL#1, _labelASL#2], 0.25, 0.25, 0,
-    format ["AGL: %1m", round _missileAGL], 1, 0.022, "TahomaB"];
-
-// Terrain clearance (green=safe, red=danger)
-private _terrainBelowClamped = _terrainASLHere max 0;
-private _clearance = _missileASL - _terrainBelowClamped;
+private _clearance = _projectilePosition#2 - (_terrainASLHere max 0);
 private _clearanceColor = if (_clearance < _cruiseAltitude * 0.5) then {[1,0,0,1]} else {[0,1,0,1]};
-drawIcon3D ["\a3\ui_f\data\IGUI\Cfg\Cursors\selectover_ca.paa", _clearanceColor,
-    ASLToAGL [_labelASL#0, _labelASL#1, _terrainBelowClamped], 0.25, 0.25, 0,
-    format ["CLR: %1m", round _clearance], 1, 0.022, "TahomaB"];
 
-// Desired altitude marker (magenta) — drawn at the desired cruise height
+drawIcon3D ["", [1,1,1,1], _missileAGL, 0, 0, 0,
+    format ["ASL: %1m", round (_projectilePosition#2)], 1, 0.022, "TahomaB", "center", false, 0, 0.01];
+drawIcon3D ["", [1,1,0,1], _missileAGL, 0, 0, 0,
+    format ["ATL: %1m (ter:%2)", round (_projectilePosition#2 - _terrainASLHere), round _terrainASLHere], 1, 0.022, "TahomaB", "center", false, 0, 0.02];
+drawIcon3D ["", [0,1,0,1], _missileAGL, 0, 0, 0,
+    format ["AGL: %1m", round (_missileAGL#2)], 1, 0.022, "TahomaB", "center", false, 0, 0.03];
+drawIcon3D ["", _clearanceColor, _missileAGL, 0, 0, 0,
+    format ["CLR: %1m", round _clearance], 1, 0.022, "TahomaB", "center", false, 0, 0.04];
+
+// Desired altitude (magenta)
 if (_stage in [STAGE_CRUISE, STAGE_WAYPOINT, STAGE_APPROACH] && {_lastDesiredAltitude > 0}) then {
     private _desiredATL = _lastDesiredAltitude - _terrainASLHere;
     private _desiredAGL = (ASLToAGL [_projectilePosition#0, _projectilePosition#1, _lastDesiredAltitude])#2;
-    drawIcon3D ["\a3\ui_f\data\IGUI\Cfg\Cursors\selectover_ca.paa", [1, 0, 1, 1],
-        ASLToAGL [_projectilePosition#0, _projectilePosition#1, _lastDesiredAltitude], 0.5, 0.5, 0,
-        format ["DES ASL:%1 ATL:%2 AGL:%3", round _lastDesiredAltitude, round _desiredATL, round _desiredAGL], 1, 0.022, "TahomaB"];
+    drawIcon3D ["", [1, 0, 1, 1], _missileAGL, 0, 0, 0,
+        format ["DES ASL:%1 ATL:%2 AGL:%3", round _lastDesiredAltitude, round _desiredATL, round _desiredAGL], 1, 0.022, "TahomaB", "center", false, 0, 0.05];
 };
 
 // Terminal dive line

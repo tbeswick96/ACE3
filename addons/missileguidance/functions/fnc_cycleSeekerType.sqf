@@ -58,6 +58,9 @@ if (_configs isEqualTo []) exitWith {TRACE_1("not explicity enabled",_ammo)};
 private _seekerTypes = getArray (_config >> "seekerTypes");
 if ((count _seekerTypes) <= 1) exitWith {TRACE_1("no choices for seeker type",_seekerTypes)};
 
+// Don't allow manual switching for state-machine seekers
+if ((getArray (_config >> "seekerStates" >> "states")) isNotEqualTo []) exitWith {TRACE_1("seeker state machine active",_ammo)};
+
 // Read from per-ammo hashmap
 private _seekerTypeMap = _vehicle getVariable [QGVAR(seekerTypes), createHashMap];
 private _currentSeekerType = _seekerTypeMap getOrDefault [_ammo, "#undefined"];

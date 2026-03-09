@@ -19,4 +19,5 @@ sqfvm.exe
 ArmaScriptCompiler.exe
 *.sqfc
 target/
+docs/plans/
 !extras/**/*.zip

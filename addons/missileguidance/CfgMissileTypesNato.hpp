@@ -317,12 +317,6 @@ class GVAR(type_CruiseMissile) {
     defaultNavigationType = "Direct";
     navigationTypes[] = { "Direct" };
 
-    seekerAngle = 90;
-    seekerAccuracy = 1;
-
-    seekerMinRange = 5;
-    seekerMaxRange = 25000;
-
     defaultAttackProfile = "cruise_missile";
     attackProfiles[] = { "cruise_missile" };
 };
@@ -510,7 +504,7 @@ class GVAR(type_Paveway) {
 
     // Guidance type for munitions
     defaultSeekerType = "SALH";
-    seekerTypes[] = { "SALH" };
+    seekerTypes[] = { "SALH", "GPS" };
 
     defaultSeekerLockMode = "LOAL";
     seekerLockModes[] = { "LOAL" };
@@ -828,21 +822,4 @@ class GVAR(type_Hellfire_DualMode): GVAR(type_Hellfire) {
     activeRadarEngageDistance = 500;
 };
 
-class GVAR(type_CruiseMissile_LaserTerminal): GVAR(type_CruiseMissile) {
-    // Cruise missile with GPS waypoint following and SALH terminal guidance
-    seekerTypes[] = { "GPS", "SALH" };
 
-    seekLastTargetPos = 1;
-
-    class seekerStates {
-        class cruise {
-            transitionCondition = QFUNC(cruiseMissile_seekerTransition);
-            seekerType = "GPS";
-        };
-        class terminal {
-            transitionCondition = "";
-            seekerType = "SALH";
-        };
-        states[] = {"cruise", "terminal"};
-    };
-};

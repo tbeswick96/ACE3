@@ -117,31 +117,22 @@ class GVAR(cruisePlannerUI) {
 
         class HeightLabel: RscText {
             idc = -1;
-            text = "Height";
+            text = "Height (m)";
             x = QUOTE(22 * GUI_GRID_W + GUI_GRID_CENTER_X);
             y = QUOTE(6.9 * GUI_GRID_H + GUI_GRID_CENTER_Y);
-            w = QUOTE(3 * GUI_GRID_W);
+            w = QUOTE(3.5 * GUI_GRID_W);
             h = QUOTE(GUI_GRID_H);
             colorBackground[] = {0, 0, 0, 0};
         };
         class TgtHeight: RscEdit {
             idc = CRUISE_PLANNER_IDC_TGT_HEIGHT;
             text = "";
-            x = QUOTE(25.2 * GUI_GRID_W + GUI_GRID_CENTER_X);
+            x = QUOTE(25.7 * GUI_GRID_W + GUI_GRID_CENTER_X);
             y = QUOTE(6.9 * GUI_GRID_H + GUI_GRID_CENTER_Y);
             w = QUOTE(3 * GUI_GRID_W);
             h = QUOTE(GUI_GRID_H);
             colorBackground[] = {0, 0, 0, 0.8};
             maxChars = 5;
-        };
-        class HeightUnits: RscText {
-            idc = -1;
-            text = "m";
-            x = QUOTE(28.4 * GUI_GRID_W + GUI_GRID_CENTER_X);
-            y = QUOTE(6.9 * GUI_GRID_H + GUI_GRID_CENTER_Y);
-            w = QUOTE(1 * GUI_GRID_W);
-            h = QUOTE(GUI_GRID_H);
-            colorBackground[] = {0, 0, 0, 0};
         };
 
         class AngleLabel: RscText {

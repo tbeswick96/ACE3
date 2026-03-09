@@ -23,6 +23,7 @@
  */
 
 #define LAUNCH_MIN_DIST 500
+#define LAUNCH_MAX_DESCENT_ANGLE 50
 #define DEFAULT_IMPACT_ANGLE 45
 
 params ["_seekerTargetPosition", "_args", "_attackProfileStateParams", "_timestep"];
@@ -347,6 +348,11 @@ switch (_stage) do {
 
                 // tfAimPoint handles altitude authority (clamps aim distance for pitch control)
                 _returnTargetPosition = [_aimOnLeg, _smoothedAltitude, _projectilePosition, _velocityDirection, _pitchRate, _speed] call FUNC(cruise_missile_tfAimPoint);
+
+                // Clamp descent angle to prevent overly steep dives during transition to waypoint navigation from high alt launch
+                private _wpHorizontalDist = sqrt ((_returnTargetPosition#0 - _projectilePosition#0) * (_returnTargetPosition#0 - _projectilePosition#0) + (_returnTargetPosition#1 - _projectilePosition#1) * (_returnTargetPosition#1 - _projectilePosition#1));
+                private _wpMinAltitude = _projectilePosition#2 - (_wpHorizontalDist * tan LAUNCH_MAX_DESCENT_ANGLE);
+                _returnTargetPosition set [2, (_returnTargetPosition#2) max _wpMinAltitude];
             };
         };
     };
