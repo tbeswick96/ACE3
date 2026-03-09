@@ -13,7 +13,7 @@ if (!hasInterface) exitWith {};
 ["ACE3 Weapons", QGVAR(cycleSeekerType), LLSTRING(CycleSeekerType), {
     [] call FUNC(cycleSeekerType)
 }, {
-}, [DIK_TAB, [true, true, false]], false] call CBA_fnc_addKeybind;  //Ctrl+Shift+Tab Key
+}, [], false] call CBA_fnc_addKeybind;
 
 ["up", {
     [[0, 0, 1], ACE_player] call FUNC(MCLOS_buttonPressed)

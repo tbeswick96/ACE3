@@ -41,7 +41,8 @@ if (isNull (ACE_controlledUAV param [0, objNull])) then {
 
 private _target = _shooter getVariable [QGVAR(target), nil];
 private _targetPos = _shooter getVariable [QGVAR(targetPosition), nil];
-private _seekerType = _shooter getVariable [QGVAR(seekerType), nil];
+private _seekerTypeMap = _configurationSource getVariable [QGVAR(seekerTypes), createHashMap];
+private _seekerType = _seekerTypeMap getOrDefault [_ammo, nil];
 private _attackProfile = _shooter getVariable [QGVAR(attackProfile), nil];
 private _navigationType = _shooter getVariable [QGVAR(navigationType), nil];
 if ((getNumber (_config >> "useModeForAttackProfile")) == 1) then {

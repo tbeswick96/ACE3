@@ -87,11 +87,30 @@ GVAR(pfID) = [{
         if !(_group isEqualType []) then { TRACE_1("Skipping - generator did not return array",_group); continue; };
         if (_group isEqualTo []) then { TRACE_1("Skipping - generator did not return any elements",_group); continue; };
         if ((_group select 0) isEqualType "") then {
+            // Single element: ["TEXT", "hello", [1,1,1]]
             if !([_group] call FUNC(isElementValid)) then { TRACE_1("Skipping - Some element is not valid",_group); continue; };
             _elements pushBack [_group];
         } else {
-            if (-1 != _group findIf { !([_x] call FUNC(isElementValid)) }) then { TRACE_1("Skipping - Some element is not valid",_group); continue; };
-            _elements pushBack _group;
+            if ((_group select 0 select 0) isEqualType "") then {
+                // Group of elements: [["TEXT", ...], ["ICON", ...]]
+                if (-1 != _group findIf { !([_x] call FUNC(isElementValid)) }) then { TRACE_1("Skipping - Some element is not valid",_group); continue; };
+                _elements pushBack _group;
+            } else {
+                // Array of groups: [[["TEXT", ...]], [["TEXT", ...], ["ICON", ...]]]
+                {
+                    private _subGroup = _x;
+                    if (_subGroup isEqualTo []) then { continue };
+                    if ((_subGroup select 0) isEqualType "") then {
+                        if ([_subGroup] call FUNC(isElementValid)) then {
+                            _elements pushBack [_subGroup];
+                        };
+                    } else {
+                        if (-1 == _subGroup findIf { !([_x] call FUNC(isElementValid)) }) then {
+                            _elements pushBack _subGroup;
+                        };
+                    };
+                } forEach _group;
+            };
         };
     } forEach _generators;
 

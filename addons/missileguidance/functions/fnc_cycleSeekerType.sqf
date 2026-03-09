@@ -1,7 +1,8 @@
 #include "..\script_component.hpp"
 /*
  * Author: UKSF
- * Cycles seeker type for any missileGuidance enabled ammo that has multiple seeker types
+ * Cycles seeker type for any missileGuidance enabled ammo that has multiple seeker types.
+ * Stores selection per-ammo in the vehicle's seeker type hashmap.
  *
  * Arguments:
  * None
@@ -20,30 +21,29 @@ TRACE_1("cycle seeker type",_this);
 if (!alive ACE_player) exitWith {};
 if !([ACE_player, objNull, ["isNotInside"]] call EFUNC(common,canInteractWith)) exitWith {};
 
-
-private _currentShooter = objNull;
+private _vehicle = objNull;
 private _currentMagazine = "";
 private _turretPath = [];
 if (isNull (ACE_controlledUAV param [0, objNull])) then {
     if ((isNull objectParent ACE_player) || {ACE_player call CBA_fnc_canUseWeapon}) then {
-        _currentShooter = ACE_player;
+        _vehicle = ACE_player;
         _currentMagazine = currentMagazine ACE_player;
     } else {
-        _currentShooter = vehicle ACE_player;
-        _turretPath = _currentShooter unitTurret ACE_player;
-        _currentMagazine = _currentShooter currentMagazineTurret _turretPath;
+        _vehicle = vehicle ACE_player;
+        _turretPath = _vehicle unitTurret ACE_player;
+        _currentMagazine = _vehicle currentMagazineTurret _turretPath;
     };
 } else {
-    _currentShooter = ACE_controlledUAV select 0;
+    _vehicle = ACE_controlledUAV select 0;
     _turretPath = ACE_controlledUAV select 2;
-    _currentMagazine = _currentShooter currentMagazineTurret _turretPath;
+    _currentMagazine = _vehicle currentMagazineTurret _turretPath;
 };
 
 if (_currentMagazine == "") exitWith {TRACE_1("no magazine",_currentMagazine)};
 
 private _ammo = getText (configFile >> "CfgMagazines" >> _currentMagazine >> "ammo");
 
-TRACE_3("",_currentShooter,_currentMagazine,_ammo);
+TRACE_3("",_vehicle,_currentMagazine,_ammo);
 
 private _configAmmo = configFile >> "CfgAmmo" >> _ammo;
 private _config = _configAmmo >> QUOTE(ADDON);
@@ -58,7 +58,9 @@ if (_configs isEqualTo []) exitWith {TRACE_1("not explicity enabled",_ammo)};
 private _seekerTypes = getArray (_config >> "seekerTypes");
 if ((count _seekerTypes) <= 1) exitWith {TRACE_1("no choices for seeker type",_seekerTypes)};
 
-private _currentSeekerType = _currentShooter getVariable [QGVAR(seekerType), "#undefined"];
+// Read from per-ammo hashmap
+private _seekerTypeMap = _vehicle getVariable [QGVAR(seekerTypes), createHashMap];
+private _currentSeekerType = _seekerTypeMap getOrDefault [_ammo, "#undefined"];
 
 // Just like onFired, this is case sensitive!
 private _index = _seekerTypes find _currentSeekerType;
@@ -69,8 +71,10 @@ _index = (_index + 1) % (count _seekerTypes);
 private _nextSeekerType = _seekerTypes select _index;
 TRACE_4("",_currentSeekerType,_nextSeekerType,_index,_seekerTypes);
 
-TRACE_2("setVariable seekerType",_currentShooter,_nextSeekerType);
-_currentShooter setVariable [QGVAR(seekerType), _nextSeekerType, false];
+// Write to per-ammo hashmap
+_seekerTypeMap set [_ammo, _nextSeekerType];
+_vehicle setVariable [QGVAR(seekerTypes), _seekerTypeMap, false];
+TRACE_2("setVariable seekerTypes",_vehicle,_nextSeekerType);
 
 playSound "ACE_Sound_Click";
 

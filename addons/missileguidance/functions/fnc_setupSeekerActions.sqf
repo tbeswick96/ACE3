@@ -2,7 +2,7 @@
 /*
  * Author: UKSF
  * Adds ACE interaction menu actions for seeker type selection.
- * Scans turret magazines for guided ammo with multiple seeker types and creates child actions for each.
+ * Uses dynamic children filtered to the current weapon's ammo, storing selection per-ammo in a hashmap.
  *
  * Arguments:
  * 0: Player <OBJECT>
@@ -30,8 +30,8 @@ private _turretPath = _vehicle unitTurret _player;
 private _cfgMagazines = configFile >> "CfgMagazines";
 private _cfgAmmo = configFile >> "CfgAmmo";
 
-// Collect all unique seeker types from magazines on this turret that have multiple seekers
-private _allSeekerTypes = [];
+// Check if any magazine on this turret has multiple seeker types
+private _hasMultipleSeekers = false;
 {
     private _ammo = getText (_cfgMagazines >> _x >> "ammo");
     private _config = _cfgAmmo >> _ammo >> QUOTE(ADDON);
@@ -39,55 +39,92 @@ private _allSeekerTypes = [];
     if ((getNumber (_config >> "enabled")) != 1) then { continue };
 
     private _seekerTypes = getArray (_config >> "seekerTypes");
-    if (count _seekerTypes <= 1) then { continue };
-
-    {
-        _allSeekerTypes pushBackUnique _x;
-    } forEach _seekerTypes;
+    if (count _seekerTypes > 1) exitWith { _hasMultipleSeekers = true };
 } forEach (_vehicle magazinesTurret _turretPath);
 
-if (_allSeekerTypes isEqualTo []) exitWith {};
+if (!_hasMultipleSeekers) exitWith {};
 
 _vehicle setVariable [QGVAR(seekerActionsAdded), true];
-TRACE_2("adding seeker type actions",_vehicle,_allSeekerTypes);
+TRACE_1("adding seeker type actions",_vehicle);
 
-// Parent action
-private _parentAction = [QGVAR(seekerTypeAction), LLSTRING(SeekerTypeAction), "", {}, {true}] call EFUNC(interact_menu,createAction);
-private _basePath = [_vehicle, 1, ["ACE_SelfActions"], _parentAction] call EFUNC(interact_menu,addActionToObject);
-
-// Statement for child actions
-private _fnc_statement = {
-    params ["_target", "", "_seekerType"];
-    TRACE_2("seeker type selected",_target,_seekerType);
-
-    _target setVariable [QGVAR(seekerType), _seekerType, false];
-
-    playSound "ACE_Sound_Click";
-
-    private _localisedName = getText (configFile >> QGVAR(SeekerTypes) >> _seekerType >> "name");
-    if (_localisedName == "") then {
-        _localisedName = _seekerType;
-    };
-    [_localisedName] call EFUNC(common,displayTextStructured);
+// Initialise the per-ammo seeker type hashmap if not already present
+if (isNil { _vehicle getVariable QGVAR(seekerTypes) }) then {
+    _vehicle setVariable [QGVAR(seekerTypes), createHashMap, false];
 };
 
-// Condition for child actions
-private _fnc_condition = {
-    params ["_target", "", "_seekerType"];
+// Parent action with dynamic children
+private _parentAction = [
+    QGVAR(seekerTypeAction),
+    LLSTRING(SeekerTypeAction),
+    "",
+    {},
+    { true },
+    {
+        params ["_target", "_player"];
 
-    (_target getVariable [QGVAR(seekerType), "#undefined"]) != _seekerType
-};
+        private _turretPath = _target unitTurret _player;
+        private _currentMagazine = _target currentMagazineTurret _turretPath;
+        if (_currentMagazine == "") exitWith { [] };
 
-// Create a child action for each unique seeker type
-{
-    private _seekerType = _x;
-    private _localisedName = getText (configFile >> QGVAR(SeekerTypes) >> _seekerType >> "name");
-    if (_localisedName == "") then {
-        _localisedName = _seekerType;
-    };
+        private _ammo = getText (configFile >> "CfgMagazines" >> _currentMagazine >> "ammo");
+        private _config = configFile >> "CfgAmmo" >> _ammo >> QUOTE(ADDON);
 
-    private _action = [format [QGVAR(seekerType_%1), _seekerType], _localisedName, "", _fnc_statement, _fnc_condition, {}, _seekerType] call EFUNC(interact_menu,createAction);
-    [_vehicle, 1, _basePath, _action] call EFUNC(interact_menu,addActionToObject);
-} forEach _allSeekerTypes;
+        if ((getNumber (_config >> "enabled")) != 1) exitWith { [] };
+
+        private _seekerTypes = getArray (_config >> "seekerTypes");
+        if (count _seekerTypes <= 1) exitWith { [] };
+
+        // Get the seeker type hashmap
+        private _seekerTypeMap = _target getVariable [QGVAR(seekerTypes), createHashMap];
+        private _currentSeekerType = _seekerTypeMap getOrDefault [_ammo, ""];
+
+        private _actions = [];
+        {
+            private _seekerType = _x;
+
+            // Skip if already selected for this ammo
+            if (_seekerType == _currentSeekerType) then { continue };
+
+            private _localisedName = getText (configFile >> QGVAR(SeekerTypes) >> _seekerType >> "name");
+            if (_localisedName == "") then {
+                _localisedName = _seekerType;
+            };
+
+            private _action = [
+                format [QGVAR(seekerType_%1), _seekerType],
+                _localisedName,
+                "",
+                {
+                    params ["_target", "_player", "_seekerType"];
+                    TRACE_2("seeker type selected",_target,_seekerType);
+
+                    private _turretPath = _target unitTurret _player;
+                    private _currentMagazine = _target currentMagazineTurret _turretPath;
+                    private _ammo = getText (configFile >> "CfgMagazines" >> _currentMagazine >> "ammo");
+
+                    private _seekerTypeMap = _target getVariable [QGVAR(seekerTypes), createHashMap];
+                    _seekerTypeMap set [_ammo, _seekerType];
+                    _target setVariable [QGVAR(seekerTypes), _seekerTypeMap, false];
+
+                    playSound "ACE_Sound_Click";
+
+                    private _localisedName = getText (configFile >> QGVAR(SeekerTypes) >> _seekerType >> "name");
+                    if (_localisedName == "") then {
+                        _localisedName = _seekerType;
+                    };
+                    [_localisedName] call EFUNC(common,displayTextStructured);
+                },
+                { true },
+                {},
+                _seekerType
+            ] call EFUNC(interact_menu,createAction);
+            _actions pushBack [_action, [], _target];
+        } forEach _seekerTypes;
+
+        _actions
+    }
+] call EFUNC(interact_menu,createAction);
+
+[_vehicle, 1, ["ACE_SelfActions"], _parentAction] call EFUNC(interact_menu,addActionToObject);
 
 TRACE_2("seeker type interactions added",_vehicle,typeOf _vehicle);
