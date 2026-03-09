@@ -2,7 +2,7 @@
 #define COMPONENT_BEAUTIFIED Laser
 #include "\z\ace\addons\main\script_mod.hpp"
 
-#define DRAW_LASER_INFO
+// #define DRAW_LASER_INFO
 // #define DEBUG_MODE_FULL
 // #define DISABLE_COMPILE_CACHE
 // #define ENABLE_PERFORMANCE_COUNTERS
