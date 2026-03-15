@@ -55,6 +55,10 @@ private _linePosition = [
     getNumber (GVAR(config_line) >> "y") + GVAR(lineHeight)
 ];
 
+if (_adjustDown) then {
+    _linePosition set [1, (_linePosition select 1) + GVAR(lineHeight)];
+};
+
 GVAR(pfID) = [{
     params ["_args", "_pfID"];
     _args params ["_generators", "_adjustDown", "_player", "_vehicle", "_weapon", "_basePosition"];
@@ -63,10 +67,6 @@ GVAR(pfID) = [{
     if (isNull (uiNamespace getVariable [QGVAR(display), displayNull])) then {
         TRACE_1("creating display",_this);
         ([QGVAR(infoDisplay)] call BIS_fnc_rscLayer) cutRsc [QGVAR(infoDisplay), "PLAIN", 1, false];
-        if (_adjustDown) then {
-            _basePosition set [1, (_basePosition select 1) + GVAR(lineHeight)];
-            _args set [5, _basePosition];
-        };
     };
     private _display = uiNamespace getVariable [QGVAR(display), displayNull];
     if (isNull _display) exitWith {
