@@ -28,9 +28,6 @@
             <Hungarian>Rakéta - Tüzelési mód váltása</Hungarian>
             <Ukrainian>Ракета - Перемикання режимів вогню</Ukrainian>
         </Key>
-        <Key ID="STR_ACE_MissileGuidance_CycleSeekerType">
-            <English>Missile - Cycle Seeker Type</English>
-        </Key>
         <Key ID="STR_ACE_MissileGuidance_Desc">
             <English>Advanced missile guidance, or AMG, provides multiple enhancements to missile locking and firing. It is also a framework required for missile weapon types.</English>
             <Czech>Pokočilé navádění raket (AMG) poskytuje několik vylepšení pro lepší zaměření a následnou střelbu. Je to prvek vyžadovaný u typu zbraní jako jsou rakety.</Czech>
@@ -137,10 +134,6 @@
             <Japanese>PP</Japanese>
             <Ukrainian>PP</Ukrainian>
         </Key>
-        <Key ID="STR_ACE_MissileGuidance_GPS_ui_pp_tooltip">
-            <English>Ordnance will guide to the provided 10 digit grid coordinates</English>
-            <Japanese>兵装は指定された10桁のグリッド座標に誘導されます</Japanese>
-        </Key>
         <Key ID="STR_ACE_MissileGuidance_GPS_ui_too">
             <English>TARGET OF OPPORTUNITY</English>
             <French>CIBLE D'OPPORTUNITÉ</French>
@@ -151,10 +144,6 @@
             <Korean>기회 표적</Korean>
             <Japanese>臨機目標 (TOO)</Japanese>
             <Ukrainian>ЦІЛЬ ЩО ПІДВЕРНУЛАСЯ</Ukrainian>
-        </Key>
-        <Key ID="STR_ACE_MissileGuidance_GPS_ui_too_tooltip">
-            <English>Ordnance will guide to the location the targeting camera is looking at</English>
-            <Japanese>兵装はターゲティングカメラで見ている場所へ誘導されます</Japanese>
         </Key>
         <Key ID="STR_ACE_MissileGuidance_Hellfire_AGM114K">
             <English>Hellfire II AGM-114K Missile</English>
@@ -351,9 +340,6 @@
             <Hungarian>Csak játékosok</Hungarian>
             <Ukrainian>Тільки гравець</Ukrainian>
         </Key>
-        <Key ID="STR_ACE_MissileGuidance_SeekerTypeAction">
-            <English>Set Seeker Type</English>
-        </Key>
         <Key ID="STR_ACE_MissileGuidance_Title">
             <English>Advanced Missile Guidance</English>
             <Czech>Pokročilé řízení střel</Czech>
@@ -480,6 +466,16 @@
             <Korean>미사일 - 위</Korean>
             <Japanese>ミサイル - 上</Japanese>
             <Ukrainian>Ракета - Вгору</Ukrainian>
+        </Key>
+        <Key ID="STR_ACE_MissileGuidance_GPS_ui_too_tooltip">
+            <English>Ordnance will guide to the location the targeting camera is looking at</English>
+            <Japanese>兵装はターゲティングカメラで見ている場所へ誘導されます</Japanese>
+            <Russian>Боеприпас будет направлен в то место, на которое смотрит камера наведения</Russian>
+        </Key>
+        <Key ID="STR_ACE_MissileGuidance_GPS_ui_pp_tooltip">
+            <English>Ordnance will guide to the provided 10 digit grid coordinates</English>
+            <Japanese>兵装は指定された10桁のグリッド座標に誘導されます</Japanese>
+            <Russian>Боеприпас будет ориентироваться на предоставленные 10-значные координаты в сетке</Russian>
         </Key>
     </Package>
 </Project>
