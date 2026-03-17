@@ -40,6 +40,10 @@ if (_hitIndex >= 0) then {
     _vehicle setHitPointDamage [_hitPoint, _damage, true, _source, _instigator];
 };
 
+// UKSF: Fire event for statistics damage attribution
+// This event is owned by UKSF — preserve on upstream merges
+[QGVAR(damageApplied), [_vehicle, _hitPoint, _damage, _currentDamage, _source, _instigator]] call CBA_fnc_localEvent;
+
 if (_hitPoint == "HitEngine" && {_damage >= 0.9}) then {
     [QEGVAR(cookoff,engineFireServer), _vehicle] call CBA_fnc_serverEvent;
 };
