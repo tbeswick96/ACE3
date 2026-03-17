@@ -32,6 +32,7 @@ if (_damage < _currentDamage) exitWith {
 if (_hitPoint == "#structural") then {
     _hitPoint = "hithull";
     _hitIndex = -1;
+    _currentDamage = _vehicle getHitPointDamage _hitPoint;
 };
 
 if (_hitIndex >= 0) then {
