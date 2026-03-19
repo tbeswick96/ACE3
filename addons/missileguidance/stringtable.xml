@@ -12,6 +12,9 @@
         </Key>
         <Key ID="STR_ACE_MissileGuidance_CycleFireMode">
             <English>Missile - Cycle Fire Mode</English>
+        </Key>
+        <Key ID="STR_ACE_MissileGuidance_CycleSeekerType">
+            <English>Missile - Cycle Seeker Type</English>
             <Czech>Střela - Přepínání režimů palby</Czech>
             <French>Missile - Changer le mode de tir</French>
             <Spanish>Misil - Cambiar modo de disparo</Spanish>
@@ -349,6 +352,9 @@
             <Turkish>Sadece Oyuncular</Turkish>
             <Hungarian>Csak játékosok</Hungarian>
             <Ukrainian>Тільки гравець</Ukrainian>
+        </Key>
+        <Key ID="STR_ACE_MissileGuidance_SeekerTypeAction">
+            <English>Seeker Type</English>
         </Key>
         <Key ID="STR_ACE_MissileGuidance_Title">
             <English>Advanced Missile Guidance</English>
