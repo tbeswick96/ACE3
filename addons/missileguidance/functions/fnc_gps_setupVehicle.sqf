@@ -26,17 +26,17 @@ private _condition = {
     
     private _operator = if (isNull (ACE_controlledUAV select 0)) then {ACE_player} else {ACE_controlledUAV select 1};
     private _turretPath = _target unitTurret _operator;
-    private _hasJDAM = (_target weaponsTurret _turretPath) findIf {
+    private _hasGPS = (_target weaponsTurret _turretPath) findIf {
         private _weapon = _x;
         GVAR(gps_weapons) getOrDefaultCall [_weapon, {
             (getArray (configFile >> "CfgWeapons" >> _weapon >> "magazines")) findIf {
                 private _ammo = getText (configFile >> "CfgMagazines" >> _x >> "ammo");
-                private _ammoAttackProfiles = getArray (configFile >> "CfgAmmo" >> _ammo >> QUOTE(ADDON) >> "attackProfiles");
-                "JDAM" in _ammoAttackProfiles
+                private _seekerTypes = getArray (configFile >> "CfgAmmo" >> _ammo >> QUOTE(ADDON) >> "seekerTypes");
+                "GPS" in _seekerTypes
             } > -1
         }, true]
     } > -1;
-    _hasJDAM
+    _hasGPS
 };
 
 private _statement = {
