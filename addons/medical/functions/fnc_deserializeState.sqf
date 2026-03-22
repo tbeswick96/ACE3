@@ -56,26 +56,6 @@ private _state = [_json] call CBA_fnc_parseJSON;
     };
 } forEach [VAR_OPEN_WOUNDS, VAR_BANDAGED_WOUNDS, VAR_STITCHED_WOUNDS];
 
-// Convert wound entries from hashmaps back to positional arrays for the ACE engine
-private _convertWoundsBack = {
-    params ["_wounds"];
-    if (_wounds isEqualTo createHashMap) exitWith { _wounds };
-    private _result = createHashMap;
-    {
-        _result set [_x, (_wounds get _x) apply {
-            if (_x isEqualType createHashMap) then {
-                [_x getOrDefault ["classComplex", 0], _x getOrDefault ["amountOf", 0],
-                 _x getOrDefault ["bleedingRate", 0], _x getOrDefault ["woundDamage", 0]]
-            } else { _x }
-        }]
-    } forEach keys _wounds;
-    _result
-};
-{
-    private _wounds = _state getVariable [_x, createHashMap];
-    _state setVariable [_x, [_wounds] call _convertWoundsBack];
-} forEach [VAR_OPEN_WOUNDS, VAR_BANDAGED_WOUNDS, VAR_STITCHED_WOUNDS];
-
 // Set medical variables
 {
     _x params ["_var", "_default"];
@@ -126,14 +106,6 @@ _unit setVariable [QEGVAR(medical,lastWakeUpCheck), nil];
 
 // Convert medications offset to time
 private _medications = _state getVariable [VAR_MEDICATIONS, []];
-_medications = _medications apply {
-    if (_x isEqualType createHashMap) then {
-        [_x getOrDefault ["medication", ""], _x getOrDefault ["timeOffset", 0],
-         _x getOrDefault ["timeToMaxEffect", 0], _x getOrDefault ["maxTimeInSystem", 0],
-         _x getOrDefault ["hrAdjust", 0], _x getOrDefault ["painAdjust", 0],
-         _x getOrDefault ["flowAdjust", 0], _x getOrDefault ["dose", 0]]
-    } else { _x }
-};
 {
     _x set [1, _x#1 + CBA_missionTime];
 } forEach _medications;
@@ -153,51 +125,8 @@ if (_currentState in ["Unconscious", "CardiacArrest"] && {_targetState in ["Defa
     [_unit, false] call EFUNC(medical_status,setUnconsciousState);
 };
 
-// Convert triage card entries from hashmaps back to positional arrays
-private _triageCard = _unit getVariable [QEGVAR(medical,triageCard), []];
-_triageCard = _triageCard apply {
-    if (_x isEqualType createHashMap) then {
-        [_x getOrDefault ["item", ""], _x getOrDefault ["count", 0], _x getOrDefault ["timestamp", 0]]
-    } else { _x }
-};
-_unit setVariable [QEGVAR(medical,triageCard), _triageCard, true];
-
-// Convert occluded medications entries from hashmaps back to positional arrays
-private _occludedMeds = _unit getVariable [QEGVAR(medical,occludedMedications), nil];
-if (!isNil "_occludedMeds") then {
-    _occludedMeds = _occludedMeds apply {
-        if (_x isEqualTo [] || !(_x isEqualType createHashMap)) then { _x } else {
-            [_x getOrDefault ["partIndex", 0], _x getOrDefault ["className", ""]]
-        }
-    };
-    _unit setVariable [QEGVAR(medical,occludedMedications), _occludedMeds, true];
-};
-
-// Convert IV bag entries from hashmaps back to positional arrays
-private _ivBags = _unit getVariable [QEGVAR(medical,ivBags), nil];
-if (!isNil "_ivBags") then {
-    _ivBags = _ivBags apply {
-        if (_x isEqualType createHashMap) then {
-            [_x getOrDefault ["volume", 0], _x getOrDefault ["type", ""],
-             _x getOrDefault ["partIndex", 0], _x getOrDefault ["treatment", ""],
-             _x getOrDefault ["rateCoef", 1], _x getOrDefault ["item", ""]]
-        } else { _x }
-    };
-    _unit setVariable [QEGVAR(medical,ivBags), _ivBags, true];
-};
-
 // Set logs, 1s later due to logs being wiped on unit init
 private _logs = _state getVariable [QGVAR(logs), []];
-_logs = _logs apply {
-    if (_x isEqualType createHashMap) then {
-        [_x getOrDefault ["logType", ""], (_x getOrDefault ["entries", []]) apply {
-            if (_x isEqualType createHashMap) then {
-                [_x getOrDefault ["message", ""], _x getOrDefault ["timestamp", ""],
-                 _x getOrDefault ["arguments", []], _x getOrDefault ["logType", ""]]
-            } else { _x }
-        }]
-    } else { _x }
-};
 [{
     params ["_unit", "_logs"];
 
