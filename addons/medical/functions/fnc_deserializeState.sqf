@@ -60,25 +60,13 @@ private _state = [_json] call CBA_fnc_parseJSON;
 private _convertWoundsBack = {
     params ["_wounds"];
     if (_wounds isEqualTo createHashMap) exitWith { _wounds };
-    // CBA_fnc_parseJSON returns nested CBA_namespaces (Location type), not HashMaps
-    if (typeName _wounds == "LOCATION") then {
-        private _woundKeys = allVariables _wounds;
-        private _woundValues = _woundKeys apply {_wounds getVariable _x};
-        _wounds = _woundKeys createHashMapFromArray _woundValues;
-    };
     private _result = createHashMap;
     {
         _result set [_x, (_wounds get _x) apply {
-            private _wound = _x;
-            if (typeName _wound == "LOCATION") then {
-                private _woundKeys = allVariables _wound;
-                private _woundValues = _woundKeys apply {_wound getVariable _x};
-                _wound = _woundKeys createHashMapFromArray _woundValues;
-            };
-            if (_wound isEqualType createHashMap) then {
-                [_wound getOrDefault ["classComplex", 0], _wound getOrDefault ["amountOf", 0],
-                 _wound getOrDefault ["bleedingRate", 0], _wound getOrDefault ["woundDamage", 0]]
-            } else { _wound }
+            if (_x isEqualType createHashMap) then {
+                [_x getOrDefault ["classComplex", 0], _x getOrDefault ["amountOf", 0],
+                 _x getOrDefault ["bleedingRate", 0], _x getOrDefault ["woundDamage", 0]]
+            } else { _x }
         }]
     } forEach keys _wounds;
     _result
