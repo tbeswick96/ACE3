@@ -16,7 +16,6 @@ class CfgPatches {
 class RscText;
 class RscEdit;
 class RscButton;
-class RscCombo;
 class RscPicture;
 
 #include "ACE_GuidanceConfig.hpp"
