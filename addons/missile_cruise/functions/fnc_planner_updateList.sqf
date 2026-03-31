@@ -1,5 +1,4 @@
 #include "..\script_component.hpp"
-#include "..\cruise_defines.hpp"
 /*
  * Author: UKSF
  * Refreshes the waypoint listbox display with target, approach WP, and user waypoints.

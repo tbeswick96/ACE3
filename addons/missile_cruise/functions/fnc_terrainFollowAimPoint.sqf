@@ -1,5 +1,4 @@
 #include "..\script_component.hpp"
-#include "..\cruise_defines.hpp"
 /*
  * Author: UKSF
  * Compute terrain-following aim point for cruise missile guidance.

@@ -1,5 +1,4 @@
 #include "..\script_component.hpp"
-#include "..\cruise_defines.hpp"
 /*
  * Author: UKSF
  * Terrain-following altitude computer for cruise missile guidance.

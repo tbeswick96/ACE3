@@ -1,5 +1,4 @@
 #include "..\script_component.hpp"
-#include "..\cruise_defines.hpp"
 /*
  * Author: UKSF
  * Cruise missile APPROACH stage.
