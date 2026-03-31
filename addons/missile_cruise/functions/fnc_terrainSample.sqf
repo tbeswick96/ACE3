@@ -54,7 +54,7 @@ private _crossProduct = (_horizontalCurrent#0 * _horizontalAim#1) - (_horizontal
 private _turnSign = if (_crossProduct >= 0) then {1} else {-1};
 
 // Physics-based lookahead: distance needed to climb cruiseAltitude using a pull-up arc
-// at 90% max pitch rate, plus margin for smoothing/response delay.
+// at 80% max pitch rate, plus margin for smoothing/response delay.
 // Arc model: to climb H with pitch radius R, angle θ = acos(1 - H/R), horizontal = R * sin(θ)
 private _pitchRateEffective = _pitchRate * RATE_USAGE;
 private _pitchRadius = if (_pitchRateEffective > 0.1) then {

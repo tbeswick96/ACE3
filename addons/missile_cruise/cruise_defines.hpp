@@ -7,7 +7,7 @@
 #define STAGE_TERMINAL  6
 
 // Shared physics parameters
-#define RATE_USAGE      0.9
+#define RATE_USAGE      0.8
 #define RESPONSE_TIME   1
 
 // Approach waypoint distance from target (meters)

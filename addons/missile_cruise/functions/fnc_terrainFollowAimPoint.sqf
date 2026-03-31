@@ -41,7 +41,7 @@ private _navigationDirection = [_navTarget#0 - _projectilePosition#0, _navTarget
 private _navigationDistance = vectorMagnitude _navigationDirection;
 private _navigationDirectionNormalized = if (_navigationDistance > 0.1) then {_navigationDirection vectorMultiply (1 / _navigationDistance)} else {_velocityDirection};
 
-// Pitch radius at 90% max rate: R = speed / angular_velocity
+// Pitch radius at 80% max rate: R = speed / angular_velocity
 private _pitchRateEffective = _pitchRate * RATE_USAGE;
 private _pitchRadius = if (_pitchRateEffective > 0.1) then {
     _speed / (_pitchRateEffective * (pi / 180))
@@ -51,7 +51,7 @@ private _pitchRadius = if (_pitchRateEffective > 0.1) then {
 
 // Lead = reaction distance + pitch arc for altitude error
 // Reaction: missile continues straight during control surface response lag
-// Arc: horizontal distance of pitch manoeuvre at 90% rate
+// Arc: horizontal distance of pitch manoeuvre at 80% rate
 private _reactionDistance = _speed * RESPONSE_TIME;
 private _altitudeError = abs (_desiredAltitude - _projectilePosition#2);
 private _climbRatio = (_altitudeError / _pitchRadius) min 1;

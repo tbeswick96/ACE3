@@ -82,7 +82,7 @@ if (!_hasAttackDirection) then {
 private _attackDirectionVector = [1, _attackDirection, 0] call CBA_fnc_polar2vect;
 private _attackDirectionVectorReverse = _attackDirectionVector vectorMultiply -1;
 
-// Physics-based turn radii at 90% max rate
+// Physics-based turn radii at 80% max rate
 private _yawRateEffective = _yawRate * RATE_USAGE;
 private _pitchRateEffective = _pitchRate * RATE_USAGE;
 private _yawRadius = if (_yawRateEffective > 0.1) then {
