@@ -49,7 +49,7 @@ class GVAR(cruisePlannerUI) {
             x = QUOTE(3 * GUI_GRID_W + GUI_GRID_CENTER_X);
             y = QUOTE(4.1 * GUI_GRID_H + GUI_GRID_CENTER_Y);
             w = QUOTE(34 * GUI_GRID_W);
-            h = QUOTE(16 * GUI_GRID_H);
+            h = QUOTE(17.2 * GUI_GRID_H);
             colorBackground[] = {0, 0, 0, 0.8};
         };
     };
@@ -76,11 +76,47 @@ class GVAR(cruisePlannerUI) {
             style = 2;
         };
 
+        // Target cycling controls
+        class TgtPrev: RscButton {
+            idc = CRUISE_PLANNER_IDC_TGT_PREV;
+            text = "<<";
+            onButtonClick = QUOTE([-1] call FUNC(planner_cycleTarget));
+            x = QUOTE(22 * GUI_GRID_W + GUI_GRID_CENTER_X);
+            y = QUOTE(5.7 * GUI_GRID_H + GUI_GRID_CENTER_Y);
+            w = QUOTE(2 * GUI_GRID_W);
+            h = QUOTE(GUI_GRID_H);
+            colorActive[] = {0, 0, 0, 1};
+            colorBackground[] = {0, 0, 0, 0.8};
+            colorFocused[] = {0, 0, 0, 0.8};
+        };
+        class TgtLabel: RscText {
+            idc = CRUISE_PLANNER_IDC_TGT_LABEL;
+            text = "TGT 1";
+            x = QUOTE(24.2 * GUI_GRID_W + GUI_GRID_CENTER_X);
+            y = QUOTE(5.7 * GUI_GRID_H + GUI_GRID_CENTER_Y);
+            w = QUOTE(3 * GUI_GRID_W);
+            h = QUOTE(GUI_GRID_H);
+            colorBackground[] = {0, 0, 0, 1};
+            style = 2;
+        };
+        class TgtNext: RscButton {
+            idc = CRUISE_PLANNER_IDC_TGT_NEXT;
+            text = ">>";
+            onButtonClick = QUOTE([1] call FUNC(planner_cycleTarget));
+            x = QUOTE(27.4 * GUI_GRID_W + GUI_GRID_CENTER_X);
+            y = QUOTE(5.7 * GUI_GRID_H + GUI_GRID_CENTER_Y);
+            w = QUOTE(2 * GUI_GRID_W);
+            h = QUOTE(GUI_GRID_H);
+            colorActive[] = {0, 0, 0, 1};
+            colorBackground[] = {0, 0, 0, 0.8};
+            colorFocused[] = {0, 0, 0, 0.8};
+        };
+
         class EastingLabel: RscText {
             idc = -1;
             text = "Easting";
             x = QUOTE(22 * GUI_GRID_W + GUI_GRID_CENTER_X);
-            y = QUOTE(5.7 * GUI_GRID_H + GUI_GRID_CENTER_Y);
+            y = QUOTE(6.9 * GUI_GRID_H + GUI_GRID_CENTER_Y);
             w = QUOTE(3 * GUI_GRID_W);
             h = QUOTE(GUI_GRID_H);
             colorBackground[] = {0, 0, 0, 0};
@@ -89,7 +125,7 @@ class GVAR(cruisePlannerUI) {
             idc = CRUISE_PLANNER_IDC_TGT_EASTING;
             text = "";
             x = QUOTE(25.2 * GUI_GRID_W + GUI_GRID_CENTER_X);
-            y = QUOTE(5.7 * GUI_GRID_H + GUI_GRID_CENTER_Y);
+            y = QUOTE(6.9 * GUI_GRID_H + GUI_GRID_CENTER_Y);
             w = QUOTE(3 * GUI_GRID_W);
             h = QUOTE(GUI_GRID_H);
             colorBackground[] = {0, 0, 0, 0.8};
@@ -99,7 +135,7 @@ class GVAR(cruisePlannerUI) {
             idc = -1;
             text = "Northing";
             x = QUOTE(29 * GUI_GRID_W + GUI_GRID_CENTER_X);
-            y = QUOTE(5.7 * GUI_GRID_H + GUI_GRID_CENTER_Y);
+            y = QUOTE(6.9 * GUI_GRID_H + GUI_GRID_CENTER_Y);
             w = QUOTE(3.5 * GUI_GRID_W);
             h = QUOTE(GUI_GRID_H);
             colorBackground[] = {0, 0, 0, 0};
@@ -108,7 +144,7 @@ class GVAR(cruisePlannerUI) {
             idc = CRUISE_PLANNER_IDC_TGT_NORTHING;
             text = "";
             x = QUOTE(32.7 * GUI_GRID_W + GUI_GRID_CENTER_X);
-            y = QUOTE(5.7 * GUI_GRID_H + GUI_GRID_CENTER_Y);
+            y = QUOTE(6.9 * GUI_GRID_H + GUI_GRID_CENTER_Y);
             w = QUOTE(3 * GUI_GRID_W);
             h = QUOTE(GUI_GRID_H);
             colorBackground[] = {0, 0, 0, 0.8};
@@ -119,7 +155,7 @@ class GVAR(cruisePlannerUI) {
             idc = -1;
             text = "Height (m)";
             x = QUOTE(22 * GUI_GRID_W + GUI_GRID_CENTER_X);
-            y = QUOTE(6.9 * GUI_GRID_H + GUI_GRID_CENTER_Y);
+            y = QUOTE(8.1 * GUI_GRID_H + GUI_GRID_CENTER_Y);
             w = QUOTE(3.5 * GUI_GRID_W);
             h = QUOTE(GUI_GRID_H);
             colorBackground[] = {0, 0, 0, 0};
@@ -128,7 +164,7 @@ class GVAR(cruisePlannerUI) {
             idc = CRUISE_PLANNER_IDC_TGT_HEIGHT;
             text = "";
             x = QUOTE(25.7 * GUI_GRID_W + GUI_GRID_CENTER_X);
-            y = QUOTE(6.9 * GUI_GRID_H + GUI_GRID_CENTER_Y);
+            y = QUOTE(8.1 * GUI_GRID_H + GUI_GRID_CENTER_Y);
             w = QUOTE(3 * GUI_GRID_W);
             h = QUOTE(GUI_GRID_H);
             colorBackground[] = {0, 0, 0, 0.8};
@@ -139,7 +175,7 @@ class GVAR(cruisePlannerUI) {
             idc = -1;
             text = "Impact Angle";
             x = QUOTE(29 * GUI_GRID_W + GUI_GRID_CENTER_X);
-            y = QUOTE(6.9 * GUI_GRID_H + GUI_GRID_CENTER_Y);
+            y = QUOTE(8.1 * GUI_GRID_H + GUI_GRID_CENTER_Y);
             w = QUOTE(4.5 * GUI_GRID_W);
             h = QUOTE(GUI_GRID_H);
             colorBackground[] = {0, 0, 0, 0};
@@ -148,7 +184,7 @@ class GVAR(cruisePlannerUI) {
             idc = CRUISE_PLANNER_IDC_TGT_ANGLE;
             text = "";
             x = QUOTE(33.7 * GUI_GRID_W + GUI_GRID_CENTER_X);
-            y = QUOTE(6.9 * GUI_GRID_H + GUI_GRID_CENTER_Y);
+            y = QUOTE(8.1 * GUI_GRID_H + GUI_GRID_CENTER_Y);
             w = QUOTE(2 * GUI_GRID_W);
             h = QUOTE(GUI_GRID_H);
             colorBackground[] = {0, 0, 0, 0.8};
@@ -159,7 +195,7 @@ class GVAR(cruisePlannerUI) {
             idc = -1;
             text = "Atk Heading";
             x = QUOTE(22 * GUI_GRID_W + GUI_GRID_CENTER_X);
-            y = QUOTE(8.1 * GUI_GRID_H + GUI_GRID_CENTER_Y);
+            y = QUOTE(9.3 * GUI_GRID_H + GUI_GRID_CENTER_Y);
             w = QUOTE(4.5 * GUI_GRID_W);
             h = QUOTE(GUI_GRID_H);
             colorBackground[] = {0, 0, 0, 0};
@@ -168,7 +204,7 @@ class GVAR(cruisePlannerUI) {
             idc = CRUISE_PLANNER_IDC_TGT_HEADING;
             text = "";
             x = QUOTE(26.7 * GUI_GRID_W + GUI_GRID_CENTER_X);
-            y = QUOTE(8.1 * GUI_GRID_H + GUI_GRID_CENTER_Y);
+            y = QUOTE(9.3 * GUI_GRID_H + GUI_GRID_CENTER_Y);
             w = QUOTE(2 * GUI_GRID_W);
             h = QUOTE(GUI_GRID_H);
             colorBackground[] = {0, 0, 0, 0.8};
@@ -181,7 +217,7 @@ class GVAR(cruisePlannerUI) {
             text = "Set TGT: TGP";
             onButtonClick = QUOTE(call FUNC(planner_setTargetTGP));
             x = QUOTE(22 * GUI_GRID_W + GUI_GRID_CENTER_X);
-            y = QUOTE(9.3 * GUI_GRID_H + GUI_GRID_CENTER_Y);
+            y = QUOTE(10.5 * GUI_GRID_H + GUI_GRID_CENTER_Y);
             w = QUOTE(5 * GUI_GRID_W);
             h = QUOTE(GUI_GRID_H);
             colorActive[] = {0, 0, 0, 1};
@@ -193,7 +229,7 @@ class GVAR(cruisePlannerUI) {
             text = "Set TGT: Map";
             onButtonClick = QUOTE(call FUNC(planner_setTargetMap));
             x = QUOTE(27.3 * GUI_GRID_W + GUI_GRID_CENTER_X);
-            y = QUOTE(9.3 * GUI_GRID_H + GUI_GRID_CENTER_Y);
+            y = QUOTE(10.5 * GUI_GRID_H + GUI_GRID_CENTER_Y);
             w = QUOTE(5 * GUI_GRID_W);
             h = QUOTE(GUI_GRID_H);
             colorActive[] = {0, 0, 0, 1};
@@ -206,7 +242,7 @@ class GVAR(cruisePlannerUI) {
             idc = -1;
             text = "Cruise Alt";
             x = QUOTE(22 * GUI_GRID_W + GUI_GRID_CENTER_X);
-            y = QUOTE(10.5 * GUI_GRID_H + GUI_GRID_CENTER_Y);
+            y = QUOTE(11.7 * GUI_GRID_H + GUI_GRID_CENTER_Y);
             w = QUOTE(4.5 * GUI_GRID_W);
             h = QUOTE(GUI_GRID_H);
             colorBackground[] = {0, 0, 0, 0};
@@ -214,7 +250,7 @@ class GVAR(cruisePlannerUI) {
         class CruiseModeCombo: RscCombo {
             idc = CRUISE_PLANNER_IDC_CRUISE_MODE;
             x = QUOTE(26.7 * GUI_GRID_W + GUI_GRID_CENTER_X);
-            y = QUOTE(10.5 * GUI_GRID_H + GUI_GRID_CENTER_Y);
+            y = QUOTE(11.7 * GUI_GRID_H + GUI_GRID_CENTER_Y);
             w = QUOTE(9.8 * GUI_GRID_W);
             h = QUOTE(GUI_GRID_H);
             colorBackground[] = {0, 0, 0, 0.8};
@@ -224,7 +260,7 @@ class GVAR(cruisePlannerUI) {
         class WaypointList: RscListbox {
             idc = CRUISE_PLANNER_IDC_LIST;
             x = QUOTE(22 * GUI_GRID_W + GUI_GRID_CENTER_X);
-            y = QUOTE(11.7 * GUI_GRID_H + GUI_GRID_CENTER_Y);
+            y = QUOTE(12.9 * GUI_GRID_H + GUI_GRID_CENTER_Y);
             w = QUOTE(14.5 * GUI_GRID_W);
             h = QUOTE(4.3 * GUI_GRID_H);
             colorBackground[] = {0, 0, 0, 0.6};
@@ -235,7 +271,7 @@ class GVAR(cruisePlannerUI) {
             idc = CRUISE_PLANNER_IDC_INFO;
             text = "0 entries";
             x = QUOTE(22 * GUI_GRID_W + GUI_GRID_CENTER_X);
-            y = QUOTE(16.2 * GUI_GRID_H + GUI_GRID_CENTER_Y);
+            y = QUOTE(17.4 * GUI_GRID_H + GUI_GRID_CENTER_Y);
             w = QUOTE(14.5 * GUI_GRID_W);
             h = QUOTE(GUI_GRID_H);
             colorBackground[] = {0, 0, 0, 0};
@@ -247,7 +283,7 @@ class GVAR(cruisePlannerUI) {
             text = "Add WP: TGP";
             onButtonClick = QUOTE(call FUNC(planner_addFromTGP));
             x = QUOTE(22 * GUI_GRID_W + GUI_GRID_CENTER_X);
-            y = QUOTE(17.4 * GUI_GRID_H + GUI_GRID_CENTER_Y);
+            y = QUOTE(18.6 * GUI_GRID_H + GUI_GRID_CENTER_Y);
             w = QUOTE(5 * GUI_GRID_W);
             h = QUOTE(GUI_GRID_H);
             colorActive[] = {0, 0, 0, 1};
@@ -259,7 +295,7 @@ class GVAR(cruisePlannerUI) {
             text = "Add WP: Map";
             onButtonClick = QUOTE(call FUNC(planner_addFromMap));
             x = QUOTE(27.3 * GUI_GRID_W + GUI_GRID_CENTER_X);
-            y = QUOTE(17.4 * GUI_GRID_H + GUI_GRID_CENTER_Y);
+            y = QUOTE(18.6 * GUI_GRID_H + GUI_GRID_CENTER_Y);
             w = QUOTE(5 * GUI_GRID_W);
             h = QUOTE(GUI_GRID_H);
             colorActive[] = {0, 0, 0, 1};
@@ -273,7 +309,7 @@ class GVAR(cruisePlannerUI) {
             text = "Up";
             onButtonClick = QUOTE([-1] call FUNC(planner_moveWaypoint));
             x = QUOTE(22 * GUI_GRID_W + GUI_GRID_CENTER_X);
-            y = QUOTE(18.6 * GUI_GRID_H + GUI_GRID_CENTER_Y);
+            y = QUOTE(19.8 * GUI_GRID_H + GUI_GRID_CENTER_Y);
             w = QUOTE(2.2 * GUI_GRID_W);
             h = QUOTE(GUI_GRID_H);
             colorActive[] = {0, 0, 0, 1};
@@ -285,7 +321,7 @@ class GVAR(cruisePlannerUI) {
             text = "Down";
             onButtonClick = QUOTE([1] call FUNC(planner_moveWaypoint));
             x = QUOTE(24.4 * GUI_GRID_W + GUI_GRID_CENTER_X);
-            y = QUOTE(18.6 * GUI_GRID_H + GUI_GRID_CENTER_Y);
+            y = QUOTE(19.8 * GUI_GRID_H + GUI_GRID_CENTER_Y);
             w = QUOTE(2.5 * GUI_GRID_W);
             h = QUOTE(GUI_GRID_H);
             colorActive[] = {0, 0, 0, 1};
@@ -297,7 +333,7 @@ class GVAR(cruisePlannerUI) {
             text = "Delete";
             onButtonClick = QUOTE(call FUNC(planner_deleteWaypoint));
             x = QUOTE(27.1 * GUI_GRID_W + GUI_GRID_CENTER_X);
-            y = QUOTE(18.6 * GUI_GRID_H + GUI_GRID_CENTER_Y);
+            y = QUOTE(19.8 * GUI_GRID_H + GUI_GRID_CENTER_Y);
             w = QUOTE(2.5 * GUI_GRID_W);
             h = QUOTE(GUI_GRID_H);
             colorActive[] = {0, 0, 0, 1};
@@ -309,7 +345,7 @@ class GVAR(cruisePlannerUI) {
             text = "Clear All";
             onButtonClick = QUOTE(call FUNC(planner_clearAll));
             x = QUOTE(29.8 * GUI_GRID_W + GUI_GRID_CENTER_X);
-            y = QUOTE(18.6 * GUI_GRID_H + GUI_GRID_CENTER_Y);
+            y = QUOTE(19.8 * GUI_GRID_H + GUI_GRID_CENTER_Y);
             w = QUOTE(3 * GUI_GRID_W);
             h = QUOTE(GUI_GRID_H);
             colorActive[] = {0, 0, 0, 1};
@@ -321,7 +357,7 @@ class GVAR(cruisePlannerUI) {
             text = "Save";
             onButtonClick = QUOTE(closeDialog 0);
             x = QUOTE(33 * GUI_GRID_W + GUI_GRID_CENTER_X);
-            y = QUOTE(18.6 * GUI_GRID_H + GUI_GRID_CENTER_Y);
+            y = QUOTE(19.8 * GUI_GRID_H + GUI_GRID_CENTER_Y);
             w = QUOTE(3.5 * GUI_GRID_W);
             h = QUOTE(GUI_GRID_H);
             colorActive[] = {0, 0.4, 0, 1};
