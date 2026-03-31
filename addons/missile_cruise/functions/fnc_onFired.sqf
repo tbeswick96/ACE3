@@ -3,7 +3,7 @@
 /*
  * Author: UKSF
  * Initializes cruise missile state on fired event.
- * Reads target data from cruiseTargetSettings vehicle variable (independent of GPS).
+ * Deep-copies the active target entry from the targetSettings hashmap.
  * Overrides seeker state params so GPS seeker returns our target.
  *
  * Arguments:
@@ -22,19 +22,12 @@ params ["_firedEH", "", "", "", "_stateParams", "", ""];
 _stateParams params ["", "_seekerStateParams", "_attackProfileStateParams"];
 _firedEH params ["_shooter","","","","_ammo","","_projectile"];
 
-private _vehicle = vehicle _shooter;
-
-// Read target data from our own vehicle variable (NOT from gps_getAttackData)
-private _settings = _vehicle getVariable [QGVAR(cruiseTargetSettings), []];
-private _targetPosition = [0, 0, 0];
-private _impactAngle = -1;
-private _attackDirection = -1;
-
-if (count _settings >= 3) then {
-    _targetPosition = +(_settings select 0);
-    _impactAngle = _settings select 1;
-    _attackDirection = _settings select 2;
-};
+// Deep-copy active target entry so in-flight missile is isolated from dialog changes
+private _entry = +(GVAR(targetSettings) get GVAR(activeTarget));
+private _targetPosition = +(_entry get "position");
+private _impactAngle = _entry get "impactAngle";
+private _attackDirection = _entry get "attackHeading";
+private _cruiseAltitude = _entry get "cruiseAltitude";
 
 // Build GPS-compatible data array: [position, impactAngle, attackDirection]
 private _gpsData = [+_targetPosition, _impactAngle, _attackDirection];
@@ -43,9 +36,6 @@ private _gpsData = [+_targetPosition, _impactAngle, _attackDirection];
 // (gps_seekerOnFired runs first and writes gps_getAttackData to _seekerStateParams[0],
 //  we overwrite it here with our own data)
 _seekerStateParams set [0, [+_targetPosition, _impactAngle, _attackDirection]];
-
-// Get cruise altitude from vehicle variable (set by cruise planner dialog)
-private _cruiseAltitude = _vehicle getVariable [QGVAR(cruiseAltitude), 100];
 
 // Compute approach waypoint if attack direction is set
 private _approachWaypoint = [0, 0, 0];
@@ -57,9 +47,8 @@ if (_attackDirection >= 0) then {
 
 private _launchPosition = getPosASL _projectile;
 
-// Read cruise planner waypoints from vehicle variable (deep copy + filter invalid)
-// Reverse so missile flies them in display order (top-to-bottom = countdown to target)
-private _waypoints = +(_vehicle getVariable [QGVAR(cruiseWaypoints), []]);
+// Deep copy waypoints, filter invalid, reverse for flight order
+private _waypoints = +(_entry get "waypoints");
 _waypoints = _waypoints select {count _x >= 3};
 reverse _waypoints;
 

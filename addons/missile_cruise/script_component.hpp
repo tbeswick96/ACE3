@@ -16,4 +16,6 @@
 
 #include "\z\ace\addons\main\script_macros.hpp"
 
+#include "idc_defines.hpp"
+
 #define MAX_CRUISE_TARGETS 4
