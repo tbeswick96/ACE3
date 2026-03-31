@@ -50,10 +50,6 @@ if (!hasInterface) exitWith {};
     ["turret", LINKFUNC(gps_setupVehicle), false] call CBA_fnc_addPlayerEventHandler;
     ["vehicle", LINKFUNC(gps_setupVehicle), true] call CBA_fnc_addPlayerEventHandler; // only one of these needs the retro flag
 
-    // Cruise missile mode selection
-    ["turret", LINKFUNC(cruise_missile_setupVehicle), false] call CBA_fnc_addPlayerEventHandler;
-    ["vehicle", LINKFUNC(cruise_missile_setupVehicle), true] call CBA_fnc_addPlayerEventHandler;
-
     // Seeker type interact actions
     ["turret", LINKFUNC(setupSeekerActions), false] call CBA_fnc_addPlayerEventHandler;
     ["vehicle", LINKFUNC(setupSeekerActions), true] call CBA_fnc_addPlayerEventHandler;

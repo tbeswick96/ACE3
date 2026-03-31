@@ -27,7 +27,7 @@ private _waypoints = _vehicle getVariable [QGVAR(cruiseWaypoints), []];
 _waypoints pushBack _posASL;
 _vehicle setVariable [QGVAR(cruiseWaypoints), _waypoints, true];
 
-call FUNC(cruise_planner_updateList);
+call FUNC(planner_updateList);
 
 private _mapGrid = [_position] call EFUNC(common,getMapGridFromPos);
 _mapGrid params ["_easting", "_northing"];

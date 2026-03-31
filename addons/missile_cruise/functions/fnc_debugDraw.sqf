@@ -1,5 +1,5 @@
 #include "..\script_component.hpp"
-#include "..\cruise_missile_defines.hpp"
+#include "..\cruise_defines.hpp"
 /*
  * Author: UKSF
  * Debug visualization for cruise missile guidance.
@@ -26,7 +26,7 @@
  * None
  *
  * Example:
- * [...] call ace_missileguidance_fnc_cruise_missile_debugDraw;
+ * [...] call ace_missile_cruise_fnc_debugDraw;
  *
  * Public: No
  */

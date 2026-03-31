@@ -41,7 +41,7 @@ _map ctrlAddEventHandler ["MouseButtonClick", {
         (_display displayCtrl CRUISE_PLANNER_IDC_TGT_HEIGHT) ctrlSetText "";
     };
 
-    call FUNC(cruise_planner_updateList);
+    call FUNC(planner_updateList);
 
     // Remove this handler after one click
     _map ctrlRemoveAllEventHandlers "MouseButtonClick";

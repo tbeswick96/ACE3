@@ -1,5 +1,5 @@
 #include "..\script_component.hpp"
-#include "..\cruise_missile_defines.hpp"
+#include "..\cruise_defines.hpp"
 /*
  * Author: UKSF
  * Compute terrain-following aim point for cruise missile guidance.
@@ -25,7 +25,7 @@
  * Aim Position ASL <ARRAY>
  *
  * Example:
- * [_aimOnLeg, _desiredAlt, getPosASLVisual _proj, vectorNormalized velocity _proj, _pitchRate, speed _proj] call ace_missileguidance_fnc_cruise_missile_tfAimPoint;
+ * [_aimOnLeg, _desiredAlt, getPosASLVisual _proj, vectorNormalized velocity _proj, _pitchRate, speed _proj] call ace_missile_cruise_fnc_terrainFollowAimPoint;
  *
  * Public: No
  */

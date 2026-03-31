@@ -16,4 +16,4 @@ private _vehicle = vehicle ACE_PLAYER;
 if (_vehicle == ACE_PLAYER) exitWith {};
 
 _vehicle setVariable [QGVAR(cruiseWaypoints), [], true];
-call FUNC(cruise_planner_updateList);
+call FUNC(planner_updateList);

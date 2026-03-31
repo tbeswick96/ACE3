@@ -1,5 +1,5 @@
 #include "..\script_component.hpp"
-#include "..\cruise_missile_defines.hpp"
+#include "..\cruise_defines.hpp"
 /*
  * Author: UKSF
  * PFH that draws target, approach WP, waypoint path, and vehicle

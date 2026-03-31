@@ -63,14 +63,6 @@ class GVAR(AttackProfiles) {
         functionName = QFUNC(attackProfile_JDAM);
         onFired = QFUNC(gps_attackOnFired);
     };
-    class cruise_missile {
-        name = "";
-        visualName = "";
-        description = "";
-
-        functionName = QFUNC(attackProfile_cruise_missile);
-        onFired = QFUNC(cruise_missile_onFired);
-    };
 };
 
 class GVAR(SeekerTypes) {

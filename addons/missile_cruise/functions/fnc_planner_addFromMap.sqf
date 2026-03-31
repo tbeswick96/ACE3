@@ -36,7 +36,7 @@ _map ctrlAddEventHandler ["MouseButtonClick", {
     _waypoints pushBack _posASL;
     _vehicle setVariable [QGVAR(cruiseWaypoints), _waypoints, true];
 
-    call FUNC(cruise_planner_updateList);
+    call FUNC(planner_updateList);
 
     // Remove this handler after one click
     _map ctrlRemoveAllEventHandlers "MouseButtonClick";

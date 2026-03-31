@@ -1,5 +1,5 @@
 #include "..\script_component.hpp"
-#include "..\cruise_missile_defines.hpp"
+#include "..\cruise_defines.hpp"
 /*
  * Author: UKSF
  * Terrain-following altitude computer for cruise missile guidance.
@@ -24,7 +24,7 @@
  * Desired Altitude ASL <NUMBER>
  *
  * Example:
- * [getPosASL _proj, _velDirection, _aimDirection, _yawRate, _pitchRate, 50, speed _proj] call ace_missileguidance_fnc_cruise_missile_terrainSample;
+ * [getPosASL _proj, _velDirection, _aimDirection, _yawRate, _pitchRate, 50, speed _proj] call ace_missile_cruise_fnc_terrainSample;
  *
  * Public: No
  */

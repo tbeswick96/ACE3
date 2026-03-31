@@ -18,8 +18,8 @@ class GVAR(cruisePlannerUI) {
     idd = CRUISE_PLANNER_IDD;
     movingEnable = 1;
     enableSimulation = 1;
-    onLoad = QUOTE(call FUNC(cruise_planner_open));
-    onUnload = QUOTE(call FUNC(cruise_planner_close));
+    onLoad = QUOTE(call FUNC(planner_open));
+    onUnload = QUOTE(call FUNC(planner_close));
     class controlsBackground {
         class Header: RscText {
             idc = -1;
@@ -179,7 +179,7 @@ class GVAR(cruisePlannerUI) {
         class SetTgtTGP: RscButton {
             idc = CRUISE_PLANNER_IDC_SET_TGT_TGP;
             text = "Set TGT: TGP";
-            onButtonClick = QUOTE(call FUNC(cruise_planner_setTargetTGP));
+            onButtonClick = QUOTE(call FUNC(planner_setTargetTGP));
             x = QUOTE(22 * GUI_GRID_W + GUI_GRID_CENTER_X);
             y = QUOTE(9.3 * GUI_GRID_H + GUI_GRID_CENTER_Y);
             w = QUOTE(5 * GUI_GRID_W);
@@ -191,7 +191,7 @@ class GVAR(cruisePlannerUI) {
         class SetTgtMap: RscButton {
             idc = CRUISE_PLANNER_IDC_SET_TGT_MAP;
             text = "Set TGT: Map";
-            onButtonClick = QUOTE(call FUNC(cruise_planner_setTargetMap));
+            onButtonClick = QUOTE(call FUNC(planner_setTargetMap));
             x = QUOTE(27.3 * GUI_GRID_W + GUI_GRID_CENTER_X);
             y = QUOTE(9.3 * GUI_GRID_H + GUI_GRID_CENTER_Y);
             w = QUOTE(5 * GUI_GRID_W);
@@ -245,7 +245,7 @@ class GVAR(cruisePlannerUI) {
         class AddFromTGP: RscButton {
             idc = CRUISE_PLANNER_IDC_ADD_TGP;
             text = "Add WP: TGP";
-            onButtonClick = QUOTE(call FUNC(cruise_planner_addFromTGP));
+            onButtonClick = QUOTE(call FUNC(planner_addFromTGP));
             x = QUOTE(22 * GUI_GRID_W + GUI_GRID_CENTER_X);
             y = QUOTE(17.4 * GUI_GRID_H + GUI_GRID_CENTER_Y);
             w = QUOTE(5 * GUI_GRID_W);
@@ -257,7 +257,7 @@ class GVAR(cruisePlannerUI) {
         class AddFromMap: RscButton {
             idc = CRUISE_PLANNER_IDC_ADD_MAP;
             text = "Add WP: Map";
-            onButtonClick = QUOTE(call FUNC(cruise_planner_addFromMap));
+            onButtonClick = QUOTE(call FUNC(planner_addFromMap));
             x = QUOTE(27.3 * GUI_GRID_W + GUI_GRID_CENTER_X);
             y = QUOTE(17.4 * GUI_GRID_H + GUI_GRID_CENTER_Y);
             w = QUOTE(5 * GUI_GRID_W);
@@ -271,7 +271,7 @@ class GVAR(cruisePlannerUI) {
         class MoveUp: RscButton {
             idc = CRUISE_PLANNER_IDC_MOVE_UP;
             text = "Up";
-            onButtonClick = QUOTE([-1] call FUNC(cruise_planner_moveWaypoint));
+            onButtonClick = QUOTE([-1] call FUNC(planner_moveWaypoint));
             x = QUOTE(22 * GUI_GRID_W + GUI_GRID_CENTER_X);
             y = QUOTE(18.6 * GUI_GRID_H + GUI_GRID_CENTER_Y);
             w = QUOTE(2.2 * GUI_GRID_W);
@@ -283,7 +283,7 @@ class GVAR(cruisePlannerUI) {
         class MoveDown: RscButton {
             idc = CRUISE_PLANNER_IDC_MOVE_DOWN;
             text = "Down";
-            onButtonClick = QUOTE([1] call FUNC(cruise_planner_moveWaypoint));
+            onButtonClick = QUOTE([1] call FUNC(planner_moveWaypoint));
             x = QUOTE(24.4 * GUI_GRID_W + GUI_GRID_CENTER_X);
             y = QUOTE(18.6 * GUI_GRID_H + GUI_GRID_CENTER_Y);
             w = QUOTE(2.5 * GUI_GRID_W);
@@ -295,7 +295,7 @@ class GVAR(cruisePlannerUI) {
         class Delete: RscButton {
             idc = CRUISE_PLANNER_IDC_DELETE;
             text = "Delete";
-            onButtonClick = QUOTE(call FUNC(cruise_planner_deleteWaypoint));
+            onButtonClick = QUOTE(call FUNC(planner_deleteWaypoint));
             x = QUOTE(27.1 * GUI_GRID_W + GUI_GRID_CENTER_X);
             y = QUOTE(18.6 * GUI_GRID_H + GUI_GRID_CENTER_Y);
             w = QUOTE(2.5 * GUI_GRID_W);
@@ -307,7 +307,7 @@ class GVAR(cruisePlannerUI) {
         class ClearAll: RscButton {
             idc = -1;
             text = "Clear All";
-            onButtonClick = QUOTE(call FUNC(cruise_planner_clearAll));
+            onButtonClick = QUOTE(call FUNC(planner_clearAll));
             x = QUOTE(29.8 * GUI_GRID_W + GUI_GRID_CENTER_X);
             y = QUOTE(18.6 * GUI_GRID_H + GUI_GRID_CENTER_Y);
             w = QUOTE(3 * GUI_GRID_W);

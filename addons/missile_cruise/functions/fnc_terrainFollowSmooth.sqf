@@ -22,14 +22,14 @@
  * Smoothed Altitude ASL <NUMBER>
  *
  * Example:
- * [getPosASLVisual _proj, _velDirection, _aimDirection, _yawRate, _pitchRate, 50, speed _proj, _lastAltitude] call ace_missileguidance_fnc_cruise_missile_tfSmooth;
+ * [getPosASLVisual _proj, _velDirection, _aimDirection, _yawRate, _pitchRate, 50, speed _proj, _lastAltitude] call ace_missile_cruise_fnc_terrainFollowSmooth;
  *
  * Public: No
  */
 
 params ["_projectilePosition", "_currentDirection", "_aimDirection", "_yawRate", "_pitchRate", "_cruiseAltitude", "_speed", "_lastDesiredAltitude"];
 
-private _desiredAltASL = [_projectilePosition, _currentDirection, _aimDirection, _yawRate, _pitchRate, _cruiseAltitude, _speed] call FUNC(cruise_missile_terrainSample);
+private _desiredAltASL = [_projectilePosition, _currentDirection, _aimDirection, _yawRate, _pitchRate, _cruiseAltitude, _speed] call FUNC(terrainSample);
 
 // Climbs: instant. Descents: light smoothing to prevent jitter.
 if (_lastDesiredAltitude > 0 && {_desiredAltASL < _lastDesiredAltitude}) then {

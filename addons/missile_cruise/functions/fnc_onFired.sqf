@@ -1,5 +1,5 @@
 #include "..\script_component.hpp"
-#include "..\cruise_missile_defines.hpp"
+#include "..\cruise_defines.hpp"
 /*
  * Author: UKSF
  * Initializes cruise missile state on fired event.
@@ -13,7 +13,7 @@
  * None
  *
  * Example:
- * [] call ace_missileguidance_fnc_cruise_missile_onFired
+ * [] call ace_missile_cruise_fnc_onFired
  *
  * Public: No
  */

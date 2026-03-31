@@ -11,7 +11,7 @@
  * Nothing
  *
  * Example:
- * [player] call ace_missileguidance_fnc_cruise_missile_setupVehicle
+ * [player] call ace_missile_cruise_fnc_setupVehicle
  *
  * Public: No
  */
@@ -19,8 +19,8 @@ params ["_player"];
 private _vehicle = vehicle _player;
 
 if (_vehicle == _player) exitWith {};
-if (_vehicle getVariable [QGVAR(cruise_missile_actionsAdded), false]) exitWith {};
-_vehicle setVariable [QGVAR(cruise_missile_actionsAdded), true];
+if (_vehicle getVariable [QGVAR(actionsAdded), false]) exitWith {};
+_vehicle setVariable [QGVAR(actionsAdded), true];
 TRACE_2("adding cruise missile planner action",_player,typeOf _vehicle);
 
 // Set default cruise altitude if not already set
@@ -34,7 +34,7 @@ private _condition = {
     private _turretPath = if (_player == (driver _target)) then {[-1]} else {_player call CBA_fnc_turretPath};
     private _hasCruiseMissile = (_target weaponsTurret _turretPath) findIf {
         private _weapon = _x;
-        GVAR(cruise_weapons) getOrDefaultCall [_weapon, {
+        GVAR(weapons) getOrDefaultCall [_weapon, {
             (getArray (configFile >> "CfgWeapons" >> _weapon >> "magazines")) findIf {
                 private _ammo = getText (configFile >> "CfgMagazines" >> _x >> "ammo");
                 private _ammoAttackProfiles = getArray (configFile >> "CfgAmmo" >> _ammo >> QUOTE(ADDON) >> "attackProfiles");

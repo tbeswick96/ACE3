@@ -1,5 +1,3 @@
-// Cruise missile shared constants
-
 // Stage IDs for the cruise missile state machine
 #define STAGE_LAUNCH    1
 #define STAGE_CRUISE    2
@@ -14,3 +12,8 @@
 
 // Approach waypoint distance from target (meters)
 #define APPROACH_WAYPOINT_DIST 2000
+
+// Launch stage thresholds
+#define LAUNCH_MIN_DIST 500
+#define LAUNCH_MAX_DESCENT_ANGLE 50
+#define DEFAULT_IMPACT_ANGLE 45

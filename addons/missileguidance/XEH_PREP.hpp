@@ -60,26 +60,6 @@ PREP(seekerType_MWR);
 PREP(seekerType_GPS);
 PREP(seekerType_IR);
 
-// Cruise missile
-PREP(attackProfile_cruise_missile);
-PREP(cruise_missile_debugDraw);
-PREP(cruise_missile_terrainSample);
-PREP(cruise_missile_tfAimPoint);
-PREP(cruise_missile_tfSmooth);
-PREP(cruise_missile_onFired);
-PREP(cruise_missile_setupVehicle);
-PREP(cruise_planner_open);
-PREP(cruise_planner_close);
-PREP(cruise_planner_addFromTGP);
-PREP(cruise_planner_addFromMap);
-PREP(cruise_planner_deleteWaypoint);
-PREP(cruise_planner_moveWaypoint);
-PREP(cruise_planner_updateList);
-PREP(cruise_planner_drawMap);
-PREP(cruise_planner_clearAll);
-PREP(cruise_planner_setTargetTGP);
-PREP(cruise_planner_setTargetMap);
-
 // Attack Profiles OnFired
 PREP(wire_onFired);
 PREP(gps_attackOnFired);

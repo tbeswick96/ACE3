@@ -60,15 +60,15 @@
 
     // Refresh list when heading field changes (approach WP depends on heading)
     (_display displayCtrl CRUISE_PLANNER_IDC_TGT_HEADING) ctrlAddEventHandler ["KeyUp", {
-        call FUNC(cruise_planner_updateList);
+        call FUNC(planner_updateList);
     }];
 
     // Populate waypoint list
-    call FUNC(cruise_planner_updateList);
+    call FUNC(planner_updateList);
 
     // Register Draw EH on map control (drawIcon/drawLine require onDraw context)
     private _map = _display displayCtrl CRUISE_PLANNER_IDC_MAP;
     _map ctrlAddEventHandler ["Draw", {
-        call FUNC(cruise_planner_drawMap);
+        call FUNC(planner_drawMap);
     }];
 }, _this] call CBA_fnc_execNextFrame;

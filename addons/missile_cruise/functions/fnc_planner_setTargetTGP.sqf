@@ -34,6 +34,6 @@ _mapGrid params ["_easting", "_northing"];
 (_display displayCtrl CRUISE_PLANNER_IDC_TGT_NORTHING) ctrlSetText _northing;
 (_display displayCtrl CRUISE_PLANNER_IDC_TGT_HEIGHT) ctrlSetText "";
 
-call FUNC(cruise_planner_updateList);
+call FUNC(planner_updateList);
 
 TRACE_2("cruise_planner_setTargetTGP",_easting,_northing);
