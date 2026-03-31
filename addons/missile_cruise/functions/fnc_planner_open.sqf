@@ -2,8 +2,8 @@
 /*
  * Author: UKSF
  * Called on load of cruise planner dialog.
- * Stores display reference, populates target fields from vehicle data,
- * populates cruise mode combo, populates waypoint list, and registers map Draw EH.
+ * Stores display reference, populates cruise altitude combo,
+ * loads active target entry, and registers map Draw EH.
  *
  * Arguments:
  * Display <DISPLAY> (from onLoad)
@@ -19,52 +19,19 @@
     TRACE_1("cruise_planner_open",_display);
     uiNamespace setVariable [QGVAR(cruisePlannerDisplay), _display];
 
-    private _vehicle = vehicle ACE_PLAYER;
-
-    // Load target settings from vehicle variable
-    private _settings = _vehicle getVariable [QGVAR(cruiseTargetSettings), []];
-
-    if (count _settings >= 3) then {
-        _settings params ["_targetPos", "_impactAngle", "_attackHeading"];
-
-        if (_targetPos isNotEqualTo [0,0,0]) then {
-            private _pos2D = [_targetPos select 0, _targetPos select 1];
-            private _mapGrid = [_pos2D] call EFUNC(common,getMapGridFromPos);
-            _mapGrid params ["_easting", "_northing"];
-
-            (_display displayCtrl CRUISE_PLANNER_IDC_TGT_EASTING) ctrlSetText _easting;
-            (_display displayCtrl CRUISE_PLANNER_IDC_TGT_NORTHING) ctrlSetText _northing;
-
-            // Height field left empty — close handler derives terrain height from grid.
-            // Only populated if user manually enters an override (e.g. elevated target).
-        };
-
-        if (_impactAngle > 0) then {
-            (_display displayCtrl CRUISE_PLANNER_IDC_TGT_ANGLE) ctrlSetText (str (round _impactAngle));
-        };
-
-        if (_attackHeading >= 0) then {
-            (_display displayCtrl CRUISE_PLANNER_IDC_TGT_HEADING) ctrlSetText (str (round _attackHeading));
-        };
-    };
-
-    // Populate cruise altitude combo
+    // Populate cruise altitude combo (must happen before loadTarget sets selection)
     private _combo = _display displayCtrl CRUISE_PLANNER_IDC_CRUISE_MODE;
     _combo lbAdd "50m";
     _combo lbAdd "100m";
     _combo lbAdd "150m";
 
-    private _cruiseAltitude = _vehicle getVariable [QGVAR(cruiseAltitude), 100];
-    private _altitudeIndex = [50, 100, 150] find _cruiseAltitude;
-    _combo lbSetCurSel ([_altitudeIndex, 1] select (_altitudeIndex < 0));
+    // Load active target entry into UI fields
+    call FUNC(planner_loadTarget);
 
     // Refresh list when heading field changes (approach WP depends on heading)
     (_display displayCtrl CRUISE_PLANNER_IDC_TGT_HEADING) ctrlAddEventHandler ["KeyUp", {
         call FUNC(planner_updateList);
     }];
-
-    // Populate waypoint list
-    call FUNC(planner_updateList);
 
     // Register Draw EH on map control (drawIcon/drawLine require onDraw context)
     private _map = _display displayCtrl CRUISE_PLANNER_IDC_MAP;
