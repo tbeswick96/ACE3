@@ -31,7 +31,7 @@ private _condition = {
         GVAR(weapons) getOrDefaultCall [_weapon, {
             (getArray (configFile >> "CfgWeapons" >> _weapon >> "magazines")) findIf {
                 private _ammo = getText (configFile >> "CfgMagazines" >> _x >> "ammo");
-                private _ammoAttackProfiles = getArray (configFile >> "CfgAmmo" >> _ammo >> QUOTE(ADDON) >> "attackProfiles");
+                private _ammoAttackProfiles = getArray (configFile >> "CfgAmmo" >> _ammo >> "ace_missileguidance" >> "attackProfiles");
                 "cruise_missile" in _ammoAttackProfiles
             } > -1
         }, true]
