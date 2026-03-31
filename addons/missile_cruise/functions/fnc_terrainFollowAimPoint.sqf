@@ -33,7 +33,7 @@
 params ["_navTarget", "_desiredAltitude", "_projectilePosition", "_velocityDirection", "_pitchRate", "_speed"];
 
 if (!(_navTarget isEqualType []) || {count _navTarget < 3}) exitWith {
-    ERROR_4("tfAimPoint: navTarget invalid type=%1 count=%2 val=%3 projectilePosition=%4",typeName _navTarget,count _navTarget,_navTarget,_projectilePosition);
+    ERROR_4("terrainFollowAimPoint: navTarget invalid type=%1 count=%2 val=%3 projectilePosition=%4",typeName _navTarget,count _navTarget,_navTarget,_projectilePosition);
     _projectilePosition
 };
 
@@ -41,7 +41,7 @@ private _navigationDirection = [_navTarget#0 - _projectilePosition#0, _navTarget
 private _navigationDistance = vectorMagnitude _navigationDirection;
 private _navigationDirectionNormalized = if (_navigationDistance > 0.1) then {_navigationDirection vectorMultiply (1 / _navigationDistance)} else {_velocityDirection};
 
-// Pitch radius at 80% max rate: R = speed / angular_velocity
+// Pitch radius at 90% max rate: R = speed / angular_velocity
 private _pitchRateEffective = _pitchRate * RATE_USAGE;
 private _pitchRadius = if (_pitchRateEffective > 0.1) then {
     _speed / (_pitchRateEffective * (pi / 180))
@@ -51,7 +51,7 @@ private _pitchRadius = if (_pitchRateEffective > 0.1) then {
 
 // Lead = reaction distance + pitch arc for altitude error
 // Reaction: missile continues straight during control surface response lag
-// Arc: horizontal distance of pitch maneuver at 80% rate
+// Arc: horizontal distance of pitch manoeuvre at 90% rate
 private _reactionDistance = _speed * RESPONSE_TIME;
 private _altitudeError = abs (_desiredAltitude - _projectilePosition#2);
 private _climbRatio = (_altitudeError / _pitchRadius) min 1;

@@ -79,4 +79,4 @@ _attackProfileStateParams set [5, 0];
 _attackProfileStateParams set [6, _waypoints];
 _attackProfileStateParams set [7, 0];
 
-TRACE_3("cruise_missile_onFired",_targetPosition,_impactAngle,_attackDirection);
+TRACE_3("onFired",_targetPosition,_impactAngle,_attackDirection);

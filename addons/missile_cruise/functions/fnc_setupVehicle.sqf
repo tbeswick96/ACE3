@@ -2,7 +2,6 @@
 /*
  * Author: UKSF
  * Adds ACE interaction menu action for cruise planner.
- * Follows the GPS setupVehicle pattern.
  *
  * Arguments:
  * 0: Player <OBJECT>

@@ -104,7 +104,7 @@ if (_currentWaypointIndex >= count _waypoints) then {
         };
 
         // Inscribed arc transition: R * tan(θ/2) at full yaw rate.
-        // _yawRadius is computed at RATE_USAGE (80%) for sustained-flight calculations,
+        // _yawRadius is computed at RATE_USAGE (90%) for sustained-flight calculations,
         // but during a dedicated turn the guidance drives the missile at near-full rate.
         // Using the full-rate radius gives a tighter arc that matches the actual turn
         // the missile will fly, preventing premature transition.
@@ -212,7 +212,7 @@ if (_currentWaypointIndex >= count _waypoints) then {
         private _smoothedAltitude = [_projectilePosition, _velocityDirection, _terrainFollowAimDirection, _yawRate, _pitchRate, _cruiseAltitude, _speed, _lastDesiredAltitude] call FUNC(terrainFollowSmooth);
         _attackProfileStateParams set [5, _smoothedAltitude];
 
-        // tfAimPoint handles altitude authority (clamps aim distance for pitch control)
+        // terrainFollowAimPoint handles altitude authority (clamps aim distance for pitch control)
         _returnTargetPosition = [_aimOnLeg, _smoothedAltitude, _projectilePosition, _velocityDirection, _pitchRate, _speed] call FUNC(terrainFollowAimPoint);
 
         // Clamp descent angle to prevent overly steep dives during transition to waypoint navigation from high alt launch

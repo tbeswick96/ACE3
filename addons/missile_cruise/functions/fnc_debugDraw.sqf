@@ -4,7 +4,7 @@
  * Author: UKSF
  * Debug visualization for cruise missile guidance.
  * Draws target, waypoints, aim point, altitude readouts, and terrain profile.
- * Called from attackProfile_cruise_missile when debug drawing is enabled.
+ * Called from fnc_attackProfile when debug drawing is enabled.
  *
  * Arguments:
  * 0: Projectile <OBJECT>
