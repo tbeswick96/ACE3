@@ -19,7 +19,7 @@ if (isNull _display) exitWith {};
 
 private _map = _display displayCtrl CRUISE_PLANNER_IDC_MAP;
 private _vehicle = vehicle ACE_PLAYER;
-private _waypoints = _vehicle getVariable [QGVAR(cruiseWaypoints), []];
+private _waypoints = (GVAR(targetSettings) get GVAR(activeTarget)) get "waypoints";
 
 #define WP_ICON "\a3\ui_f\data\map\markers\military\dot_ca.paa"
 

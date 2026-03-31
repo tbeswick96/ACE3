@@ -28,10 +28,7 @@ private _wpIndex = _list lbValue _selectedIndex;
 // Don't allow moving header entries
 if (_wpIndex < 0) exitWith {};
 
-private _vehicle = vehicle ACE_PLAYER;
-if (_vehicle == ACE_PLAYER) exitWith {};
-
-private _waypoints = _vehicle getVariable [QGVAR(cruiseWaypoints), []];
+private _waypoints = (GVAR(targetSettings) get GVAR(activeTarget)) get "waypoints";
 
 private _newWpIndex = _wpIndex + _direction;
 if (_newWpIndex < 0 || {_newWpIndex >= count _waypoints}) exitWith {};
@@ -40,7 +37,6 @@ if (_newWpIndex < 0 || {_newWpIndex >= count _waypoints}) exitWith {};
 private _temp = _waypoints select _wpIndex;
 _waypoints set [_wpIndex, _waypoints select _newWpIndex];
 _waypoints set [_newWpIndex, _temp];
-_vehicle setVariable [QGVAR(cruiseWaypoints), _waypoints, true];
 
 call FUNC(planner_updateList);
 

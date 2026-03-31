@@ -30,11 +30,8 @@ _map ctrlAddEventHandler ["MouseButtonClick", {
     private _worldPos = _map ctrlMapScreenToWorld [_xPos, _yPos];
     private _posASL = [_worldPos select 0, _worldPos select 1, (getTerrainHeightASL _worldPos) max 0];
 
-    private _vehicle = vehicle ACE_PLAYER;
-    if (_vehicle == ACE_PLAYER) exitWith {};
-    private _waypoints = _vehicle getVariable [QGVAR(cruiseWaypoints), []];
+    private _waypoints = (GVAR(targetSettings) get GVAR(activeTarget)) get "waypoints";
     _waypoints pushBack _posASL;
-    _vehicle setVariable [QGVAR(cruiseWaypoints), _waypoints, true];
 
     call FUNC(planner_updateList);
 

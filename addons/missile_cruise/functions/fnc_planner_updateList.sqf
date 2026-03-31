@@ -23,8 +23,7 @@ private _info = _display displayCtrl CRUISE_PLANNER_IDC_INFO;
 
 lbClear _list;
 
-private _vehicle = vehicle ACE_PLAYER;
-private _waypoints = _vehicle getVariable [QGVAR(cruiseWaypoints), []];
+private _waypoints = (GVAR(targetSettings) get GVAR(activeTarget)) get "waypoints";
 
 // Read target from input fields for live display
 private _eastingStr = ctrlText (_display displayCtrl CRUISE_PLANNER_IDC_TGT_EASTING);

@@ -23,9 +23,8 @@ if (_position isEqualTo [0, 0, 0]) exitWith {
 };
 
 private _posASL = AGLToASL _position;
-private _waypoints = _vehicle getVariable [QGVAR(cruiseWaypoints), []];
+private _waypoints = (GVAR(targetSettings) get GVAR(activeTarget)) get "waypoints";
 _waypoints pushBack _posASL;
-_vehicle setVariable [QGVAR(cruiseWaypoints), _waypoints, true];
 
 call FUNC(planner_updateList);
 

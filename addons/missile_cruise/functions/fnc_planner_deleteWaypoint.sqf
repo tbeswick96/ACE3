@@ -27,15 +27,11 @@ private _wpIndex = _list lbValue _selectedIndex;
 // Don't allow deleting header entries (TARGET, APPROACH WP)
 if (_wpIndex < 0) exitWith {};
 
-private _vehicle = vehicle ACE_PLAYER;
-if (_vehicle == ACE_PLAYER) exitWith {};
-
-private _waypoints = _vehicle getVariable [QGVAR(cruiseWaypoints), []];
+private _waypoints = (GVAR(targetSettings) get GVAR(activeTarget)) get "waypoints";
 
 if (_wpIndex >= count _waypoints) exitWith {};
 
 _waypoints deleteAt _wpIndex;
-_vehicle setVariable [QGVAR(cruiseWaypoints), _waypoints, true];
 
 call FUNC(planner_updateList);
 

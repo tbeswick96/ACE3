@@ -1,7 +1,7 @@
 #include "..\script_component.hpp"
 /*
  * Author: UKSF
- * Clears all cruise planner waypoints.
+ * Clears all cruise planner waypoints for the active target.
  *
  * Arguments:
  * None
@@ -12,8 +12,5 @@
  * Public: No
  */
 
-private _vehicle = vehicle ACE_PLAYER;
-if (_vehicle == ACE_PLAYER) exitWith {};
-
-_vehicle setVariable [QGVAR(cruiseWaypoints), [], true];
+(GVAR(targetSettings) get GVAR(activeTarget)) set ["waypoints", []];
 call FUNC(planner_updateList);
