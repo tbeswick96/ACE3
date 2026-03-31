@@ -22,11 +22,6 @@ if (_vehicle getVariable [QGVAR(actionsAdded), false]) exitWith {};
 _vehicle setVariable [QGVAR(actionsAdded), true];
 TRACE_2("adding cruise missile planner action",_player,typeOf _vehicle);
 
-// Set default cruise altitude if not already set
-if (isNil {_vehicle getVariable QGVAR(cruiseAltitude)}) then {
-    _vehicle setVariable [QGVAR(cruiseAltitude), 100, true];
-};
-
 // Cruise Planner action - condition checks turret weapons (cached per weapon)
 private _condition = {
     params ["_target", "_player"];
