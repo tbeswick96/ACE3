@@ -20,4 +20,5 @@ ArmaScriptCompiler.exe
 *.sqfc
 target/
 docs/plans/
+docs/superpowers/
 !extras/**/*.zip
