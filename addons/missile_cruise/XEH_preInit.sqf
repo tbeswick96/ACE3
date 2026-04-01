@@ -8,6 +8,7 @@ PREP_RECOMPILE_END;
 
 GVAR(weapons) = createHashMap;
 GVAR(activeTarget) = 0;
+GVAR(plannerMode) = "pp";
 GVAR(targetSettings) = createHashMap;
 for "_i" from 0 to (MAX_CRUISE_TARGETS - 1) do {
     GVAR(targetSettings) set [_i, createHashMapFromArray [
@@ -19,5 +20,11 @@ for "_i" from 0 to (MAX_CRUISE_TARGETS - 1) do {
         ["waypoints", []]
     ]];
 };
+
+GVAR(tooSettings) = createHashMapFromArray [
+    ["impactAngle", -1],
+    ["attackHeading", -1],
+    ["cruiseAltitude", 100]
+];
 
 ADDON = true;

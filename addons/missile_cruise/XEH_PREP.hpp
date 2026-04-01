@@ -24,4 +24,5 @@ PREP(planner_setTargetTGP);
 PREP(planner_setTargetMap);
 PREP(planner_saveTarget);
 PREP(planner_loadTarget);
+PREP(planner_modeSelect);
 PREP(planner_cycleTarget);

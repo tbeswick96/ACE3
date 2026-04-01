@@ -2,14 +2,7 @@
 #include "\a3\ui_f\hpp\defineCommonColors.inc"
 #include "idc_defines.hpp"
 
-// Button IDCs only used in this dialog definition
-#define CRUISE_PLANNER_IDC_ADD_TGP 1704303
-#define CRUISE_PLANNER_IDC_ADD_MAP 1704304
-#define CRUISE_PLANNER_IDC_DELETE 1704305
-#define CRUISE_PLANNER_IDC_MOVE_UP 1704306
-#define CRUISE_PLANNER_IDC_MOVE_DOWN 1704307
-#define CRUISE_PLANNER_IDC_SET_TGT_TGP 1704314
-#define CRUISE_PLANNER_IDC_SET_TGT_MAP 1704315
+// Button IDCs now in idc_defines.hpp (needed by CONTROLS_DISABLED_IN_TOO macro in SQF)
 
 class RscListbox;
 class RscMapControl;
@@ -65,14 +58,30 @@ class GVAR(cruisePlannerUI) {
         };
 
         // --- TARGET SECTION (right side, top) ---
-        class TargetHeader: RscText {
-            idc = -1;
-            text = "TARGET";
+        class ModeTOO: RscButton {
+            idc = CRUISE_PLANNER_IDC_MODE_TOO;
+            text = "TOO";
+            onButtonClick = QUOTE([CRUISE_PLANNER_IDC_MODE_TOO] call FUNC(planner_modeSelect));
             x = QUOTE(22 * GUI_GRID_W + GUI_GRID_CENTER_X);
             y = QUOTE(4.5 * GUI_GRID_H + GUI_GRID_CENTER_Y);
-            w = QUOTE(14.5 * GUI_GRID_W);
+            w = QUOTE(7.25 * GUI_GRID_W);
             h = QUOTE(GUI_GRID_H);
+            colorActive[] = {0.2, 0, 0, 1};
             colorBackground[] = {0.2, 0, 0, 0.6};
+            colorFocused[] = {0.2, 0, 0, 0.6};
+            style = 2;
+        };
+        class ModePP: RscButton {
+            idc = CRUISE_PLANNER_IDC_MODE_PP;
+            text = "PP";
+            onButtonClick = QUOTE([CRUISE_PLANNER_IDC_MODE_PP] call FUNC(planner_modeSelect));
+            x = QUOTE(29.25 * GUI_GRID_W + GUI_GRID_CENTER_X);
+            y = QUOTE(4.5 * GUI_GRID_H + GUI_GRID_CENTER_Y);
+            w = QUOTE(7.25 * GUI_GRID_W);
+            h = QUOTE(GUI_GRID_H);
+            colorActive[] = {0.2, 0, 0, 1};
+            colorBackground[] = {0.2, 0, 0, 0.6};
+            colorFocused[] = {0.2, 0, 0, 0.6};
             style = 2;
         };
 
@@ -341,7 +350,7 @@ class GVAR(cruisePlannerUI) {
             colorFocused[] = {0, 0, 0, 0.8};
         };
         class ClearAll: RscButton {
-            idc = -1;
+            idc = CRUISE_PLANNER_IDC_CLEAR_ALL;
             text = "Clear All";
             onButtonClick = QUOTE(call FUNC(planner_clearAll));
             x = QUOTE(29.8 * GUI_GRID_W + GUI_GRID_CENTER_X);
