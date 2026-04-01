@@ -20,5 +20,6 @@ class RscButton;
 class RscCombo;
 
 #include "ACE_GuidanceConfig.hpp"
+#include "CfgEventHandlers.hpp"
 #include "CfgMissileTypesNato.hpp"
 #include "CruisePlannerDialog.hpp"
