@@ -2566,6 +2566,7 @@
         </Key>
         <Key ID="STR_ACE_RealisticNames_UAV_05_Name">
             <English>XQ-47B</English>
+            <Spanish>XQ-47B</Spanish>
             <Russian>XQ-47B</Russian>
             <Japanese>XQ-47B</Japanese>
         </Key>
@@ -3091,6 +3092,7 @@
         </Key>
         <Key ID="STR_ACE_RealisticNames_arifle_MSBS65_GL_muzzleGPBO40">
             <English>GPBO-40</English>
+            <Spanish>GPBO-40</Spanish>
             <Russian>GPBO-40</Russian>
             <Japanese>GPBO-40</Japanese>
         </Key>
@@ -3240,6 +3242,7 @@
         </Key>
         <Key ID="STR_ACE_RealisticNames_arifle_MSBS65_UBS_muzzleSix12">
             <English>SIX-12</English>
+            <Spanish>SIX-12</Spanish>
             <Russian>SIX-12</Russian>
             <Japanese>SIX-12</Japanese>
         </Key>
