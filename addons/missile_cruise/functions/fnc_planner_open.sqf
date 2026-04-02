@@ -56,17 +56,12 @@
         if (_position isEqualTo [0, 0, 0]) exitWith {
             (_display displayCtrl CRUISE_PLANNER_IDC_TGT_EASTING) ctrlSetText "";
             (_display displayCtrl CRUISE_PLANNER_IDC_TGT_NORTHING) ctrlSetText "";
-            (_display displayCtrl CRUISE_PLANNER_IDC_TGT_HEIGHT) ctrlSetText "";
         };
 
         private _mapGrid = [_position] call EFUNC(common,getMapGridFromPos);
         _mapGrid params ["_easting", "_northing"];
 
-        // Height above terrain for display (position is ASL)
-        private _heightAboveTerrain = (_position#2) - getTerrainHeightASL _position;
-
         (_display displayCtrl CRUISE_PLANNER_IDC_TGT_EASTING) ctrlSetText _easting;
         (_display displayCtrl CRUISE_PLANNER_IDC_TGT_NORTHING) ctrlSetText _northing;
-        (_display displayCtrl CRUISE_PLANNER_IDC_TGT_HEIGHT) ctrlSetText str (round (_heightAboveTerrain max 0));
     }] call CBA_fnc_addPerFrameHandler;
 }, _this] call CBA_fnc_execNextFrame;
