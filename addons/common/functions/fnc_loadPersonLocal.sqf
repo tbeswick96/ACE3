@@ -39,8 +39,9 @@ if ((_vehicle emptyPositions "cargo" > 0) && {!(_unit getVariable ['ACE_isUncons
     if (!_slotsOpen) then {
         private _cargoSeats = fullCrew [_vehicle, "cargo", true];
         // FFV cargo seats are empty cargo positions but are not returned by fullCrew "cargo"
+        // fullCrew "turret" also excludes FFV seats, so use empty filter to get all positions
         if (_cargoSeats isEqualTo []) then {
-            _cargoSeats = (fullCrew [_vehicle, "turret", true]) select {_x select 4};
+            _cargoSeats = (fullCrew [_vehicle, "", true]) select {_x select 4};
         };
         if (_reverseFill) then {
             reverse _cargoSeats;
