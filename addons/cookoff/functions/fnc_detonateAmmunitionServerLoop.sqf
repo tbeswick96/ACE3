@@ -174,6 +174,7 @@ private _fnc_spawnProjectile = {
     };
 
     private _projectile = createVehicle [_ammo, _spawnPos, [], 0, "CAN_COLLIDE"];
+    _projectile setShotParents [_source, _instigator];
 
     if (_flyAway) then {
         private _vectorAmmo = [-1 + random 2, -1 + random 2, -0.2 + random 1];

@@ -42,15 +42,18 @@ if (isServer) then {
 ["AllVehicles", "Killed", {
     if (!GVAR(enableAmmoCookoff) || {GVAR(ammoCookoffDuration) == 0}) exitWith {};
 
-    params ["_vehicle", "", "", "_useEffects"];
+    params ["_vehicle", "_killer", "_instigator", "_useEffects"];
 
     if (_useEffects && {_vehicle getVariable [QGVAR(enableAmmoCookoff), true]}) then {
-        // We don't need to pass source and instigator, as vehicle is already dead
+        // Pass through killer/instigator so the secondary ammo projectiles spawned by
+        // fnc_detonateAmmunitionServerLoop can be tagged via setShotParents. Without this,
+        // cook-off ammo kills have no damage attribution (lost _shooter/_instigator), so
+        // downstream consumers (medical tracking, stats, killfeeds) can't tell who caused them.
         [QGVAR(detonateAmmunitionServer), [
             _vehicle,
             false,
-            objNull,
-            objNull,
+            _killer,
+            _instigator,
             random [MIN_AMMO_DETONATION_START_DELAY, (MIN_AMMO_DETONATION_START_DELAY + MAX_AMMO_DETONATION_START_DELAY) / 2, MAX_AMMO_DETONATION_START_DELAY]
         ]] call CBA_fnc_serverEvent;
     };
