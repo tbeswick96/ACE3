@@ -36,6 +36,7 @@
 
 #define DESTRUCTION_RADIUS 1.8
 #define SEARCH_RADIUS 5
+#define AIRCRAFT_COOKOFF_RADIUS 8
 
 params ["_projectile", "_timeToLive", "_center"];
 
@@ -211,11 +212,11 @@ if (isServer) then {
     [_x, _position] call FUNC(damageEngineAndWheels);
 } forEach (_position nearEntities ["Car", SEARCH_RADIUS]);
 
-{
-    // Destroy aircraft
-    if (local _x) then {
+// Cook off nearby aircraft (pilot denial after autorotate)
+if (["ace_cookoff"] call EFUNC(common,isModLoaded)) then {
+    {
         [{
-            _this setDamage 1;
+            [QEGVAR(cookOff,cookOffServer), [_this, 5, objNull, objNull, true, 0.5, true]] call CBA_fnc_serverEvent;
         }, _x, (random 10) + 5] call CBA_fnc_waitAndExecute;
-    };
-} forEach (_position nearEntities ["Air", SEARCH_RADIUS]);
+    } forEach (_position nearEntities ["Air", AIRCRAFT_COOKOFF_RADIUS]);
+};
