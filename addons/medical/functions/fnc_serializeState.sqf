@@ -61,7 +61,7 @@ private _currentState = [_unit, GVAR(STATE_MACHINE)] call CBA_statemachine_fnc_g
 _state setVariable [QGVAR(statemachineState), _currentState];
 
 // Logs
-private _logs = (_unit getVariable [QGVAR(allLogs), []]) apply {[_x, _unit getVariable [_x, []]]};
+private _logs = ((_unit getVariable [QGVAR(allLogs), []]) select {_x isEqualType ""}) apply {[_x, _unit getVariable [_x, []]]};
 TRACE_1("Saved",_logs);
 _state setVariable [QGVAR(logs), _logs];
 
