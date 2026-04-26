@@ -2,20 +2,24 @@
 /*
  * Author: BaerMitUmlaut
  * Deserializes the medical state of a unit and applies it.
+ * State may be a JSON string (default, back-compat) or a native HashMap from
+ * a caller that already has parsed data — pass _isJson=false in that case.
  *
  * Arguments:
  * 0: Unit <OBJECT>
- * 1: State as JSON <STRING>
+ * 1: State <STRING|HASHMAP>
+ * 2: State is JSON string <BOOL> (default: true)
  *
  * Return Value:
  * None
  *
  * Example:
  * [player, _json] call ace_medical_fnc_deserializeState
+ * [player, _hash, false] call ace_medical_fnc_deserializeState
  *
  * Public: Yes
  */
-params [["_unit", objNull, [objNull]], ["_json", "{}", [""]]];
+params [["_unit", objNull, [objNull]], ["_input", "{}", ["", createHashMap]], ["_isJson", true, [false]]];
 
 // Don't run in scheduled environment
 if (canSuspend) exitWith {
@@ -38,7 +42,22 @@ if !(_unit getVariable [QGVAR(initialized), false]) exitWith {
     }, _this] call CBA_fnc_addEventHandlerArgs;
 };
 
-private _state = [_json] call CBA_fnc_parseJSON;
+// Build a CBA namespace as the working state. JSON path parses into a namespace
+// directly; HashMap path lifts entries into a fresh namespace so the rest of
+// this function can stay unchanged. Bad input drops silently rather than
+// crashing the redeploy chain.
+private _state = call CBA_fnc_createNamespace;
+if (_isJson && {_input isEqualType ""}) then {
+    private _parsed = [_input] call CBA_fnc_parseJSON;
+    if (typeName _parsed == "LOCATION") then { _state = _parsed };
+} else {
+    if (_input isEqualType createHashMap) then {
+        { _state setVariable [_x, _y] } forEach _input;
+    };
+};
+if (typeName _state != "LOCATION") exitWith {
+    WARNING_1("Bad medical state input, dropping (typeName %1)",typeName _input);
+};
 
 // Migration from old array wounding storage serialized in old versions (<= 3.16.0)
 {

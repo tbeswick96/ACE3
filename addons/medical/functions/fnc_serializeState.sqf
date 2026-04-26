@@ -1,20 +1,24 @@
 #include "..\script_component.hpp"
 /*
  * Author: BaerMitUmlaut
- * Serializes the medical state of a unit into a string.
+ * Serializes the medical state of a unit. Returns a JSON string by default;
+ * pass _asJson=false to get a native HashMap and skip the encode step
+ * (avoids double-encode when the caller is going to encode again itself).
  *
  * Arguments:
  * 0: Unit <OBJECT>
+ * 1: Return as JSON string <BOOL> (default: true)
  *
  * Return Value:
- * Serialized state as JSON string <STRING>
+ * Serialized state <STRING|HASHMAP>
  *
  * Example:
  * [player] call ace_medical_fnc_serializeState
+ * [player, false] call ace_medical_fnc_serializeState
  *
  * Public: Yes
  */
-params [["_unit", objNull, [objNull]]];
+params [["_unit", objNull, [objNull]], ["_asJson", true, [false]]];
 
 private _state = [] call CBA_fnc_createNamespace;
 
@@ -67,7 +71,39 @@ _state setVariable [QGVAR(logs), _logs];
 
 [QGVAR(serialize), [_unit, _state]] call CBA_fnc_localEvent;
 
-// Serialize & return
-private _json = [_state] call CBA_fnc_encodeJSON;
+// TEMPORARY: coerce poisoned wound entries (HashMap/Namespace) to positional
+// arrays. Carry-over from the brief 2026-03-17 → 2026-03-22 build that wrote
+// wounds as hashmaps; cleared once all profiles cycle through this save path.
+// Remove this block after the next full modpack release ships and profiles
+// have been rewritten at least once.
+{
+    private _wounds = _state getVariable [_x, createHashMap];
+    if (_wounds isEqualType createHashMap) then {
+        {
+            _y = _y apply {
+                switch (true) do {
+                    case (_x isEqualType []): { _x };
+                    case (_x isEqualType createHashMap): {
+                        [_x getOrDefault ["classComplex", 0], _x getOrDefault ["amountOf", 0], _x getOrDefault ["bleedingRate", 0], _x getOrDefault ["woundDamage", 0]]
+                    };
+                    case (typeName _x == "LOCATION"): {
+                        [_x getVariable ["classComplex", 0], _x getVariable ["amountOf", 0], _x getVariable ["bleedingRate", 0], _x getVariable ["woundDamage", 0]]
+                    };
+                    default { [0, 0, 0, 0] };
+                };
+            };
+            _wounds set [_x, _y];
+        } forEach _wounds;
+    };
+} forEach [VAR_OPEN_WOUNDS, VAR_BANDAGED_WOUNDS, VAR_STITCHED_WOUNDS];
+
+// Convert namespace → native HashMap so callers (and CBA_fnc_encodeJSON below)
+// see a single self-describing structure instead of an opaque namespace.
+private _hash = createHashMapFromArray ((allVariables _state) apply {[_x, _state getVariable _x]});
 _state call CBA_fnc_deleteNamespace;
-_json
+
+if (_asJson) exitWith {
+    [_hash] call CBA_fnc_encodeJSON
+};
+
+_hash
