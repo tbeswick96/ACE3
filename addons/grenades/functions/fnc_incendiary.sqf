@@ -216,7 +216,7 @@ if (isServer) then {
 if (["ace_cookoff"] call EFUNC(common,isModLoaded)) then {
     {
         [{
-            [QEGVAR(cookOff,cookOffServer), [_this, 5, objNull, objNull, true, 0.5, true]] call CBA_fnc_serverEvent;
-        }, _x, (random 10) + 5] call CBA_fnc_waitAndExecute;
+            [QEGVAR(cookOff,cookOffServer), [_this, 2, objNull, objNull, true, 0, true, "", false, false]] call CBA_fnc_serverEvent;
+        }, _x, (random 5) + 5] call CBA_fnc_waitAndExecute;
     } forEach (_position nearEntities ["Air", AIRCRAFT_COOKOFF_RADIUS]);
 };
