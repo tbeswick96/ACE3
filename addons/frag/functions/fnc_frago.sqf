@@ -123,8 +123,14 @@ if (GVAR(reflectionsEnabled)) then {
 } forEach _targets;
 TRACE_1("targeted",_fragCount);
 if (_fragCount > _maxFrags) exitWith { _fragCount };
-private _randomCount = ceil ((_maxFrags - _fragCount) * 0.35);
-TRACE_1("",_randomCount);
+// Per-warhead random-spread fraction. Defaults to vanilla ACE 0.35 (35% of remaining
+// budget sprayed isotropically). Air-to-air warheads can lower this dramatically since
+// random-direction frags at altitude waste simulation cost on empty sky.
+private _randomFraction = 0.35;
+private _randomFractionConfig = configFile >> "CfgAmmo" >> _shellType >> "ace_frag_randomFraction";
+if (isNumber _randomFractionConfig) then { _randomFraction = getNumber _randomFractionConfig };
+private _randomCount = ceil ((_maxFrags - _fragCount) * _randomFraction);
+TRACE_2("",_randomCount,_randomFraction);
 private _sectorSize = 360 / (_randomCount max 1);
 
 for "_i" from 1 to _randomCount do {
