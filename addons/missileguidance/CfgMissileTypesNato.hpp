@@ -6,6 +6,10 @@ class GVAR(type_AMRAAM) {
 
     canVanillaLock = 1;          // Can this default vanilla lock? Only applicable to non-cadet mode
 
+    proximityFuze = 1;           // 1 = enabled, 0 = impact only
+    proximityRadius = 8;         // metres. Detonate at closest approach when target inside this radius
+    proximityArmingTime = 2;     // seconds post-launch before fuze arms
+
     // Guidance type for munitions
     defaultSeekerType = "DopplerRadar";
     seekerTypes[] = { "DopplerRadar" };

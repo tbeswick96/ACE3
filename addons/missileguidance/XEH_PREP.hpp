@@ -19,6 +19,7 @@ PREP(onIncomingMissile);
 PREP(guidancePFH);
 PREP(doAttackProfile);
 PREP(doSeekerSearch);
+PREP(proximityCheck);
 
 PREP(doHandoff);
 PREP(handleHandoff);
