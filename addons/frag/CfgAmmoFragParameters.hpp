@@ -515,6 +515,7 @@ class M_Titan_AA: MissileBase {
     GVAR(charge) = 1020;
     GVAR(gurney_c) = 2501;
     GVAR(gurney_k) = 1/2;
+    GVAR(randomFraction) = 0.05;  // A2A: most random-direction frags at altitude waste sim cost on empty sky
     GVAR(classes)[] = {QGVAR(tiny), QGVAR(tiny_HD), QGVAR(small_HD)};
 };
 class M_Titan_AT: MissileBase {
@@ -591,6 +592,7 @@ class M_Air_AA: MissileBase { // Looks not real, maybe r-73 inspired?
     GVAR(metal) = 4950;
     GVAR(gurney_c) = 2700;
     GVAR(gurney_k) = 1/2;
+    GVAR(randomFraction) = 0.05;  // A2A: most random-direction frags at altitude waste sim cost on empty sky
     GVAR(classes)[] = {QGVAR(tiny), QGVAR(medium_HD), QGVAR(small_HD), QGVAR(small_HD)};
 };
 
@@ -600,6 +602,7 @@ class Missile_AA_04_F: MissileBase {
     GVAR(metal) = 5000;
     GVAR(gurney_c) = 2830;
     GVAR(gurney_k) = 1/2;
+    GVAR(randomFraction) = 0.05;  // A2A: most random-direction frags at altitude waste sim cost on empty sky
 };
 class Missile_AA_03_F: Missile_AA_04_F {
     GVAR(charge) = 2450;
@@ -609,6 +612,7 @@ class Missile_AA_03_F: Missile_AA_04_F {
 
 class ammo_Missile_ShortRangeAABase: MissileBase {
     GVAR(gurney_k) = 1/2;
+    GVAR(randomFraction) = 0.05;  // A2A: most random-direction frags at altitude waste sim cost on empty sky
 };
 class ammo_Missile_rim116: ammo_Missile_ShortRangeAABase {
     GVAR(skip) = 0;
@@ -635,6 +639,7 @@ class ammo_Missile_AA_R73: ammo_Missile_ShortRangeAABase {
 class ammo_Missile_MediumRangeAABase: MissileBase {
     GVAR(gurney_c) = 2900;
     GVAR(gurney_k) = 1/2;
+    GVAR(randomFraction) = 0.05;  // A2A: most random-direction frags at altitude waste sim cost on empty sky
 };
 class ammo_Missile_rim162: ammo_Missile_MediumRangeAABase {
     GVAR(skip) = 0;

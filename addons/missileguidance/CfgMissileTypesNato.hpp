@@ -7,7 +7,7 @@ class GVAR(type_AMRAAM) {
     canVanillaLock = 1;          // Can this default vanilla lock? Only applicable to non-cadet mode
 
     proximityFuze = 1;           // 1 = enabled, 0 = impact only
-    proximityRadius = 8;         // metres. Detonate at closest approach when target inside this radius
+    proximityRadius = 10;        // metres. Detonate at closest approach when target inside this radius
     proximityArmingTime = 2;     // seconds post-launch before fuze arms
 
     // Guidance type for munitions
@@ -45,6 +45,10 @@ class GVAR(type_ASRAAM) {
     yawRate = 100;            // Maximum flap deflection for guidance
 
     canVanillaLock = 1;          // Can this default vanilla lock? Only applicable to non-cadet mode
+
+    proximityFuze = 1;           // ASRAAM: 10kg blast-frag warhead, laser proximity fuze IRL
+    proximityRadius = 7;
+    proximityArmingTime = 1.0;
 
     // Guidance type for munitions
     defaultSeekerType = "IR";
@@ -145,6 +149,10 @@ class GVAR(type_ESSM) {
     yawRate = 15;            // Maximum flap deflection for guidance
 
     canVanillaLock = 1;          // Can this default vanilla lock? Only applicable to non-cadet mode
+
+    proximityFuze = 1;           // RIM-162 ESSM: ~39kg blast-frag warhead, naval medium-range SAM
+    proximityRadius = 12;
+    proximityArmingTime = 2.0;
 
     // Guidance type for munitions
     defaultSeekerType = "DopplerRadar";
@@ -447,6 +455,10 @@ class GVAR(type_Patriot) {
 
     canVanillaLock = 1;          // Can this default vanilla lock? Only applicable to non-cadet mode
 
+    proximityFuze = 1;           // PAC-2 / MIM-104: ~91kg blast-frag warhead, long-range SAM
+    proximityRadius = 18;
+    proximityArmingTime = 3.0;
+
     // Guidance type for munitions
     defaultSeekerType = "DopplerRadar";
     seekerTypes[] = { "DopplerRadar" };
@@ -514,6 +526,10 @@ class GVAR(type_RAM) {
     yawRate = 50;            // Maximum flap deflection for guidance
 
     canVanillaLock = 1;          // Can this default vanilla lock? Only applicable to non-cadet mode
+
+    proximityFuze = 1;           // RIM-116 RAM: WDU-17/B 9.1kg blast-frag, laser proximity fuze IRL
+    proximityRadius = 7;
+    proximityArmingTime = 1.5;
 
     // Guidance type for munitions
     defaultSeekerType = "IR";
@@ -588,6 +604,10 @@ class GVAR(type_Redeye) {
 
     canVanillaLock = 1;          // Can this default vanilla lock? Only applicable to non-cadet mode
 
+    proximityFuze = 1;           // FIM-43 Redeye: ~1.16kg blast-frag warhead, legacy MANPADS
+    proximityRadius = 4;
+    proximityArmingTime = 0.5;
+
     // Guidance type for munitions
     defaultSeekerType = "IR";
     seekerTypes[] = { "IR" };
@@ -621,6 +641,10 @@ class GVAR(type_Sidewinder) {
     yawRate = 35;            // Maximum flap deflection for guidance
 
     canVanillaLock = 1;          // Can this default vanilla lock? Only applicable to non-cadet mode
+
+    proximityFuze = 1;           // AIM-9X: WDU-17/B 9.4kg annular blast-frag, ~3.6kg PBXN-3
+    proximityRadius = 8;
+    proximityArmingTime = 0.5;
 
     // Guidance type for munitions
     defaultSeekerType = "IR";
@@ -692,6 +716,10 @@ class GVAR(type_Stinger) {
     yawRate = 42;            // Maximum flap deflection for guidance
 
     canVanillaLock = 1;          // Can this default vanilla lock? Only applicable to non-cadet mode
+
+    proximityFuze = 1;           // FIM-92 Stinger: 3kg annular blast-frag, ~1.02kg HTA-3
+    proximityRadius = 5;
+    proximityArmingTime = 0.5;
 
     // Guidance type for munitions
     defaultSeekerType = "IR";
@@ -767,6 +795,10 @@ class GVAR(type_Blowpipe) {
     canVanillaLock = 0;          // Can this default vanilla lock? Only applicable to non-cadet mode
 
     showTrail = 1;
+
+    proximityFuze = 1;           // Blowpipe: ~2.2kg HE-frag MANPADS warhead
+    proximityRadius = 5;
+    proximityArmingTime = 0.5;
 
     // Guidance type for munitions
     defaultSeekerType = "MCLOS";

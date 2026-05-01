@@ -240,6 +240,10 @@ class GVAR(type_Igla) {
 
     canVanillaLock = 1;          // Can this default vanilla lock? Only applicable to non-cadet mode
 
+    proximityFuze = 1;           // 9K38 Igla: ~1.17kg HE MANPADS warhead with proximity fuze
+    proximityRadius = 5;
+    proximityArmingTime = 0.5;
+
     // Guidance type for munitions
     defaultSeekerType = "IR";
     seekerTypes[] = { "IR" };
@@ -558,6 +562,10 @@ class GVAR(type_Molniya) {
 
     canVanillaLock = 1;          // Can this default vanilla lock? Only applicable to non-cadet mode
 
+    proximityFuze = 1;           // R-60 Molniya: ~3kg blast-frag short-range A2A
+    proximityRadius = 5;
+    proximityArmingTime = 0.5;
+
     // Guidance type for munitions
     defaultSeekerType = "IR";
     seekerTypes[] = { "IR" };
@@ -590,6 +598,10 @@ class GVAR(type_R73) {
     yawRate = 35;            // Maximum flap deflection for guidance
 
     canVanillaLock = 1;          // Can this default vanilla lock? Only applicable to non-cadet mode
+
+    proximityFuze = 1;           // R-73 (AA-11 Archer): ~7.4kg blast-frag short-range A2A
+    proximityRadius = 7;
+    proximityArmingTime = 1.0;
 
     // Guidance type for munitions
     defaultSeekerType = "IR";
@@ -624,6 +636,10 @@ class GVAR(type_R74) {
 
     canVanillaLock = 1;          // Can this default vanilla lock? Only applicable to non-cadet mode
 
+    proximityFuze = 1;           // R-74 (AA-11M improved Archer): ~7.4kg blast-frag short-range A2A
+    proximityRadius = 7;
+    proximityArmingTime = 1.0;
+
     // Guidance type for munitions
     defaultSeekerType = "IR";
     seekerTypes[] = { "IR" };
@@ -656,6 +672,10 @@ class GVAR(type_R77) {
     yawRate = 40;            // Maximum flap deflection for guidance
 
     canVanillaLock = 1;          // Can this default vanilla lock? Only applicable to non-cadet mode
+
+    proximityFuze = 1;           // R-77 (AA-12 Adder): ~22kg multi-cumulative blast-frag, BVR active radar A2A
+    proximityRadius = 10;
+    proximityArmingTime = 2.0;
 
     // Guidance type for munitions
     defaultSeekerType = "DopplerRadar";
@@ -733,6 +753,10 @@ class GVAR(type_S400) {
 
     canVanillaLock = 1;          // Can this default vanilla lock? Only applicable to non-cadet mode
 
+    proximityFuze = 1;           // 48N6 / 9M96: ~140-180kg blast-frag, long-range strategic SAM
+    proximityRadius = 20;
+    proximityArmingTime = 3.0;
+
     // Guidance type for munitions
     defaultSeekerType = "DopplerRadar";
     seekerTypes[] = { "DopplerRadar" };
@@ -807,6 +831,10 @@ class GVAR(type_Strela) {
 
     canVanillaLock = 1;          // Can this default vanilla lock? Only applicable to non-cadet mode
 
+    proximityFuze = 1;           // 9K32 / 9K34 Strela: ~1.17kg HE MANPADS warhead
+    proximityRadius = 4;
+    proximityArmingTime = 0.5;
+
     // Guidance type for munitions
     defaultSeekerType = "IR";
     seekerTypes[] = { "IR" };
@@ -874,6 +902,10 @@ class GVAR(type_Vympel) {
     yawRate = 35;            // Maximum flap deflection for guidance
 
     canVanillaLock = 1;          // Can this default vanilla lock? Only applicable to non-cadet mode
+
+    proximityFuze = 1;           // R-27 family (AA-10 Alamo): ~39kg blast-frag medium/long-range A2A
+    proximityRadius = 12;
+    proximityArmingTime = 2.0;
 
     // Guidance type for munitions
     defaultSeekerType = "IR";
