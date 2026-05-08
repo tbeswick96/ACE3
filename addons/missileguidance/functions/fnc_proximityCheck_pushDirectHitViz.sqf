@@ -27,7 +27,7 @@ params [
 ];
 
 private _expireTime = CBA_missionTime + PROXIMITY_DEBUG_DRAW_TTL_DIRECT_HIT;
-private _hitSegmentLabel = if (_segmentAHitsTarget) then { "A" } else { "B" };
+private _hitSegmentLabel = ["B", "A"] select _segmentAHitsTarget;
 private _label = format [
     "DIRECT HIT PREDICTED (segment %1) — engine handles  | wouldBeProx dist=%2 / radius=%3",
     _hitSegmentLabel,
