@@ -23,4 +23,4 @@ if (GVAR(enabled) < 1) exitWith {};    // bail if enabled
 if !(local (gunner _shooter) || {local _shooter}) exitWith {}; // bail if not shooter
 
 _shooter setVariable [QGVAR(vanilla_target),_target, false];
-TRACE_2("setting vanilla target",_shooter,_target);
+TRACE_4("setting vanilla target",_shooter,_target,_ammo,typeOf _shooter);

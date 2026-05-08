@@ -79,21 +79,34 @@ if (isNil "_navigationType" || _navigationType isEqualTo "") then {
 if (isNil "_target") then {
     if (!isPlayer _shooter) then {
         // This was an AI shot, lets still guide it on the AI target
-        _target = _shooter getVariable [QGVAR(vanilla_target), nil];
-        TRACE_1("Detected AI Shooter!",_target);
+        private _shooterVehicle = vehicle _shooter;
+        private _vanillaTarget = _shooter getVariable [QGVAR(vanilla_target), nil];
+        // IncomingMissile EH writes vanilla_target on the vehicle, but Fired EH's
+        // _shooter is the pilot unit — fall back to the vehicle's var, then to
+        // engine-side target queries on projectile / shooter vehicle.
+        if (isNil "_vanillaTarget" || {isNull _vanillaTarget}) then {
+            _vanillaTarget = _shooterVehicle getVariable [QGVAR(vanilla_target), objNull];
+        };
+        private _missileTarget = missileTarget _projectile;
+        private _assignedTarget = assignedTarget _shooterVehicle;
+        _target = _vanillaTarget;
+        if (isNull _target) then { _target = _missileTarget };
+        if (isNull _target) then { _target = _assignedTarget };
+        TRACE_8("AI Shooter fallback",_shooter,typeOf _shooter,_ammo,_vanillaTarget,_missileTarget,_assignedTarget,_shooterVehicle,_target);
     } else {
         private _canUseLock = getNumber (_config >> "canVanillaLock");
-        // @TODO: Get vanilla target
         if (_canUseLock > 0 || difficulty < 1) then {
-            private _vanillaTarget = missileTarget _projectile;
-
-            TRACE_1("Using Vanilla Locking",_vanillaTarget);
-            if (!isNil "_vanillaTarget") then {
-                _target = _vanillaTarget;
-            };
+            private _shooterVehicle = vehicle _shooter;
+            private _missileTarget = missileTarget _projectile;
+            private _assignedTarget = assignedTarget _shooterVehicle;
+            _target = _missileTarget;
+            if (isNull _target) then { _target = _assignedTarget };
+            TRACE_4("Using Vanilla Locking",_missileTarget,_assignedTarget,_shooterVehicle,_target);
         };
     };
 };
+// Downstream seekers handle objNull but propagate nil — normalise here.
+if (isNil "_target") then { _target = objNull };
 _targetPos = getPosASLVisual _target;
 
 // Array for seek last target position

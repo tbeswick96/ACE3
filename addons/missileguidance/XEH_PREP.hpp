@@ -20,6 +20,8 @@ PREP(guidancePFH);
 PREP(doAttackProfile);
 PREP(doSeekerSearch);
 PREP(proximityCheck);
+PREP(proximityCheck_pushDetonationViz);
+PREP(proximityCheck_pushDirectHitViz);
 
 PREP(doHandoff);
 PREP(handleHandoff);

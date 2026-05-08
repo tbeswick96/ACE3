@@ -5,6 +5,21 @@
 
 if (!hasInterface) exitWith {};
 
+// Persistent debug draws — populated by fnc_proximityCheck on detonation /
+// direct-hit skip events. Each entry: [_expireTime, _drawCallback, _drawArgs].
+// PFEH calls each entry every frame and removes after expiry.
+GVAR(proxDebug_pendingDraws) = [];
+[{
+    GVAR(proxDebug_pendingDraws) = GVAR(proxDebug_pendingDraws) select {
+        _x params ["_expireTime", "_drawCallback", "_drawArgs"];
+        private _stillAlive = CBA_missionTime <= _expireTime;
+        if (_stillAlive) then {
+            _drawArgs call _drawCallback;
+        };
+        _stillAlive
+    };
+}, 0, []] call CBA_fnc_addPerFrameHandler;
+
 ["ACE3 Weapons", QGVAR(cycleFireMode), LLSTRING(CycleFireMode), {
     [] call FUNC(cycleAttackProfileKeyDown)
 }, {
