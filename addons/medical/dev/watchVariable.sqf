@@ -29,9 +29,11 @@ GVAR(dev_watchVariableRunning) = true;
     private _hasStableVitals = ["N", "Y"] select ([_unit] call EFUNC(medical_status,hasStableVitals));
     private _hasStableCondition = ["N", "Y"] select ([_unit] call EFUNC(medical_status,isInStableCondition));
     private _unconcFlag = ["", "[<t color='#BBFFBB'>U</t>]"] select IS_UNCONSCIOUS(_unit);
-    private _timeLeft = _unit getVariable [QEGVAR(medical_statemachine,cardiacArrestTimeLeft), -1];
+    private _cardiacEnd = _unit getVariable [QEGVAR(medical_statemachine,cardiacArrestEndTime), -1];
+    private _timeLeft = if (_cardiacEnd < 0) then {-1} else {_cardiacEnd - CBA_missionTime};
     private _cardiactArrestFlag = if IN_CRDC_ARRST(_unit) then {format ["[<t color='#BBBBFF'>CA</t> %1]", _timeLeft toFixed 1]} else {""};
-    private _timeLeftComa = _unit getVariable [QEGVAR(medical_statemachine,comaTimeLeft), -1];
+    private _comaEnd = _unit getVariable [QEGVAR(medical_statemachine,comaEndTime), -1];
+    private _timeLeftComa = if (_comaEnd < 0) then {-1} else {_comaEnd - CBA_missionTime};
     private _comaFlag = if IN_COMA(_unit) then {format ["[<t color='#BBBBFF'>Comatose</t> %1]", _timeLeftComa toFixed 1]} else {""};
     _return pushBack format ["[StableVitals: %1] [StableCon: %2] %3 %4 %5,", _hasStableVitals, _hasStableCondition, _unconcFlag, _cardiactArrestFlag, _comaFlag];
 

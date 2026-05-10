@@ -17,4 +17,5 @@
 
 params ["_unit"];
 
-(_unit getVariable [QGVAR(comaTimeLeft), -1]) <= 0
+private _endTime = _unit getVariable [QGVAR(comaEndTime), -1];
+_endTime > -1 && {_endTime <= CBA_missionTime}

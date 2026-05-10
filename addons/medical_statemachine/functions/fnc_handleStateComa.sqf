@@ -1,7 +1,8 @@
 #include "..\script_component.hpp"
 /*
  * Author: Tim Beswick
- * Handles the coma state
+ * Coma state per-tick handler. With endpoint-based timer (comaEndTime),
+ * no per-tick decrement is needed; condition check reads the endpoint directly.
  *
  * Arguments:
  * 0: The Unit <OBJECT>
@@ -17,24 +18,6 @@
 
 params ["_unit"];
 
-// If the unit died the loop is finished
-if (!alive _unit) exitWith {};
-if (!local _unit) exitWith {};
+if (!alive _unit || {!local _unit}) exitWith {};
 
 [_unit] call EFUNC(medical_vitals,handleUnitVitals);
-
-private _timeDiff = CBA_missionTime - (_unit getVariable [QGVAR(comaTimeLastUpdate), 0]);
-if (_timeDiff >= 1) then {
-    _timeDiff = _timeDiff min 10;
-    _unit setVariable [QGVAR(comaTimeLastUpdate), CBA_missionTime];
-    private _timeLeft = _unit getVariable [QGVAR(comaTimeLeft), -1];
-    TRACE_2("coma life tick",_unit,_timeDiff);
-    _timeLeft = _timeLeft - _timeDiff; // negative values are fine
-
-    private _broadcast = CBA_missionTime - (_unit getVariable [QGVAR(comaTimeLastBroadcast), 0]) >= 5;
-    if (_broadcast) then {
-        _unit setVariable [QGVAR(comaTimeLastBroadcast), CBA_missionTime];
-    };
-    _unit setVariable [QGVAR(comaTimeLeft), _timeLeft, _broadcast];
-};
-

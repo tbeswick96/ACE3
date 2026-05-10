@@ -19,7 +19,6 @@
 params ["_unit"];
 TRACE_1("leftStateComa",_unit);
 
-_unit setVariable [QGVAR(comaTimeLeft), nil, true];
-_unit setVariable [QGVAR(comaTimeLastUpdate), nil];
+_unit setVariable [QGVAR(comaEndTime), nil, true];
 
 [_unit, false] call EFUNC(medical_status,setComaState);

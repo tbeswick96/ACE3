@@ -20,7 +20,8 @@
 params ["_medic", "_patient", "_bodyPart"];
 
 private _comatose = IN_COMA(_patient);
-private _comaTime = _patient getVariable [QEGVAR(medical_statemachine,comaTimeLeft), -1];
+private _comaEndTime = _patient getVariable [QEGVAR(medical_statemachine,comaEndTime), -1];
+private _comaTime = if (_comaEndTime < 0) then {-1} else {_comaEndTime - CBA_missionTime};
 private _upper = EGVAR(medical_statemachine,comaTime) * 0.95;
 private _lower = EGVAR(medical_statemachine,comaTime) * 0.5;
 private _minimum = EGVAR(medical_statemachine,comaTime) * 0.1;
