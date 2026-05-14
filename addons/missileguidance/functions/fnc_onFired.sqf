@@ -38,6 +38,43 @@ if ( !isPlayer _shooter && { GVAR(enabled) < 2 } ) exitWith {};
 private _configs = QUOTE(configName _x == QUOTE(QUOTE(ADDON))) configClasses _configAmmo;
 if (_configs isEqualTo []) exitWith {};
 
+// UKSF AAM telemetry: structured fire+impact log for Meteor, AIM-120 family, ASRAAM.
+// Grep `[uksf_aam]` in server/client RPT to reconstruct engagement timelines.
+private _isTrackedAAM = _ammo == "rksla3_ammo_meteor"
+    || {_ammo isKindOf ["ammo_Missile_AMRAAM_D", configFile >> "CfgAmmo"]}
+    || {_ammo isKindOf ["ammo_Missile_AMRAAM_C", configFile >> "CfgAmmo"]}
+    || {_ammo isKindOf ["M_Air_AA", configFile >> "CfgAmmo"]};
+if (_isTrackedAAM) then {
+    private _target = _shooter getVariable ["ace_missileguidance_target", objNull];
+    if (isNull _target) then { _target = assignedTarget _shooter };
+    private _shooterName = if (isPlayer _shooter) then { name _shooter } else { typeOf _shooter };
+    private _targetType = if (isNull _target) then { "" } else { typeOf _target };
+    private _range = if (isNull _target) then { -1 } else { _shooter distance _target };
+    private _fireTime = CBA_missionTime;
+    diag_log format ["[uksf_aam] fired t=%1 ammo=%2 shooter=%3 target=%4 range=%5m alt=%6m",
+        _fireTime toFixed 3, _ammo, _shooterName, _targetType,
+        _range toFixed 0, ((getPosASL _shooter) select 2) toFixed 0];
+    _projectile setVariable ["uksf_aam_ctx", [_shooterName, _ammo, _target, _targetType, _fireTime]];
+    _projectile addEventHandler ["Explode", {
+        params ["_proj"];
+        private _ctx = _proj getVariable ["uksf_aam_ctx", []];
+        if (_ctx isEqualTo []) exitWith {};
+        _ctx params ["_shooterName", "_ammo", "_target", "_targetType", "_fireTime"];
+        private _explodeTime = CBA_missionTime;
+        private _cpa = if (isNull _target) then { -1 } else { _proj distance _target };
+        // 1s wait so frag HD events land before we read damage.
+        [{
+            params ["_shooterName", "_ammo", "_target", "_targetType", "_fireTime", "_explodeTime", "_cpa"];
+            private _dmg = if (isNull _target) then { -1 } else { damage _target };
+            private _killed = !isNull _target && {!alive _target || _dmg >= 0.9};
+            diag_log format ["[uksf_aam] impact t=%1 ammo=%2 shooter=%3 target=%4 cpa=%5m flightT=%6s dmg=%7 killed=%8",
+                _explodeTime toFixed 3, _ammo, _shooterName, _targetType,
+                _cpa toFixed 1, (_explodeTime - _fireTime) toFixed 2,
+                _dmg toFixed 2, _killed];
+        }, [_shooterName, _ammo, _target, _targetType, _fireTime, _explodeTime, _cpa], 1] call CBA_fnc_waitAndExecute;
+    }];
+};
+
 private _args = call FUNC(onFiredGetArgs);
 [LINKFUNC(guidancePFH),0, _args] call CBA_fnc_addPerFrameHandler;
 
