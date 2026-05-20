@@ -53,7 +53,26 @@ if (_state) then {
             // If input is enabled again, ignore
             if (isNil QGVAR(keyboardInputMain)) exitWith {};
 
-            params ["", "_key"];
+            params ["", "_key", "_shift", "_ctrl", "_alt"];
+
+            // Medical Uncon View: allow reopen keybind through while uncon
+            if (!isNil {EFUNC(medical_unconview,openDialog)}) then {
+                private _entry = ["ACE3 Common", QEGVAR(medical_unconview,toggleHide)] call CBA_fnc_getKeybind;
+                if (!isNil "_entry") then {
+                    (_entry select 5) params ["_unconviewKey", "_unconviewMods"];
+                    _unconviewMods params ["_unconviewShift", "_unconviewCtrl", "_unconviewAlt"];
+                    if (
+                        _key == _unconviewKey
+                        && {_shift == _unconviewShift}
+                        && {_ctrl == _unconviewCtrl}
+                        && {_alt == _unconviewAlt}
+                        && {alive ACE_player}
+                        && {ACE_player getVariable ["ACE_isUnconscious", false]}
+                    ) then {
+                        [] call EFUNC(medical_unconview,openDialog);
+                    };
+                };
+            };
 
             // Get key info; Stored as [isPressed, pressedCount]
             private _keyPressedInfo = GVAR(keyboardInputMain) getOrDefault [_key, [false, 0], true];

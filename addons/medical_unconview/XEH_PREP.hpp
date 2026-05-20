@@ -1,0 +1,11 @@
+PREP(handleUnconsciousState);
+PREP(openDialog);
+PREP(openDialogOnLoad);
+PREP(closeDialog);
+PREP(onDialogUnload);
+PREP(hidePreviousTabs);
+PREP(openHealthTab);
+PREP(openSpectatorTab);
+PREP(vitalsUpdate);
+PREP(spectatorUpdate);
+PREP(spectatorCleanup);
