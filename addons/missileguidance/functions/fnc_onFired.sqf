@@ -38,6 +38,8 @@ if ( !isPlayer _shooter && { GVAR(enabled) < 2 } ) exitWith {};
 private _configs = QUOTE(configName _x == QUOTE(QUOTE(ADDON))) configClasses _configAmmo;
 if (_configs isEqualTo []) exitWith {};
 
+private _args = call FUNC(onFiredGetArgs);
+
 // UKSF AAM telemetry: structured fire+impact log for Meteor, AIM-120 family, ASRAAM.
 // Grep `[uksf_aam]` in server/client RPT to reconstruct engagement timelines.
 private _isTrackedAAM = _ammo == "rksla3_ammo_meteor"
@@ -45,15 +47,18 @@ private _isTrackedAAM = _ammo == "rksla3_ammo_meteor"
     || {_ammo isKindOf ["ammo_Missile_AMRAAM_C", configFile >> "CfgAmmo"]}
     || {_ammo isKindOf ["M_Air_AA", configFile >> "CfgAmmo"]};
 if (_isTrackedAAM) then {
-    private _target = _shooter getVariable ["ace_missileguidance_target", objNull];
-    if (isNull _target) then { _target = assignedTarget _shooter };
+    // Pull the target guidance actually resolved (vanilla-lock fallback via
+    // missileTarget / assignedTarget) out of the launch params — single source of
+    // truth. _args[1][1][0] == _target per the layout comment in onFiredGetArgs.
+    private _target = _args select 1 select 1 select 0;
+    private _shooterVehicle = vehicle _shooter;
     private _shooterName = if (isPlayer _shooter) then { name _shooter } else { typeOf _shooter };
     private _targetType = if (isNull _target) then { "" } else { typeOf _target };
-    private _range = if (isNull _target) then { -1 } else { _shooter distance _target };
+    private _range = if (isNull _target) then { -1 } else { _shooterVehicle distance _target };
     private _fireTime = CBA_missionTime;
     diag_log format ["[uksf_aam] fired t=%1 ammo=%2 shooter=%3 target=%4 range=%5m alt=%6m",
         _fireTime toFixed 3, _ammo, _shooterName, _targetType,
-        _range toFixed 0, ((getPosASL _shooter) select 2) toFixed 0];
+        _range toFixed 0, ((getPosASL _shooterVehicle) select 2) toFixed 0];
     _projectile setVariable ["uksf_aam_ctx", [_shooterName, _ammo, _target, _targetType, _fireTime]];
     _projectile addEventHandler ["Explode", {
         params ["_proj"];
@@ -75,7 +80,6 @@ if (_isTrackedAAM) then {
     }];
 };
 
-private _args = call FUNC(onFiredGetArgs);
 [LINKFUNC(guidancePFH),0, _args] call CBA_fnc_addPerFrameHandler;
 
 if (GVAR(debug_enableMissileCamera)) then {
