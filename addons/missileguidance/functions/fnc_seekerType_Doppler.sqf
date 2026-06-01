@@ -36,6 +36,19 @@ if (_isActive || { CBA_missionTime >= _timeWhenActive }) then {
         // Internal radar homing
         // For performance reasons only poll for target every so often instead of each frame
         if ((_lastTargetPollTime + ACTIVE_RADAR_POLL_FREQUENCY) - CBA_missionTime < 0) then {
+            _lastTargetPollTime = CBA_missionTime;
+            _seekerStateParams set [4, _lastTargetPollTime];
+
+            // Track continuity: keep the established track while it stays in the seeker gate.
+            // Notch/clutter discrimination still runs on the kept target below (shouldFilterRadarHit).
+            if (
+                !isNull _target
+                && {alive _target}
+                && {(getPosASL _projectile) vectorDistance (getPosASL _target) <= _seekerMaxRange}
+                && {[_projectile, getPosASL _target, _seekerAngle] call FUNC(checkSeekerAngle)}
+                && {([_projectile, _target, true] call FUNC(checkLos)) || {[_projectile, _target, false] call FUNC(checkLos)}}
+            ) exitWith {};
+
             private _searchPos = _expectedTargetPos;
             if (_searchPos isEqualTo [0, 0, 0] || { _doesntHaveTarget }) then {
                 _seekerStateParams set [9, true];
@@ -44,8 +57,6 @@ if (_isActive || { CBA_missionTime >= _timeWhenActive }) then {
             };
 
             _target = objNull;
-            _lastTargetPollTime = CBA_missionTime;
-            _seekerStateParams set [4, _lastTargetPollTime];
             private _distanceToExpectedTarget = _seekerMaxRange min ((getPosASL _projectile) vectorDistance _searchPos);
 
             // Simulate how much the seeker can see at the ground
