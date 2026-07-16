@@ -22,7 +22,6 @@ params ["_medic", "_patient", "_bodyPart"];
 private _comatose = IN_COMA(_patient);
 private _comaEndTime = _patient getVariable [QEGVAR(medical_statemachine,comaEndTime), -1];
 private _comaTime = if (_comaEndTime < 0) then {-1} else {_comaEndTime - CBA_missionTime};
-private _upper = EGVAR(medical_statemachine,comaTime) * 0.95;
 private _lower = EGVAR(medical_statemachine,comaTime) * 0.5;
 private _minimum = EGVAR(medical_statemachine,comaTime) * 0.1;
 
@@ -32,17 +31,12 @@ private _logOutput = LSTRING(Check_Pupils_Dilated);
 
 if (alive _patient) then {
     if (_comatose) then {
+        // Constricted-normally is reserved for non-coma; coma starts at mostly.
         if (_comaTime > _minimum) then {
             if (_comaTime > _lower) then {
-                if (_comaTime > _upper) then {
-                    // > _upper: constrict normally
-                    _dilationOutput = LSTRING(Check_Pupils_Output_Constricted);
-                    _logOutput = LSTRING(Check_Pupils_Constricted);
-                } else {
-                    // > _lower: constrict slowly
-                    _dilationOutput = LSTRING(Check_Pupils_Output_Constrict_Mostly);
-                    _logOutput = LSTRING(Check_Pupils_Constrict_Mostly);
-                };
+                // > _lower (incl. on entry): constrict mostly
+                _dilationOutput = LSTRING(Check_Pupils_Output_Constrict_Mostly);
+                _logOutput = LSTRING(Check_Pupils_Constrict_Mostly);
             } else {
                 // < _lower: constrict barely
                 _dilationOutput = LSTRING(Check_Pupils_Output_Constrict_Barely);
