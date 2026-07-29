@@ -16,12 +16,11 @@
  */
 
 [{
-    // Condition: does any pylon magazine on this turret have a HUD-capable seeker or named attack profile?
+    // Condition: multi-seeker munition, HUD-capable seeker, or named attack profile on this turret
     params ["_unit", "_vehicle", "_weapon"];
     private _turretPath = _vehicle unitTurret _unit;
     private _pylons = (getAllPylonsInfo _vehicle) select { (_x select 2) isEqualTo _turretPath };
     private _hasAttackMode = false;
-    private _seekerTypeMap = _vehicle getVariable [QEGVAR(missileguidance,seekerTypes), createHashMap];
     scopeName "cond";
     {
         _x params ["", "", "", "_magazine"];
@@ -30,7 +29,12 @@
         private _attackProfiles = getArray (_ammoConfig >> "attackProfiles");
         private _seekerTypes = getArray (_ammoConfig >> "seekerTypes");
 
-        // Check all seeker types for hudInfo
+        // Multi-seeker (user-selectable) always gets a mode-line HUD
+        if (
+            (count _seekerTypes > 1)
+            && {(getArray (_ammoConfig >> "seekerStates" >> "states")) isEqualTo []}
+        ) exitWith { _hasAttackMode = true; breakTo "cond" };
+
         {
             private _hudFnc = getText (configFile >> QEGVAR(missileguidance,SeekerTypes) >> _x >> "hudInfo");
             if (_hudFnc != "") exitWith { _hasAttackMode = true; breakTo "cond" };
@@ -80,13 +84,17 @@
     (_magazineDetails get _magazine) params ["_modes", "_defaultAttackProfile", "_ammoConfig", "_ammo", "_seekerTypes", "_hasSeekerStates"];
 
     private _seekerTypeMap = _vehicle getVariable [QEGVAR(missileguidance,seekerTypes), createHashMap];
-    private _selectedSeeker = _seekerTypeMap getOrDefault [_ammo, ""];
+    private _defaultSeeker = getText (_ammoConfig >> "defaultSeekerType");
+    private _selectedSeeker = _seekerTypeMap getOrDefault [_ammo, _defaultSeeker];
+    if (_selectedSeeker == "" || {!(_selectedSeeker in _seekerTypes)}) then {
+        _selectedSeeker = _defaultSeeker;
+    };
 
     private _mode = _vehicle getVariable [QEGVAR(missileguidance,attackProfile), _defaultAttackProfile];
     (_modes getOrDefault [_mode, ["", ""]]) params ["_idleDisplay", "_lockedDisplay"];
 
     if (_hasSeekerStates) then {
-        // State-machine munition: show HUD for ALL seeker types that have hudInfo
+        // State-machine munition: static pre-fire HUD for seekers with hudInfo (no mid-flight updates)
         private _groups = [];
         {
             private _hudFnc = getText (configFile >> QEGVAR(missileguidance,SeekerTypes) >> _x >> "hudInfo");
@@ -102,26 +110,39 @@
             };
         } forEach _seekerTypes;
 
-        // Return array of groups (multi-group format)
         _groups
     } else {
-        // User-selectable munition: show HUD for only the selected seeker
-        private _hudFnc = "";
-        if (_selectedSeeker != "") then {
-            _hudFnc = getText (configFile >> QEGVAR(missileguidance,SeekerTypes) >> _selectedSeeker >> "hudInfo");
-        };
-        // Fall back to default seeker's hudInfo
-        if (_hudFnc == "") then {
-            private _defaultSeeker = getText (_ammoConfig >> "defaultSeekerType");
-            _hudFnc = getText (configFile >> QEGVAR(missileguidance,SeekerTypes) >> _defaultSeeker >> "hudInfo");
+        // User-selectable: prefix the selected seeker's name onto the attack-profile text so
+        // the seeker's own HUD keeps its layout and gains no extra element
+        if (count _seekerTypes > 1) then {
+            private _localisedName = getText (configFile >> QEGVAR(missileguidance,SeekerTypes) >> _selectedSeeker >> "name");
+            if (_localisedName == "") then { _localisedName = _selectedSeeker; };
+            _idleDisplay = [_localisedName, format ["%1 %2", _localisedName, _idleDisplay]] select (_idleDisplay != "");
+            if (_lockedDisplay != "") then {
+                _lockedDisplay = format ["%1 %2", _localisedName, _lockedDisplay];
+            };
         };
 
-        if (_hudFnc == "" && _idleDisplay == "") exitWith { [] };
+        private _elements = [];
 
+        private _hudFnc = getText (configFile >> QEGVAR(missileguidance,SeekerTypes) >> _selectedSeeker >> "hudInfo");
         if (_hudFnc != "") then {
-            [_idleDisplay, _lockedDisplay, _unit, _vehicle, _ammoConfig] call (missionNamespace getVariable [_hudFnc, { [] }])
+            private _hudResult = [_idleDisplay, _lockedDisplay, _unit, _vehicle, _ammoConfig] call (missionNamespace getVariable [_hudFnc, { [] }]);
+            if (_hudResult isNotEqualTo []) then {
+                if ((_hudResult select 0) isEqualType "") then {
+                    _elements pushBack _hudResult;
+                } else {
+                    _elements append _hudResult;
+                };
+            };
         } else {
-            ["TEXT", _idleDisplay, [1, 1, 1]]
+            if (_idleDisplay != "") then {
+                _elements pushBack ["TEXT", _idleDisplay, [1, 1, 1]];
+            };
         };
+
+        if (_elements isEqualTo []) exitWith { [] };
+        if (count _elements == 1) exitWith { _elements select 0 };
+        _elements
     };
 }] call FUNC(registerElement);

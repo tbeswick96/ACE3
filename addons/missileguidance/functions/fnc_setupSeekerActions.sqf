@@ -111,12 +111,6 @@ private _parentAction = [
                     _target setVariable [QGVAR(seekerTypes), _seekerTypeMap, false];
 
                     playSound "ACE_Sound_Click";
-
-                    private _localisedName = getText (configFile >> QGVAR(SeekerTypes) >> _seekerType >> "name");
-                    if (_localisedName == "") then {
-                        _localisedName = _seekerType;
-                    };
-                    [_localisedName] call EFUNC(common,displayTextStructured);
                 },
                 { true },
                 {},

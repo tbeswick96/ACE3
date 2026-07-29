@@ -123,12 +123,30 @@ GVAR(pfID) = [{
         _line ctrlSetPosition _linePosition;
         _line ctrlCommit 0;
 
+        private _widths = _x apply {
+            private _control = [_display, _line, _x] call FUNC(createCtrlFromElement);
+            private _elementWidth = ceil ((ctrlTextWidth _control) / GVAR(itemWidth)) * GVAR(itemWidth);
+            ctrlDelete _control;
+            _elementWidth
+        };
+
+        // Grow the last spacer to take up the slack, so trailing elements sit flush right
+        // and stay put when the text in front of them changes width
+        private _spacerIndex = -1;
+        {
+            if ((_x select 0) isEqualTo "SPACER") then { _spacerIndex = _forEachIndex };
+        } forEach _x;
+        private _usedWidth = 0;
+        { _usedWidth = _usedWidth + _x } forEach _widths;
+        if (_spacerIndex > -1 && {_usedWidth < GVAR(lineWidth)}) then {
+            _widths set [_spacerIndex, (_widths select _spacerIndex) + (GVAR(lineWidth) - _usedWidth)];
+        };
+
         private _drawPosition = [0, 0];
         private _nonOverflowIndex = 0;
         {
             private _control = [_display, _line, _x] call FUNC(createCtrlFromElement);
-            private _width = ctrlTextWidth _control;
-            _width = ceil (_width / GVAR(itemWidth)) * GVAR(itemWidth);
+            private _width = _widths select _forEachIndex;
 
             // If we overflow, create a new line for next element
             // If we are the first element being added, add us to the row. Otherwise, dont
@@ -144,7 +162,6 @@ GVAR(pfID) = [{
                 _line ctrlCommit 0;
 
                 _control = [_display, _line, _x] call FUNC(createCtrlFromElement);
-                _width = ctrlTextWidth _control;
                 _nonOverflowIndex = _forEachIndex + 1;
 
                 _drawPosition = [0, 0];

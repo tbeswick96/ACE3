@@ -80,9 +80,3 @@ _vehicle setVariable [QGVAR(seekerTypes), _seekerTypeMap, false];
 TRACE_2("setVariable seekerTypes",_vehicle,_nextSeekerType);
 
 playSound "ACE_Sound_Click";
-
-private _localisedName = getText (configFile >> QGVAR(SeekerTypes) >> _nextSeekerType >> "name");
-if (_localisedName == "") then {
-    _localisedName = _nextSeekerType;
-};
-[_localisedName] call EFUNC(common,displayTextStructured);
