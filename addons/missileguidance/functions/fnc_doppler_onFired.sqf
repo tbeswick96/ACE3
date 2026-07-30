@@ -46,7 +46,9 @@ private _minimumFilterSpeed = [_config >> "minimumSpeedFilter", "NUMBER", 30] ca
 private _minimumFilterTime = [_config >> "minimumTimeFilter", "NUMBER", 1e-4] call CBA_fnc_getConfigEntry;
 private _maxTerrainCheck = [_config >> "maxTerrainCheck", "NUMBER", 16000] call CBA_fnc_getConfigEntry;
 
-private _velocityAtImpact = _projectileThrust * _projectileThrustTime;
+// thrust * thrustTime is not a speed: sustainer motors produce absurd values
+private _velocityAtImpact = getNumber (_projectileConfig >> "maxSpeed");
+if (_velocityAtImpact <= 0) then { _velocityAtImpact = _projectileThrust * _projectileThrustTime };
 private _timeToActive = 0;
 if (!isNull _target && _velocityAtImpact > 0) then {
     private _distanceUntilActive = (((getPosASL _shooter) vectorDistance (getPosASL _target)) - _activeRadarDistance);

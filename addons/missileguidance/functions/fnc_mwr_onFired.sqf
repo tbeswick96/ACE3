@@ -40,7 +40,10 @@ private _projectileThrustTime = [_projectileConfig >> "thrustTime", "NUMBER", 0]
 
 private _lockTypes = [_config >> "lockableTypes", "ARRAY", ["Air", "LandVehicle", "Ship"]] call CBA_fnc_getConfigEntry;
 
-private _velocityAtImpact = _projectileThrust * _projectileThrustTime;
+// thrust * thrustTime is not a speed: sustainer motors (thrustTime ~90) produce absurd values,
+// which made SPEAR 3 go active ~1 s after launch instead of at activeRadarEngageDistance
+private _velocityAtImpact = getNumber (_projectileConfig >> "maxSpeed");
+if (_velocityAtImpact <= 0) then { _velocityAtImpact = _projectileThrust * _projectileThrustTime };
 private _timeToActive = 0;
 if (!isNull _target && _velocityAtImpact > 0) then {
     private _distanceUntilActive = (((getPosASL _shooter) vectorDistance (getPosASL _target)) - _activeRadarDistance);

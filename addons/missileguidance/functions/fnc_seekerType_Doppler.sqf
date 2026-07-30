@@ -56,6 +56,8 @@ if (_isActive || { CBA_missionTime >= _timeWhenActive }) then {
                 _searchPos = (getPosASL _projectile) vectorAdd (_projectile vectorModelToWorld [0, _seekerMaxRange, -((getPos _projectile)#2)]);
             };
 
+            // Remember LOBL designation before survey; prefer it if still a valid return
+            private _designation = _target;
             _target = objNull;
             private _distanceToExpectedTarget = _seekerMaxRange min ((getPosASL _projectile) vectorDistance _searchPos);
 
@@ -85,19 +87,23 @@ if (_isActive || { CBA_missionTime >= _timeWhenActive }) then {
                     !([_x, _projectile, _minimumFilterSpeed, _minimumFilterTime, _maxTerrainCheck, _seekerAngle] call FUNC(shouldFilterRadarHit))
                 }
             };
-            // Select closest object to the expected position to be the current radar target
             if (_nearestObjects isEqualTo []) exitWith {
                 _projectile setMissileTarget objNull;
                 _seekerStateParams set [3, _searchPos];
                 _searchPos
             };
-            private _closestDistance = _seekerBaseRadiusAtGround;
-            {
-                if ((_x distance2D _searchPos) < _closestDistance) then {
-                    _closestDistance = _x distance2D _searchPos;
-                    _target = _x;
-                };
-            } forEach _nearestObjects;
+            // LOBL: keep the designated return when it is still in the gate; else nearest to predicted point
+            if (!isNull _designation && {_designation in _nearestObjects}) then {
+                _target = _designation;
+            } else {
+                private _closestDistance = _seekerBaseRadiusAtGround;
+                {
+                    if ((_x distance2D _searchPos) < _closestDistance) then {
+                        _closestDistance = _x distance2D _searchPos;
+                        _target = _x;
+                    };
+                } forEach _nearestObjects;
+            };
 
             _expectedTargetPos = _searchPos;
         };
@@ -113,8 +119,8 @@ if (_isActive || { CBA_missionTime >= _timeWhenActive }) then {
         // I check both Line of Sight versions to make sure that a single bush doesnt make the target lock dissapear but at the same time ensure that this can see through smoke. Should work 80% of the time
         private _vehicle = vehicle _shooter;
         if (!_shooterHasRadar || { !isVehicleRadarOn _vehicle } || { !alive _vehicle } || { !([_vehicle, _target, true] call FUNC(checkLOS)) && { !([_vehicle, _target, false] call FUNC(checkLOS)) } }) then {
+            // Lost midcourse support: pitbull, but keep the LOBL designation onboard
             _seekerStateParams set [0, true];
-            _target = objNull; // set up state for active guidance
         };
     };
 };
