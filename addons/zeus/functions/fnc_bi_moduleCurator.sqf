@@ -74,7 +74,7 @@ if (_activated) then {
             //     _cfgPatches = configfile >> "cfgpatches";
             //     for "_i" from 0 to (count _cfgPatches - 1) do {
             //         _class = _cfgPatches select _i;
-            //         if (isclass _class) then {_addons set [count _addons,configname _class];};
+            //         if (isclass _class) then {_addons pushBack configname _class;};
             //     };
             //     // Modified by ace_zeus - bis_fnc_activateaddons will error if time > 0 so only call if at start
             //     if (time <= 0) then { _addons call bis_fnc_activateaddons; };
@@ -246,9 +246,9 @@ if (_activated) then {
         //     if (typeof _x == "ModuleCuratorAddAddons_F") then {
         //         _paramAddons = call compile ("[" + (_x getvariable ["addons",""]) + "]");
         //         {
-        //             if !(_x in _addons) then {_addons set [count _addons,_x];};
+        //             _addons pushBackUnique _x;
         //             {
-        //                 if !(_x in _addons) then {_addons set [count _addons,_x];};
+        //                 _addons pushBackUnique _x;
         //             } foreach (unitaddons _x);
         //         } foreach _paramAddons;
         //     };
