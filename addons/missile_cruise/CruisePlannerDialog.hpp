@@ -4,7 +4,7 @@
 
 // Button IDCs now in idc_defines.hpp (needed by CONTROLS_DISABLED_IN_TOO macro in SQF)
 
-class RscListbox;
+class RscListBox;
 class RscMapControl;
 
 class GVAR(cruisePlannerUI) {
@@ -266,7 +266,7 @@ class GVAR(cruisePlannerUI) {
         };
 
         // --- WAYPOINT SECTION (right side, middle) ---
-        class WaypointList: RscListbox {
+        class WaypointList: RscListBox {
             idc = CRUISE_PLANNER_IDC_LIST;
             x = QUOTE(22 * GUI_GRID_W + GUI_GRID_CENTER_X);
             y = QUOTE(12.9 * GUI_GRID_H + GUI_GRID_CENTER_Y);
