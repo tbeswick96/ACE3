@@ -38,6 +38,7 @@ if (_weight > GETMVAR(ACE_maxWeightDrag,1E11)) exitWith {
 };
 
 private _primaryWeapon = primaryWeapon _unit;
+private _weapon = currentWeapon _unit;
 
 // Add a primary weapon if the unit has none
 if (!GVAR(dragAndFire)) then {
@@ -47,31 +48,36 @@ if (!GVAR(dragAndFire)) then {
     };
 
     // Keep the laser/light on if the weapon is already selected
-    if (currentWeapon _unit != _primaryWeapon) then {
+    if (_weapon != _primaryWeapon) then {
         _unit selectWeapon _primaryWeapon;
     };
+
+    _weapon = _primaryWeapon;
 } else { // Making sure the unit is holding a primary weapon or handgun
     private _handgunWeapon = handgunWeapon _unit;
 
-    if !(currentWeapon _unit in [_primaryWeapon, _handgunWeapon]) then {
+    if (_weapon == "" || {!(_weapon in [_primaryWeapon, _handgunWeapon])}) then {
         if (_primaryWeapon != "") then {
             // Use primary if possible
-            _unit selectWeapon _primaryWeapon;
+            _weapon = _primaryWeapon;
         } else {
             if (_handgunWeapon != "") then {
                 // Use pistol if unit has no primary
-                _unit selectWeapon _handgunWeapon;
+                _weapon = _handgunWeapon;
             } else {
                 // Add fake weapon if no weapons besides launcher are available
                 _unit addWeapon "ACE_FakePrimaryWeapon";
-                _unit selectWeapon "ACE_FakePrimaryWeapon";
+                _weapon = "ACE_FakePrimaryWeapon";
             };
         };
+
+        _unit selectWeapon _weapon;
     };
 };
 
-// Save the weapon so we can monitor if it changes
-_unit setVariable [QGVAR(currentWeapon), currentWeapon _unit];
+// Save the selected weapon so we can monitor if it changes
+// currentWeapon may not update until the weapon is raised, e.g. when it was holstered
+_unit setVariable [QGVAR(currentWeapon), _weapon];
 
 [_unit, "blockThrow", QUOTE(ADDON), true] call EFUNC(common,statusEffect_set);
 
