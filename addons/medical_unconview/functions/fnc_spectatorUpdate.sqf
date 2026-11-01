@@ -1,7 +1,7 @@
 #include "..\script_component.hpp"
 /*
  * Author: Tim Beswick
- * Spectator PFH body. Finds nearest non-uncon ally on player's side, attaches camera to neck.
+ * Spectator PFH body. Finds nearest non-uncon ally on player's side and shows their helmet-cam style feed.
  * Manages info text visibility: NoSignal (no allies), TooFar (beyond range), or SpecInfo (active).
  *
  * Arguments:
@@ -66,27 +66,7 @@ if (_distance > _maxDistance) exitWith {
 };
 
 if (_nearestAlly != GVAR(spectatorSelectedAlly) || {isNull GVAR(spectatorCam)}) then {
-    if (!isNull GVAR(spectatorCam)) then {
-        detach GVAR(spectatorCam);
-        detach GVAR(spectatorTarget);
-    } else {
-        GVAR(spectatorTarget) = "Sign_Sphere100cm_F" createVehicleLocal [0, 0, 0];
-        hideObject GVAR(spectatorTarget);
-        GVAR(spectatorCam) = "camera" camCreate (getPos ACE_player);
-        GVAR(spectatorCam) cameraEffect ["internal", "back", QGVAR(rtt)];
-    };
-
-    GVAR(spectatorSelectedAlly) = _nearestAlly;
-    GVAR(spectatorTarget) attachTo [_nearestAlly, [0, 10, 0.05], "neck"];
-    GVAR(spectatorCam) attachTo [_nearestAlly, [0, 0.25, 0.05], "neck"];
-    GVAR(spectatorCam) camSetTarget GVAR(spectatorTarget);
-    GVAR(spectatorCam) camCommit 0;
-
-    private _nvgMode = switch (GVAR(spectatorNVGMode)) do {
-        case 1: { currentVisionMode _nearestAlly };
-        default { 0 };
-    };
-    QGVAR(rtt) setPiPEffect [_nvgMode];
+    [_nearestAlly] call FUNC(spectatorAttachCamera);
 };
 
 if (_spectatorTabOpen) then {

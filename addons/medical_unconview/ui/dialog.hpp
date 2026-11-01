@@ -99,10 +99,10 @@ class GVAR(uncon) {
             font = QUOTE(GUI_FONT_NORMAL);
             sizeEx = 0.023;
             x = QUOTE(0 * GUI_GRID_CENTER_W + GUI_GRID_CENTER_X);
-            y = QUOTE(0 * GUI_GRID_CENTER_H + GUI_GRID_CENTER_Y);
+            y = QUOTE(3 * GUI_GRID_CENTER_H + GUI_GRID_CENTER_Y);
             w = QUOTE(40 * GUI_GRID_CENTER_W);
-            h = QUOTE(21.5 * GUI_GRID_CENTER_H);
-            text = "#(argb,512,512,1)r2t(ace_medical_unconview_rtt,1.333)";
+            h = QUOTE(18.8 * GUI_GRID_CENTER_H);
+            text = "#(argb,512,512,1)r2t(ace_medical_unconview_rtt,2.128)";
             moving = 0;
         };
         class spc_NoSignal: spc_SpectatingInfo_TooFar {

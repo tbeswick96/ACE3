@@ -8,4 +8,5 @@ PREP(openHealthTab);
 PREP(openSpectatorTab);
 PREP(vitalsUpdate);
 PREP(spectatorUpdate);
+PREP(spectatorAttachCamera);
 PREP(spectatorCleanup);
