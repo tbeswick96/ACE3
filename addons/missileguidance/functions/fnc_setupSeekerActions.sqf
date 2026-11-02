@@ -27,6 +27,8 @@ if (_player == _vehicle) exitWith {};
 if (_vehicle getVariable [QGVAR(seekerActionsAdded), false]) exitWith {};
 
 private _turretPath = _vehicle unitTurret _player;
+if (_turretPath isEqualTo []) exitWith {};
+
 private _cfgMagazines = configFile >> "CfgMagazines";
 private _cfgAmmo = configFile >> "CfgAmmo";
 
@@ -58,7 +60,7 @@ private _parentAction = [
     LLSTRING(SeekerTypeAction),
     "",
     {},
-    { true },
+    {(_target unitTurret _player) isNotEqualTo []},
     {
         params ["_target", "_player"];
 
