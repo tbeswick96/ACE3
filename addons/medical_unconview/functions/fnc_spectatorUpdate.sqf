@@ -2,6 +2,7 @@
 /*
  * Author: Tim Beswick
  * Spectator PFH body. Finds nearest non-uncon ally on player's side and shows their helmet-cam style feed.
+ * In multiplayer only human players are candidates; in singleplayer AI allies are candidates too.
  * Manages info text visibility: NoSignal (no allies), TooFar (beyond range), or SpecInfo (active).
  *
  * Arguments:
@@ -30,7 +31,8 @@ private _pipCtrl = _display displayCtrl IDC_SPEC_PIP;
 private _maxDistance = GVAR(spectatorDistance);
 private _spectatorTabOpen = GVAR(currentTab) == "spectator";
 
-private _candidates = (allPlayers - entities "HeadlessClient_F") select {
+private _pool = if (isMultiplayer) then { allPlayers - entities "HeadlessClient_F" } else { allUnits };
+private _candidates = _pool select {
     side _x == side group ACE_player &&
     {alive _x} &&
     {_x != ACE_player} &&
