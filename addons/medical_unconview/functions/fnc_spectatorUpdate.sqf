@@ -58,7 +58,7 @@ _candidates sort true;
 if (_distance > _maxDistance) exitWith {
     [] call FUNC(spectatorCleanup);
     if (_spectatorTabOpen) then {
-        _tooFarCtrl ctrlSetText format ["Too Far Away To Spectate! Nearest Unit: %1 (%2m)", name _nearestAlly, round _distance];
+        [_tooFarCtrl, format ["Too Far Away To Spectate! Nearest Unit: %1 (%2m)", name _nearestAlly, round _distance]] call FUNC(setSpectatorInfoText);
         _tooFarCtrl ctrlEnable true;
         _tooFarCtrl ctrlShow true;
         _infoCtrl ctrlShow false;
@@ -72,7 +72,7 @@ if (_nearestAlly != GVAR(spectatorSelectedAlly) || {isNull GVAR(spectatorCam)}) 
 };
 
 if (_spectatorTabOpen) then {
-    _infoCtrl ctrlSetText format ["Spectating Nearest Unit: %1 (%2m)", name _nearestAlly, round _distance];
+    [_infoCtrl, format ["Spectating Nearest Unit: %1 (%2m)", name _nearestAlly, round _distance]] call FUNC(setSpectatorInfoText);
     _infoCtrl ctrlEnable true;
     _infoCtrl ctrlShow true;
     _pipCtrl ctrlEnable true;

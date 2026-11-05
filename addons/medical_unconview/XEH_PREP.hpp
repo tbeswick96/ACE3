@@ -10,3 +10,4 @@ PREP(vitalsUpdate);
 PREP(spectatorUpdate);
 PREP(spectatorAttachCamera);
 PREP(spectatorCleanup);
+PREP(setSpectatorInfoText);
