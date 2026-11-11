@@ -4,7 +4,9 @@
  * Handles AI GetIn on an empty CSW.
  *
  * Arguments:
- * GetIn EH
+ * 0: CSW <OBJECT>
+ * 1: Role (not used) <STRING>
+ * 2: Unit that got in <OBJECT>
  *
  * Return Value:
  * None
@@ -18,8 +20,8 @@ params ["_vehicle", "", "_gunner"];
 TRACE_2("getInEH:",_vehicle,_gunner);
 
 if (someAmmo _vehicle) exitWith {};
-if ((!local _gunner) || {[_gunner] call EFUNC(common,isPlayer)}) exitWith {};
+if ((!local _gunner) || {_gunner call EFUNC(common,isPlayer)}) exitWith {};
 
 TRACE_1("need ammo",magazinesAllTurrets _vehicle);
 
-[_vehicle, _gunner, currentWeapon _vehicle] call FUNC(ai_reload);
+[_vehicle, _gunner] call FUNC(ai_reload);

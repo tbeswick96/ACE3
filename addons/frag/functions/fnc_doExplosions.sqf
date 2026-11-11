@@ -1,16 +1,19 @@
 #include "..\script_component.hpp"
 /*
  * Author: ACE-Team
- *
+ * PFH that creates the queued reflection explosions, a few per frame.
  *
  * Arguments:
- * None
+ * 0: PFH Args <ARRAY>
+ * - 0: Explosions to create <ARRAY>
+ * - 1: Index of next explosion <NUMBER>
+ * 1: PFH ID <NUMBER>
  *
  * Return Value:
  * None
  *
  * Example:
- * call ace_frag_fnc_doExplosions
+ * [ace_frag_fnc_doExplosions, 0, [_explosions, 0]] call CBA_fnc_addPerFrameHandler
  *
  * Public: No
  */
@@ -18,7 +21,9 @@
 params ["_args", "_pfhID"];
 _args params ["_explosions", "_index"];
 
-for "_i" from _index to ((_index + 2) min (count _explosions)) do {
+private _lastIndex = (_index + 1) min ((count _explosions) - 1);
+
+for "_i" from _index to _lastIndex do {
     private _exp = _explosions select _i;
     _exp params ["_refExp", "_bpos", "_hit", "_distance", "_indirectHitRange", "_depth"];
     _refExp createVehicle (ASLToATL _bpos);
@@ -27,7 +32,7 @@ for "_i" from _index to ((_index + 2) min (count _explosions)) do {
     // };
 };
 
-ADD(_index,2);
+_index = _lastIndex + 1;
 
 if (_index >= count _explosions) then {
     [_pfhID] call CBA_fnc_removePerFrameHandler;

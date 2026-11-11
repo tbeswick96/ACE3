@@ -13,11 +13,11 @@
  * None
  *
  * Public: No
-*/
+ */
 
 (_this select 1) params ["", "_exitCode"];
 
-[QGVAR(displayClosed), []] call CBA_fnc_localEvent;
+[QGVAR(displayClosed), [_exitCode]] call CBA_fnc_localEvent;
 removeMissionEventHandler ["Draw3D", GVAR(camPosUpdateHandle)];
 
 if (is3DEN) then {
@@ -28,6 +28,7 @@ if (is3DEN) then {
     };
 
     GVAR(centerOrigin) hideObject false;
+    { _x hideObject false } forEach (attachedObjects GVAR(centerOrigin));
 
     // Apply the loadout from the dummy to all selected units
     if (_exitCode == 1) then {

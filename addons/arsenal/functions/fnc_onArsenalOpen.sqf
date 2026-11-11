@@ -13,7 +13,7 @@
  * None
  *
  * Public: No
-*/
+ */
 
 params ["", "_args"];
 _args params ["_display"];
@@ -156,6 +156,7 @@ private _centerPos = position GVAR(center);
 if (is3DEN) then {
     GVAR(centerOrigin) = GVAR(center);
     GVAR(centerOrigin) hideObject true;
+    { _x hideObject true } forEach (attachedObjects GVAR(centerOrigin));
 
     private _centerOriginParent = objectParent GVAR(centerOrigin);
 
