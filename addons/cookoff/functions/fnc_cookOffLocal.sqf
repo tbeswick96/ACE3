@@ -29,6 +29,9 @@ params ["_vehicle", "_jet", "_ring", "_fireSelection", "_intensity", "_startTime
 // Check if still valid for JIP players
 if (isNull _vehicle || {CBA_missionTime - _startTime >= _duration}) exitWith {};
 
+// Headless clients draw nothing and own no sound source; they only need the loop to push a local vehicle for a fire jet
+if (!hasInterface && {!isServer} && {!_jet}) exitWith {};
+
 // Spawn light
 private _light = objNull;
 

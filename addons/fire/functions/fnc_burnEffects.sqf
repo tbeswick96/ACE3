@@ -17,6 +17,9 @@
 
 params ["_unit"];
 
+// Headless clients draw nothing and own no sound source, so the effects loop has no work there
+if (!hasInterface && {!isServer}) exitWith {};
+
 // Spawn particles
 private _unitPos = getPos _unit;
 private _fireParticle = objNull;
