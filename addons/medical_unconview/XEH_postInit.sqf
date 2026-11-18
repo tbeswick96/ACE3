@@ -5,7 +5,6 @@ if (!hasInterface) exitWith {};
 GVAR(activeVitalsPFH) = -1;
 GVAR(activeSpectatorPFH) = -1;
 GVAR(spectatorCam) = objNull;
-GVAR(spectatorTarget) = objNull;
 GVAR(spectatorSelectedAlly) = objNull;
 GVAR(currentTab) = "health";
 

@@ -1,7 +1,7 @@
 #include "..\script_component.hpp"
 /*
  * Author: Tim Beswick
- * Detaches and deletes spectator camera + target dummy.
+ * Detaches and deletes the spectator camera.
  *
  * Arguments:
  * None
@@ -21,10 +21,5 @@ if (!isNull GVAR(spectatorCam)) then {
     camDestroy GVAR(spectatorCam);
 };
 
-if (!isNull GVAR(spectatorTarget)) then {
-    deleteVehicle GVAR(spectatorTarget);
-};
-
 GVAR(spectatorCam) = objNull;
-GVAR(spectatorTarget) = objNull;
 GVAR(spectatorSelectedAlly) = objNull;
