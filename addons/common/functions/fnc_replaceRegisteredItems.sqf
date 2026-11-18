@@ -58,7 +58,7 @@ for "_i" from 0 to count _newItems - 1 do {
 
     // ... and inherited replacements
     {
-        if (_item isKindOf [_x, _cfgWeapons]) then {
+        if (_item isKindOf [_x select [1], _cfgWeapons]) then {
             private _inheritedReplacements = GVAR(itemReplacements) get _x;
             if (!isNil "_inheritedReplacements") then {
                 _doReplace = true;
